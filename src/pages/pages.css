@@ -1,0 +1,248 @@
+/* Login Page CSS */
+
+.loginTop{
+    margin-top: 20px;
+}
+
+.loginBars{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 50%;
+}
+
+@media all and (min-width: 480px) {
+    .Login {
+      padding: 60px 0;
+    }
+  
+    .Login form {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+  }
+
+.signInPassword{
+    text-align: right;
+    margin-top: 7px;
+    width: 50%;
+}
+
+/* Main Page */
+
+.mainPageBody{
+    margin-left: 15vw;
+    margin-top: -100vh;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    /* Need to take margin out when i render this properly */
+}
+
+
+
+
+/* Student Landing Page */
+.card {
+    display:flex;
+    margin: 100px;
+    border: 1px solid black;
+}
+
+.container a {
+    font-size: 30px;
+}
+
+.navbar .nav-link {
+    font-size: 15px;
+    margin-left: 40px;
+}
+
+.buttons {
+    position: relative;
+    top: 70px;
+    left: 100px;
+
+}
+
+.hideBtn {
+    margin-left: 10px;
+}
+
+.bkgrnd {
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+}
+
+.joinBtn {
+    background-color: green;
+    border-color: green;
+}
+
+
+
+
+
+/*Profile Pages*/
+
+.profileInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.tester{
+    margin-top: -10vh;
+    display: flex;
+    height: 40vh;
+    width: 40vw;
+    
+}
+
+.profileRow{
+    display: flex;
+    padding: 1em;
+    overflow: auto;
+}
+
+.profileButton{
+    margin-top: 1em;
+    display: flex;
+}
+
+/* StudentGreadeforSingleLecture page*/
+.SLG-gradePoints-parent{
+    margin-left: 2em;
+    margin-top: 3em;
+    color: black;
+    display: flex;
+}
+.single-lecture-grade-info{
+    
+}
+.single-lecture-grade-points-info{
+    margin-top: 1em;
+    margin-left: 15em;
+    float: right;
+    padding-right: 3em;
+    border: 2px solid rgb(29, 34, 112);
+}
+.single-lecture-grade-table {
+    width: 100%;
+    height: 100vh;
+    margin-top: 3em;
+    margin-left: 2em;
+    justify-content: center;
+   
+}
+    
+table {
+    
+    border: 2px solid rgb(29, 34, 112);
+    width: 800px;
+    height: 200px;
+}
+    
+th {
+    background-color: rgb(36, 40, 90);
+    color: white;
+    text-align: center;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black
+}
+    
+td {
+    text-align: center;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+/* StudentGradebook page*/
+.student-gradebook-grade-table{
+    width: 100%;
+    height: 100vh;
+    margin-top: 3em;
+    margin-left: 2em;
+    justify-content: center;
+}
+
+#student-gradebook-grade-table-headline{
+    font-weight: bold;
+    color:black;
+    font-size: large;
+}
+
+.student-gradebook-grade-table table{
+    margin-bottom: 3em;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#student-gradebook-info {
+    margin-top: 3em;
+    text-align: center;
+ 
+    
+}
+
+.delete {
+    background-color: red;
+    border-color: red
+}
+
+.addQuestion {
+    padding: 40px;
+}
+
+input {
+    width:400px;
+}
+
+.qButton {
+    margin-top: 20px;   
+    margin-right: 10px;
+}
+
+.qstion {
+    margin-bottom: 20px;
+}
+
+.loginContainer {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    margin-top: 20px;
+}
+
+.loginBtn {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: green;
+}
+
+.badRequest {
+    text-align: center;
+    color: red;
+    margin-top: 20px;
+}
+
+.successRequest {
+    text-align: center;
+    margin-top: 20px;
+}

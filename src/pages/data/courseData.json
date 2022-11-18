@@ -1,0 +1,20 @@
+[
+    {
+        "course_num": "1",
+        "course_name": "CS 161",
+        "crn": 111222333,
+        "course_instructor": "Jennifer Parham-Mocello"
+    },
+    {
+        "course_num": "2",
+        "course_name": "CS 162",
+        "crn": 111222444,
+        "course_instructor": "Brandi Coker"
+    },
+    {
+        "course_num": "3",
+        "course_name": "CS 261",
+        "crn": 111222555,
+        "course_instructor": "Rob Hess"
+    }
+]

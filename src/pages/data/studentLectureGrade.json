@@ -1,0 +1,20 @@
+[
+    { 
+        "datePosted": "2/15/2022", 
+        "ques": "1+1 = ?", 
+        "ans": "Male" ,
+        "correctAns": "2"
+    },
+    { 
+        "datePosted": "2/15/2022", 
+        "ques": "Can a fire have a shadow?", 
+        "ans": "No", 
+        "correctAns": "Yes"
+    },
+    { 
+        "datePosted": "2/15/2022", 
+        "ques": "Can one bit of light bounce off another bit of light?", 
+        "ans": "Yes",
+        "correctAns": "Yes"
+    }
+]

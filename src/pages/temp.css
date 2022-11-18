@@ -1,0 +1,34 @@
+.buttonContainerOne{
+   display: flex;
+   justify-content: space-between;
+}
+
+.previousButton{
+    margin-left: 50px;
+}
+
+.nextButton{
+    margin-right: 50px;
+    background-color: green;
+}
+
+.buttonContainerTwo{
+    display: flex;
+    margin-top: 25px;
+    align-self: flex-end;
+}
+
+.closeButton{
+margin-right: 50px;
+background-color: red;
+}
+
+.pageContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputB {
+    display: flex;
+    justify-content: center;
+}
