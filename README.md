@@ -1,6 +1,13 @@
 # My-Classroom-Backend
 
-## Setting Up A Local Database
+## Setting Up
+
+### Requirements
+
+- node: 16.13.0
+- npm: 9.1.2
+
+### Configuring Local Database
 
 This process can and should be followed for instantiating both the local development and testing database.
 
@@ -16,7 +23,7 @@ In the Command Line:
 
 If having issues, refer to the MySQL Getting Started Guide: https://dev.mysql.com/doc/mysql-getting-started/en/
 
-## Setting Up A Local Environment
+### Configuring Local Environment
 
 Copy the `.env.example` file into a `.env` file
 
