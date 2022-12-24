@@ -1,8 +1,5 @@
 var express = require('express');
-const db = require('./models/index')
-
 var app = express();
-const port = process.env.PORT || 3001
 
 app.use(express.json())
 app.use(express.static('public'))
@@ -25,8 +22,4 @@ app.use('*', function(req, res) {
     })
 })
 
-db.sequelize.sync().then(function () { //sync will automatically create the table, but it will never alter a table (migrations must be run for alterations)
-    app.listen(port, function () {
-        console.log("== Server is listening on port:", port)
-    })
-  })
+module.exports = app
