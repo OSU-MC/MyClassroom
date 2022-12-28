@@ -1,4 +1,4 @@
-const db = require('./models/index')
+const db = require('./db/models/index')
 const port = process.env.PORT || 3001
 const app = require('./app')
 
