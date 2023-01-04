@@ -113,6 +113,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     })
 
+    // function prototype that can be used to validate the password supplied for authentication
     User.prototype.validatePassword = function (password) {
         return bcrypt.compareSync(password, this.password)
     }

@@ -154,7 +154,7 @@ describe("User model", () => {
         })
     })
 
-    describe("User.validatePassword", () => {
+    describe("validatePassword", () => {
         beforeAll(async () => {
             user = await db.User.create({
                 firstName: 'Dan',
