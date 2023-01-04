@@ -43,3 +43,13 @@ If you run into issues, ensure you have done the following:
 
 1. Created a local test database
 2. Properly instantiated all env variables for the test environment
+
+## Configuring Services
+
+### Emailer
+
+The application is configured to use Courier notification infastructure to message users. In order to use the application's mailer, create an account at https://www.courier.com/. Follow Courier's setup instructions and prompts.
+
+The process should yield a bearer token in the HTTPS request Courier generates. Copy this token, and paste it in the application environment as `COURIER_AUTH_TOKEN`. That's it! You should be able to interact with the configured emailer through Courier.
+
+It's worth noting that the application is only configured for email use through Courier, but Courier supports a variety of modern notification methods.
