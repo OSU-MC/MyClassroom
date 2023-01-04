@@ -1,6 +1,6 @@
 const env = process.env.NODE_ENV || 'development'
 if (env === 'development' || env === 'test') { // dotenv file will only be used in dev and testing
-  require('dotenv').config({ override: false }); // will not override current environment variables if they exist
+  require('dotenv').config({ override: false}); // will not override current environment variables if they exist
 }
 
 module.exports = {

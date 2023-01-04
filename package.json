@@ -18,7 +18,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=test jest --runInBand",
-    "start": "node server.js",
+    "start": "node app/server.js",
     "start-prod": "node server.js NODE_ENV=production",
     "migrate-test-db": "npx sequelize-cli db:migrate --env test"
   },

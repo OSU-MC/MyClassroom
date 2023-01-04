@@ -1,6 +1,4 @@
-const db = require('../../../db/models/index')
-const app = require('../../../app')
-const user = require('../../../db/models/user')
+const db = require('../../../app/models/index')
 
 describe("User model", () => {
 
