@@ -1,6 +1,7 @@
 'use strict'
 
 const bcrypt = require('bcrypt');
+const moment = require('moment')
 const saltRounds = process.env.SALT_ROUNDS || 8
 
 module.exports = (sequelize, DataTypes) => {
@@ -95,6 +96,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
+        },
+        emailConfirmationCode: {
+            type: DataTypes.STRING
+        },
+        emailConfirmationExpiresAt: {
+            type: DataTypes.DATE
+        },
+        passwordResetCode: {
+            type: DataTypes.STRING
+        },
+        passwordResetExpiresAt: {
+            type: DataTypes.DATE
         }
     },
     { 
@@ -116,6 +129,42 @@ module.exports = (sequelize, DataTypes) => {
     // function prototype that can be used to validate the password supplied for authentication
     User.prototype.validatePassword = function (password) {
         return bcrypt.compareSync(password, this.password)
+    }
+
+    User.prototype.generateEmailConfirmation = function () {
+        this.emailConfirmationCode = generateTOTP()
+        // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
+        // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
+        this.emailConfirmationExpiresAt = moment().utc().add(5, 'm').format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        return this.emailConfirmationCode
+    }
+
+    User.prototype.validateEmailConfirmation = function (code) {
+        return code == this.emailConfirmationCode && moment().utc().isBefore(moment(this.emailConfirmationExpiresAt))
+    }
+
+    User.prototype.generatePasswordReset = function () {
+        this.passwordResetCode = generateTOTP()
+        // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
+        // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
+        this.passwordResetExpiresAt = moment().utc().add(5, 'm').format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        return this.passwordResetCode
+    }
+
+    User.prototype.validatePasswordReset = function (code) {
+        return code == this.passwordResetCode && moment().utc().isBefore(moment(this.passwordResetExpiresAt))
+    }
+
+    // generates a one time password of length otpLength and containing digits 0-9 & all lowercase letters in the English alphabet
+    User.prototype.generateOTP = function () {
+        const digits = '0123456789abcdefghijklmnopqrstuvwxyz'
+        const otpLength = 6
+        var otp = ''
+        for(let i = 1; i <= otpLength; i++) {
+            var index = Math.floor(Math.random()*(digits.length))
+            otp = otp + digits[index]
+        }
+        return otp;
     }
 
     return User
