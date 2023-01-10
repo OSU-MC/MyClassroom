@@ -39,7 +39,7 @@ async function confirmation(user) {
       },
       content: {
         title: "{{application}}: Account Confirmation",
-        body: "Your account confirmation code is {{code}}",
+        body: "Your email confirmation code is {{code}}",
       },
       routing: {
         method: "single",
@@ -73,3 +73,8 @@ async function passwordReset(user) {
   return requestId
 }
 
+module.exports = {
+  welcome,
+  confirmation,
+  passwordReset
+}

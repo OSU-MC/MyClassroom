@@ -2,7 +2,7 @@
 
 const bcrypt = require('bcrypt');
 const moment = require('moment')
-const saltRounds = process.env.SALT_ROUNDS || 8
+const saltRounds = parseInt(process.env.SALT_ROUNDS, 10) || 8
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
-          },
+        },
         firstName: {
             type: DataTypes.TEXT,
             allowNull: false,
@@ -108,6 +108,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         passwordResetExpiresAt: {
             type: DataTypes.DATE
+        },
+        passwordResetInitiated: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         }
     },
     { 
@@ -132,27 +137,40 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     User.prototype.generateEmailConfirmation = function () {
-        this.emailConfirmationCode = generateTOTP()
+        this.emailConfirmationCode = this.generateOTP()
         // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
         // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
-        this.emailConfirmationExpiresAt = moment().utc().add(5, 'm').format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        this.emailConfirmationExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
         return this.emailConfirmationCode
     }
 
+    User.prototype.emailConfirmationExpired = function () {
+        return !moment().utc().isBefore(moment(this.emailConfirmationExpiresAt))
+    }
+
     User.prototype.validateEmailConfirmation = function (code) {
-        return code == this.emailConfirmationCode && moment().utc().isBefore(moment(this.emailConfirmationExpiresAt))
+        this.emailConfirmed = code == this.emailConfirmationCode
+        return this.emailConfirmed
     }
 
     User.prototype.generatePasswordReset = function () {
-        this.passwordResetCode = generateTOTP()
+        this.passwordResetCode = this.generateOTP()
         // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
         // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
-        this.passwordResetExpiresAt = moment().utc().add(5, 'm').format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        this.passwordResetExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        this.passwordResetInitiated = true
         return this.passwordResetCode
     }
 
+    User.prototype.passwordResetExpired = function () {
+        return !moment().utc().isBefore(moment(this.passwordResetExpiresAt))
+    }
+
     User.prototype.validatePasswordReset = function (code) {
-        return code == this.passwordResetCode && moment().utc().isBefore(moment(this.passwordResetExpiresAt))
+        const passwordReset = code == this.passwordResetCode
+        this.passwordResetInitiated = !passwordReset
+        // TODO: sign a JWT that authenticates a password reset
+        return passwordReset
     }
 
     // generates a one time password of length otpLength and containing digits 0-9 & all lowercase letters in the English alphabet

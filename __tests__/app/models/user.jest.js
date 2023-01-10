@@ -1,4 +1,5 @@
 const db = require('../../../app/models/index')
+const moment = require('moment')
 
 describe("User model", () => {
 
@@ -174,7 +175,98 @@ describe("User model", () => {
             await user.destroy()
         })
     })
-    
+
+    describe("Email Confirmation", () => {
+
+        let code
+
+        beforeAll(async () => {
+            user = await db.User.create({
+                firstName: 'Dan',
+                lastName: 'Smith',
+                email: 'dannySmith@myclassroom.com',
+                rawPassword: 'Danny-o123!'
+            })
+        })
+
+        it ("should set the email expiration and code", () => {
+            const now = moment().utc()
+            code = user.generateEmailConfirmation()
+            expect(user.emailConfirmationCode).toEqual(code)
+            expect(user.emailConfirmationCode).not.toBeNull()
+            expect(user.emailConfirmationExpired()).toBeFalsy()
+            expect((now.minutes() + 5) % 60).toEqual(moment(user.emailConfirmationExpiresAt).minutes())
+        })
+
+        it ("should validate that the email confirmation is correct", () => {
+            expect(user.validateEmailConfirmation(code)).toBeTruthy()
+            expect(user.emailConfirmationExpired()).toBeFalsy()
+            expect(user.emailConfirmed).toBeTruthy()
+        })
+
+        it ("should invalidate the email confirmation because of incorrect code", () => {
+            expect(user.validateEmailConfirmation('A12345')).toBeFalsy()
+            expect(user.emailConfirmationExpired()).toBeFalsy()
+            expect(user.emailConfirmed).toBeFalsy()
+        })
+
+        it ("should correctly compute an expired confirmation", () => {
+            user.emailConfirmationExpiresAt = moment().utc()
+            user.save
+            expect(user.emailConfirmationExpired()).toBeTruthy()
+        })
+
+        afterAll(async () => {
+            await user.destroy()
+        })
+    })
+
+    describe("Password Reset", () => {
+
+        let code
+
+        beforeAll(async () => {
+            user = await db.User.create({
+                firstName: 'Dan',
+                lastName: 'Smith',
+                email: 'dannySmith@myclassroom.com',
+                rawPassword: 'Danny-o123!'
+            })
+        })
+
+        it ("should set the password expiration, code, and initiated value", () => {
+            const now = moment().utc()
+            code = user.generatePasswordReset()
+            expect(user.passwordResetCode).toEqual(code)
+            expect(user.passwordResetCode).not.toBeNull()
+            expect(user.passwordResetInitiated).toBeTruthy()
+            expect(user.passwordResetExpired()).toBeFalsy()
+            expect((now.minutes() + 5) % 60).toEqual(moment(user.passwordResetExpiresAt).minutes())
+        })
+
+        it ("should validate that the password confirmation is correct", () => {
+            expect(user.validatePasswordReset(code)).toBeTruthy()
+            expect(user.passwordResetExpired()).toBeFalsy()
+            expect(user.passwordResetInitiated).toBeFalsy()
+        })
+
+        it ("should invalidate the password reset because of incorrect code", () => {
+            expect(user.validatePasswordReset('A12345')).toBeFalsy()
+            expect(user.passwordResetExpired()).toBeFalsy()
+            expect(user.passwordResetInitiated).toBeTruthy()
+        })
+
+        it ("should correctly compute an expired password reset", () => {
+            user.passwordResetExpiresAt = moment().utc()
+            user.save
+            expect(user.passwordResetInitiated).toBeTruthy()
+            expect(user.passwordResetExpired()).toBeTruthy()
+        })
+
+        afterAll(async () => {
+            await user.destroy()
+        })
+    })
 
     afterAll(async () => {
         await db.User.destroy({ // delete all User records to flush out the database after the tests have run

@@ -23,6 +23,8 @@ In the Command Line:
 
 If having issues, refer to the MySQL Getting Started Guide: https://dev.mysql.com/doc/mysql-getting-started/en/
 
+If you need to reset your local dev or test databases, login to MySQL as the root user (step 1), and run `DROP DATABASE database_name;`. Then, rerun steps 3 and 4. 
+
 ### Configuring Local Environment
 
 Copy the `.env.example` file into a `.env` file
