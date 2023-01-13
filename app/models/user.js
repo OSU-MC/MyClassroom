@@ -53,6 +53,14 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 notNull: {
                     msg: "Email required to create account"
+                },
+                isWithinDomain(value) {
+                    const customDomain = process.env.EMAIL_DOMAIN_CONSTRAINT
+                    if (customDomain) {
+                        if (!value.endsWith(customDomain)) {
+                            throw new Error("Email must be within the domain set by the system admin")
+                        }
+                    }
                 }
             }
         },

@@ -106,6 +106,15 @@ describe("User model", () => {
                 rawPassword: 'Danny-o!Danny-o!Danny-o!Danny-o!!'
             })).rejects.toThrow("Validation error: Password must be 11-32 characters")
         })
+
+        it ("should reject an email that does not match the domain constraint", async() => {
+            await expect(db.User.create({
+                firstName: 'Dan',
+                lastName: 'Smith',
+                email: 'dannySmith@gmail.com',
+                rawPassword: 'Danny-o!Danny-o!Danny-o!Danny-o!!'
+            })).rejects.toThrow("Validation error: Email must be within the domain set by the system admin")
+        })
     })
 
     describe("User.update", () => {
