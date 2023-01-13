@@ -1,7 +1,8 @@
 'use strict'
 
 const bcrypt = require('bcrypt');
-const saltRounds = process.env.SALT_ROUNDS || 8
+const moment = require('moment')
+const saltRounds = parseInt(process.env.SALT_ROUNDS, 10) || 8
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
@@ -11,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
-          },
+        },
         firstName: {
             type: DataTypes.TEXT,
             allowNull: false,
@@ -52,6 +53,14 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 notNull: {
                     msg: "Email required to create account"
+                },
+                isWithinDomain(value) {
+                    const customDomain = process.env.EMAIL_DOMAIN_CONSTRAINT
+                    if (customDomain) {
+                        if (!value.endsWith(customDomain)) {
+                            throw new Error("Email must be within the domain set by the system admin")
+                        }
+                    }
                 }
             }
         },
@@ -95,6 +104,23 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
+        },
+        emailConfirmationCode: {
+            type: DataTypes.STRING
+        },
+        emailConfirmationExpiresAt: {
+            type: DataTypes.DATE
+        },
+        passwordResetCode: {
+            type: DataTypes.STRING
+        },
+        passwordResetExpiresAt: {
+            type: DataTypes.DATE
+        },
+        passwordResetInitiated: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         }
     },
     { 
@@ -116,6 +142,55 @@ module.exports = (sequelize, DataTypes) => {
     // function prototype that can be used to validate the password supplied for authentication
     User.prototype.validatePassword = function (password) {
         return bcrypt.compareSync(password, this.password)
+    }
+
+    User.prototype.generateEmailConfirmation = function () {
+        this.emailConfirmationCode = this.generateOTP()
+        // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
+        // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
+        this.emailConfirmationExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        return this.emailConfirmationCode
+    }
+
+    User.prototype.emailConfirmationExpired = function () {
+        return !moment().utc().isBefore(moment(this.emailConfirmationExpiresAt))
+    }
+
+    User.prototype.validateEmailConfirmation = function (code) {
+        this.emailConfirmed = code == this.emailConfirmationCode
+        return this.emailConfirmed
+    }
+
+    User.prototype.generatePasswordReset = function () {
+        this.passwordResetCode = this.generateOTP()
+        // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
+        // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
+        this.passwordResetExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        this.passwordResetInitiated = true
+        return this.passwordResetCode
+    }
+
+    User.prototype.passwordResetExpired = function () {
+        return !moment().utc().isBefore(moment(this.passwordResetExpiresAt))
+    }
+
+    User.prototype.validatePasswordReset = function (code) {
+        const passwordReset = code == this.passwordResetCode
+        this.passwordResetInitiated = !passwordReset
+        // TODO: sign a JWT that authenticates a password reset
+        return passwordReset
+    }
+
+    // generates a one time password of length otpLength and containing digits 0-9 & all lowercase letters in the English alphabet
+    User.prototype.generateOTP = function () {
+        const digits = '0123456789abcdefghijklmnopqrstuvwxyz'
+        const otpLength = 6
+        var otp = ''
+        for(let i = 1; i <= otpLength; i++) {
+            var index = Math.floor(Math.random()*(digits.length))
+            otp = otp + digits[index]
+        }
+        return otp;
     }
 
     return User
