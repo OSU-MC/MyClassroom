@@ -55,6 +55,8 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: false
         }
     })
+
+    return Lecture;
 }
 
 // one-to-many relationship with lecture
