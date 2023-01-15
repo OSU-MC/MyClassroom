@@ -1,6 +1,6 @@
 'use strict'
 
-const question_types = ['multiple_choice']
+const question_types = ['multiple choice', 'multiple answer']
 
 module.exports = (sequelize, DataTypes) => {
     const Question = sequelize.define('Question', {
@@ -44,25 +44,26 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 perTypeValidation(value) {
                     switch(this.type) {
-                        case "multiple_choice":
-                            const options = value.options
-                            if (options === null) {
-                                throw new Error("Multiple Choice question must have options")
+                        case "multiple choice" || "multiple answer":
+                            let options = value.options
+                            if (options === null) { // the options object must exist
+                                throw new Error(`${this.type} question must have options`)
                             }
-                            const options_length = Object.keys(options).length < 2
-                            if (options_length) {
-                                throw new Error("Multiple Choice question must have more than 1 option")
+                            let options_length = Object.keys(options).length < 2
+                            if (options_length) { // there must be more than 2 options
+                                throw new Error(`${this.type} question must have more than 1 option`)
                             }
-                            let index = 0
+                            let index = 0 // the options must be indexed increasing from 0
                             for (; index < options_length; index++) {
                                 let option = options[index]
+                                // the options must have more value than an empty or whitespace string
                                 if (option === null || option.trim() === "") {
-                                    throw new Error("Multiple Choice option must have a value")
+                                    throw new Error(`${this.type} question option must have a value`)
                                 }
                             }
                             break
                         default:
-                            throw new Error("Content validation failed unexpectedly")
+                            throw new Error("question content validation failed unexpectedly")
                     }
                 }
             }
@@ -72,22 +73,36 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 perTypeValidation(value) {
                     switch(this.type) {
-                        case "multiple_choice":
-                            if (value.length != content.length) {
-                                throw new Error("Multiple choice question must have indication of correctness for each option")
+                        case "multiple choice" || "multiple answer":
+                            const answers_length = Object.entries(value).length
+                            if (answers_length != Object.entries(this.content.options).length) { //the answers object must have the same number of elements as the content 
+                                throw new Error(`${this.type} question must have indication of correctness for each option`)
                             }
-                            for (answer of Object.values(value)) {
-                                if (option === null || option.trim() === "") {
-                                    throw new Error("Multiple Choice option must have a value")
+                            let true_answers = 0 
+                            let index = 0 // the answers must be indexed increasing from 0
+                            for (; index < answers_length; index++) {
+                                let answer = value[index]
+                                // the answer must be a true or false value
+                                if (answer === null || typeof answer != "boolean") {
+                                    throw new Error(`${this.type} question answer must have a boolean value`)
                                 }
+                                if (answer === true) {
+                                    true_answers += 1
+                                }
+                            }
+                            if (true_answers != 1 && this.type == "multiple choice") { // only one answer can be correct for multiple choice
+                                throw new Error(`${this.type} question can only and must have 1 correct answer`)
                             }
                             break
                         default:
-                            throw new Error("Answers validation failed unexpectedly")
+                            throw new Error("question answers validation failed unexpectedly")
                     }
                 }
             }
         }
+    },
+    {
+        timestamps: true
     })
 
     return Question
