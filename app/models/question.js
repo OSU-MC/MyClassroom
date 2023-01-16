@@ -15,15 +15,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notNull: {
-                    msg: "Question type must be provided"
-                },
-                notEmpty: {
-                    msg: "Question type must be provided"
-                },
                 isIn: {
                     args: [question_types],
-                    msg: "Question type must be a valid option"
+                    msg: "Question type is not a valid option"
                 }
             }
         },
@@ -44,26 +38,30 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 perTypeValidation(value) {
                     switch(this.type) {
-                        case "multiple choice" || "multiple answer":
+                        case "multiple choice":
+                        case "multiple answer":
                             let options = value.options
-                            if (options === null) { // the options object must exist
+                            if (options == null) { // the options object must exist
                                 throw new Error(`${this.type} question must have options`)
                             }
-                            let options_length = Object.keys(options).length < 2
-                            if (options_length) { // there must be more than 2 options
+                            let options_length = Object.keys(options).length
+                            if (options_length < 2) { // there must be more than 2 options
                                 throw new Error(`${this.type} question must have more than 1 option`)
                             }
                             let index = 0 // the options must be indexed increasing from 0
                             for (; index < options_length; index++) {
                                 let option = options[index]
                                 // the options must have more value than an empty or whitespace string
-                                if (option === null || option.trim() === "") {
-                                    throw new Error(`${this.type} question option must have a value`)
+                                if (option == null) {
+                                    throw new Error(`${this.type} question option indexed incorrectly or null`)
+                                }
+                                else if (typeof option == "string" && option.trim() === "") {
+                                    throw new Error(`${this.type} question option must have a string or numeric value`)
                                 }
                             }
                             break
                         default:
-                            throw new Error("question content validation failed unexpectedly")
+                            break
                     }
                 }
             }
@@ -73,7 +71,8 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 perTypeValidation(value) {
                     switch(this.type) {
-                        case "multiple choice" || "multiple answer":
+                        case "multiple choice":
+                        case "multiple answer":
                             const answers_length = Object.entries(value).length
                             if (answers_length != Object.entries(this.content.options).length) { //the answers object must have the same number of elements as the content 
                                 throw new Error(`${this.type} question must have indication of correctness for each option`)
@@ -83,7 +82,10 @@ module.exports = (sequelize, DataTypes) => {
                             for (; index < answers_length; index++) {
                                 let answer = value[index]
                                 // the answer must be a true or false value
-                                if (answer === null || typeof answer != "boolean") {
+                                if (answer == null) {
+                                    throw new Error(`${this.type} question answer indexed incorrectly or null`)
+                                }
+                                else if (!(answer === true || answer === false)) {
                                     throw new Error(`${this.type} question answer must have a boolean value`)
                                 }
                                 if (answer === true) {
@@ -95,7 +97,7 @@ module.exports = (sequelize, DataTypes) => {
                             }
                             break
                         default:
-                            throw new Error("question answers validation failed unexpectedly")
+                            break
                     }
                 }
             }
