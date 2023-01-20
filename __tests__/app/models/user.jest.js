@@ -11,17 +11,19 @@ describe("User model", () => {
 
     describe("User.create", () => {
         it ("should create a valid user record with default values", async () => {
-            const user = await db.User.create({
+            user = await db.User.create({
                 firstName: 'Dan',
                 lastName: 'Smith',
                 email: 'danSmith@myclassroom.com',
                 rawPassword: 'Danny-o123!'
             })
+            expect(user.rawPassword).toEqual("Danny-o123!")
+            user = await user.reload()
             expect(user.firstName).toEqual("Dan")
             expect(user.lastName).toEqual("Smith")
             expect(user.fullName).toEqual("Dan Smith")
             expect(user.email).toEqual("danSmith@myclassroom.com")
-            expect(user.rawPassword).toEqual("Danny-o123!")
+            expect(user.rawPassword).toBeUndefined()
             expect(user.password).not.toEqual("Danny-o123!")
             expect(user.admin).toBeFalsy()
             expect(user.failedLoginAttempts).toEqual(0)
