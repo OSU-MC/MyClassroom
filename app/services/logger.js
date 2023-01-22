@@ -6,7 +6,7 @@ const { combine, timestamp, printf, colorize, align, errors } = winston.format
 const env = process.env.NODE_ENV  || 'development'
 const dev = (env === 'development')
 
-// LOG_LEVEL takes precedence. If development or test, the log level should be debug. Otherwise, default to info
+// LOG_LEVEL takes precedence. If development, the log level should be debug. Otherwise, default to info
 let logLevel = process.env.LOG_LEVEL || (dev ? 'debug' : 'info')
 
 const logger = winston.createLogger({
@@ -32,7 +32,7 @@ const logger = winston.createLogger({
         return `[${info.timestamp}] ${info.level}: ${info.message}${stack ? stack : ''}`
     })
   ),
-  // if dev or test, log to the console. Otherwise, use file logging
+  // if dev, log to the console. Otherwise, use file logging
   transports: dev ? [new winston.transports.Console()] : [
     new winston.transports.DailyRotateFile({
         filename: './logs/production-%DATE%.log',
