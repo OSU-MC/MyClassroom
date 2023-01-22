@@ -4,10 +4,10 @@ require('winston-daily-rotate-file')
 const { combine, timestamp, printf, colorize, align, errors } = winston.format
 
 const env = process.env.NODE_ENV  || 'development'
-const devOrTest = (env === 'development' || env === 'test')
+const dev = (env === 'development')
 
 // LOG_LEVEL takes precedence. If development or test, the log level should be debug. Otherwise, default to info
-let logLevel = process.env.LOG_LEVEL || (devOrTest ? 'debug' : 'info')
+let logLevel = process.env.LOG_LEVEL || (dev ? 'debug' : 'info')
 
 const logger = winston.createLogger({
   level: logLevel,
@@ -33,7 +33,7 @@ const logger = winston.createLogger({
     })
   ),
   // if dev or test, log to the console. Otherwise, use file logging
-  transports: devOrTest ? [new winston.transports.Console()] : [
+  transports: dev ? [new winston.transports.Console()] : [
     new winston.transports.DailyRotateFile({
         filename: './logs/production-%DATE%.log',
         datePattern: 'YYYY-MM-DD',
