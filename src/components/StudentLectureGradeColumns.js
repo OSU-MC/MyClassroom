@@ -1,3 +1,4 @@
+//exporting COLUMNS for the student lecture grades. 
 export const COLUMNS_studentLectureGrade = [
     {
         Header: 'Date Posted',

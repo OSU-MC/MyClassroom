@@ -3,7 +3,7 @@ import React from "react";
 import sideBarButton from "./photos/sideBarButton.jpg"
 
 
-
+//SideNavBar for the student view
 export default function SideNavbar_Teacher() {
     function openFunction() {
         document.getElementById("menu").style.width="300px"

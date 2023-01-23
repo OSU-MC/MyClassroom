@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, Button} from 'react-bootstrap'
 
+//QuestionCard creation
 function QuestionCard(props) {
     return (
         <>
