@@ -5,10 +5,6 @@ describe("User model", () => {
 
     let user //declare user so it can be accessed in all the following tests, where necessary
 
-    beforeAll(async() => {
-        await db.sequelize.sync() // connect to the database
-    })
-
     describe("User.create", () => {
         it ("should create a valid user record with default values", async () => {
             user = await db.User.create({
@@ -284,6 +280,5 @@ describe("User model", () => {
             where: {},
             truncate: true
         })
-        await db.sequelize.close()
     })
 })
