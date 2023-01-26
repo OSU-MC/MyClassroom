@@ -1,9 +1,6 @@
 const db = require('../../../app/models/index')
 
 describe("Question model", () => {
-    beforeAll(async() => {
-        await db.sequelize.sync() // connect to the database
-    })
 
     describe("Question.create", () => {
         
@@ -432,7 +429,7 @@ describe("Question model", () => {
                 })
             })
 
-            it ("should score a 1 for correct answer", async () => {
+            it ("should score a 1 for correct answer", () => {
                 submission = {
                     answers: {
                         0: false,
@@ -444,7 +441,7 @@ describe("Question model", () => {
                 expect(question.accuracyScore(submission)).toEqual(1.0)
             })
 
-            it ("should score a 0 for incorrect answer", async() => {
+            it ("should score a 0 for incorrect answer", () => {
                 submission = {
                     answers: {
                         0: false,
@@ -482,7 +479,7 @@ describe("Question model", () => {
                 })
             })
 
-            it ("should score a 1 for correct answer", async () => {
+            it ("should score a 1 for correct answer", () => {
                 submission = {
                     answers: {
                         0: false,
@@ -494,7 +491,7 @@ describe("Question model", () => {
                 expect(question.accuracyScore(submission)).toEqual(1.0)
             })
 
-            it ("should score a 0: 0 true positives, 0 false positives", async() => {
+            it ("should score a 0: 0 true positives, 0 false positives", () => {
                 submission = {
                     answers: {
                         0: false,
@@ -506,7 +503,7 @@ describe("Question model", () => {
                 expect(question.accuracyScore(submission)).toEqual(0.0)
             })
 
-            it ("should score a 0.33: 1 true positives, 0 false positives", async() => {
+            it ("should score a 0.33: 1 true positives, 0 false positives", () => {
                 submission = {
                     answers: {
                         0: false,
@@ -518,7 +515,7 @@ describe("Question model", () => {
                 expect(question.accuracyScore(submission)).toEqual(0.33)
             })
 
-            it ("should score a 0.66: 2 true positives, 0 false positives", async() => {
+            it ("should score a 0.66: 2 true positives, 0 false positives", () => {
                 submission = {
                     answers: {
                         0: false,
@@ -530,7 +527,7 @@ describe("Question model", () => {
                 expect(question.accuracyScore(submission)).toEqual(0.67)
             })
 
-            it ("should score a 0.66: 3 true positives, 1 false positives", async() => {
+            it ("should score a 0.66: 3 true positives, 1 false positives", () => {
                 submission = {
                     answers: {
                         0: true,
@@ -542,7 +539,7 @@ describe("Question model", () => {
                 expect(question.accuracyScore(submission)).toEqual(0.67)
             })
 
-            it ("should score a 0.33: 2 true positives, 1 false positives", async() => {
+            it ("should score a 0.33: 2 true positives, 1 false positives", () => {
                 submission = {
                     answers: {
                         0: true,
@@ -554,7 +551,7 @@ describe("Question model", () => {
                 expect(question.accuracyScore(submission)).toEqual(0.33)
             })
 
-            it ("should score a 0: 1 true positives, 1 false positives", async() => {
+            it ("should score a 0: 1 true positives, 1 false positives", () => {
                 submission = {
                     answers: {
                         0: true,
@@ -566,7 +563,7 @@ describe("Question model", () => {
                 expect(question.accuracyScore(submission)).toEqual(0.0)
             })
 
-            it ("should score a 0: 0 true positives, 1 false positives", async() => {
+            it ("should score a 0: 0 true positives, 1 false positives", () => {
                 submission = {
                     answers: {
                         0: true,
@@ -585,6 +582,5 @@ describe("Question model", () => {
             where: {},
             truncate: true
         })
-        await db.sequelize.close()
     })
 })
