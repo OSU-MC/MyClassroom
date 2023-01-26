@@ -2,10 +2,6 @@ const db = require('../../../app/models/index')
 
 describe("Response model", () => {
 
-    beforeAll(async() => {
-        await db.sequelize.sync() // connect to the database
-    })
-
     describe("Response.create", () => {
         it ("should create a valid response", async() => {
             let resp = await db.Response.create({
@@ -75,7 +71,6 @@ describe("Response model", () => {
             where: {},
             truncate: true
         })
-        await db.sequelize.close()
     })
 
 })
