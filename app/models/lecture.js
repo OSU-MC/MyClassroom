@@ -1,7 +1,7 @@
 'use strict'
 
 // UNCOMMENT:
-// const Course = require("./course")
+// const Course = require('./course')
 
 module.exports = (sequelize, DataTypes) => {
     const Lecture = sequelize.define('Lecture', {
@@ -18,21 +18,21 @@ module.exports = (sequelize, DataTypes) => {
         //         model: Course,
         //         key: 'id'
         //     },
-        //     unique: 'course_order_index' // compound unique constraint with 'order'
+        //     unique: {    // compound unique constraint with 'order'
+        //         args: 'course_order_index',
+        //         msg: 'There already exists a lecture with this order number in this course'
+        //     }        
         // },
         title: {
             type: DataTypes.STRING(50), // max length of 50
             allowNull: false,
             validate: {
                 notNull: {
-                    msg: "Lecture name required"
+                    msg: 'Lecture name required'
                 },
-                notEmpty: {
-                    msg: "Lecture name cannot be empty"
-                },
-                max: {
-                    args: [50],
-                    msg: "Title must be less than 50 characters"
+                len: {
+                    args: [1, 50],
+                    msg: 'Title must be between 1 and 50 characters'
                 }
             }
         },
@@ -40,20 +40,41 @@ module.exports = (sequelize, DataTypes) => {
         order: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: 'course_order_index'    // compound unique constraint with 'courseId'
+            unique: {    // compound unique constraint with 'courseId'
+                args: 'course_order_index',
+                msg: 'There already exists a lecture with this order number in this course'
+            }
         },
         description: {
             type: DataTypes.STRING(250),    // max length of 250
-            max: {
-                args: [250],
-                msg: "Description must be less than 250 characters"
+            validate: {
+                len: {
+                    args: [0, 250],
+                    msg: 'Description must be less than 250 characters'
+                }
             }
         },
-        published: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
-        }
+    },
+    {
+        // UNCOMMENT:
+        // hooks: {
+        //     beforeCreate: async (lecture) => {
+        //         if (!lecture.order === null) {  // if lecture order isn't passed in
+        //             const curr_max_order = await Lecture.max('order', {     // get the current max order number for this course
+        //                 where: {
+        //                     courseId: lecture.courseId
+        //                 }
+        //             })
+    
+        //             if (curr_max_order === null) {  // if no order was found (first entry for this course)
+        //                 lecture.order = 1;
+        //             }
+        //             else {  // if there is an entry for this course, get appropriate order number
+        //                 lecture.order = curr_max_order + 1
+        //             }
+        //         }
+        //     }
+        // }
     })
 
     return Lecture;
