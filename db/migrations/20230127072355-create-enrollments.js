@@ -1,4 +1,5 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -12,12 +13,6 @@ module.exports = {
       role: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate: {
-          isIn: [['student', 'teacher', 'ta', 'admin']],
-          notNull: {
-              msg: "Enrollment role required"
-          }
-        }
       },
       createdAt: {
         allowNull: false,

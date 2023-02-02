@@ -1,8 +1,6 @@
 'use strict'
 
-const { DataTypes } = require("sequelize")
-
-module.exports = (sequelize, Database) => {
+module.exports = (sequelize, DataTypes) => {
     const Enrollment = sequelize.define('Enrollment', {
         id: {
             type: DataTypes.INTEGER,
@@ -10,59 +8,100 @@ module.exports = (sequelize, Database) => {
             autoIncrement: true,
             primaryKey: true
         },
-        // UNCOMMENT: 
-        // courseId: {
-        //     type: DataTypes.INTEGER,
-        //     references: {
-        //         model: Course,
-        //         key: 'id'
-        //     }
-        // },
-        // userId: {
-        //     type: DataTypes.INTEGER,
-        //     references: {
-        //         model: User,
-        //         key: 'id'
-        //     }
-        // },
-        // sectionId: {
-        //     type: DataTypes.INTEGER,
-        //     references: {
-        //         model: Section,
-        //         key: 'id'
-        //     }
-        // },
         role: {
-          type: DataTypes.STRING,
+          // ENUM datatypes are stored and queried more efficiently because MySQL maps the strings to integers on the backside of things
+          type: DataTypes.ENUM('student', 'teacher', 'ta'),
           allowNull: false,
           validate: {
-            isIn: [['student', 'teacher', 'ta', 'admin']],
+            isIn: [['student', 'teacher', 'ta']],
             notNull: {
                 msg: "Enrollment role required"
             }
           }
+        },
+        courseId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'Courses',
+                key: 'id'
+            },
+            allowNull: true,
+            validate: {
+                roleValidation(courseId) {
+                    if (courseId == null || courseId == undefined) {
+                        // a teacher must have a course
+                        if (this.role === 'teacher') {
+                            throw new Error("Teacher must be enrolled in a course")
+                        }
+                    }
+                    else {
+                        // section cannot also be set
+                        if (!(this.sectionId == null)) {
+                            throw new Error("Enrollment cannot be in a section and a course")
+                        }
+
+                        // only a teacher is enrolled in a course
+                        if (!(this.role === 'teacher')) {
+                            throw new Error("Only a teacher can be enrolled at the course level")
+                        }
+                    }
+                }
+            }
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'Users',
+                key: 'id'
+            },
+            allowNull: false,
+            validate: {
+                notNull: {
+                    msg: "Enrollment must have a user"
+                }
+            }
+        },
+        sectionId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'Sections',
+                key: 'id'
+            },
+            allowNull: true,
+            validate: {
+                roleValidation(sectionId) {
+                    if (sectionId == null || sectionId == undefined) {
+                        // a non-teacher must have a section
+                        if (!(this.role === 'teacher')) {
+                            throw new Error(`${this.role} must be enrolled in a section`)
+                        }
+                    }
+                    else {
+                        // a teacher cannot be enrolled in a section
+                        if (this.role === 'teacher') {
+                            throw new Error("A teacher cannot be enrolled at the section level")
+                        }
+                    }
+                }
+            }
         }
     },
     {
+        indexes: [
+            // avoids duplicate enrollments
+            {
+                unique: true,
+                fields: ['userId', 'courseId'],
+                name: 'custom_unique_teacher_constraint'
+            },
+            {
+                unique: true,
+                fields: ['userId', 'sectionId'],
+                name: 'custom_unique_student_constraint'
+            }
+        ],
         timestamps: true
-    }
-    )
-
-    // to be implemented later
-    // Course.hasMany(Enrollment, {
-    //     foreignKey: 'courseId'
-    // });
-    // Enrollment.belongsTo(Course);
-
-    // User.hasMany(Enrollment, {
-    //     foreignKey: 'userId'
-    // });
-    // Enrollment.belongsTo(User);
-
-    // Section.hasMany(Enrollment, {
-    //     foreignKey: 'sectionId'
-    // });
-    // Enrollment.belongsTo(Section);
+    })
 
     return Enrollment
 }

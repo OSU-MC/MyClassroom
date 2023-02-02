@@ -1,31 +1,27 @@
 'use strict';
 
-const { sequelize } = require('../../app/models');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Courses', {
+    await queryInterface.createTable('Lectures', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false
+      title: {
+          type: Sequelize.STRING(50), // max length of 50
+          allowNull: false
+      },
+      // the order of current lecture within a course
+      order: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
       },
       description: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.STRING(250)    // max length of 250
       },
-      published: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
-      },
-      // these columns should be standardized across all future tables created
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -40,6 +36,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.dropTable('Courses');
+    return queryInterface.dropTable('Lecture');
   }
 };

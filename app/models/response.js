@@ -8,6 +8,32 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true
         },
+        enrollmentId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'Enrollments',
+                key: 'id'
+            },
+            validate: {
+                notNull: {
+                    msg: 'a response must have an enrollment'
+                }
+            }
+        },
+        questionInLectureId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'QuestionInLectures',
+                key: 'id'
+            },
+            validate: {
+                notNull: {
+                    msg: 'a response must have question in a lecture'
+                }
+            }
+        },
         score: {
             type: DataTypes.DOUBLE,
             allowNull: false,

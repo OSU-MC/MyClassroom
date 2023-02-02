@@ -1,13 +1,8 @@
 const db = require('../../../app/models/index')
-const moment = require('moment')
 
 describe("Course model", () => {
 
     let course //declare course so it can be accessed in all the following tests, where necessary
-
-    beforeAll(async() => {
-        await db.sequelize.sync() // connect to the database
-    })
 
     describe("Course.create", () => {
         it ("should create a valid course record with default values", async () => {
@@ -18,6 +13,7 @@ describe("Course model", () => {
             expect(course.name).toEqual("PH201: Introduction to Physics")
             expect(course.description).toEqual("An introduction to physics concepts, such as kinematics, Newton\'s Laws, and more.")
             expect(course.published).toBeFalsy()
+            await course.destroy()
         })
 
         it ("should create a valid course record with a published course", async () => {
@@ -29,6 +25,7 @@ describe("Course model", () => {
             expect(course.name).toEqual("PH201: Introduction to Physics")
             expect(course.description).toEqual("An introduction to physics concepts, such as kinematics, Newton\'s Laws, and more.")
             expect(course.published).toBeTruthy()
+            await course.destroy()
         })
     
         it ("should reject a null course name", async () => {
@@ -108,13 +105,5 @@ describe("Course model", () => {
         afterEach(async () => {
             await course.destroy()
         })
-    })
-
-    afterAll(async () => {
-        await db.Course.destroy({ // delete all Course records to flush out the database after the tests have run
-            where: {},
-            truncate: true
-        })
-        await db.sequelize.close()
     })
 })

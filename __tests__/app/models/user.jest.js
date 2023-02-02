@@ -25,6 +25,7 @@ describe("User model", () => {
             expect(user.failedLoginAttempts).toEqual(0)
             expect(user.lastLogin).toBeFalsy()
             expect(user.emailConfirmed).toBeFalsy()
+            await user.destroy()
         })
     
         it ("should reject a null firstName", async () => {
@@ -62,12 +63,19 @@ describe("User model", () => {
         })
     
         it ("should reject a non-unique email", async () => {
+            const user = await db.User.create({
+                firstName: 'Dan',
+                lastName: 'Smith',
+                email: 'danSmith@myclassroom.com',
+                rawPassword: 'Danny-o123!',
+            })
             await expect(db.User.create({
                 firstName: 'Dan',
                 lastName: 'Smith',
                 email: 'danSmith@myclassroom.com',
                 rawPassword: 'Danny-o123!',
             })).rejects.toThrow("Validation error")
+            await user.destroy()
         })
     
         it ("should reject a invalid email address", async () => {
@@ -150,9 +158,16 @@ describe("User model", () => {
         })
 
         it ("should reject an email update with an existing email", async () => {
+            const user2 = await db.User.create({
+                firstName: 'Dan',
+                lastName: 'Smith',
+                email: 'danSmith@myclassroom.com',
+                rawPassword: 'Danny-o123!'
+            })
             await expect(user.update({email: "danSmith@myclassroom.com"})).rejects.toThrow("Validation error")
             await user.reload() 
             expect(user.email).toEqual("dannySmith@myclassroom.com")
+            await user2.destroy()
         })
 
         afterEach(async () => {
@@ -272,13 +287,6 @@ describe("User model", () => {
 
         afterAll(async () => {
             await user.destroy()
-        })
-    })
-
-    afterAll(async () => {
-        await db.User.destroy({ // delete all User records to flush out the database after the tests have run
-            where: {},
-            truncate: true
         })
     })
 })

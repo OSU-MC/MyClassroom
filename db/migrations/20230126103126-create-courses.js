@@ -3,21 +3,25 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Sections', {
+    await queryInterface.createTable('Courses', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
       },
-      number: {
-        type: Sequelize.INTEGER,
+      name: {
+        type: Sequelize.STRING,
         allowNull: false
       },
-      joinCode: {
+      description: {
         type: Sequelize.STRING,
+        allowNull: true
+      },
+      published: {
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        unique: true,
+        defaultValue: false
       },
       // these columns should be standardized across all future tables created
       createdAt: {
@@ -30,10 +34,10 @@ module.exports = {
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    })
+    });
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.dropTable('Sections');
+    return queryInterface.dropTable('Courses');
   }
 };

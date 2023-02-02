@@ -1,8 +1,6 @@
 'use strict'
 
-const { DataTypes } = require("sequelize")
-
-module.exports = (sequelize, Database) => {
+module.exports = (sequelize, DataTypes) => {
     const Section = sequelize.define('Section', {
         id: {
             type: DataTypes.INTEGER,
@@ -10,17 +8,22 @@ module.exports = (sequelize, Database) => {
             autoIncrement: true,
             primaryKey: true
         },
-        // UNCOMMENT: 
-        // courseId: {
-        //     type: DataTypes.INTEGER,
-        //     references: {
-        //         model: Course,
-        //         key: 'id'
-        //     }
-        // },
+        courseId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'Courses',
+                key: 'id'
+            },
+            validate: {
+                notNull: {
+                    msg: "A section must belong to a course"
+                }
+            }
+        },
         number: {
             type: DataTypes.INTEGER,
-            allowNull: false,            
+            allowNull: false,
         },
         joinCode: {
             type: DataTypes.STRING,
@@ -45,19 +48,12 @@ module.exports = (sequelize, Database) => {
         indexes: [
             {
                 unique: true,
-                fields: ['number'] //courseId foreign key will be part of this too
+                fields: ['courseId', 'number'],
+                name: 'custom_unique_section_constraint'
             }
-        ]
-    },
-    {
+        ],
         timestamps: true
-    }
-    )
-
-    // Course.hasMany(Section, {
-    //     foreignKey: 'courseId'
-    // });
-    // Section.belongsTo(Course);
+    })
 
     return Section
 }
