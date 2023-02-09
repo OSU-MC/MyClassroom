@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './components.css'
 
 
-
+//Sidebar creation
 function Sidebar(props) {
     return (
         <div className='sidebarBody'>

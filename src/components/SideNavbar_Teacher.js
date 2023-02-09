@@ -2,7 +2,7 @@ import React from "react";
 /*import "./sideNavbar.css"*/
 
 
-
+//SideNavBar for the teacher view
 export default function SideNavbar_Teacher() {
     function openFunction() {
         document.getElementById("menu").style.width="300px"

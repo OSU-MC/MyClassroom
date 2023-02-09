@@ -28,6 +28,7 @@ function LectureCard (props) {
     return (
 
           <div> 
+
             <Card>
             <Card.Header>Lecture: {props.c}</Card.Header>
             <Card.Body>
@@ -35,25 +36,33 @@ function LectureCard (props) {
               <Card.Text> Lecture CRN: {props.LectureID}</Card.Text>
               <Card.Text> Lecture Instructor: {props.LectureInstructor}</Card.Text>
               {/* <Link to={props.view==="student" ? "/" : "/instructor/edit_Lecture"}> */}
+
               <Button 
               variant="primary"
               className="joinBtn" 
               onClick={() => {
                 props.editToggle(true)
                 props.editLecture(props.LectureNumber)
-              }}
-              >{props.view==="student" ? "Join Session" : "Lecture Details"}</Button>
+              }}>
+                {props.view==="student" ? "Join Session" : "Lecture Details"}
+              </Button>
+
               {/* </Link> */}
               <Button variant="primary" className="hideBtn">Hide</Button>
+
             </Card.Body>
           </Card>
+
         </div>
 
       )
   }
   else if(props.isEdit){
     return(
+      //this <> is called a fragment and it used to wrap elements in a parent tag so
+      //it doesnt cause errors. <div> </div> also works but <> is more clean
       <>
+        
         <Card>
             <Card.Header>Lecture: {props.LectureNumber}</Card.Header>
             <Card.Body>
@@ -65,6 +74,7 @@ function LectureCard (props) {
                   onChange={(event)=> {
                     setEditedName(event.target.value)}}>
                 </input></Card.Text>
+
               <Card.Text> Lecture CRN: 
                 <input 
                   type='text' 
@@ -73,6 +83,7 @@ function LectureCard (props) {
                   onChange={(event)=> {
                     E(event.target.value)}}
                   ></input></Card.Text>
+
               <Card.Text> Lecture Instructor: 
                 <input 
                   type='text' 
@@ -82,6 +93,7 @@ function LectureCard (props) {
                     setEditedInstructors(event.target.value)}}
                   >
                 </input></Card.Text>
+
               <Button 
               variant="primary"
               className="joinBtn" 
@@ -100,6 +112,7 @@ function LectureCard (props) {
                 props.editLecture(props.LectureNumber)
               }}
               >Save Changes</Button>
+
             </Card.Body>
           </Card>
           <Button 
@@ -110,6 +123,7 @@ function LectureCard (props) {
           
           }}
           >Done</Button>
+
         </>
           
     )

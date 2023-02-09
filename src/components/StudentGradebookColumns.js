@@ -1,3 +1,4 @@
+//exporting the COLUMNS for the gradebook
 export const COLUMNS_studentGradebook = [
     {
         Header: 'Date Posted',

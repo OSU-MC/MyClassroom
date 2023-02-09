@@ -12,6 +12,7 @@ function Instructor_Questions() {
         
     }
     // will need to learn how to add questions manually since right now its hardcoded
+    // using temp. data at the moment.
     return (
         <>
         <Button onClick={() => {setQuestionPrompt(true); setList(false)}}> Add a Question. </Button> 

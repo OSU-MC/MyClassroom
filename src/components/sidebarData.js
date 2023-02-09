@@ -1,11 +1,10 @@
-/*Data for each of the sidebars needed*/
-
 import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
 import SchoolIcon from '@mui/icons-material/School';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
+/*Data for each of the sidebars needed*/
 export const instructorSidebarData = [
     {
         title: "Courses",
