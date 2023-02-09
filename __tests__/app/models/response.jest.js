@@ -1,4 +1,4 @@
-const db = require('../../../app/models/index')
+const db = require('../../../app/models')
 
 describe("Response model", () => {
 

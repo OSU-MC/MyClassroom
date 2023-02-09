@@ -1,6 +1,6 @@
 require('dotenv').config({ override: false})
-const db = require('../app/models/index')
-const { logger } = require('../app/services/logger')
+const db = require('../app/models')
+const { logger } = require('../lib/logger')
 
 module.exports = async () => {
     try {

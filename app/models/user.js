@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt');
 const moment = require('moment')
 const saltRounds = parseInt(process.env.SALT_ROUNDS, 10) || 8
+const mailer = require('../../lib/mailer')
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
@@ -127,13 +128,20 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: true,
         hooks: {
             beforeCreate: async (user) => {
-                if (user.rawPassword) {
-                    user.password = await bcrypt.hash(user.rawPassword, saltRounds)
-                }
+                user.password = await bcrypt.hash(user.rawPassword, saltRounds)
+            },
+            afterCreate: (user) => {
+                mailer.welcome(user)
+                user.generateEmailConfirmation()
             },
             beforeUpdate: async (user) => {
                 if (user.rawPassword) {
                     user.password = await bcrypt.hash(user.rawPassword, saltRounds)
+                }
+            },
+            afterUpdate: (user) => {
+                if (user._previousDataValues.email != user.email) {
+                    user.generateEmailConfirmation()
                 }
             }
         }
@@ -149,6 +157,7 @@ module.exports = (sequelize, DataTypes) => {
         // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
         // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
         this.emailConfirmationExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        mailer.confirmation(this)
         return this.emailConfirmationCode
     }
 

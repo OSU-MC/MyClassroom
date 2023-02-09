@@ -1,4 +1,4 @@
-const db = require('../../../app/models/index')
+const db = require('../../../app/models')
 const { ForeignKeyConstraintError } = require('sequelize')
 
 describe("Question model", () => {

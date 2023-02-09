@@ -1,6 +1,6 @@
 
 const { UniqueConstraintError } = require('sequelize')
-const db = require('../../../app/models/index')
+const db = require('../../../app/models')
 
 describe('Lecture model', () => {
     let lecture

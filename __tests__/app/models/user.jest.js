@@ -1,5 +1,14 @@
-const db = require('../../../app/models/index')
+const db = require('../../../app/models')
 const moment = require('moment')
+
+const { welcome, confirmation, passwordReset } = require('../../../lib/mailer')
+
+jest.mock('../../../lib/mailer', () => ({
+    ...(jest.requireActual('../../../lib/mailer')),
+    welcome: jest.fn(),
+    confirmation: jest.fn(),
+    passwordReset: jest.fn()
+  }))
 
 describe("User model", () => {
 
@@ -7,6 +16,7 @@ describe("User model", () => {
 
     describe("User.create", () => {
         it ("should create a valid user record with default values", async () => {
+            jest.clearAllMocks()
             user = await db.User.create({
                 firstName: 'Dan',
                 lastName: 'Smith',
@@ -25,6 +35,10 @@ describe("User model", () => {
             expect(user.failedLoginAttempts).toEqual(0)
             expect(user.lastLogin).toBeFalsy()
             expect(user.emailConfirmed).toBeFalsy()
+            expect(welcome).toHaveBeenCalledWith(user)
+            expect(welcome).toHaveBeenCalledTimes(1)
+            expect(confirmation).toHaveBeenCalledWith(user)
+            expect(confirmation).toHaveBeenCalledTimes(1)
             await user.destroy()
         })
     
@@ -142,9 +156,12 @@ describe("User model", () => {
         })
 
         it ("should update the email", async () => {
+            jest.clearAllMocks()
             await user.update({email: "danSmithy@myclassroom.com"})
             await expect(user.save()).resolves.toBeTruthy()
-            await user.reload() 
+            await user.reload()
+            expect(confirmation).toHaveBeenCalledTimes(1)
+            expect(confirmation).toHaveBeenCalledWith(user)
             expect(user.email).toEqual("danSmithy@myclassroom.com")
         })
 
@@ -212,12 +229,15 @@ describe("User model", () => {
         })
 
         it ("should set the email expiration and code", () => {
+            jest.clearAllMocks()
             const now = moment().utc()
             code = user.generateEmailConfirmation()
             expect(user.emailConfirmationCode).toEqual(code)
             expect(user.emailConfirmationCode).not.toBeNull()
             expect(user.emailConfirmationExpired()).toBeFalsy()
             expect((now.minutes() + 5) % 60).toEqual(moment(user.emailConfirmationExpiresAt).minutes())
+            expect(confirmation).toHaveBeenCalledTimes(1)
+            expect(confirmation).toHaveBeenCalledWith(user)
         })
 
         it ("should validate that the email confirmation is correct", () => {

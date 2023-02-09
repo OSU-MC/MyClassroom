@@ -1,5 +1,4 @@
-const course = require('../../../app/models/course')
-const db = require('../../../app/models/index')
+const db = require('../../../app/models')
 
 describe("Section model", () => {
 
