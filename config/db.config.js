@@ -9,6 +9,7 @@ module.exports = {
     "password": process.env.DEV_DB_PASS || null,
     "database": process.env.DEV_DB_NAME || 'myclassroom_development',
     "host": process.env.DEV_DB_HOST || 'localhost',
+    "port": process.env.DEV_DB_PORT || 3306,
     "dialect": "mysql"
   },
   "test": {
@@ -16,6 +17,7 @@ module.exports = {
      "password": process.env.TEST_DB_PASS || null,
      "database": process.env.TEST_DB_NAME || 'myclassroom_test',
      "host": process.env.TEST_DB_HOST || 'localhost',
+     "port": process.env.TEST_DB_PORT || 3306,
      "dialect": "mysql"
    },
   // TODO: once these environments are setup, configure the sequelize connection with the right variables
