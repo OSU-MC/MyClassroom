@@ -86,7 +86,7 @@ export default function Login(props) {
       }
 
       if (user.userType == 'student') {
-        console.log(userDB);
+        console.log(userDB);  
         studentAuth(userDB);
       }
       else if(user.userType=='instructor'){
@@ -113,22 +113,23 @@ function handleSubmit(type) {
   authenticateUser(user);
 }
 
-
+//atrribution for image: <a href="https://www.freepik.com/free-vector/empty-classroom-interior-school-college-class_6993851.htm#query=school%20classroom&position=0&from_view=search&track=ais">Image by upklyak</a> on Freepik
   return (
     <div className="Login">
-
+      <Container className="contentContainer">
         <Container className='loginTop'>
             <Row>
-                <Col xs={3}>
+                {/* <Col xs={3}>
                     <Image src={photo1} roundedCircle />
-                </Col>
-                <Col>
-                    <h1>Active Learning Responsive Technology</h1>
-                </Col>
+                </Col> */}
+                <div className="imgTitleContainer">
+                    {/* <img className="deskImg" src="deskimg.png"/> */}
+                    <h1 className="loginTitle">Classroom Polling Application</h1>
+                </div>
             </Row>
         </Container>
       <Form onSubmit={handleSubmit}>
-        <Form.Group size="lg" controlId="email">
+        <Form.Group className="emailContainer" size="lg" controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
             autoFocus
@@ -137,7 +138,7 @@ function handleSubmit(type) {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-        <Form.Group size="lg" controlId="password">
+        <Form.Group className="passwordContainer" size="lg" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -165,6 +166,7 @@ function handleSubmit(type) {
       </>
         }
         </Form>
+      </Container>
       {loginStatus &&
       <div className="loginContainer">
       <Link to={"/" + userType + "/landing"} className="loginBtn"> Login  </Link>
