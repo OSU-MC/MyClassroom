@@ -10,24 +10,27 @@
 			"name": "Password",
 			"item": [
 				{
-					"name": "Reset Password",
+					"name": "Request password reset",
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testuser@myclassroom.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{domainName}}/users/password?email={{email}}",
+							"raw": "{{domainName}}/users/password",
 							"host": [
 								"{{domainName}}"
 							],
 							"path": [
 								"users",
 								"password"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "{{email}}"
-								}
 							]
 						}
 					},
@@ -36,16 +39,16 @@
 			]
 		},
 		{
-			"name": "Authenticate",
+			"name": "Login",
 			"item": [
 				{
-					"name": "Authenticate User (login)",
+					"name": "Login",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": {{email}},\r\n    \"password\": {{password}}\r\n}",
+							"raw": "{\n    \"email\": \"testuser@myclassroom.com\",\n    \"rawPassword\": \"passwordpassword\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -53,13 +56,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{domainName}}/users/authenticate",
+							"raw": "{{domainName}}/users/login",
 							"host": [
 								"{{domainName}}"
 							],
 							"path": [
 								"users",
-								"authenticate"
+								"login"
 							]
 						}
 					},
@@ -101,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": {{email}},\r\n    \"oldPassword\": {{password}},\r\n    \"newPassword\": \"new_pass_567\",\r\n    \"confirmedPassword\": \"new_pass_567\",\r\n    \"firstName\": {{firstName}},\r\n    \"lastName\": {{lastName}},\r\n    \"emailConfirmation\": \"\"\r\n}",
+							"raw": "{\r\n    \"email\": \"testuser@myclassroom.com\",\r\n    \"oldPassword\": \"passwordpassword\",\r\n    \"rawPassword\": \"new_pass_567\",\r\n    \"confirmedPassword\": \"new_pass_567\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -152,6 +155,16 @@
 					"response": []
 				}
 			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{userAuthToken}}",
+						"type": "string"
+					}
+				]
+			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -192,6 +205,32 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"email\": \"testuser@myclassroom.com\",\r\n    \"rawPassword\": \"passwordpassword\",\r\n    \"confirmedPassword\": \"passwordpassword\",\r\n    \"firstName\": \"test\",\r\n    \"lastName\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domainName}}/users",
+					"host": [
+						"{{domainName}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"testuser@myclassroom.com\",\n    \"passwordResetCode\": \"123456\",\n    \"rawPassword\": \"mynewtestuserpass\",\n    \"confirmedPassword\": \"mynewtestuserpass\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

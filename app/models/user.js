@@ -130,18 +130,13 @@ module.exports = (sequelize, DataTypes) => {
             beforeCreate: async (user) => {
                 user.password = await bcrypt.hash(user.rawPassword, saltRounds)
             },
-            afterCreate: (user) => {
+            afterCreate: async (user) => {
                 mailer.welcome(user)
-                user.generateEmailConfirmation()
+                await user.generateEmailConfirmation()
             },
             beforeUpdate: async (user) => {
                 if (user.rawPassword) {
                     user.password = await bcrypt.hash(user.rawPassword, saltRounds)
-                }
-            },
-            afterUpdate: (user) => {
-                if (user._previousDataValues.email != user.email) {
-                    user.generateEmailConfirmation()
                 }
             }
         }
@@ -156,12 +151,17 @@ module.exports = (sequelize, DataTypes) => {
         return bcrypt.compareSync(password, this.password)
     }
 
-    User.prototype.generateEmailConfirmation = function () {
-        this.emailConfirmationCode = this.generateOTP()
+    const generateEmailConfirmation = (user) => {
+        user.emailConfirmationCode = generateOTP(6)
         // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
         // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
-        this.emailConfirmationExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
-        mailer.confirmation(this)
+        user.emailConfirmationExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        mailer.confirmation(user)
+    }
+
+    User.prototype.generateEmailConfirmation = async function () {
+        generateEmailConfirmation(this)
+        await this.save()
         return this.emailConfirmationCode
     }
 
@@ -174,32 +174,92 @@ module.exports = (sequelize, DataTypes) => {
         return this.emailConfirmed
     }
 
-    User.prototype.generatePasswordReset = function () {
-        this.passwordResetCode = this.generateOTP()
+    const generatePasswordReset = function (user) {
+        user.passwordResetCode = generateOTP(6)
         // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
         // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
-        this.passwordResetExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
-        this.passwordResetInitiated = true
-        return this.passwordResetCode
+        user.passwordResetExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        user.passwordResetInitiated = true
+        mailer.passwordReset(user)
+        return user.passwordResetCode
+    }
+
+    User.prototype.generatePasswordReset = async function () {
+        const resetCode = generatePasswordReset(this)
+        await this.save()
+        return resetCode
+    }
+
+    User.prototype.resetPassword = async function (password) {
+        await this.update({ rawPassword: password, passwordResetInitiated: false, failedLoginAttempts: 0, lastLogin: moment().utc().format("YYYY-MM-DD HH:mm:ss") })
     }
 
     User.prototype.passwordResetExpired = function () {
-        return !moment().utc().isBefore(moment(this.passwordResetExpiresAt))
+        const now = moment().utc()
+        const expiration = moment(this.passwordResetExpiresAt)
+        return !now.isBefore(expiration)
     }
 
     User.prototype.validatePasswordReset = function (code) {
         const passwordReset = code == this.passwordResetCode
         this.passwordResetInitiated = !passwordReset
-        // TODO: sign a JWT that authenticates a password reset
         return passwordReset
     }
 
-    // generates a one time password of length otpLength and containing digits 0-9 & all lowercase letters in the English alphabet
-    User.prototype.generateOTP = function () {
+    /*
+        Different integers are associated with different statuses of logging in the user
+
+        0: success
+        -1: invalid password
+        -2: invalid password. Password reset because 3rd failure in a row
+        -3: account is locked from too many login failures
+        1: waiting on a password reset - no login failures. User can still login here but track this status for frontend
+        2: waiting on email confirmation. User can still login here but track this status for frontend 
+    */
+    const login = (user, password) => {
+        if (user.failedLoginAttempts < 3){
+            if (user.validatePassword(password)) {
+                user.lastLogin = moment().utc().format("YYYY-MM-DD HH:mm:ss")
+                user.failedLoginAttempts = 0
+                if (user.emailConfirmed) {
+                    if (user.passwordResetInitiated) {
+                        return 1
+                    }
+                    else {
+                        return 0
+                    }
+                }
+                else {
+                    return 2
+                }
+            }
+            else {
+                user.failedLoginAttempts = user.failedLoginAttempts + 1
+                if (user.failedLoginAttempts == 3) {
+                    user.generatePasswordReset()
+                    return -2
+                }
+                else {
+                    return -1
+                }
+            }
+        }
+        else {
+            return -3
+        }
+    }
+
+    User.prototype.login = async function (password) {
+        const loginStatus = login(this, password)
+        await this.save()
+        return loginStatus
+    }
+
+    // generates a one time password of length and containing digits 0-9 & all lowercase letters in the English alphabet
+    const generateOTP = (length) => {
         const digits = '0123456789abcdefghijklmnopqrstuvwxyz'
-        const otpLength = 6
         var otp = ''
-        for(let i = 1; i <= otpLength; i++) {
+        for(let i = 1; i <= length; i++) {
             var index = Math.floor(Math.random()*(digits.length))
             otp = otp + digits[index]
         }

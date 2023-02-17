@@ -47,6 +47,7 @@ describe('Users Service', () => {
 
         it ('should return the firstName, lastName, and email of the user', () => {
             expect(usersService.filterUserFields(user)).toEqual({
+                id: user.id,
                 firstName: "Memer",
                 lastName: "Magic",
                 email: "memer@myclassroom.com"
