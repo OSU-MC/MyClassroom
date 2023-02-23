@@ -1,17 +1,69 @@
 /* Login Page CSS */
 
-.loginTop{
-    margin-top: 20px;
+
+html * {
+font-family: 'Open Sans', sans-serif;
 }
 
-.loginBars{
+.loginTitle{
+font-size: 54px;
+
+}
+
+.deskImg{
+   width: auto;
+   height: 5%;
+}
+
+.imgTitleContainer{
+    
+}
+
+label.form-label{
+    font-size: 28px;
+}
+
+input.form-control{
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+}
+
+.contentContainer{
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding-bottom: 12vh;
+    width: fit-content;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.emailContainer{
+    display: block;
+    text-align: left;
+}
+
+.passwordContainer{
+    display: block;
+    text-align: left;
+}
+
+div.Login{
+    background-image: url(../../public/classroomBackground.jpg);
+    background-size: cover;
     display: flex;
-    text-align: center;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    width: 50%;
+    text-align: center;
+    min-height: 100vh;
+    display: block;
 }
+
+.loginTop.container {
+    margin-top: 20px;
+    margin-bottom: 5vh;
+}
+
+
 
 @media all and (min-width: 480px) {
     .Login {
@@ -115,6 +167,7 @@
     margin-top: 1em;
     display: flex;
 }
+
 
 /* StudentGreadeforSingleLecture page*/
 .SLG-gradePoints-parent{
