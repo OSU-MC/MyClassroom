@@ -303,5 +303,96 @@ router.delete('/:userId', requireAuthentication, async function (req, res, next)
     next(e)
   }
 })
+// Route for user to confirm their email address by supplying the code emailed to them
+router.put('/:userId/confirm', requireAuthentication, async function (req, res, next) {
+  const userId = req.params.userId
+  const user = await db.User.findByPk(userId)
+  if (user != null) {
+    if (userId == req.payload.sub) {
+      if (user.emailConfirmed) {
+        res.status(409).send({
+          error: `email already confirmed`
+        })
+      }
+      else {
+        const emailConfirmationCode = req.body.emailConfirmationCode
+        if (emailConfirmationCode != null) {
+          try {
+            
+              if (user.emailConfirmationExpired()) {
+                user.generateEmailConfirmation()
+                res.status(498).send({
+                  error: `emailConfirmationCode expired. A new code should have been emailed.`
+                })
+              }
+              else {
+                const emailConfirmed = await user.confirmEmail(emailConfirmationCode)
+                if (emailConfirmed) {
+                  res.status(200).send()
+                }
+                else {
+                  res.status(401).send({
+                    error: `emailConfirmationCode incorrect`
+                  })
+                }
+              }
+          }
+          catch (e) {
+            next(e)
+          }
+        }
+        else {
+          res.status(400).send({
+            error: `emailConfirmationCode required`
+          })
+        }
+      }
+    }
+    else {
+      res.status(403).send({
+        error: `Insufficient permissions to access that resource`
+      })
+    }
+  }
+  else {
+    res.status(404).send({
+      error: `User with id ${userId} not found`
+    })
+  }
+})
+
+// Route for user to request a confirmation message be sent to their email again
+router.get('/:userId/confirm', requireAuthentication, async function (req, res, next) {
+  const userId = req.params.userId
+  const user = await db.User.findByPk(userId)
+  if (user != null) {
+    if (userId == req.payload.sub) {
+      if (user.emailConfirmed) {
+        res.status(400).send({
+          error: `email already confirmed`
+        })
+      }
+      else {
+        try {
+          await user.generateEmailConfirmation()
+          res.status(200).send()
+        }
+        catch (e) {
+          next(e)
+        }
+      }
+    }
+    else {
+      res.status(403).send({
+        error: `Insufficient permissions to access that resource`
+      })
+    }
+  }
+  else {
+    res.status(404).send({
+      error: `User with id ${userId} not found`
+    })
+  }
+})
 
 module.exports = router
