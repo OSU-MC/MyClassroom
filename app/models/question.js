@@ -123,6 +123,11 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: true
     })
 
+    Question.associate = (models) => {
+        Question.belongsTo(models.Course)
+        Question.hasMany(models.QuestionInLecture)
+    }
+    
     return Question
 }
 

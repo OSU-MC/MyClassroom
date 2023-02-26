@@ -61,5 +61,10 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: true
     })
 
+    Response.associate = (models) => {
+        Response.belongsTo(models.Enrollment)
+        Response.belongsTo(models.QuestionInLecture)
+    }
+
     return Response;
 }

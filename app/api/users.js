@@ -320,7 +320,7 @@ router.put('/:userId/confirm', requireAuthentication, async function (req, res, 
           try {
             
               if (user.emailConfirmationExpired()) {
-                user.generateEmailConfirmation()
+                await user.generateEmailConfirmation()
                 res.status(498).send({
                   error: `emailConfirmationCode expired. A new code should have been emailed.`
                 })
