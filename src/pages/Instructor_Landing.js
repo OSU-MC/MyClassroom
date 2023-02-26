@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import CourseCard from '../components/CourseCard'
 import { Button, Card } from "react-bootstrap"
 import courseData from "./data/courseData.json"
+import apiUtil from '../utils/apiUtil'
 
 function Instructor_Landing(props) {
 
@@ -20,11 +21,7 @@ function Instructor_Landing(props) {
             async function populateCourses(){
                 let courseBody={};
                 try{
-                    const response = await fetch(
-                        "http://localhost:3001/api/course/",
-                        {signal: controller.signal}
-
-                    );
+                    const response = await apiUtil("get", "courses/");
                     courseBody = await response.json();
                 } catch (e) {
                     if (e instanceof DOMException) {

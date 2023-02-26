@@ -24,7 +24,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<><Login setUser={setUserStatus}/></>} />
-        <Route path='/student/landing' element={<><SiteNavbar/><Sidebar data={studentSidebarData} /><MainPage view={"student"}/></>} />
+        <Route path='/landing' element={<><SiteNavbar/><Sidebar data={studentSidebarData} /><MainPage view={"student"}/></>} />
 
 
         <Route path='/edit_profile' element={<><SiteNavbar view={userStatus}/><Sidebar data={instructorSidebarData} /><MainPage view={"edit"}/></>} />
