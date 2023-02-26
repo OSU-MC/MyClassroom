@@ -2,7 +2,7 @@ const db = require('../models')
 const { logger } = require('../../lib/logger')
 const router = require('express').Router()
 const { UniqueConstraintError, ValidationError } = require('sequelize')
-const usersService = require('../services/users_service')
+const UserService = require('../services/user_service')
 const { serializeSequelizeErrors, serializeStringArray } = require('../../lib/string_helpers')
 const { generateUserAuthToken, requireAuthentication } = require('../../lib/auth')
 
@@ -13,13 +13,13 @@ const { generateUserAuthToken, requireAuthentication } = require('../../lib/auth
 
 // POST '/users' create a user
 router.post('', async function (req, res, next) {
-    const missingFields = usersService.validateUserCreationRequest(req.body)
+    const missingFields = UserService.validateUserCreationRequest(req.body)
     if (missingFields.length == 0) {
       if (req.body.rawPassword == req.body.confirmedPassword) {
         try {
-          const user = await db.User.create(usersService.extractUserCreationFields(req.body))
+          const user = await db.User.create(UserService.extractUserCreationFields(req.body))
           res.status(201).send({
-            user: usersService.filterUserFields(user),
+            user: UserService.filterUserFields(user),
             token: generateUserAuthToken(user)
           })
         }
@@ -46,17 +46,17 @@ router.post('', async function (req, res, next) {
 
 // PUT 'users' reset a password
 router.put('', async function (req, res, next) {
-  const missingFields = usersService.validateUserPasswordResetRequest(req.body)
+  const missingFields = UserService.validateUserPasswordResetRequest(req.body)
   if (missingFields.length == 0) {
     const user = await db.User.findOne({ where: { email: req.body.email } })
     if (user != null) {
-      if (user.passwordResetInitiated && user.validatePasswordReset(req.body.passwordResetCode)) {
+      if (user.passwordResetInitiated && await user.validatePasswordReset(req.body.passwordResetCode)) {
         if (!user.passwordResetExpired()) {
           if (req.body.rawPassword === req.body.confirmedPassword) {
             try {
               await user.resetPassword(req.body.rawPassword)
               res.status(200).send({
-                user: usersService.filterUserFields(user),
+                user: UserService.filterUserFields(user),
                 token: generateUserAuthToken(user)
               })
             }
@@ -113,7 +113,7 @@ router.put('/password', async function (req, res, next) {
 
 // POST 'users/login' login request for a user
 router.post('/login', async function (req, res, next) {
-  const missingFields = usersService.validateUserLoginRequest(req.body)
+  const missingFields = UserService.validateUserLoginRequest(req.body)
   if (missingFields.length == 0) {
     const user = await db.User.findOne({ where: { email: req.body.email } })
     if (user == null) {
@@ -121,7 +121,8 @@ router.post('/login', async function (req, res, next) {
     }
     else {
       try {
-        const loginStatus = await user.login(req.body.rawPassword)
+        const loginStatus = await UserService.login(user, req.body.rawPassword)
+        await user.save()
         switch (loginStatus) {
           case -3:
             res.status(401).send({error: `This account has been locked until the password is reset. An email should have been sent with instructions`})
@@ -135,7 +136,7 @@ router.post('/login', async function (req, res, next) {
           default:
             if (loginStatus >= 0) {
               res.status(200).send({
-                user: usersService.filterUserFields(user),
+                user: UserService.filterUserFields(user),
                 token: generateUserAuthToken(user),
                 loginStatus: loginStatus
               })
@@ -169,7 +170,7 @@ router.get('/:userId', requireAuthentication, async function (req, res, next) {
       const subUser = await db.User.findByPk(req.payload.sub)
       if (userId == req.payload.sub || subUser.admin) {
         res.status(200).send({
-          user: usersService.filterUserFields(user)
+          user: UserService.filterUserFields(user)
         })
       }
       else {
@@ -198,7 +199,7 @@ router.put('/:userId', requireAuthentication, async function (req, res, next) {
       try {
         const rawPassword = req.body.rawPassword
         if (req.body.oldPassword || rawPassword || req.body.confirmedPassword) {
-          const missingFields = usersService.validateUserPasswordChangeRequest(req.body)
+          const missingFields = UserService.validateUserPasswordChangeRequest(req.body)
           if (missingFields.length == 0) {
             if (user.validatePassword(req.body.oldPassword)) {
               if (rawPassword !== req.body.confirmedPassword) {
@@ -222,7 +223,7 @@ router.put('/:userId', requireAuthentication, async function (req, res, next) {
             return
           }
         }
-        let updateFields = usersService.filterUserFields(req.body)
+        let updateFields = UserService.filterUserFields(req.body)
         if (Object.keys(updateFields).length < 1) {
           res.status(400).send({
             error: `Missing any valid fields to update the user: email, firstName, lastName`
@@ -250,7 +251,7 @@ router.put('/:userId', requireAuthentication, async function (req, res, next) {
           }
           
           res.status(200).send({
-            user: usersService.filterUserFields(user)
+            user: UserService.filterUserFields(user)
           })
         }
       }

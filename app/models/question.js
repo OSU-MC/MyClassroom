@@ -123,62 +123,6 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: true
     })
 
-    /*
-        submission: {
-            answers: {
-                1: false,
-                2: true,
-                3: false,
-                4: false,
-            }
-        }
-    */
-
-    Question.prototype.accuracyScore = function (submission) {
-        let grade = 0.0
-        const answers = submission.answers
-        if (answers == null) { // no answers in the submission? The score must be 0
-            return grade
-        }
-        switch(this.type) {
-            case "multiple choice":
-            case "multiple answer":
-                let falsePositives = 0
-                let falseNegatives = 0
-                let truePositives = 0
-                let trueNegatives = 0
-                let index = 0
-                let numTrueAnswers = 0
-                for (; index < Object.entries(this.answers).length; index++) {
-                    if (answers[index] === true && this.answers[index] === true) {
-                        truePositives += 1
-                        numTrueAnswers += 1
-                    }
-                    else if (answers[index] === true && this.answers[index] === false) {
-                        falsePositives += 1
-                    }
-                    else if (answers[index] === false && this.answers[index] === true) {
-                        falseNegatives += 1
-                        numTrueAnswers += 1
-                    }
-                    else {
-                        trueNegatives += 1
-                    }
-                }
-                if (this.type == "multiple choice")
-                    grade = truePositives
-                else {
-                    const positiveFraction = 1.00/(numTrueAnswers)
-                    grade = positiveFraction * truePositives - positiveFraction * falsePositives
-                    if (grade < 0) {
-                        grade = 0
-                    }
-                }
-                break
-        }
-        return Math.round((grade + Number.EPSILON) * 100) / 100
-    }
-
     return Question
 }
 

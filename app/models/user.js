@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const moment = require('moment')
 const saltRounds = parseInt(process.env.SALT_ROUNDS, 10) || 8
 const mailer = require('../../lib/mailer')
+const { generateOTP } = require('../../lib/auth')
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
@@ -151,16 +152,12 @@ module.exports = (sequelize, DataTypes) => {
         return bcrypt.compareSync(password, this.password)
     }
 
-    const generateEmailConfirmation = (user) => {
-        user.emailConfirmationCode = generateOTP(6)
+    User.prototype.generateEmailConfirmation = async function () {
+        this.emailConfirmationCode = generateOTP(6)
         // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
         // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
-        user.emailConfirmationExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
-        mailer.confirmation(user)
-    }
-
-    User.prototype.generateEmailConfirmation = async function () {
-        generateEmailConfirmation(this)
+        this.emailConfirmationExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        mailer.confirmation(this)
         await this.save()
         return this.emailConfirmationCode
     }
@@ -169,25 +166,21 @@ module.exports = (sequelize, DataTypes) => {
         return !moment().utc().isBefore(moment(this.emailConfirmationExpiresAt))
     }
 
-    User.prototype.validateEmailConfirmation = function (code) {
+    User.prototype.validateEmailConfirmation = async function (code) {
         this.emailConfirmed = code == this.emailConfirmationCode
+        await this.save()
         return this.emailConfirmed
     }
 
-    const generatePasswordReset = function (user) {
-        user.passwordResetCode = generateOTP(6)
+    User.prototype.generatePasswordReset = async function () {
+        this.passwordResetCode = generateOTP(6)
         // because we are using DATE in sequelize (DATETIME in MYSQL), we convert to UTC timezone for standardized storage & comparisons
         // MySQL documentation here: https://dev.mysql.com/doc/refman/8.0/en/datetime.html
-        user.passwordResetExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
-        user.passwordResetInitiated = true
-        mailer.passwordReset(user)
-        return user.passwordResetCode
-    }
-
-    User.prototype.generatePasswordReset = async function () {
-        const resetCode = generatePasswordReset(this)
+        this.passwordResetExpiresAt = moment().add(5, 'm').utc().format("YYYY-MM-DD HH:mm:ss") // set expiration to NOW + 5 minutes
+        this.passwordResetInitiated = true
+        mailer.passwordReset(this)
         await this.save()
-        return resetCode
+        return this.passwordResetCode
     }
 
     User.prototype.resetPassword = async function (password) {
@@ -200,70 +193,11 @@ module.exports = (sequelize, DataTypes) => {
         return !now.isBefore(expiration)
     }
 
-    User.prototype.validatePasswordReset = function (code) {
+    User.prototype.validatePasswordReset = async function (code) {
         const passwordReset = code == this.passwordResetCode
         this.passwordResetInitiated = !passwordReset
-        return passwordReset
-    }
-
-    /*
-        Different integers are associated with different statuses of logging in the user
-
-        0: success
-        -1: invalid password
-        -2: invalid password. Password reset because 3rd failure in a row
-        -3: account is locked from too many login failures
-        1: waiting on a password reset - no login failures. User can still login here but track this status for frontend
-        2: waiting on email confirmation. User can still login here but track this status for frontend 
-    */
-    const login = (user, password) => {
-        if (user.failedLoginAttempts < 3){
-            if (user.validatePassword(password)) {
-                user.lastLogin = moment().utc().format("YYYY-MM-DD HH:mm:ss")
-                user.failedLoginAttempts = 0
-                if (user.emailConfirmed) {
-                    if (user.passwordResetInitiated) {
-                        return 1
-                    }
-                    else {
-                        return 0
-                    }
-                }
-                else {
-                    return 2
-                }
-            }
-            else {
-                user.failedLoginAttempts = user.failedLoginAttempts + 1
-                if (user.failedLoginAttempts == 3) {
-                    user.generatePasswordReset()
-                    return -2
-                }
-                else {
-                    return -1
-                }
-            }
-        }
-        else {
-            return -3
-        }
-    }
-
-    User.prototype.login = async function (password) {
-        const loginStatus = login(this, password)
         await this.save()
-        return loginStatus
-    }
-
-    // generates a one time password of length and containing digits 0-9 & all lowercase letters in the English alphabet
-    const generateOTP = (length) => {
-        const digits = '0123456789abcdefghijklmnopqrstuvwxyz'
-        var otp = ''
-        for(let i = 1; i <= length; i++) {
-            var index = Math.floor(Math.random()*(digits.length))
-            otp = otp + digits[index]
-        }
-        return otp;
+        return passwordReset
     }
 
     return User

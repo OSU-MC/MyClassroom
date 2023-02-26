@@ -1,5 +1,5 @@
 const db = require('../../../app/models')
-const usersService = require('../../../app/services/users_service')
+const UserService = require('../../../app/services/user_service')
 
 describe('Users Service', () => {
 
@@ -18,11 +18,11 @@ describe('Users Service', () => {
 
     describe('validateUserCreationRequest', () => {
         it('should return an empty array when all required fields are present', () => {
-            expect(usersService.validateUserCreationRequest({...incompleteRequestBody, ...missingRequestFields}).length).toEqual(0)
+            expect(UserService.validateUserCreationRequest({...incompleteRequestBody, ...missingRequestFields}).length).toEqual(0)
         })
 
         it ('should return an array with the missingRequestFields keys', () => {
-            const missingFields = usersService.validateUserCreationRequest(incompleteRequestBody)
+            const missingFields = UserService.validateUserCreationRequest(incompleteRequestBody)
             const missingRequestFieldsKeys = Object.keys(missingRequestFields)
             expect(missingFields.length).toEqual(missingRequestFieldsKeys.length)
             expect(missingFields).toEqual(missingRequestFieldsKeys)
@@ -31,7 +31,7 @@ describe('Users Service', () => {
     
     describe('extractUserCreationFields', () => {
         it('should extract only the needed parameters to create a user', () => {
-            const extractedFields = usersService.extractUserCreationFields({...completeCreationFields, ...missingRequestFields})
+            const extractedFields = UserService.extractUserCreationFields({...completeCreationFields, ...missingRequestFields})
             expect(Object.keys(extractedFields).length).toEqual(Object.keys(completeCreationFields).length)
             expect(extractedFields).toEqual(completeCreationFields)
         })
@@ -46,7 +46,7 @@ describe('Users Service', () => {
         })
 
         it ('should return the firstName, lastName, and email of the user', () => {
-            expect(usersService.filterUserFields(user)).toEqual({
+            expect(UserService.filterUserFields(user)).toEqual({
                 id: user.id,
                 firstName: "Memer",
                 lastName: "Magic",
@@ -57,5 +57,9 @@ describe('Users Service', () => {
         afterEach(async () => {
             await user.destroy()
         })
+    })
+
+    describe('login', () => {
+        //TODO: add tests on this specific method
     })
 })
