@@ -6,6 +6,7 @@ const api = require('./api')
 app.use(express.json())
 app.use(express.static('public'))
 app.use(morganMiddleware)
+app.use(require('./api/index'))
 
 /*
  * All routes for the API are written in modules in the api/ directory.  The
