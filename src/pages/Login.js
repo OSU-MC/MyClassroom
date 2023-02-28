@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Dropdown, NavLink, Button } from 'react-bootstrap'
 import photo1 from './photos/logo.jpg'
 import Image from 'react-bootstrap/Image'
+import apiUtil from '../utils/apiUtil'
 //import { Ls } from "dayjs";
 //import { Route } from "react-router-dom/cjs/react-router-dom.min";
 
 
 export default function Login(props) {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(false);
@@ -69,46 +71,41 @@ export default function Login(props) {
 
 
   async function authenticateUser(user){
-    let userDB = {};
-    try{
-        const response = await fetch(
-            ("http://localhost:3001/api/" + user.userType + "/") ,
-            {signal: controller.signal}
-
-        );
-        userDB = await response.json();
+    let respBody = {}
+    let response = {}
+    console.log(user)
+    try {
+        response = await apiUtil('post', 'users/login', user)
+        //respBody = await response.json()
     } catch (e) {
         if (e instanceof DOMException) {
           console.log("== HTTP request cancelled")
         } else {
-          throw e;
+          console.log(e)
+          throw e
         }
       }
-
-      if (user.userType == 'student') {
-        console.log(userDB);  
-        studentAuth(userDB);
-      }
-      else if(user.userType=='instructor'){
-        console.log(userDB);
-        instructorAuth(userDB);
-      }
-      else{
-        console.log("Invalid user type")
-      }
+    if (response.status === 200) {
+      console.log(response)
+      setLoginStatus(true)
+      navigate('/landing')
+    }
+    else {
+      setHideBtn(true)
+      setBadCredentials(true)
+      setSuccess(false)
+    }
 }
 
 
 
-function handleSubmit(type) {
+function handleSubmit() {
 
   event.preventDefault();
 
   const user = {
-    userType: type,
     email: email,
-    password: password,
-
+    rawPassword: password,
   }
   authenticateUser(user);
 }
@@ -150,28 +147,13 @@ function handleSubmit(type) {
           hideBtn &&
           <>
           <br></br>
-        <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic" type="button" disabled={!validateForm()}>
-        Login
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Button onClick={() => {handleSubmit("instructor"); setHideBtn(false); setBadCredentials(false); setSuccess(true)}}>
-            Login as Instructor
+          <Button onClick={() => {handleSubmit(); setHideBtn(false); setBadCredentials(false); setSuccess(true)}}>
+            Login
           </Button>
-          <Button onClick={() => {handleSubmit("student"); setHideBtn(false); setBadCredentials(false); setSuccess(true)}}>
-            Login as Student
-          </Button>
-            </Dropdown.Menu>
-        </Dropdown>
       </>
         }
         </Form>
       </Container>
-      {loginStatus &&
-      <div className="loginContainer">
-      <Link to={"/" + userType + "/landing"} className="loginBtn"> Login  </Link>
-      </div>
-      }
       { badCredentials && 
       <div>
         <h5 className="badRequest"> Invalid username or password. </h5>
