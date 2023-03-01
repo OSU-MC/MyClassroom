@@ -7,7 +7,7 @@ import SiteNavbar from './components/SiteNavbar';
 import Signup from './pages/Signup';
 import StudentLandingPage from './pages/StudentLandingPage';
 import SideNavbar from './components/SideNavbar_Teacher';
-import Instructor_Profile from './pages/Profile';
+import Profile from './pages/Profile';
 import Sidebar from './components/Sidebar';
 import MainPage from './pages/MainPage';
 

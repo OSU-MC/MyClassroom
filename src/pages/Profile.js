@@ -1,20 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Container, ListGroup, Button } from "react-bootstrap"
-import instructorData from './data/InstructorProfileData.json'
 import './pages.css'
+import apiUtil from '../utils/apiUtil'
 
-function Instructor_Profile(props) {
-
-    const [ firstName, setFirstName] = useState(instructorData[0].first_name);
-    const [ lastName, setLastName] = useState(instructorData[0].last_name);
-    const [ phone, setPhone] = useState(instructorData[0].phone);
-    const [ department, setDepartment] = useState(instructorData[0].department);
+function Profile(props) {
+    // TODO: add password change fields: oldPassword, newPassword, confirmedPassword
+    // TODO: add update functionality when clicking "Save"
+    // TODO: create error handling functionality
+    const userId = localStorage.getItem("id") // TODO: store in Redux
+    const [ firstName, setFirstName] = useState("");
+    const [ lastName, setLastName] = useState("");
+    const [ email, setEmail] = useState("");
     const [ editToggle, setEditToggle ] = useState(false);
 
-    console.log(editToggle)
+    useEffect(() => {
+        const getUserInfo = async () => {
+            const resp = await apiUtil('get', `/users/${userId}`)
+            if (resp.status === 200) {
+                // TODO: create a handler to set the state's values and the store's values
+                setFirstName(resp.data.user.firstName)
+                setLastName(resp.data.user.lastName)
+                setEmail(resp.data.user.email)
+            }
+            else {
+                console.log(resp.data.error)
+            }
+        }
+        getUserInfo()
+    }, [])
 
     // Doesn't resize well, need to make sure and fix that!
-    // Profile setup for Instructor
     if(editToggle){
         return (
             <Container className='profileInfo'>
@@ -31,13 +46,8 @@ function Instructor_Profile(props) {
 
                         <ListGroup.Item className='profileRow'>
                             {/* Need to add validation for these to be numbers, add dashed automatically? */}
-                            <Col xs={3}> <b>Phone Number:</b> </Col> <Col><input type='text' value={phone} onChange={(event)=> {
-                        setPhone(event.target.value)}}></input></Col>
-                        </ListGroup.Item>
-
-                        <ListGroup.Item className='profileRow'>
-                            <Col xs={3}> <b>Department:</b> </Col> <Col><input type='text' value={department} onChange={(event)=> {
-                        setDepartment(event.target.value)}}></input></Col>
+                            <Col xs={3}> <b>Email:</b> </Col> <Col><input type='text' value={email} onChange={(event)=> {
+                        setEmail(event.target.value)}}></input></Col>
                         </ListGroup.Item>
 
                         <Col xs={1} className='profileButton'> <Button onClick={() => setEditToggle(!editToggle)}>{editToggle ? "Save" : "Edit"}</Button> </Col>
@@ -50,7 +60,7 @@ function Instructor_Profile(props) {
             <Container className='profileInfo'>
                     <ListGroup className='tester'>
                         <ListGroup.Item className='profileRow'>
-                            <Col xs={3}> <b>First Name:</b> </Col> <Col><span>{firstName}</span></Col>     
+                            <Col xs={3}> <b>First Name:</b> </Col> <Col><span>{firstName}</span></Col>
                         </ListGroup.Item>
 
                         <ListGroup.Item className='profileRow'>
@@ -58,11 +68,7 @@ function Instructor_Profile(props) {
                         </ListGroup.Item>
 
                         <ListGroup.Item className='profileRow'>
-                            <Col xs={3}> <b>Phone Number:</b> </Col> <Col><span>{phone}</span></Col>
-                        </ListGroup.Item>
-
-                        <ListGroup.Item className='profileRow'>
-                            <Col xs={3}> <b>Department:</b> </Col> <Col><span>{department}</span></Col>
+                            <Col xs={3}> <b>Email:</b> </Col> <Col><span>{email}</span></Col>
                         </ListGroup.Item>
                         
                         <Col xs={1} className='profileButton'> <Button onClick={() => setEditToggle(!editToggle)}>{editToggle ? "Save" : "Edit"}</Button> </Col>
@@ -73,4 +79,4 @@ function Instructor_Profile(props) {
 
 }
 
-export default Instructor_Profile;
+export default Profile;
