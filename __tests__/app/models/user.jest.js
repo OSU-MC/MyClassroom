@@ -251,9 +251,8 @@ describe("User model", () => {
             expect(user.emailConfirmed).toEqual(false)
         })
 
-        it ("should correctly compute an expired confirmation", () => {
+        it ("should correctly compute an expired confirmation", async () => {
             user.emailConfirmationExpiresAt = moment().utc()
-            user.save
             expect(user.emailConfirmationExpired()).toBeTruthy()
         })
 

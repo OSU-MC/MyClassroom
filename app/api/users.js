@@ -4,7 +4,7 @@ const router = require('express').Router()
 const { UniqueConstraintError, ValidationError } = require('sequelize')
 const UserService = require('../services/user_service')
 const { serializeSequelizeErrors, serializeStringArray } = require('../../lib/string_helpers')
-const { generateUserAuthToken, requireAuthentication } = require('../../lib/auth')
+const { setUserAuthCookie, requireAuthentication, removeUserAuthCookie } = require('../../lib/auth')
 
 /*
   path: '/users
@@ -18,9 +18,9 @@ router.post('', async function (req, res, next) {
       if (req.body.rawPassword == req.body.confirmedPassword) {
         try {
           const user = await db.User.create(UserService.extractUserCreationFields(req.body))
+          await setUserAuthCookie(res, user)
           res.status(201).send({
-            user: UserService.filterUserFields(user),
-            token: generateUserAuthToken(user)
+            user: UserService.filterUserFields(user)
           })
         }
         catch (e) {
@@ -55,9 +55,9 @@ router.put('', async function (req, res, next) {
           if (req.body.rawPassword === req.body.confirmedPassword) {
             try {
               await user.resetPassword(req.body.rawPassword)
+              await setUserAuthCookie(res, user)
               res.status(200).send({
                 user: UserService.filterUserFields(user),
-                token: generateUserAuthToken(user)
               })
             }
             catch (e) {
@@ -135,9 +135,9 @@ router.post('/login', async function (req, res, next) {
             break
           default:
             if (loginStatus >= 0) {
+              await setUserAuthCookie(res, user)
               res.status(200).send({
                 user: UserService.filterUserFields(user),
-                token: generateUserAuthToken(user),
                 loginStatus: loginStatus
               })
             }
@@ -160,6 +160,14 @@ router.post('/login', async function (req, res, next) {
   path: 'users/:userId'
   scope: User authenticated as userId is requesting account information
 */
+
+router.get('/logout', requireAuthentication, async function (req, res, next) {
+  const user = await db.User.findByPk(req.payload.sub)
+  if (user != null) {
+    await removeUserAuthCookie(req, res)
+  }
+  res.status(204).send()
+})
 
 // GET 'users/:userId' authenticated as userId, requesting account information
 router.get('/:userId', requireAuthentication, async function (req, res, next) {

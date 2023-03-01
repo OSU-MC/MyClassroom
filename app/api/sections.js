@@ -1,10 +1,9 @@
 const { Router } = require('express')
 const router = Router()
-
 const db = require('../models/index')
 const { logger } = require('../../lib/logger')
 const sectionService = require('../services/section_service')
-const { requireAuthentication, generateOTP } = require('../../lib/auth')
+const { requireAuthentication } = require('../../lib/auth')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
 
 router.post('/:course_id/sections', requireAuthentication, async function (req, res) {

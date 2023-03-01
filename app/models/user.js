@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const moment = require('moment')
 const saltRounds = parseInt(process.env.SALT_ROUNDS, 10) || 8
 const mailer = require('../../lib/mailer')
-const { generateOTP } = require('../../lib/auth')
+const { generateOTP } = require('../../lib/password_gen')
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {

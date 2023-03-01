@@ -1,6 +1,6 @@
 'use strict'
 
-const { generateOTP } = require("../../lib/auth")
+const { generateOTP } = require('../../lib/password_gen')
 
 module.exports = (sequelize, DataTypes) => {
     const Section = sequelize.define('Section', {

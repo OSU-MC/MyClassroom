@@ -6,6 +6,7 @@
 
 - node: 16.13.0
 - npm: 9.1.2
+- mysql: 8.0.31
 
 ### Configuring Local Database
 
@@ -21,6 +22,11 @@ In the Command Line:
 4. Grant Permissions: `GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost';`
 5. Check Success: `SHOW DATABASES;`
 
+Once the database has been made in mysql, using sequelize command line tools, database migrations need to be run to create the database
+- To migrate forward: `npx sequelize-cli db:migrate`
+- To migrate backward: `npx sequelize-cli db:migrate:undo` - add `:all` to undo all the migrations instead of just 1
+To do this in the test environment, simply add `--env test` to the end of the command
+
 If having issues, refer to the MySQL Getting Started Guide: https://dev.mysql.com/doc/mysql-getting-started/en/
 
 If you need to reset your local dev or test databases, login to MySQL as the root user (step 1), and run `DROP DATABASE database_name;`. Then, rerun steps 3 and 4. 
@@ -29,7 +35,8 @@ If you need to reset your local dev or test databases, login to MySQL as the roo
 
 Copy the `.env.example` file into a `.env` file
 
-Configure the database environment variables to match the database name, user, and password used when setting up the databases for development and test
+- Configure the database environment variables to match the database name, user, and password used when setting up the databases for development and test
+- Set `CLIENT_URL` to the front end application URL
 
 ## Starting the Application
 
@@ -45,6 +52,12 @@ If you run into issues, ensure you have done the following:
 
 1. Created a local test database
 2. Properly instantiated all env variables for the test environment
+
+## Application Authentication & Session
+
+The application uses cookie-based authentication once a user session has been created (i.e. a user has logged in). A user's session will have a specific XSRF token value associated with it to protect against XSRF attacks. As such, the value of that token will be sent back as a cookie, and the application expects to recieve with each authenticated request a custom X-XSRF-TOKEN header with that value, along with the traditional authentication cookie _myclassroom_session which the application generated as part of initial session creation.
+
+A user's session is valid for a minimum of 4 hours, and as long as the user is active within 4 hours of last activity, the session can be valid for as long as 24 hours. In other words, users will be asked to login again after 4 hours of inactivity or 24 hours since they last provided their credentials.
 
 ## Configuring Services
 
