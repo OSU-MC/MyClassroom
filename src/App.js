@@ -24,13 +24,12 @@ function App() {
 
       <Routes>
         <Route path='/' element={<><Login setUser={setUserStatus}/></>} />
-        <Route path='/student/landing' element={<><SiteNavbar/><Sidebar data={studentSidebarData} /><MainPage view={"student"}/></>} />
-
+        <Route path='/student/landing' element={<><SiteNavbar/><Sidebar data={studentSidebarData} hideSideBar={true}/><MainPage view={"student"}/></>} />
 
         <Route path='/edit_profile' element={<><SiteNavbar view={userStatus}/><Sidebar data={instructorSidebarData} /><MainPage view={"edit"}/></>} />
         
         
-        <Route path='/instructor/landing' element={<><SiteNavbar/><Sidebar data={instructorSidebarData} /><MainPage view={"instructor"}/></>} />
+        <Route path='/instructor/landing' element={<><SiteNavbar/><Sidebar data={instructorSidebarData} hideSideBar={true}/><MainPage view={"instructor"}/></>} />
 
         <Route path='/student/gradebook/course/lecture/1' element={<><SiteNavbar/><Sidebar data={studentSidebarData} /><MainPage view={"studentLectureGrade"}/></>} />  
         <Route path='/student/landing/student_gradebook' element={<><SiteNavbar/><Sidebar data={studentSidebarData} /><MainPage view={"studentGradeBook"}/></>} />
@@ -54,7 +53,6 @@ function App() {
 
         
         <Route path='/student_live_lecture' element={<><SiteNavbar view={userStatus}/><Sidebar data={instructorSidebarData} /><MainPage view={"student_live_lecture"}/></>}></Route>
-
 
       </Routes>
 

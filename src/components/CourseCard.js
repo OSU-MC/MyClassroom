@@ -33,8 +33,8 @@ function CourseCard (props) {
             <Card.Header>Course: {props.CourseNumber}</Card.Header>
             <Card.Body>
               <Card.Text> Course Name: {props.CourseName}</Card.Text>
-              <Card.Text> Course CRN: {props.CourseCRN}</Card.Text>
-              <Card.Text> Course Instructor: {props.CourseInstructor}</Card.Text>
+              {/*<Card.Text> Course CRN: {props.CourseCRN}</Card.Text>
+              <Card.Text> Course Instructor: {props.CourseInstructor}</Card.Text>*/}
               {/* <Link to={props.view==="student" ? "/" : "/instructor/edit_course"}> */}
               
               
@@ -50,7 +50,7 @@ function CourseCard (props) {
 
 
 
-              <Button variant="primary" className="hideBtn">Hide</Button>
+              {/*<Button variant="primary" className="hideBtn">Hide</Button>*/}
               {props.view==="student" ?  <div></div> : <Link to={`/instructor/lectures/${props.CourseNumber}`}><Button className="hideBtn"> Go To Lectures</Button></Link>} 
 
             </Card.Body>
@@ -78,7 +78,7 @@ function CourseCard (props) {
                 </input></Card.Text>
 
 
-              <Card.Text> Course CRN: 
+              {/*<Card.Text> Course CRN: 
                 <input 
                   type='text' 
                   placeholder={props.CourseCRN}
@@ -96,7 +96,7 @@ function CourseCard (props) {
                   onChange={(event)=> {
                     setEditedInstructors(event.target.value)}}
                   >
-                </input></Card.Text>
+                  </input></Card.Text>*/}
 
 
               <Button 

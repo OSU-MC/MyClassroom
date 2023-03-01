@@ -9,7 +9,7 @@ function Instructor_Landing(props) {
     // Will implement ability to hide/show once we figure out best way to modify the
     // data in the JSON with backend team
     
-    const [showHidden, setShowHidden] = useState(false)
+    //const [showHidden, setShowHidden] = useState(false)
     const [courses, setCourses] = useState([])
     const [ editToggle, setEditToggle ] = useState(false)
     const [ editCourse, setEditCourse ] = useState(false)
@@ -46,7 +46,7 @@ function Instructor_Landing(props) {
                 <div className="bkgrnd">
                     <div className="buttons">
                     <Button variant="secondary">Add Course</Button>{' '}
-                        <Button variant="secondary">Show Hidden Courses</Button>{' '}
+                        {/*<Button variant="secondary">Show Hidden Courses</Button>{' '}*/}
                     </div>
                         <div>
                         {
