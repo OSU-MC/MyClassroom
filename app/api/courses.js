@@ -7,9 +7,7 @@ const sectionService = require('../services/section_service')
 const { requireAuthentication } = require('../../lib/auth')
 const string_helpers = require('../../lib/string_helpers')
 
-router.use('/', require('./sections'))
-
-//GET request from /courses homepage
+// GET request from /courses homepage
 router.get('/', requireAuthentication, async function (req, res) {
     const user = await db.User.findByPk(req.payload.sub) // find user by ID, which is stored in sub
     const teacherCourses = await db.Course.findAll({
@@ -180,5 +178,7 @@ router.delete('/:course_id', requireAuthentication, async function (req, res) {
 })
 
 router.use('/:course_id/lectures', require('./lectures'))
+router.use('/:course_id/enrollments', require('./enrollments'))
+router.use('/', require('./sections'))
 
 module.exports = router
