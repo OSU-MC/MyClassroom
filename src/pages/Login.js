@@ -1,114 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Dropdown, NavLink, Button } from 'react-bootstrap'
-import photo1 from './photos/logo.jpg'
-import Image from 'react-bootstrap/Image'
-//import { Ls } from "dayjs";
-//import { Route } from "react-router-dom/cjs/react-router-dom.min";
-
+import apiUtil from '../utils/apiUtil'
 
 export default function Login(props) {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState(false);
   const [hideBtn, setHideBtn] = useState(true);
-  const [userType, setUserType] = useState("")
   const [badCredentials, setBadCredentials] = useState(false)
   const [success, setSuccess] = useState(false)
-  const controller = new AbortController();
 
-
+  // TODO: expand this validation & use it
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
 
-  function studentAuth(userDB){
-    setUserType("student");
-    for(var i=0; i < userDB.count; i++){
-      if(userDB.results[i].email == email && userDB.results[i].password == password){
-        props.setUser("student");
-        localStorage.setItem("id", JSON.stringify(userDB.results[i].id));
-        localStorage.setItem("firstname", JSON.stringify(userDB.results[i].firstname));
-        localStorage.setItem("lastname", JSON.stringify(userDB.results[i].lastname));
-        localStorage.setItem("user", JSON.stringify(userDB.results[i].user));
-        localStorage.setItem("enrolled_course", JSON.stringify(userDB.results[i].enrolled_course));
-        setLoginStatus(true);
-        return;
-      }
-    }
-    setHideBtn(true)
-    setBadCredentials(true)
-    setSuccess(false)
-    // alert("Incorrect username or password");
-  }
-  
-  function instructorAuth(userDB){
-    setUserType("instructor");
-
-    for(var i=0; i < userDB.count; i++){
-      if(userDB.results[i].email == email && userDB.results[i].password == password){
-        props.setUser('instructor');
-        localStorage.setItem("id", JSON.stringify(userDB.results[i].id));
-        localStorage.setItem("firstname", JSON.stringify(userDB.results[i].firstname));
-        localStorage.setItem("lastname", JSON.stringify(userDB.results[i].lastname));
-        localStorage.setItem("user", JSON.stringify(userDB.results[i].user));
-        setLoginStatus(true);
-
-        console.log("valid login");
-
-        return;
-      }
-    }
-    setHideBtn(true)
-    setBadCredentials(true)
-    setSuccess(false)
-    //alert("Incorrect username or password");
-  }
-
-
-
+  // TODO: add some sort of loading symbol when waiting for a response
   async function authenticateUser(user){
-    let userDB = {};
-    try{
-        const response = await fetch(
-            ("http://localhost:3001/api/" + user.userType + "/") ,
-            {signal: controller.signal}
-
-        );
-        userDB = await response.json();
+    let response = {}
+    try {
+        response = await apiUtil('post', 'users/login', user)
     } catch (e) {
         if (e instanceof DOMException) {
           console.log("== HTTP request cancelled")
         } else {
-          throw e;
+          console.log(e)
+          throw e
         }
       }
-
-      if (user.userType == 'student') {
-        console.log(userDB);  
-        studentAuth(userDB);
-      }
-      else if(user.userType=='instructor'){
-        console.log(userDB);
-        instructorAuth(userDB);
-      }
-      else{
-        console.log("Invalid user type")
-      }
+    // TODO: add error handling on the request and display errors
+    // TODO: set Redux store values for the user
+    if (response.status === 200) {
+      setLoginStatus(true)
+      setSuccess(true)
+      localStorage.setItem("id", response.data.user.id) // TODO: change to stored in Redux
+      navigate('/landing')
+    }
+    else {
+      setHideBtn(true)
+      setBadCredentials(true)
+      setSuccess(false)
+    }
 }
 
 
 
-function handleSubmit(type) {
+function handleSubmit() {
 
   event.preventDefault();
 
   const user = {
-    userType: type,
     email: email,
-    password: password,
-
+    rawPassword: password,
   }
   authenticateUser(user);
 }
@@ -150,29 +96,15 @@ function handleSubmit(type) {
           hideBtn &&
           <>
           <br></br>
-        <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic" type="button" disabled={!validateForm()}>
-        Login
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Button onClick={() => {handleSubmit("instructor"); setHideBtn(false); setBadCredentials(false); setSuccess(true)}}>
-            Login as Instructor
+          <Button onClick={() => {handleSubmit(); setHideBtn(false); setBadCredentials(false); setSuccess(true)}}>
+            Login
           </Button>
-          <Button onClick={() => {handleSubmit("student"); setHideBtn(false); setBadCredentials(false); setSuccess(true)}}>
-            Login as Student
-          </Button>
-            </Dropdown.Menu>
-        </Dropdown>
       </>
         }
         </Form>
       </Container>
-      {loginStatus &&
-      <div className="loginContainer">
-      <Link to={"/" + userType + "/landing"} className="loginBtn"> Login  </Link>
-      </div>
-      }
-      { badCredentials && 
+      { //TODO: fix this so the error isn't just text rendered over the image
+        badCredentials && 
       <div>
         <h5 className="badRequest"> Invalid username or password. </h5>
       </div>

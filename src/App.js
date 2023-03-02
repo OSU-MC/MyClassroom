@@ -7,7 +7,7 @@ import SiteNavbar from './components/SiteNavbar';
 import Signup from './pages/Signup';
 import StudentLandingPage from './pages/StudentLandingPage';
 import SideNavbar from './components/SideNavbar_Teacher';
-import Instructor_Profile from './pages/Profile';
+import Profile from './pages/Profile';
 import Sidebar from './components/Sidebar';
 import MainPage from './pages/MainPage';
 
@@ -24,7 +24,8 @@ function App() {
 
       <Routes>
         <Route path='/' element={<><Login setUser={setUserStatus}/></>} />
-        <Route path='/student/landing' element={<><SiteNavbar/><Sidebar data={studentSidebarData} hideSideBar={true}/><MainPage view={"student"}/></>} />
+        <Route path='/student/landing' element={<><SiteNavbar/><Sidebar data={studentSidebarData} /><MainPage view={"student"}/></>} />
+
 
         <Route path='/edit_profile' element={<><SiteNavbar view={userStatus}/><Sidebar data={instructorSidebarData} /><MainPage view={"edit"}/></>} />
         
