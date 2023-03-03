@@ -1,18 +1,17 @@
-const { Router } = require('express')
-const router = Router()
+const router = require('express').Router({ mergeParams: true })
 const db = require('../models/index')
 const courseService = require('../services/course_service')
 const enrollmentService = require('../services/enrollment_service')
 const sectionService = require('../services/section_service')
 const { requireAuthentication } = require('../../lib/auth')
 const string_helpers = require('../../lib/string_helpers')
+const { logger } = require('../../lib/logger')
 
 // GET /courses/:course_id/enrollments
 // endpoint handles teacher getting a roster for a given course
 router.get('/', requireAuthentication, async function (req, res) {
     const user = await db.User.findByPk(req.payload.sub) // find user by ID, which is stored in sub
     const courseId = parseInt(req.params['course_id'])
-
     // we want to list the roster only if the user for the course is a teacher
     const enrollmentTeacher = await db.Enrollment.findOne({
         where: { 
@@ -87,25 +86,27 @@ router.put('/:enrollment_id', requireAuthentication, async function (req, res) {
     })
 
     if (enrollmentTeacher) {
-        if (req.body.number) { // the section number to change to
-            // make sure the section being updated to exists
+        if (req.body.sectionId) { // the section to change to
+            // make sure the section being updated to exists and is part of the correct course
             const sectionToUpdateTo = await db.Section.findOne({
                 where: {
                     courseId: courseId,
-                    number: req.body.number
+                    id: req.body.sectionId
                 }
             })
             if (sectionToUpdateTo) {
                 const enrollment = await db.Enrollment.findByPk(enrollmentId)
                 try {
                     await enrollment.update({
-                        sectionId: req.body.number
+                        sectionId: req.body.sectionId
                     })
                     res.status(200).send({
                         enrollment: enrollmentService.extractEnrollmentFields(enrollment)
                     })
                 } catch (e) {
-                    next(e) // catch anything weird that happens
+                    // next(e) // catch anything weird that happens
+                    logger.error(e)
+                    res.status(500).send({error: "msg"})
                 }
             } else {
                 res.status(400).send({error: 'Section number to update to does not exist'})

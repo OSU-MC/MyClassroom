@@ -55,7 +55,7 @@ describe('/courses endpoints', () => {
             firstName: 'TheUser',
             lastName: 'ItsMe',
             email: 'theuser@myclassroom.com',
-            rawPassword: 'Imtheuser'
+            rawPassword: 'Imtheuseryesthatsme'
         })
         user3Token = jwtUtils.encode({
             sub: user3.id
@@ -101,16 +101,67 @@ describe('/courses endpoints', () => {
     })
 
     it('should respond with 200 when a teacher gets their roster', async () => {
-        
         const resp = await request(app).get(`/courses/${course.id}/enrollments`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
         expect(resp.statusCode).toEqual(200)
         expect(resp.body.enrollments.length).toEqual(2)
-        expect(resp.body.enrollemnts[0].userId).toEqual(user2.id)
-        expect(resp.body.enrollemnts[0].role).toEqual('student')
-        expect(resp.body.enrollemnts[0].sectionId).toEqual(section.id)
-        expect(resp.body.enrollemnts[1].userId).toEqual(user3.id)
-        expect(resp.body.enrollemnts[1].role).toEqual('student')
-        expect(resp.body.enrollemnts[1].sectionId).toEqual(section2.id)
+        expect(resp.body.enrollments[0].userId).toEqual(user2.id)
+        expect(resp.body.enrollments[0].role).toEqual('student')
+        expect(resp.body.enrollments[0].sectionId).toEqual(section.id)
+        expect(resp.body.enrollments[1].userId).toEqual(user3.id)
+        expect(resp.body.enrollments[1].role).toEqual('student')
+        expect(resp.body.enrollments[1].sectionId).toEqual(section2.id)
+    })
+
+    it('should respond with 403 when a student tries to get the roster', async () => { 
+        const resp = await request(app).get(`/courses/${course.id}/enrollments`).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        expect(resp.statusCode).toEqual(403)
+    })
+
+    it('should respond with 200 when a teacher changes a student section', async () => {
+        const resp = await request(app).put(`/courses/${course.id}/enrollments/${enrollment3.id}`).send({
+            sectionId: section.id
+        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        expect(resp.statusCode).toEqual(200)
+        expect(resp.body.enrollment.userId).toEqual(user3.id)
+        expect(resp.body.enrollment.role).toEqual('student')
+        expect(resp.body.enrollment.sectionId).toEqual(section.id)
+    })
+
+    it('should respond with 403 when a student tries to change section', async () => {
+        const resp = await request(app).put(`/courses/${course.id}/enrollments/${enrollment3.id}`).send({
+            sectionId: section2.id
+        }).set('Cookie', user3Cookies).set('X-XSRF-TOKEN', user3XsrfCookie)
+        expect(resp.statusCode).toEqual(403)
+    })
+
+    it('should respond with 400 when a request does not contain a section number to switch to', async () => {
+        const resp = await request(app).put(`/courses/${course.id}/enrollments/${enrollment3.id}`).send({
+        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        expect(resp.statusCode).toEqual(400)
+    })
+
+    it('should respond with 400 when the section number to switch to does not exist', async () => {
+        const resp = await request(app).put(`/courses/${course.id}/enrollments/${enrollment3.id}`).send({
+            sectionId: 100000
+        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        expect(resp.statusCode).toEqual(400)
+    })
+
+    it('should respond with 204 when deleting an enrollment', async () => {
+        const resp = await request(app).delete(`/courses/${course.id}/enrollments/${enrollment3.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        expect(resp.statusCode).toEqual(204)
+
+        const respEnrollments = await request(app).get(`/courses/${course.id}/enrollments`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        expect(respEnrollments.statusCode).toEqual(200)
+        expect(respEnrollments.body.enrollments.length).toEqual(1)
+        expect(respEnrollments.body.enrollments[0].userId).toEqual(user2.id)
+        expect(respEnrollments.body.enrollments[0].role).toEqual('student')
+        expect(respEnrollments.body.enrollments[0].sectionId).toEqual(section.id)
+    })
+
+    it('should respond with 403 when a student tries deleting an enrollment', async () => {
+        const resp = await request(app).delete(`/courses/${course.id}/enrollments/${enrollment3.id}`).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        expect(resp.statusCode).toEqual(403)
     })
     
 
