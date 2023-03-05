@@ -20,19 +20,13 @@ module.exports = {
      "port": process.env.TEST_DB_PORT || 3306,
      "dialect": "mysql"
    },
-  // TODO: once these environments are setup, configure the sequelize connection with the right variables
-  // "staging": {
-  //   "username": "root",
-  //   "password": null,
-  //   "database": "database_staging",
-  //   "host": "127.0.0.1",
-  //   "dialect": "mysql"
-  // },
-  // "production": {
-  //   "username": "root",
-  //   "password": null,
-  //   "database": "database_production",
-  //   "host": "127.0.0.1",
-  //   "dialect": "mysql"
-  // }
+  "production": {
+    "username": process.env.RDS_USERNAME,
+    "password": process.env.RDS_PASSWORD,
+    "database": process.env.RDS_DB_NAME,
+    "host": process.env.RDS_HOSTNAME,
+    "dialect": "mysql",
+    "ssl": 'Amazon RDS',
+    "port": process.env.RDS_PORT || 3306
+  }
 }
