@@ -9,12 +9,15 @@ describe('/courses endpoints', () => {
     let user
     let user2
     let user3
+    let user4
     let course
+    let course2
     let section
     let section2
     let enrollment
     let enrollment2
     let enrollment3
+    let enrollment4
     let userXsrfCookie
     let userCookies
     let user2XsrfCookie
@@ -64,9 +67,28 @@ describe('/courses endpoints', () => {
         user3XsrfCookie = user3Session.csrfToken
         user3Cookies = [`_myclassroom_session=${user3Token}`]
 
+        user4 = await db.User.create({
+            firstName: 'HelloImauser',
+            lastName: 'yessir',
+            email: 'yessir@myclassroom.com',
+            rawPassword: 'youalreadyknowwhoitis'
+        })
+        user4Token = jwtUtils.encode({
+            sub: user4.id
+        })
+        const user4Session = await generateUserSession(user4)
+        user4XsrfCookie = user4Session.csrfToken
+        user4Cookies = [`_myclassroom_session=${user4Token}`]
+
         course = await db.Course.create({
             name: 'Testing Things 101',
             description: 'This will be a course about testing things, most notably in jest',
+            published: false
+        })
+
+        course2 = await db.Course.create({
+            name: 'Testing Things 102',
+            description: 'This will be a course about testing things, most notably in jest. This is part 2',
             published: false
         })
 
@@ -96,6 +118,12 @@ describe('/courses endpoints', () => {
             role: 'student',
             sectionId: section2.id,
             userId: user3.id
+        })
+
+        enrollment4 = await db.Enrollment.create({
+            role: 'teacher',
+            courseId: course2.id,
+            userId: user4.id
         })
 
     })
@@ -144,6 +172,11 @@ describe('/courses endpoints', () => {
         const resp = await request(app).put(`/courses/${course.id}/enrollments/${enrollment3.id}`).send({
             sectionId: 100000
         }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        expect(resp.statusCode).toEqual(400)
+    })
+
+    it('should respond with 400 when teacher for a different course tries to delete enrollment', async () => {
+        const resp = await request(app).delete(`/courses/${course2.id}/enrollments/${enrollment3.id}`).set('Cookie', user4Cookies).set('X-XSRF-TOKEN', user4XsrfCookie)
         expect(resp.statusCode).toEqual(400)
     })
 

@@ -1,10 +1,7 @@
 const router = require('express').Router({ mergeParams: true })
 const db = require('../models/index')
-const courseService = require('../services/course_service')
 const enrollmentService = require('../services/enrollment_service')
-const sectionService = require('../services/section_service')
 const { requireAuthentication } = require('../../lib/auth')
-const string_helpers = require('../../lib/string_helpers')
 const { logger } = require('../../lib/logger')
 
 // GET /courses/:course_id/enrollments
@@ -43,7 +40,7 @@ router.get('/', requireAuthentication, async function (req, res) {
 })
 
 // deletes a student from the course roster
-router.delete('/:enrollment_id', requireAuthentication, async function (req, res) {
+router.delete('/:enrollment_id', requireAuthentication, async function (req, res, next) {
     const user = await db.User.findByPk(req.payload.sub) // find user by ID, which is stored in sub
     const courseId = parseInt(req.params['course_id'])
     const enrollmentId = parseInt(req.params['enrollment_id'])
@@ -58,12 +55,28 @@ router.delete('/:enrollment_id', requireAuthentication, async function (req, res
     })
 
     if (enrollmentTeacher) {
-        const enrollment = await db.Enrollment.findByPk(enrollmentId)
-        try {
-            await enrollment.destroy()
-            res.status(204).send()
-        } catch {
-            next(e)
+        const course = await db.Course.findOne({
+            include: [{
+                model: db.Section,
+                required: true,
+                include: [
+                    {
+                        model: db.Enrollment,
+                        where: { id: enrollmentId }
+                    }
+                ]
+            }]
+        })
+        if (course.id === courseId) { // if enrollment is part of the correct course
+            const enrollment = await db.Enrollment.findByPk(enrollmentId)
+            try {
+                await enrollment.destroy()
+                res.status(204).send()
+            } catch {
+                next(e)
+            }
+        } else {
+            res.status(400).send({error: 'Cannot delete student from a section when they are not enrolled in the specified course'})
         }
     } else {
         res.status(403).send({error: `Only the teacher for a course can delete a student from the roster`})
@@ -71,7 +84,7 @@ router.delete('/:enrollment_id', requireAuthentication, async function (req, res
 })
 
 // changes the section of a student
-router.put('/:enrollment_id', requireAuthentication, async function (req, res) {
+router.put('/:enrollment_id', requireAuthentication, async function (req, res, next) {
     const user = await db.User.findByPk(req.payload.sub) // find user by ID, which is stored in sub
     const courseId = parseInt(req.params['course_id'])
     const enrollmentId = parseInt(req.params['enrollment_id'])
@@ -95,24 +108,38 @@ router.put('/:enrollment_id', requireAuthentication, async function (req, res) {
                 }
             })
             if (sectionToUpdateTo) {
-                const enrollment = await db.Enrollment.findByPk(enrollmentId)
-                try {
-                    await enrollment.update({
-                        sectionId: req.body.sectionId
-                    })
-                    res.status(200).send({
-                        enrollment: enrollmentService.extractEnrollmentFields(enrollment)
-                    })
-                } catch (e) {
-                    // next(e) // catch anything weird that happens
-                    logger.error(e)
-                    res.status(500).send({error: "msg"})
+                const course = await db.Course.findOne({
+                    include: [{
+                        model: db.Section,
+                        required: true,
+                        include: [
+                            {
+                                model: db.Enrollment,
+                                where: { id: enrollmentId }
+                            }
+                        ]
+                    }]
+                })
+                if (course.id === courseId) { // if enrollment is part of the correct course
+                    const enrollment = await db.Enrollment.findByPk(enrollmentId)
+                    try {
+                        await enrollment.update({
+                            sectionId: req.body.sectionId
+                        })
+                        res.status(200).send({
+                            enrollment: enrollmentService.extractEnrollmentFields(enrollment)
+                        })
+                    } catch (e) {
+                        next(e) // catch anything weird that happens
+                    }
+                } else {
+                    res.status(400).send({error: 'Cannot edit section for a student not enrolled in the specified course'})
                 }
             } else {
-                res.status(400).send({error: 'Section number to update to does not exist'})
+                res.status(400).send({error: 'Section to update to does not exist'})
             }
         } else {
-            res.status(400).send({error: 'Request must contain a "number" field to update section number to'})
+            res.status(400).send({error: 'Request must contain a "sectionId" field to update section number to'})
         }
         
     } else {

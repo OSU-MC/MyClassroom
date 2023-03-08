@@ -20,10 +20,11 @@ router.get('/', requireAuthentication, async function (req, res) {
         include: [
             {
                 model: db.Section,
+                required: true,
                 include: [
                     {
                         model: db.Enrollment,
-                        where: { role: 'student', userId: user.id },
+                        where: { role: 'student', userId: user.id }
                     }
                 ]
             }
