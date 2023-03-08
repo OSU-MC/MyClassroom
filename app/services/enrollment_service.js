@@ -22,3 +22,7 @@ exports.extractEnrollmentFields = (body) => {
 exports.validateEnrollmentCreationRequest = (body) => {
     return validateAgainstSchema(body, enrollmentInsertSchema)
 }
+
+exports.extractArrayEnrollmentFields = (enrollments) => {
+    return enrollments.map(enrollment => extractValidFields(enrollment, enrollmentInformationSchema))
+}

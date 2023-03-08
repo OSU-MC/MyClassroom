@@ -18,8 +18,7 @@ module.exports = {
 
     let section = await queryInterface.bulkInsert('Sections', [{
       courseId: course,
-      number: 0,
-      joinCode: 'xxxxxx'
+      number: 0
     }], {} )
 
     let teacher = await queryInterface.bulkInsert('Enrollments', [{
