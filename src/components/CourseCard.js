@@ -37,18 +37,18 @@ function CourseCard (props) {
               {/* <Link to={props.view==="student" ? "/" : "/instructor/edit_course"}> */}
               
               
-              {props.view==="student" ? <Link to={`/student_live_lecture`}><Button className="hideBtn"> Join Session</Button></Link> : <Button 
+              {/*{props.view==="student" ? <Link to={`/student_live_lecture`}><Button className="hideBtn"> Join Session</Button></Link> : <Button 
               variant="primary"
               className="joinBtn" 
               onClick={() => {
                 props.editToggle(true)
                 props.editCourse(props.CourseNumber)
               }}>
-                
-                {props.view==="student" ? "Join Session" : "Course Details"}</Button>}
+              
+              {props.view==="student" ?  <div></div> : <Button className="hideBtn">Go To Sections</Button>} */}
 
-              {/*TODO: ADD A LINK TO INSTRUCTOR SECTIONS*/}
-              {props.view==="student" ?  <div></div> : <Button className="hideBtn">Go To Sections</Button>} 
+              {props.view==="student" ? <Link to={`/studentSession`}><Button className="joinBtn">Join Session</Button></Link> : <div></div>}
+              {props.view==="student" ? <Link to={`/singleCourse`}><Button className="hideBtn">View Course</Button></Link> : <Link to={`/singleCourse`}><Button className="hideBtn">View Sections For Course</Button></Link>}
 
             </Card.Body>
           </Card>
