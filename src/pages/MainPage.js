@@ -3,6 +3,7 @@ import './pages.css'
 
 import Instructor_Landing from './Instructor_Landing';
 import StudentLandingPage from './StudentLandingPage';
+import InstructorStudentLanding from './InstructorStudentLanding';
 import Profile from './Profile';
 import StudentGradeforSingleLecture from './StudentGradeforSingleLecture';
 import StudentGradeBook from './StudentGradeBook';
@@ -23,13 +24,19 @@ function MainPage(props) {
 
     const [ data, setData ] = useState();
     
-   if(props.view === "instructor"){
+   /*if(props.view === "instructor"){
     return (
-        
         <div className='mainPageBody'>
             <Instructor_Landing setData={setData}/>
         </div>
         );
+    }*/
+    if(props.view == "landing"){
+        return (
+            <div className='mainPageBody'>
+                <InstructorStudentLanding setData={setData}/>
+            </div>
+        )
     }
     else if(props.view === "edit"){
         return (
@@ -39,22 +46,22 @@ function MainPage(props) {
             </div>
         );
     }
-   else if(props.view === "studentLectureGrade"){
+   /*else if(props.view === "studentLectureGrade"){
         return (
         
         <div className='mainPageBody'>
             <StudentGradeforSingleLecture />
         </div>
         );
-    }
-    else if(props.view === "studentGradeBook"){
+    }*/
+    /*else if(props.view === "studentGradeBook"){
         return (
         
         <div className='mainPageBody'>
             <StudentGradeBook />
         </div>
         );
-    }
+    }*/
    else if(props.view === "edit_course"){
        console.log(data)
         return(
@@ -64,13 +71,13 @@ function MainPage(props) {
         );
     }
    
-   else if(props.view === "instructor_calendar"){
+   /*else if(props.view === "instructor_calendar"){
     return(
         <div className='mainPageBody'>
             <Instructor_Calendar />
         </div>
     )
-   }
+   }*/
    else if(props.view ==="student"){
        return (
            
@@ -79,14 +86,14 @@ function MainPage(props) {
            </div>
        );
    }
-   else if(props.view ==="instructor_roster"){
+   /*else if(props.view ==="instructor_roster"){
        return (
            
            <div className='mainPageBody'>
                <InstructorRoster />
            </div>
        );
-   }
+   }*/
    else if(props.view =="instructor_questions"){
     return (
         <div className='mainPageBody'>

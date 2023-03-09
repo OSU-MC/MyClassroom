@@ -7,8 +7,8 @@ function CourseCard (props) {
 
   //variable declarations, using hookstates to initilize
   const [ editedName, setEditedName ] = useState(props.CourseName)
-  const [ editedCRN, setEditedCRN ] = useState(props.CourseCRN)
-  const [ editedInstructors, setEditedInstructors ] = useState(props.CourseInstructor)
+  //const [ editedCRN, setEditedCRN ] = useState(props.CourseCRN)
+  //const [ editedInstructors, setEditedInstructors ] = useState(props.CourseInstructor)
   const [ editedCourse, setEditedCourse ] = useState({})
   const [ saveChanges, setSaveChanges ] = useState(true)
 
@@ -30,9 +30,8 @@ function CourseCard (props) {
           //Using Card imported from React
           <div> 
             <Card>
-            <Card.Header>Course: {props.CourseNumber}</Card.Header>
+            <Card.Header>Course Name: {props.CourseName}</Card.Header>
             <Card.Body>
-              <Card.Text> Course Name: {props.CourseName}</Card.Text>
               {/*<Card.Text> Course CRN: {props.CourseCRN}</Card.Text>
               <Card.Text> Course Instructor: {props.CourseInstructor}</Card.Text>*/}
               {/* <Link to={props.view==="student" ? "/" : "/instructor/edit_course"}> */}
@@ -48,10 +47,8 @@ function CourseCard (props) {
                 
                 {props.view==="student" ? "Join Session" : "Course Details"}</Button>}
 
-
-
-              {/*<Button variant="primary" className="hideBtn">Hide</Button>*/}
-              {props.view==="student" ?  <div></div> : <Link to={`/instructor/lectures/${props.CourseNumber}`}><Button className="hideBtn"> Go To Lectures</Button></Link>} 
+              {/*TODO: ADD A LINK TO INSTRUCTOR SECTIONS*/}
+              {props.view==="student" ?  <div></div> : <Button className="hideBtn">Go To Sections</Button>} 
 
             </Card.Body>
           </Card>
@@ -109,9 +106,9 @@ function CourseCard (props) {
                   id : props.CourseNumber,
                   course_name : editedName,
                   crn : editedCRN,
-                  course_instructor : [
-                    editedInstructors
-                  ]
+                  //course_instructor : [
+                  //</Card.Body>  editedInstructors
+                  //]
             
                 })
                 props.editCourse(props.CourseNumber)
@@ -133,6 +130,7 @@ function CourseCard (props) {
     )
   }
   else{
+    console.log("shouldn't be here")
     return(
       <></>
     )
