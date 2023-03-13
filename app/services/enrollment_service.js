@@ -1,4 +1,5 @@
 const { extractValidFields, validateAgainstSchema } = require('../../lib/validator')
+const db = require('../models/index')
 
 const enrollmentInformationSchema = {
     id: {required: true},
@@ -21,6 +22,16 @@ exports.extractEnrollmentFields = (body) => {
 
 exports.validateEnrollmentCreationRequest = (body) => {
     return validateAgainstSchema(body, enrollmentInsertSchema)
+}
+
+exports.checkIfTeacher = async (userId, courseId) => {
+    return await db.Enrollment.findOne({
+        where: { 
+            userId: userId,
+            courseId: courseId,
+            role: 'teacher'
+        }
+    })
 }
 
 exports.extractArrayEnrollmentFields = (enrollments) => {
