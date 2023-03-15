@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Container, ListGroup, Button } from "react-bootstrap"
 import './pages.css'
 import apiUtil from '../utils/apiUtil'
+import { getUserState } from '../redux/selectors'
+import { useSelector } from 'react-redux';
 
 function Profile(props) {
     // TODO: add password change fields: oldPassword, newPassword, confirmedPassword
     // TODO: add update functionality when clicking "Save"
     // TODO: create error handling functionality
-    const userId = localStorage.getItem("id") // TODO: store in Redux
+    const userState = useSelector(getUserState)
     const [ firstName, setFirstName] = useState("");
     const [ lastName, setLastName] = useState("");
     const [ email, setEmail] = useState("");
@@ -15,7 +17,7 @@ function Profile(props) {
 
     useEffect(() => {
         const getUserInfo = async () => {
-            const resp = await apiUtil('get', `/users/${userId}`)
+            const resp = await apiUtil('get', `/users/${userState.user.id}`)
             if (resp.status === 200) {
                 // TODO: create a handler to set the state's values and the store's values
                 setFirstName(resp.data.user.firstName)
