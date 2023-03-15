@@ -3,12 +3,18 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Dropdown, NavLink, Button } from 'react-bootstrap'
 import apiUtil from '../utils/apiUtil'
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/actions';
 
 export default function Login(props) {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  //form fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginStatus, setLoginStatus] = useState(false);
+
+  // TOOD: figure out what these do and what needs to change
   const [hideBtn, setHideBtn] = useState(true);
   const [badCredentials, setBadCredentials] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -32,11 +38,9 @@ export default function Login(props) {
         }
       }
     // TODO: add error handling on the request and display errors
-    // TODO: set Redux store values for the user
     if (response.status === 200) {
-      setLoginStatus(true)
       setSuccess(true)
-      localStorage.setItem("id", response.data.user.id) // TODO: change to stored in Redux
+      dispatch(login(response.data.user, response.data.loginStatus))
       navigate('/landing')
     }
     else {

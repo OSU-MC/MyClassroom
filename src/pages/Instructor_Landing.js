@@ -4,14 +4,16 @@ import CourseCard from '../components/CourseCard'
 import { Button, Card } from "react-bootstrap"
 import courseData from "./data/courseData.json"
 import apiUtil from '../utils/apiUtil'
+import { useDispatch } from 'react-redux';
+import { setCourses } from '../redux/actions';
 
 function Instructor_Landing(props) {
+    const dispatch = useDispatch()
 
     // Will implement ability to hide/show once we figure out best way to modify the
     // data in the JSON with backend team
     
-    const [showHidden, setShowHidden] = useState(false)
-    const [courses, setCourses] = useState([])
+    const [ showHidden, setShowHidden] = useState(false)
     const [ editToggle, setEditToggle ] = useState(false)
     const [ editCourse, setEditCourse ] = useState(false)
 
@@ -19,10 +21,12 @@ function Instructor_Landing(props) {
 
     useEffect( () => {
             async function populateCourses(){
-                let courseBody={};
                 try{
                     const response = await apiUtil("get", "courses/");
-                    courseBody = await response.json();
+                    if (response.status === 200) {
+                        console.log(response.data)
+                        dispatch(setCourses(response.data.studentCourses, response.data.teacherCourses))
+                    }
                 } catch (e) {
                     if (e instanceof DOMException) {
                       console.log("== HTTP request cancelled")
@@ -30,11 +34,8 @@ function Instructor_Landing(props) {
                       throw e;
                     }
                   }
-                  console.log(courseBody)
-                setCourses(courseBody)
             }
             populateCourses()
-
         }, [])
         
         if(!editToggle){
