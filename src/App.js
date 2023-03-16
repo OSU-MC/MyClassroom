@@ -19,7 +19,6 @@ import { Navigate, Outlet } from 'react-router-dom';
 function App() {
 
   const loggedIn = useAuth()
-  console.log(loggedIn)
 
   return (
     <>
@@ -30,7 +29,7 @@ function App() {
             - login
             - password reset
           */}
-        <Route element={(loggedIn) ? <Navigate to='/'/> : <><Outlet/></>}>
+        <Route element={ loggedIn ? <Navigate to='/'/> : <><Outlet/></>}>
           <Route path='/login' element={ <Login/> } />
           <Route path='/create' element={ < Signup /> } /> {/* redirects to landing page if a user is logged in already */}
           <Route path='/reset' element={ < ResetPassword /> } /> {/* redirects to landing page if a user is logged in already */}
