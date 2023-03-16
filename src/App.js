@@ -1,29 +1,53 @@
-import { useState } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
+
+/*
+  Page Imports
+*/
 import Login from './pages/Login'
-import Instructor_Landing from './pages/Instructor_Landing';
-import SiteNavbar from './components/SiteNavbar';
-import Signup from './pages/Signup';
-import StudentLandingPage from './pages/StudentLandingPage';
-import SideNavbar from './components/SideNavbar_Teacher';
 import Profile from './pages/Profile';
-import Sidebar from './components/Sidebar';
-import MainPage from './pages/MainPage';
+import Signup from './pages/Signup'
+import ResetPassword from './pages/ResetPassword'
+import Confirm from './pages/Confirm'
+import Landing from './pages/Landing'
+import Course from './pages/Course'
 
-import { instructorSidebarData, studentSidebarData} from './components/sidebarData'
+import Navigation from './components/nav/Navigation'
 
+import { useSelector } from 'react-redux'
+import { getUserState } from './redux/selectors'
+import { Navigate, Outlet } from 'react-router-dom';
 
 function App() {
 
-  const [userStatus, setUserStatus] = useState();
-  
+  const user = useSelector(getUserState)
 
   return (
     <>
 
       <Routes>
-        <Route path='/' element={<><Login setUser={setUserStatus}/></>} />
+        {/* There are only 3 accessible pages for users who are not logged in:
+            - create account
+            - login
+            - password reset
+          */}
+        <Route element={(user.status != null && user.status >= 0) ? <Navigate to='/'/> : <><Outlet/></>}>
+          <Route path='/login' element={ <Login/> } />
+          <Route path='/create' element={ < Signup /> } /> {/* redirects to landing page if a user is logged in already */}
+          <Route path='/reset' element={ < ResetPassword /> } /> {/* redirects to landing page if a user is logged in already */}
+        </Route>
+
+        { /* All routes below require a user be loggied in */}
+        <Route element={ <Navigation></Navigation> }>
+          <Route path='/' element= {<Landing/> }/>
+          <Route path='/profile' element={ <Profile /> } />
+          <Route path='/confirm' element={ <Confirm /> } />
+          <Route path='/:courseId' element={ <Course /> } >
+            {/* TODO: the remainder of the nested routes should go here */}
+          </Route>
+        </Route>
+
+        {/* <Route path='/' element={<><Login setUser={setUserStatus}/></>} />
         <Route path='/landing' element={<><SiteNavbar/><Sidebar data={studentSidebarData} /><MainPage view={"student"}/></>} />
 
 
@@ -53,7 +77,7 @@ function App() {
 
 
         
-        <Route path='/student_live_lecture' element={<><SiteNavbar view={userStatus}/><Sidebar data={instructorSidebarData} /><MainPage view={"student_live_lecture"}/></>}></Route>
+        <Route path='/student_live_lecture' element={<><SiteNavbar view={userStatus}/><Sidebar data={instructorSidebarData} /><MainPage view={"student_live_lecture"}/></>}></Route> */}
 
 
       </Routes>

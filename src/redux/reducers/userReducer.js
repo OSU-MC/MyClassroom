@@ -2,7 +2,7 @@ const { LOGIN, LOGOUT, SET_USER } = require('../actions')
 
 const emptyState = {
     user: {},
-    status: null
+    status: "" // contains a message for the user (if there is one necessary) to notify the user of some action needed on their account
 }
 
 function userReducer(state = emptyState, action) {

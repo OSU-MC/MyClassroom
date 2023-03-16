@@ -1,23 +1,20 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Dropdown, NavLink, Button } from 'react-bootstrap'
 import apiUtil from '../utils/apiUtil'
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/actions';
+import Notice from '../components/Notice'
 
 export default function Login(props) {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   //form fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // TOOD: figure out what these do and what needs to change
-  const [hideBtn, setHideBtn] = useState(true);
-  const [badCredentials, setBadCredentials] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
   // TODO: expand this validation & use it
   function validateForm() {
@@ -30,32 +27,21 @@ export default function Login(props) {
     try {
         response = await apiUtil('post', 'users/login', user)
     } catch (e) {
-        if (e instanceof DOMException) {
-          console.log("== HTTP request cancelled")
-        } else {
-          console.log(e)
-          throw e
-        }
+        console.log(e)
+        setError(e.response.data.error)
       }
-    // TODO: add error handling on the request and display errors
+    setLoading(false)
     if (response.status === 200) {
-      setSuccess(true)
-      dispatch(login(response.data.user, response.data.loginStatus))
-      navigate('/landing')
-    }
-    else {
-      setHideBtn(true)
-      setBadCredentials(true)
-      setSuccess(false)
-    }
+      dispatch(login(response.data.user, response.data.status))
+      // Redirect is automatic because the way the routing is set up
+    }    
 }
 
 
 
 function handleSubmit() {
-
   event.preventDefault();
-
+  setLoading(true)
   const user = {
     email: email,
     rawPassword: password,
@@ -96,28 +82,15 @@ function handleSubmit() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        {
-          hideBtn &&
-          <>
           <br></br>
-          <Button onClick={() => {handleSubmit(); setHideBtn(false); setBadCredentials(false); setSuccess(true)}}>
+          { !loading && <Button onClick={() => {handleSubmit()}}>
             Login
-          </Button>
-      </>
-        }
+          </Button> }
         </Form>
+          {
+            error != "" && <Notice error={true} message={error}/>
+          }
       </Container>
-      { //TODO: fix this so the error isn't just text rendered over the image
-        badCredentials && 
-      <div>
-        <h5 className="badRequest"> Invalid username or password. </h5>
-      </div>
-      }
-      { success && 
-      <div>
-        <h5 className="successRequest"> Success! </h5>
-      </div>
-      }
     </div>
     
   );

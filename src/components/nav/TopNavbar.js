@@ -5,18 +5,18 @@ import { Link } from 'react-router-dom';
 import './components.css'
 
 //NavBar for the whole website.
-function SiteNavbar(props) {
+function TopNavbar(props) {
     return (
         <div>
             <Navbar className='navbarMain' expand="lg">
                 <Container>
-                    <Navbar.Brand className='navbarItem main' href="#home">ALerT</Navbar.Brand>
+                    <Navbar.Brand className='navbarItem main'>{process.env.REACT_APP_NAME}</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="navbar navbar-dark">
-                        <NavLink className='navbarItem' to={props.view=='student' ? '/student/landing' : '/instructor/landing'}>Home Page</NavLink>
-                        <NavLink className='navbarItem' to='/edit_profile'>Edit Profile</NavLink>
-                        <NavLink className='navbarItem' to='/'>Logout</NavLink>
+                        <NavLink className='navbarItem' to='/'>Home Page</NavLink>
+                        <NavLink className='navbarItem' to='/profile'>Profile</NavLink>
+                        <NavLink className='navbarItem' to='/'>Logout</NavLink> {/* TODO: attach logout functionality (i.e. API request trigger)*/}
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
@@ -25,4 +25,4 @@ function SiteNavbar(props) {
     );
 }
 
-export default SiteNavbar;
+export default TopNavbar;

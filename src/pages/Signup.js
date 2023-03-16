@@ -1,11 +1,6 @@
-import React from "react";
 
 function Signup(props){
-    return(
-        <>
-            
-        </>
-    );
+    return <div>Signup Page</div>
 }
 
 export default Signup
