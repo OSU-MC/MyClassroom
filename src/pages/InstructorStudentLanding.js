@@ -6,6 +6,7 @@ import courseData from "./data/courseData.json"
 import { useDispatch } from 'react-redux';
 import apiUtil from '../utils/apiUtil'
 import { setCourses } from '../redux/actions';
+import JoinCourse from '../components/JoinCourse'
 
 function InstructorStudentLanding(props) {
     // Will implement ability to hide/show once we figure out best way to modify the
@@ -48,6 +49,10 @@ function InstructorStudentLanding(props) {
         //return cards for student and teacher courses
         return(
             <>
+            {/*Join Course button for all users*/}
+            <JoinCourse className="buttons"/>
+
+            {/*Student Courses*/}
             {studentCourses.length > 0 ? <div id="student-courses">
             {
                 studentCourses.map((studentCourse) => 
@@ -57,9 +62,12 @@ function InstructorStudentLanding(props) {
             }
             </div> : <div></div>}
 
+            {/*Teacher Courses*/}
             {instructorCourses.length > 0 ? <div className="bkgrnd">
-                <div className="buttons">
-                <Button variant="secondary">Add Course</Button>{' '}
+            <div className="buttons">
+                <Button variant="secondary">
+                    Create Course
+                </Button>
                     
                 </div>
                     <div>
