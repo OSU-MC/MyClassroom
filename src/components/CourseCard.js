@@ -36,7 +36,7 @@ function CourseCard (props) {
 
               {/*Join Button*/}
               {props.view==="student" ? 
-              <Link to={`/studentSession`}>
+              <Link to={`/studentLiveSession`}>
                 <Button className="joinBtn">
                   Join Session - Not Functional
                 </Button>
