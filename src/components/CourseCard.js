@@ -1,68 +1,78 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
+import { useDispatch } from 'react-redux';
+import { setCourse } from '../redux/actions';
 
 import { Link } from 'react-router-dom';
 
 function CourseCard (props) {
-
   //variable declarations, using hookstates to initilize
-  const [ editedName, setEditedName ] = useState(props.CourseName)
-  const [ editedCRN, setEditedCRN ] = useState(props.CourseCRN)
-  const [ editedInstructors, setEditedInstructors ] = useState(props.CourseInstructor)
-  const [ editedCourse, setEditedCourse ] = useState({})
-  const [ saveChanges, setSaveChanges ] = useState(true)
-
+  //const [ editedName, setEditedName ] = useState(props.CourseName)
+  //const [ editedCRN, setEditedCRN ] = useState(props.CourseCRN)
+  //const [ editedInstructors, setEditedInstructors ] = useState(props.CourseInstructor)
+  //const [ editedCourse, setEditedCourse ] = useState({})
+  //const [ saveChanges, setSaveChanges ] = useState(true)
   // console.log(editedName, editedCRN, editedInstructors)
+  //useEffect(() => {
+  //  console.log( editedCourse)
+  //}, [editedCourse])
+  const dispatch = useDispatch()
 
-  
-  useEffect(() => {
+  async function saveCourseClicked(course){
+    console.log(course)
+    dispatch(setCourse(course))
+  }
 
-
-    console.log( editedCourse)
-    
-
-
-  }, [editedCourse])
-
-
-  if(!props.hidden && !props.isEdit){
+  //if(!props.hidden && !props.isEdit){
     return (
           //Using Card imported from React
           <div> 
             <Card>
-            <Card.Header>Course: {props.CourseNumber}</Card.Header>
+            <Card.Header>Course Name: {props.CourseName}</Card.Header>
             <Card.Body>
-              <Card.Text> Course Name: {props.CourseName}</Card.Text>
-              <Card.Text> Course CRN: {props.CourseCRN}</Card.Text>
-              <Card.Text> Course Instructor: {props.CourseInstructor}</Card.Text>
+              {/*OLD CARD CODE*/}
+              {/*<Card.Text> Course CRN: {props.CourseCRN}</Card.Text>
+              <Card.Text> Course Instructor: {props.CourseInstructor}</Card.Text>*/}
               {/* <Link to={props.view==="student" ? "/" : "/instructor/edit_course"}> */}
-              
-              
-              {props.view==="student" ? <Link to={`/student_live_lecture`}><Button className="hideBtn"> Join Session</Button></Link> : <Button 
+              {/*{props.view==="student" ? <Link to={`/student_live_lecture`}><Button className="hideBtn"> Join Session</Button></Link> : <Button 
               variant="primary"
               className="joinBtn" 
               onClick={() => {
                 props.editToggle(true)
                 props.editCourse(props.CourseNumber)
               }}>
-                
-                {props.view==="student" ? "Join Session" : "Course Details"}</Button>}
+              {props.view==="student" ?  <div></div> : <Button className="hideBtn">Go To Sections</Button>} */}
 
+              {/*Join Button*/}
+              {props.view==="student" ? 
+              <Link to={`/studentSession`}>
+                <Button className="joinBtn">
+                  Join Session
+                </Button>
+              </Link> : 
+              <div></div>}
 
-
-              <Button variant="primary" className="hideBtn">Hide</Button>
-              {props.view==="student" ?  <div></div> : <Link to={`/instructor/lectures/${props.CourseNumber}`}><Button className="hideBtn"> Go To Lectures</Button></Link>} 
+              {/*View Course Button*/}
+              {props.view==="student" ? 
+              <Link to={`/singleCourse`}>
+                <Button className="hideBtn" onClick={() => {saveCourseClicked(props.currentCourse)}}>
+                  View Course
+                </Button>
+              </Link> : 
+              <Link to={`/singleCourse`}>
+                <Button className="hideBtn" onClick={() => {saveCourseClicked(props.currentCourse)}}>
+                  View Sections For Course
+                </Button>
+              </Link>}
 
             </Card.Body>
           </Card>
         </div>
-        //in the above props.view we are checking to see if "student" is either true or false,
-        //truth case we create div, false case we add a link to instructor lectures.
-      )
-      
-  }
+      );
+  //}
   //creating indivudual "Cards" for each interface with different information about the Course.
-  else if(props.isEdit){
+  /*OLD EDIT TOGGLE CODE*/
+  /*else if(props.isEdit){
     return(
       <>
         <Card>
@@ -96,7 +106,7 @@ function CourseCard (props) {
                   onChange={(event)=> {
                     setEditedInstructors(event.target.value)}}
                   >
-                </input></Card.Text>
+                  </input></Card.Text>
 
 
               <Button 
@@ -109,9 +119,9 @@ function CourseCard (props) {
                   id : props.CourseNumber,
                   course_name : editedName,
                   crn : editedCRN,
-                  course_instructor : [
-                    editedInstructors
-                  ]
+                  //course_instructor : [
+                  //</Card.Body>  editedInstructors
+                  //]
             
                 })
                 props.editCourse(props.CourseNumber)
@@ -125,7 +135,6 @@ function CourseCard (props) {
           className="joinBtn"
           onClick={() => {
             props.editToggle(false)
-          
           }}
           >Done</Button>
         </>
@@ -133,10 +142,11 @@ function CourseCard (props) {
     )
   }
   else{
+    console.log("shouldn't be here")
     return(
       <></>
     )
-  }
+  }*/
 }
 
 export default CourseCard;
