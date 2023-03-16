@@ -5,37 +5,30 @@ import './components.css'
 import SchoolIcon from '@mui/icons-material/School';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import { useSelector } from 'react-redux'
-import { getCourse } from '../../redux/selectors'
+import useCourse from '../../hooks/useCourse'
 
 //Sidebar creation
 function SideNavbar(props) {
-
-    const course = useSelector(getCourse)
-    const location = useLocation()
-    const inCourse = location.pathname.search(/courses\/\d+/) > -1 // if course is in the current pathname
-    
     const instructorSidebarData = [
         {
             title: "Questions",
             icon: <QuestionMarkIcon />,
-            link: `courses/${course.id}/questions`
+            link: `courses/${props.course.id}/questions`
         },
         {
             title: "Students",
             icon: <SchoolIcon />,
-            link: `courses/${course.id}/students`
+            link: `courses/${props.course.id}/students`
         },
         {
             title: "Lectures",
             icon: <MenuBookIcon />,
-            link: `courses/${course.id}/lectures`
+            link: `courses/${props.course.id}/lectures`
         }
     ]
 
     // TODO: check the role of the user in this course and only render if teacher for now
-    return <>
-        { inCourse && <div className='sidebarBody'>
+    return <div className='sidebarBody'>
             <ul className='sidebarList'>
                 {instructorSidebarData.map((val, key) => {
                 return(
@@ -46,8 +39,7 @@ function SideNavbar(props) {
                         );
                 })}
             </ul>
-        </div> }
-    </>
+        </div>
 }
 
 export default SideNavbar;

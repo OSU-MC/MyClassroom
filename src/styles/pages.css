@@ -82,21 +82,6 @@ div.Login{
     width: 50%;
 }
 
-/* Main Page */
-
-.mainPageBody{
-    margin-left: 15vw;
-    margin-top: -100vh;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    
-    /* Need to take margin out when i render this properly */
-}
-
-
-
-
 /* Student Landing Page */
 .card {
     display:flex;

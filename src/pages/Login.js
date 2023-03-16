@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Form from "react-bootstrap/Form";
 import { Container, Row, Col, Dropdown, NavLink, Button } from 'react-bootstrap'
 import apiUtil from '../utils/apiUtil'
@@ -8,6 +9,8 @@ import Notice from '../components/Notice'
 
 export default function Login(props) {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [ params ] = useSearchParams()
 
   //form fields
   const [email, setEmail] = useState("");
@@ -33,7 +36,12 @@ export default function Login(props) {
     setLoading(false)
     if (response.status === 200) {
       dispatch(login(response.data.user, response.data.status))
-      // Redirect is automatic because the way the routing is set up
+      try {
+        navigate(params.get('redirect'))
+      }
+      catch(e) {
+        navigate('/')
+      }
     }    
 }
 

@@ -11,9 +11,5 @@ export function getUserState(state) {
 */
 
 export function getCourses(state) {
-    return { studentCourses: state.courses.studentCourses, teacherCourses: state.courses.teacherCourses }
-}
-
-export function getCourse(state) {
-    return state.courses.course
+    return state.courses
 }

@@ -24,7 +24,6 @@ export function setUser(user) {
 
 export const SET_COURSES = "SET_COURSES"
 export const CREATE_COURSE = "CREATE_COURSE"
-export const SET_COURSE = "SET_COURSE"
 export const DELETE_COURSE = "DELETE_COURSE"
 export const UPDATE_COURSE = "UPDATE_COURSE"
 
@@ -34,10 +33,6 @@ export function setCourses(studentCourses, teacherCourses) {
 
 export function createCourse(course) {
     return { type: CREATE_COURSE, course }
-}
-
-export function setCourse(course) {
-    return { type: SET_COURSE, course }
 }
 
 export function deleteCourse(id) {

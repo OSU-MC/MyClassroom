@@ -83,6 +83,7 @@ body{
     width: 15vw;
     background-color: #2f4050;
     border: 0px;
+    display: block;
 }
 
 .sidebarList{
