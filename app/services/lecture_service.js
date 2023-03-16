@@ -1,4 +1,5 @@
 const { extractValidFields, validateAgainstSchema } = require('../../lib/validator')
+const db = require('../models/index')
 
 const lectureInsertSchema = {
     courseId: {required: true},
@@ -19,4 +20,13 @@ exports.extractLectureUpdateFields = (body) => {
 
 exports.validateLectureCreationRequest = (body) => {
     return validateAgainstSchema(body, lectureInsertSchema)
+}
+
+exports.getLectureInCourse = async (lectureId, courseId) => {
+    return await db.Lecture.findOne({
+        where: {
+            id: lectureId,
+            courseId: courseId
+        }
+    })
 }

@@ -9,6 +9,33 @@
     }
 */
 
+const { extractValidFields, validateAgainstSchema } = require('../../lib/validator')
+const db = require('../models/index')
+
+const questionInformationSchema = {
+    id: {required: true},
+    courseId: {required: true},
+    type: {required: true},
+    stem: {required: true},
+    content: {required: false},
+    answers: {required: false}
+}
+
+// doesn't have question ID... this is usually called along with the schema above, avoid duplicates
+const questionInLectureInformationSchema = {
+    lectureId: {required: true},
+    order: {required: false},
+    published: {required: true}
+}
+
+exports.extractQuestionFields = (body) => {
+    return extractValidFields(body, questionInformationSchema)
+}
+
+exports.extractQuestionInLectureFields = (body) => {
+    return extractValidFields(body, questionInLectureInformationSchema)
+}
+
 const getQuestionScore = function (question, submission) {
     let grade = 0
     switch(question.type) {
@@ -64,3 +91,22 @@ const getMatchResults = function (question, answers) {
 }
 
 exports.getQuestionScore = getQuestionScore
+
+// just as if 'getQuestion', but checks against given course as well
+exports.getQuestionInCourse = async (questionId, courseId) => {
+    return await db.Question.findOne({
+        where: {
+            id: questionId,
+            courseId: courseId
+        }
+    })
+}
+
+exports.getQuestionInLecture = async (questionId, lectureId) => {
+    return await db.QuestionInLecture.findOne({
+        where: {
+            questionId: questionId,
+            lectureId: lectureId
+        }
+    })
+}
