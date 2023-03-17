@@ -11,6 +11,7 @@ import ResetPassword from './pages/ResetPassword'
 import Confirm from './pages/Confirm'
 import Landing from './pages/Landing'
 import Course from './pages/Course'
+import SingleCoursePage from './pages/SingleCoursePage'
 import AddCourse from './pages/AddCourse'
 
 import Navigation from './components/nav/Navigation'
@@ -43,9 +44,10 @@ function App() {
           <Route path='/confirm' element={ <Confirm /> } />
           <Route path='/createcourse' element={ <AddCourse/> }/>
         </Route>
-        <Route path='/:courseId' element={ <Navigation inCourse={true}></Navigation> }>
-            <Route path='' element={ <Course /> } />
+        <Route path='/:courseId' element={ <Navigation inCourse={true}>  </Navigation> }>
+            <Route path='' element={ <SingleCoursePage /> } />
             {/* TODO: the remainder of the nested routes should go here */}
+            
           </Route>
       </Routes>
     </>  
