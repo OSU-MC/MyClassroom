@@ -5,7 +5,7 @@ function TeacherCourse(props) {
         <div>
         <h1>{props.course.name}</h1>
         <p>{props.course.description}</p>
-        <p>this is a teacher course btw (TESTING)</p>
+        <p>this is being accessed by teacher</p>
         </div>
     )
 }
