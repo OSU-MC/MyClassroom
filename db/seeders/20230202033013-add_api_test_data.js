@@ -26,6 +26,14 @@ module.exports = {
       admin: false
     }], {});
 
+    let studentUserNoCourses = await queryInterface.bulkInsert('Users', [{
+      firstName: 'No',
+      lastName: 'Courses',
+      email: 'nocourses@myclassroom.com',
+      password: await bcrypt.hash('nocourses', saltRounds),
+      admin: false
+    }], {});
+
     let comboUser = await queryInterface.bulkInsert('Users', [{
       firstName: 'Combo',
       lastName: 'User',

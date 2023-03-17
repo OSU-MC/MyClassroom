@@ -6,6 +6,7 @@ const enrollmentService = require('../services/enrollment_service')
 const sectionService = require('../services/section_service')
 const { requireAuthentication } = require('../../lib/auth')
 const string_helpers = require('../../lib/string_helpers')
+const { UniqueConstraintError } = require('sequelize')
 
 // GET request from /courses homepage
 router.get('/', requireAuthentication, async function (req, res) {
@@ -80,7 +81,7 @@ router.post('/', requireAuthentication, async function (req, res) {
 
 //User joins with course code
 //Authenticate token & create enrollment for the user in the section that has a code 
-router.post('/join', requireAuthentication, async function (req, res) {
+router.post('/join', requireAuthentication, async function (req, res, next) {
     const user = await db.User.findByPk(req.payload.sub) // find user by ID, which is stored in sub
 
     const joinCode = req.body.joinCode
@@ -98,11 +99,26 @@ router.post('/join', requireAuthentication, async function (req, res) {
                 role: 'student'
                 // no course because they are a student
             }
-            const enrollment = await db.Enrollment.create(enrollmentToInsert)
-            res.status(201).send({
-                section: sectionService.extractSectionFields(section),
-                enrollment: enrollmentService.extractEnrollmentFields(enrollment)
-            })
+
+            try {
+                const enrollment = await db.Enrollment.create(enrollmentToInsert)
+                const course = await db.Course.findByPk(section.courseId)
+                res.status(201).send({
+                    section: sectionService.extractSectionFields(section),
+                    course: course,
+                    enrollment: enrollmentService.extractEnrollmentFields(enrollment)
+                })
+            }
+            catch (e) {
+                if (e instanceof UniqueConstraintError) {
+                    res.status(400).send({
+                        error: "User is already enrolled in this course"
+                    })
+                }
+                else {
+                    next(e)
+                }
+            }
         } else {
             res.status(404).send({error: `No section exists with the provided join code`})
         }
