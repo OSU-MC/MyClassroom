@@ -12,14 +12,14 @@ import TeacherCourse from "../components/SingleCoursePageComponents/TeacherCours
 
 //This function is going to be used to display the single course page from when the
 //user selects the course.  
-function DisplayCoursePage(){
+function DisplayCoursePage() {
 //using useParams() here to grab the number in the course they select then finding the data
 //associated with that course.
-let { courseId } = useParams()
+    let { courseId } = useParams()
 
-const [course, role] = useCourse()
-console.log(course)
-console.log(role)
+    const [ course, role ] = useCourse()
+    console.log(course)
+    console.log(role)
 
 
 
@@ -53,11 +53,12 @@ console.log(role)
 
 //}, [] )
 
-return(
-    <>
-        (role == 'student') ? <StudentCourse course={course}/> : <TeacherCourse/>
-    </>
-)
+    return (
+        <>
+            {(role == 'student') ? <StudentCourse course={course}/> : <></>}
+            {(role == 'teacher') ? <TeacherCourse course={course}/> : <></>}
+        </>
+    )
 
 // if(courseStudentData && courseTeacherData === null){
 //     //continue displaying

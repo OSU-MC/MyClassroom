@@ -11,7 +11,7 @@ import ResetPassword from './pages/ResetPassword'
 import Confirm from './pages/Confirm'
 import Landing from './pages/Landing'
 import Course from './pages/Course'
-import SingleCoursePage from './pages/SingleCoursePages'
+import SingleCoursePage from './pages/SingleCoursePage'
 
 import Navigation from './components/nav/Navigation'
 import useAuth from './hooks/useAuth'

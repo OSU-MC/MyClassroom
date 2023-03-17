@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import useCourses from './useCourses'
 import { useParams } from 'react-router-dom'
 
-function useCourse(props) {
+function useCourse() {
     const { courseId } = useParams()
     const courses = useCourses()
     const [ course, setCourse ] = useState({})
