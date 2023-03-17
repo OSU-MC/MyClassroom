@@ -4,7 +4,7 @@ const jwtUtils = require('../../../lib/jwt_utils')
 const { generateUserSession } = require('../../../lib/auth')
 const request = require('supertest')
 
-describe('/courses endpoints', () => {
+describe('/enrollments and /enrollments/enrollment_id endpoints', () => {
 
     let user
     let user2
@@ -24,6 +24,8 @@ describe('/courses endpoints', () => {
     let user2Cookies
     let user3XsrfCookie
     let user3Cookies
+    let user4XsrfCookie
+    let user4Cookies
 
     beforeAll(async() => {
 

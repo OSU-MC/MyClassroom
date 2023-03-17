@@ -135,10 +135,11 @@ router.post('/login', async function (req, res, next) {
             break
           default:
             if (loginStatus >= 0) {
+              const loggedInStatus = UserService.getLoggedInStatus(user)
               await setUserAuthCookie(res, user)
               res.status(200).send({
                 user: UserService.filterUserFields(user),
-                loginStatus: loginStatus
+                status: loggedInStatus
               })
             }
             else {
@@ -153,6 +154,19 @@ router.post('/login', async function (req, res, next) {
   }
   else {
     res.status(400).send({error: `Missing fields required to authenticate user: ${serializeStringArray(missingFields)}`})
+  }
+})
+
+// GET 'users/authenticate' authenticate the cookies
+// NOTE: This is untested but very similar to the above method (in fact, just simpler) which has comprehensive tests
+router.get('/authenticate', requireAuthentication, async function (req, res, next) {
+  const user = await db.User.findByPk(req.payload.sub)
+  if (user != null) {
+    const loggedInStatus = UserService.getLoggedInStatus(user)
+    res.status(200).send({
+      user: UserService.filterUserFields(user),
+      status: loggedInStatus
+    })
   }
 })
 
