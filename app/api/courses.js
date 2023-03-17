@@ -180,6 +180,7 @@ router.delete('/:course_id', requireAuthentication, async function (req, res) {
 
 router.use('/:course_id/lectures', require('./lectures'))
 router.use('/:course_id/enrollments', require('./enrollments'))
+router.use('/:course_id/questions', require('./questions'))
 router.use('/:course_id/sections', require('./sections'))
 
 module.exports = router
