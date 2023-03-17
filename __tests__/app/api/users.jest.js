@@ -72,7 +72,7 @@ describe('POST /users', () => {
 
 describe('POST /users/login', () => {
 
-    it('should respond with 200 and loginStatus = 2', async () => {
+    it('should respond with 200 and status = 2', async () => {
         const user = await db.User.create({
             firstName: "Login",
             lastName: "Tester",
@@ -89,11 +89,11 @@ describe('POST /users/login', () => {
         expect(resp.body.user.lastName).toEqual("Tester")
         expect(resp.body.user.email).toEqual("loginTester1@myclassroom.com")
         
-        expect(resp.body.loginStatus).toEqual(2)
+        expect(resp.body.status).toEqual("This account email has not been confirmed. You cannot recover your account in the case of a lost password unless you confirm your email.")
         await user.destroy()
     })
 
-    it('should respond with 200 and loginStatus = 0', async () => {
+    it('should respond with 200 and status = 0', async () => {
         const user = await db.User.create({
             firstName: "Login",
             lastName: "Tester",
@@ -111,11 +111,11 @@ describe('POST /users/login', () => {
         expect(resp.body.user.lastName).toEqual("Tester")
         expect(resp.body.user.email).toEqual("loginTester2@myclassroom.com")
         
-        expect(resp.body.loginStatus).toEqual(0)
+        expect(resp.body.status).toEqual("")
         await user.destroy()
     })
 
-    it('should respond with 200 and loginStatus = 1', async () => {
+    it('should respond with 200 and status = 1', async () => {
         const user = await db.User.create({
             firstName: "Login",
             lastName: "Tester",
@@ -134,7 +134,7 @@ describe('POST /users/login', () => {
         expect(resp.body.user.lastName).toEqual("Tester")
         expect(resp.body.user.email).toEqual("loginTester3@myclassroom.com")
         
-        expect(resp.body.loginStatus).toEqual(1)
+        expect(resp.body.status).toEqual("A password reset has been initiated for this account, but the password has not been reset")
         await user.destroy()
     })
 

@@ -105,3 +105,19 @@ exports.login = (user, password) => {
         return -3
     }
 }
+
+const getLoggedInStatus = (user) => {
+    if (user.emailConfirmed) {
+        if (user.passwordResetInitiated) {
+            return "A password reset has been initiated for this account, but the password has not been reset"
+        }
+        else {
+            return ""
+        }
+    }
+    else {
+        return "This account email has not been confirmed. You cannot recover your account in the case of a lost password unless you confirm your email."
+    }
+}
+
+exports.getLoggedInStatus = getLoggedInStatus
