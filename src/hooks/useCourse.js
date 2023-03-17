@@ -10,22 +10,29 @@ function useCourse() {
 
     useEffect(() => {
         function findCourse() {
+            let found = false
             courses.teacherCourses.forEach((teacherCourse) => {
                 if (teacherCourse.id == courseId) {
+                    found = true
                     setCourse(teacherCourse)
                     setRole('teacher')
                 }
             })
             courses.studentCourses.find((studentCourse) => {
                 if (course.id == courseId) {
+                    found = true
                     setCourse(studentCourse)
                     setRole('student')
                 }
             })
+            if (!found) {
+                setRole("")
+                setCourse({})
+            }
         }
         if (courses.teacherCourses != null && courses.studentCourses != null)
             findCourse()
-    }, [ courses ])
+    }, [ courseId ])
     
     return [ course, role ] 
 }
