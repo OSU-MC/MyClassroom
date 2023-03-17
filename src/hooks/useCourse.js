@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import useCourses from './useCourses'
 import { useParams } from 'react-router-dom'
 
-function useCourse(props) {
+function useCourse() {
     const { courseId } = useParams()
     const courses = useCourses()
     const [ course, setCourse ] = useState({})
@@ -17,7 +17,7 @@ function useCourse(props) {
                 }
             })
             courses.studentCourses.find((studentCourse) => {
-                if (course.id == courseId) {
+                if (studentCourse.id == courseId) {
                     setCourse(studentCourse)
                     setRole('student')
                 }
