@@ -11,6 +11,7 @@ import ResetPassword from './pages/ResetPassword'
 import Confirm from './pages/Confirm'
 import Landing from './pages/Landing'
 import Course from './pages/Course'
+import SingleCoursePage from './pages/SingleCoursePages'
 
 import Navigation from './components/nav/Navigation'
 import useAuth from './hooks/useAuth'
@@ -41,9 +42,10 @@ function App() {
           <Route path='/profile' element={ <Profile /> } />
           <Route path='/confirm' element={ <Confirm /> } />
         </Route>
-        <Route path='/:courseId' element={ <Navigation inCourse={true}></Navigation> }>
-            <Route path='' element={ <Course /> } />
+        <Route path='/:courseId' element={ <Navigation inCourse={true}>  </Navigation> }>
+            <Route path='' element={ <SingleCoursePage /> } />
             {/* TODO: the remainder of the nested routes should go here */}
+            
           </Route>
       </Routes>
     </>  
