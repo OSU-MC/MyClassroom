@@ -1,4 +1,4 @@
-const { SET_COURSES, CREATE_COURSE, DELETE_COURSE, UPDATE_COURSE } = require('../actions')
+const { SET_COURSES, CREATE_COURSE, SET_COURSE, DELETE_COURSE, UPDATE_COURSE, JOIN_COURSE } = require('../actions')
 
 const emptyState = {
     studentCourses: null,
@@ -38,6 +38,12 @@ function coursesReducer(state = emptyState, action) {
                         return course
                     }
                 })
+            }
+        case JOIN_COURSE:   //call when a user joins a course 
+                            //join course always makes the user a student of the course
+            return{
+                ...state,
+                studentCourses: [...state.studentCourses, action.course]
             }
         default:
             return state

@@ -12,6 +12,7 @@ import Confirm from './pages/Confirm'
 import Landing from './pages/Landing'
 import Course from './pages/Course'
 import SingleCoursePage from './pages/SingleCoursePage'
+import AddCourse from './pages/AddCourse'
 
 import Navigation from './components/nav/Navigation'
 import useAuth from './hooks/useAuth'
@@ -41,6 +42,7 @@ function App() {
           <Route path='/' element= {<Landing/> }/>
           <Route path='/profile' element={ <Profile /> } />
           <Route path='/confirm' element={ <Confirm /> } />
+          <Route path='/createcourse' element={ <AddCourse/> }/>
         </Route>
         <Route path='/:courseId' element={ <Navigation inCourse={true}>  </Navigation> }>
             <Route path='' element={ <SingleCoursePage /> } />
