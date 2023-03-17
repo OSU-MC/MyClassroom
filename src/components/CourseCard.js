@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, Card } from "react-bootstrap";
-import { useDispatch } from 'react-redux';
-import { setCourse } from '../redux/actions';
-
 import { Link } from 'react-router-dom';
 
 function CourseCard (props) {
@@ -16,19 +13,13 @@ function CourseCard (props) {
   //useEffect(() => {
   //  console.log( editedCourse)
   //}, [editedCourse])
-  const dispatch = useDispatch()
-
-  async function saveCourseClicked(course){
-    console.log(course)
-    dispatch(setCourse(course))
-  }
 
   //if(!props.hidden && !props.isEdit){
     return (
           //Using Card imported from React
           <div> 
             <Card>
-            <Card.Header>Course Name: {props.CourseName}</Card.Header>
+            <Card.Header>{props.course.name}</Card.Header>
             <Card.Body>
               {/*OLD CARD CODE*/}
               {/*<Card.Text> Course CRN: {props.CourseCRN}</Card.Text>
@@ -47,23 +38,18 @@ function CourseCard (props) {
               {props.view==="student" ? 
               <Link to={`/studentSession`}>
                 <Button className="joinBtn">
-                  Join Session
+                  Join Session - Not Functional
                 </Button>
               </Link> : 
               <div></div>}
 
               {/*View Course Button*/}
-              {props.view==="student" ? 
-              <Link to={`/singleCourse`}>
+               
+              <Link to={`/${props.course.id}`}>
                 <Button className="hideBtn" onClick={() => {saveCourseClicked(props.currentCourse)}}>
-                  View Course
+                  {props.view==="student" ? 'View Course' : 'View Sections For Course'}
                 </Button>
-              </Link> : 
-              <Link to={`/singleCourse`}>
-                <Button className="hideBtn" onClick={() => {saveCourseClicked(props.currentCourse)}}>
-                  View Sections For Course
-                </Button>
-              </Link>}
+              </Link>
 
             </Card.Body>
           </Card>

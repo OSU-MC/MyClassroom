@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Container, ListGroup, Button } from "react-bootstrap"
-import './pages.css'
+import '../styles/pages.css'
 import apiUtil from '../utils/apiUtil'
 import { getUserState } from '../redux/selectors'
 import { useSelector } from 'react-redux';

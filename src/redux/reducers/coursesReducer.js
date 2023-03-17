@@ -1,9 +1,8 @@
-const { SET_COURSES, CREATE_COURSE, SET_COURSE, DELETE_COURSE, UPDATE_COURSE } = require('../actions')
+const { SET_COURSES, CREATE_COURSE, DELETE_COURSE, UPDATE_COURSE } = require('../actions')
 
 const emptyState = {
-    studentCourses: [],
-    teacherCourses: [],
-    course: {} //current or most recent course viewed by the user
+    studentCourses: null,
+    teacherCourses: null,
 }
 
 function coursesReducer(state = emptyState, action) {
@@ -13,11 +12,6 @@ function coursesReducer(state = emptyState, action) {
                 ...state,
                 studentCourses: action.studentCourses,
                 teacherCourses: action.teacherCourses
-            }
-        case SET_COURSE:
-            return {
-                ...state,
-                course: action.course
             }
         case CREATE_COURSE: // should be called after a course has been successfully created
             return {
