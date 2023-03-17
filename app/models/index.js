@@ -29,7 +29,9 @@ if (config.use_env_variable) {
     {
       ...config,
       ...{
-        logging: (msg) => logger.info(msg)
+        logging: (msg) => logger.info(msg),
+        pool: { maxConnections: 5, maxIdleTime: 30 },
+        maxConcurrentQueries: 100
       }
     }
   );

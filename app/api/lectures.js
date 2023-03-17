@@ -303,4 +303,6 @@ router.delete('/:lecture_id', requireAuthentication, async function (req, res) {
     }
 })
 
+router.use('/:lecture_id/questions', require('./questionsInLecture'))
+
 module.exports = router

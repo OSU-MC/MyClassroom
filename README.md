@@ -27,6 +27,10 @@ Once the database has been made in mysql, using sequelize command line tools, da
 - To migrate backward: `npx sequelize-cli db:migrate:undo` - add `:all` to undo all the migrations instead of just 1
 To do this in the test environment, simply add `--env test` to the end of the command
 
+After migrations have been done, local testing data can be added to the database using sequelize seeders
+- To create: `npx sequelize-cli db:seed:all`
+- To delete: `npx sequelize-cli db:seed:undo` - add `:all` to undo all the seeds instead of just 1
+
 If having issues, refer to the MySQL Getting Started Guide: https://dev.mysql.com/doc/mysql-getting-started/en/
 
 If you need to reset your local dev or test databases, login to MySQL as the root user (step 1), and run `DROP DATABASE database_name;`. Then, rerun steps 3 and 4. 
