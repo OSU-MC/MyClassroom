@@ -36,7 +36,7 @@ function Landing(props) {
                 </div>
                 <div>
                     {courses.teacherCourses.map((teacherCourse) => {
-                        return <CourseCard key={teacherCourse.id} course={teacherCourse} role={"landing"} />
+                        return <CourseCard key={teacherCourse.id} course={teacherCourse} role={"teacher"} />
                     })}
                 </div>
             </div>}

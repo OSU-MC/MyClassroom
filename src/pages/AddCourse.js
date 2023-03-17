@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Form } from "react-bootstrap"
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { createCourse } from "../redux/actions";
 import apiUtil from '../utils/apiUtil'
 
@@ -8,6 +9,8 @@ function AddCourse(props){
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [published, setPublished] = useState()
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     async function postCourse(newCoursePayload){
         //make a POST course api call
@@ -15,24 +18,30 @@ function AddCourse(props){
 
         try{
             response = await apiUtil("post", "/courses", newCoursePayload)
+            console.log(response)
         }catch(e){
             if (e instanceof DOMException) {
                 console.log("== HTTP request cancelled")
             } else {
-                throw e;
+                console.log(e)
             }
         }
 
         //update the redux
-        if(response.status == 201){
-            dispatch(createCourse(response.body.course))
+        if(response.status === 201){
+            console.log(response.data)
+            dispatch(createCourse(response.data.course))
+            console.log(`/${response.data.course.id}`)
+            navigate(`/${response.data.course.id}`)
         }
         else{
             console.log("Something went wrong here")
         }
     }
 
-    function addCourseSubmit(){
+    function addCourseSubmit(e){
+        event.preventDefault()
+
         const newCourse = {
             name: name,
             description: description,
@@ -44,7 +53,7 @@ function AddCourse(props){
 
     return (
         <>
-        <Form onSubmit={() => addCourseSubmit()}>
+        <Form onSubmit={(e) => { addCourseSubmit(e) }}>
             <Form.Group className="inputNameContainer" controlId="name">
                 <Form.Label>Class Name:</Form.Label>
                 <Form.Control 
