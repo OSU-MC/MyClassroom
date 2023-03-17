@@ -1,4 +1,4 @@
-const { SET_COURSES, CREATE_COURSE, SET_COURSE, DELETE_COURSE, UPDATE_COURSE } = require('../actions')
+const { SET_COURSES, CREATE_COURSE, SET_COURSE, DELETE_COURSE, UPDATE_COURSE, JOIN_COURSE } = require('../actions')
 
 const emptyState = {
     studentCourses: null,
