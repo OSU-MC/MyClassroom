@@ -4,6 +4,12 @@ import { useDispatch } from 'react-redux';
 import { joinCourse } from "../redux/actions";
 import apiUtil from '../utils/apiUtil'
 
+/******************************************************/
+//Bugs:
+//if A student enters a course which they have already joined
+//no message for joinCodes which don't have a match
+/******************************************************/
+
 function JoinCourse(props){
     const dispatch = useDispatch()
     const [joinCode, setJoinCode] = useState("")
@@ -47,22 +53,12 @@ function JoinCourse(props){
     //response of the courses/join endpoint is made up of section and enrollment
     //using the course_id in enrollment we can grab the course and update our redux
     async function getJoinedCourse(joinResponse){
-        try{
-            const courseResponse = await apiUtil("get", "courses/");
-            if(courseResponse.status == 200){
-                courseResponse.data.studentCourses.map((course) =>{
-                    if(course.id == joinResponse.data.enrollment.courseId){
-                        setJoinedCourse(course)
-                    }
-                })
+        const courses = useCourses()
+        courseResponse.data.studentCourses.map((course) =>{
+            if(course.id == joinResponse.data.enrollment.courseId){
+                setJoinedCourse(course)
             }
-        }catch (e) {
-            if (e instanceof DOMException) {
-                console.log("== HTTP request cancelled")
-            } else {
-                throw e;
-            }
-        }
+        })
     }
 
     return (
