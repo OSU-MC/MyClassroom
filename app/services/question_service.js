@@ -1,24 +1,9 @@
-const { extractValidFields, validateAgainstSchema } = require('../../lib/validator')
-
-const questionInformationSchema = {
-    id: {required: true},
-    courseId: {required: true},
-    type: {required: true},
-    stem: {required: true},
-    content: {required: true},
-    answers: {required: true},
-}
-
 const questionInsertSchema = {
     courseId: {required: true},
     type: {required: true},
     stem: {required: true},
     content: {required: true},
     answers: {required: true},
-}
-
-exports.extractQuestionFields = (body) => {
-    return extractValidFields(body, questionInformationSchema)
 }
 
 exports.extractQuestionUpdateFields = (body) => {
