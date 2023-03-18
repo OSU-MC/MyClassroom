@@ -14,7 +14,7 @@ function Navigation(props) {
     return <>
         <TopNavbar/>
         <MainBody>
-            {course.id && role == 'teacher' && <SideNavbar course={course} /> }
+            { course.id && role == 'teacher' && <SideNavbar course={course} /> }
             <Outlet/>
         </MainBody>
     </> 

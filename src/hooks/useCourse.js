@@ -19,16 +19,12 @@ function useCourse() {
                 }
             })
             courses.studentCourses.find((studentCourse) => {
-                if (course.id == courseId) {
+                if (studentCourse.id == courseId) {
                     found = true
                     setCourse(studentCourse)
                     setRole('student')
                 }
             })
-            if (!found) {
-                setRole("")
-                setCourse({})
-            }
         }
         if (courses.teacherCourses != null && courses.studentCourses != null)
             findCourse()

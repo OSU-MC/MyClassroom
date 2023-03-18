@@ -13,14 +13,13 @@ import TeacherCourse from "../components/SingleCoursePageComponents/TeacherCours
 //user selects the course.  
 function DisplayCoursePage(){
 
-
 //using useParams() here to grab the number in the course they select then finding the data
 //associated with that course.
-    let { courseId } = useParams()
+let { courseId } = useParams()
 
-    const [ course, role ] = useCourse()
-    console.log(course)
-    console.log(role)
+const [course, role] = useCourse()
+console.log(course)
+console.log(role)
 
 return(
     <div className="singleCourseContainer">
@@ -40,7 +39,6 @@ return(
         
     </div>
 )
-
 
 }
 
