@@ -25,10 +25,6 @@ function useCourse() {
                     setRole('student')
                 }
             })
-            if (!found) {
-                setRole("")
-                setCourse({})
-            }
         }
         if (courses.teacherCourses != null && courses.studentCourses != null)
             findCourse()
