@@ -5,19 +5,7 @@ import useCourse from "../hooks/useCourse";
 import StudentCourse from "../components/SingleCoursePageComponents/StudentCourse";
 import TeacherCourse from "../components/SingleCoursePageComponents/TeacherCourse";
 
-//replcae this with the API call. (Finsished)
-//const course = require('./data/courseData.json') 
-
-
-//This function is going to be used to display the single course page from when the
-//user selects the course.  
 function DisplayCoursePage(){
-
-
-//using useParams() here to grab the number in the course they select then finding the data
-//associated with that course.
-    let { courseId } = useParams()
-
     const [ course, role ] = useCourse()
     console.log(course)
     console.log(role)
