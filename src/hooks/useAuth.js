@@ -26,7 +26,7 @@ function useAuth() {
         }
     }, [])
 
-    return user.user.id != null
+    return user ? user.user.id != null : false
 }
 
 export default useAuth
