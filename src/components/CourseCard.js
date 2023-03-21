@@ -36,7 +36,7 @@ function CourseCard (props) {
 
               {/*Join Button*/}
               {props.view==="student" ? 
-              <Link to={`/studentSession`}>
+              <Link to={`/studentLiveSession`}>
                 <Button className="joinBtn">
                   Join Session - Not Functional
                 </Button>
@@ -46,7 +46,7 @@ function CourseCard (props) {
               {/*View Course Button*/}
                
               <Link to={`/${props.course.id}`}>
-                <Button className="hideBtn" onClick={() => {saveCourseClicked(props.currentCourse)}}>
+                <Button className="hideBtn">
                   {props.view==="student" ? 'View Course' : 'View Sections For Course'}
                 </Button>
               </Link>

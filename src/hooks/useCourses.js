@@ -5,7 +5,7 @@ import { getCourses } from '../redux/selectors'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-function useCourses(props) {
+function useCourses() {
     const location = useLocation()
     const navigate = useNavigate()
     const dispatch = useDispatch()

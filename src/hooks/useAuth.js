@@ -13,7 +13,12 @@ function useAuth() {
             let response
             try {
                 response = await apiUtil("get", "users/authenticate");
-                dispatch(login(response.data.user, response.data.status))
+                if (response.status === 200) {
+                    dispatch(login(response.data.user, response.data.status))
+                }
+                else {
+                    console.log(response)
+                }
             } catch (e) {
                 if (!e.response || e.response.status !== 401) {
                     console.log(e)
@@ -26,7 +31,7 @@ function useAuth() {
         }
     }, [])
 
-    return user.user.id != null
+    return (user && user.user) ? user.user.id != null : false
 }
 
 export default useAuth
