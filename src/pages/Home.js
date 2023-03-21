@@ -1,5 +1,6 @@
 import styled from '@emotion/styled/macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button } from 'react-bootstrap';
 import { faLink } from '@fortawesome/free-solid-svg-icons'
 
 function Home() {
@@ -23,7 +24,7 @@ function Home() {
                 <Contact>Elayne Trimble: </Contact>
                 <Contact>Gaven Robertson: </Contact>
                 <Contact>Sanjay Ramanathan: </Contact>
-                <Contact>Mitchell Stewart: </Contact>
+                <Contact>Mitchell Stewart: stewamit@oregonstate.edu</Contact>
             </HorizontalContainer>
         </VerticalContainer>
         <VerticalContainer>
@@ -37,7 +38,9 @@ function Home() {
                 </Link>
             </HorizontalContainer>
         </VerticalContainer>
-        
+        <VerticalContainer>
+            <Button>Use Polling Software</Button>
+        </VerticalContainer>
     </>
 }
 
