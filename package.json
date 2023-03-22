@@ -16,11 +16,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^1.3.4",
     "bootstrap": "^5.1.3",
-<<<<<<< HEAD
     "font-awesome": "^4.7.0",
-=======
-    "dotenv": "^16.0.3",
->>>>>>> 0b966db3c7f9de4e9523abe7cfcb00c1cd233618
     "latest-version": "^6.0.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.2",
@@ -31,6 +27,7 @@
     "react-scripts": "^5.0.1",
     "react-table": "^7.8.0",
     "redux": "^4.2.1",
+    "typeface-roboto": "^1.1.13",
     "web-vitals": "^1.1.2",
     "yarn": "^1.22.17"
   },

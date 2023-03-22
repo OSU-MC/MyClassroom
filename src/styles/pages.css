@@ -1,5 +1,11 @@
 /* Login Page CSS */
 
+div.arrowdown {
+    background-image: url(../../public/arrowdown.png);
+    width: 40px;
+    height: 34px;
+    background-size: cover;
+}
 
 html * {
 font-family: 'Open Sans', sans-serif;
