@@ -5,8 +5,7 @@ import useCourse from '../../hooks/useCourse'
 import styled from '@emotion/styled/macro';
 
 function Navigation(props) {
-    const [ course, role ] = useCourse()
-    console.log(role)
+    const [ course, role, message, error, loading ] = useCourse()
     const MainBody = styled.div`
         display: flex;
     `
