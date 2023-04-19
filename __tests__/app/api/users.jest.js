@@ -89,7 +89,7 @@ describe('POST /users/login', () => {
         expect(resp.body.user.lastName).toEqual("Tester")
         expect(resp.body.user.email).toEqual("loginTester1@myclassroom.com")
         
-        expect(resp.body.status).toEqual("This account email has not been confirmed. You cannot recover your account in the case of a lost password unless you confirm your email.")
+        expect(resp.body.message).toEqual("This account email has not been confirmed. You cannot recover your account in the case of a lost password unless you confirm your email.")
         await user.destroy()
     })
 
@@ -111,7 +111,7 @@ describe('POST /users/login', () => {
         expect(resp.body.user.lastName).toEqual("Tester")
         expect(resp.body.user.email).toEqual("loginTester2@myclassroom.com")
         
-        expect(resp.body.status).toEqual("")
+        expect(resp.body.message).toEqual("")
         await user.destroy()
     })
 
@@ -134,7 +134,7 @@ describe('POST /users/login', () => {
         expect(resp.body.user.lastName).toEqual("Tester")
         expect(resp.body.user.email).toEqual("loginTester3@myclassroom.com")
         
-        expect(resp.body.status).toEqual("A password reset has been initiated for this account, but the password has not been reset")
+        expect(resp.body.message).toEqual("A password reset has been initiated for this account, but the password has not been reset")
         await user.destroy()
     })
 

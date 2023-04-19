@@ -41,7 +41,6 @@ module.exports = {
       password: await bcrypt.hash('combocombocombo', saltRounds),
       admin: false
     }], {});
-
     
     /*
       CREATE COURSE 1 DATA: for comprehensive testing
@@ -135,6 +134,9 @@ module.exports = {
     }, {});
     await queryInterface.bulkDelete('Users', {
       email: 'combouser@myclassroom.com'
+    }, {});
+    await queryInterface.bulkDelete('Users', {
+      email: 'nocourses@myclassroom.com'
     }, {});
     await queryInterface.bulkDelete('Courses', {
       name: "Test Combo User"

@@ -139,7 +139,7 @@ router.post('/login', async function (req, res, next) {
               await setUserAuthCookie(res, user)
               res.status(200).send({
                 user: UserService.filterUserFields(user),
-                status: loggedInStatus
+                message: loggedInStatus
               })
             }
             else {
@@ -165,7 +165,7 @@ router.get('/authenticate', requireAuthentication, async function (req, res, nex
     const loggedInStatus = UserService.getLoggedInStatus(user)
     res.status(200).send({
       user: UserService.filterUserFields(user),
-      status: loggedInStatus
+      message: loggedInStatus
     })
   }
 })
