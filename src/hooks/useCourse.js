@@ -38,7 +38,7 @@ function useCourse() {
         if (courses.teacherCourses != null && courses.studentCourses != null) {
             findCourse()
         }
-    }, [ courseId ])
+    }, [ courseId, courses ])
     
     return [ course, role, message, error, loading ] 
 }

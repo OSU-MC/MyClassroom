@@ -11,17 +11,17 @@ function useAuth() {
     const navigate = useNavigate()
     const [ error, setError ] = useState(false)
     const [ message, setMessage ] = useState("")
-    const [ loading, setLoading ] = useState(false)
+    const [ loading, setLoading ] = useState(true)
 
     useEffect(() => {
         async function authenticate() {
-            const response = await apiUtil("get", "users/authenticate", { dispatch: dispatch, navigate: navigate});
-            setLoading(false)
+            const response = await apiUtil("get", "users/authenticate", { dispatch: dispatch, navigate: navigate, overrideRedirect: true });
             setError(response.error)
             setMessage(response.message)
             if (response.status === 200) {
                 dispatch(login(response.data.user, response.data.status))
             }
+            setLoading(false)
         }
         if (user.id == null) {
             setLoading(true)

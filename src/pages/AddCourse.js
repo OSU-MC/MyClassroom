@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { createCourse } from "../redux/actions";
 import apiUtil from '../utils/apiUtil'
 import { TailSpin } from  'react-loader-spinner'
+import Notice from '../components/Notice'
 
 function AddCourse(props){
     const [name, setName] = useState("")

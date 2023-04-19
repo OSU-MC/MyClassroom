@@ -1,27 +1,40 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Navbar, Container, Nav } from 'react-bootstrap'
 import './components.css'
+import useAuth from '../../hooks/useAuth'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 //NavBar for the whole website.
 function TopNavbar(props) {
     return (
-        <div>
-            <Navbar className='navbarMain' expand="lg">
-                <Container>
-                    <Navbar.Brand className='navbarItem main'>{process.env.REACT_APP_NAME}</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="navbar navbar-dark">
-                        <NavLink className='navbarItem' to='/'>Home Page</NavLink>
-                        <NavLink className='navbarItem' to='/profile'>Profile</NavLink>
-                        <NavLink className='navbarItem' to='/login'>Logout</NavLink> {/* TODO: attach logout functionality (i.e. API request trigger)*/}
-                    </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </div>
+            <div className='navbarMain' expand="lg">
+                <div className='navbarLeftContainer'>
+                    <div className='navbarItem main'><NavLink className='navbarItem' to='/home'>{process.env.REACT_APP_NAME}</NavLink></div>
+                    { props.loggedIn && <NavLink className='navbarItem' to='/'>Courses</NavLink> }
+                </div>
+                <div className="navbarRightContainer">
+                    <div className="dropdown">
+                        <div><FontAwesomeIcon className="dropdownIcon" icon={faUser}/></div>
+                        <UserMenu loggedIn={props.loggedIn}/>
+                    </div>
+                </div>
+            </div>
     );
+}
+
+function UserMenu(props) {
+    return <>{ 
+        props.loggedIn === true ? 
+                        <div className="dropdownMenu">
+                            <div className="dropdownItem"><NavLink className='dropdownLink' to='/profile'>Profile</NavLink></div>
+                            <div className="dropdownItem"><NavLink className='dropdownLink' to='/login'>Logout</NavLink></div> {/* TODO: attach logout functionality (i.e. API request trigger)*/}
+                        </div>
+                        : <div className="dropdownMenu">
+                            <div className="dropdownItem"><NavLink className='dropdownLink' to='/create'>Sign Up</NavLink></div>
+                            <div className="dropdownItem"><NavLink className='dropdownLink' to='/login'>Login</NavLink></div>
+                        </div>
+    }</>
 }
 
 export default TopNavbar;

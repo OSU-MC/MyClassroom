@@ -25,28 +25,34 @@ function App() {
 
   return (
     <>
-      { loading ? <TailSpin visible={true}/> : <Routes>
-        {/* There are only 3 accessible pages for users who are not logged in:
+      { loading === true ? <TailSpin visible={true}/> : <Routes>
+        {/* There are only 4 accessible pages for users who are not logged in:
+            - home
             - create account
             - login
             - password reset
           */}
-        <Route path='/home' element={ <Home/> }/>
-        <Route element={ loggedIn === true ? <Navigate to='/'/> : <><Outlet/></>}>
-          <Route path='/login' element={ <Login/> } />
-          <Route path='/create' element={ < Signup /> } /> {/* redirects to landing page if a user is logged in already */}
-          <Route path='/reset' element={ < ResetPassword /> } /> {/* redirects to landing page if a user is logged in already */}
-        </Route>
+        <Route element={ <Navigation loggedIn={loggedIn}></Navigation> }>
+          <Route path='/home' element={ <Home/> }/>
+          <Route element={ loggedIn === true ? <Navigate to='/'/> : <Outlet/>}>
+            <Route path='/login' element={ <Login/> } />
+            <Route path='/create' element={ < Signup /> } /> {/* redirects to landing page if a user is logged in already */}
+            <Route path='/reset' element={ < ResetPassword /> } /> {/* redirects to landing page if a user is logged in already */}
+          </Route>
 
-        { /* All routes below require a user be loggied in */}
-        <Route element={ <Navigation></Navigation> }>
-          <Route path='/' element= {<Landing/> }/>
-          <Route path='/profile' element={ <Profile /> } />
-          <Route path='/confirm' element={ <Confirm /> } />
-          <Route path='/createcourse' element={ <AddCourse/> }/>
-          <Route path='/:courseId'>
+          { /* All routes below require a user be loggied in */}
+          <Route element={ loggedIn === true ? <Outlet/> : <Navigate to='/login'/>}>
+            <Route path='/' element= {<Landing/> }/>
+            <Route path='/profile' element={ <Profile /> } />
+            <Route path='/confirm' element={ <Confirm /> } />
+            <Route path='/createcourse' element={ <AddCourse/> }/>
+            <Route path='/:courseId'>
               <Route path='' element={ <SingleCoursePage /> } />
-              {/* TODO: the remainder of the nested routes should go here */}
+              <Route path='students' element={ <div>Student Page</div>}/>
+              <Route path='questions' element={ <div>Questions Page</div>}/>
+              <Route path='lectures' element={ <div>Lectures Page</div>}/>
+                {/* TODO: the remainder of the nested routes should go here */}
+            </Route>
           </Route>
         </Route>
       </Routes>}

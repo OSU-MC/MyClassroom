@@ -24,7 +24,7 @@ const handleRequest = async (method, route, reactOpts, body) => {
         return responseBody
     }
     catch (e) { // defines global response behaviors for errors so our application's API calls can be coded with reduced repitition
-        if (e.response.status === 401) {
+        if (e.response.status === 401 && (reactOpts.overrideRedirect !== true)) {
             reactOpts.dispatch(logout())
             reactOpts.navigate(`/login?redirect=${location.pathname}`)
         }
