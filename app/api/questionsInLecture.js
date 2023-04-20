@@ -94,4 +94,6 @@ router.put('/:question_id', requireAuthentication, async function (req, res, nex
     }
 })
 
+router.use('/:question_id/responses', require('./responses'))
+
 module.exports = router
