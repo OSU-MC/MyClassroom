@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Form from "react-bootstrap/Form";
-import { Container, Row, Col, Dropdown, NavLink, Button } from 'react-bootstrap'
+import { Container, Row, Col, Dropdown, NavLink, Button, } from 'react-bootstrap'
 import apiUtil from '../utils/apiUtil'
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/actions';
 import Notice from '../components/Notice'
+import { Link } from "react-router-dom";
 
 export default function Login(props) {
   const dispatch = useDispatch()
@@ -94,6 +95,7 @@ function handleSubmit() {
           { !loading && <Button onClick={() => {handleSubmit()}}>
             Login
           </Button> }
+          <Link to="/password-reset">Change Password</Link>
         </Form>
           {
             error != "" && <Notice error={true} message={error}/>

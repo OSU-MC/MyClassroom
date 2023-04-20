@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Container, ListGroup, Button } from "react-bootstrap"
+import { Row, Col, Container, ListGroup, Button, NavLink } from "react-bootstrap"
 import '../styles/pages.css'
 import apiUtil from '../utils/apiUtil'
 import { getUserState } from '../redux/selectors'
 import { useSelector } from 'react-redux';
+import ResetPasswordEmailConfirmation from './ResetPassword';
+import { Link } from "react-router-dom";
 
 function Profile(props) {
     // TODO: add password change fields: oldPassword, newPassword, confirmedPassword
     // TODO: add update functionality when clicking "Save"
     // TODO: create error handling functionality
-    const userState = useSelector(getUserState)
+    const userState = useSelector(getUserState);
     const [ firstName, setFirstName] = useState("");
     const [ lastName, setLastName] = useState("");
     const [ email, setEmail] = useState("");
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmedPassword, setConfirmedPassword] = useState("");
     const [ editToggle, setEditToggle ] = useState(false);
 
     useEffect(() => {
@@ -34,6 +39,7 @@ function Profile(props) {
     // Doesn't resize well, need to make sure and fix that!
     if(editToggle){
         return (
+            //!--The content that shows here is seen after pressing the "Edit" button, the button should now say "Save"--!//
             <Container className='profileInfo'>
                     <ListGroup className='tester'>
                         <ListGroup.Item className='profileRow'>
@@ -52,6 +58,21 @@ function Profile(props) {
                         setEmail(event.target.value)}}></input></Col>
                         </ListGroup.Item>
 
+                        <ListGroup.Item className='profileRow'>
+                            <Col xs={3}> <b>Current Password:</b> </Col> <Col><input type='text' onChange={(event)=> {
+                        setCurrentPassword(event.target.value)}}></input> </Col>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item className='profileRow'>
+                            <Col xs={3}> <b>New Password:</b> </Col> <Col><input type='text' onChange={(event)=> {
+                        setNewPassword(event.target.value)}}></input></Col>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item className='profileRow'>
+                            <Col xs={3}> <b>Confirm New Password:</b> </Col> <Col><input type='text' onChange={(event)=> {
+                        setConfirmedPassword(event.target.value)}}></input></Col>
+                        </ListGroup.Item>
+
                         <Col xs={1} className='profileButton'> <Button onClick={() => setEditToggle(!editToggle)}>{editToggle ? "Save" : "Edit"}</Button> </Col>
                     </ListGroup>
             </Container>
@@ -59,6 +80,7 @@ function Profile(props) {
     }
     else{
         return (
+            //!--The content that shows here is seen before pressing the "Edit" button--!//
             <Container className='profileInfo'>
                     <ListGroup className='tester'>
                         <ListGroup.Item className='profileRow'>
@@ -72,7 +94,7 @@ function Profile(props) {
                         <ListGroup.Item className='profileRow'>
                             <Col xs={3}> <b>Email:</b> </Col> <Col><span>{email}</span></Col>
                         </ListGroup.Item>
-                        
+
                         <Col xs={1} className='profileButton'> <Button onClick={() => setEditToggle(!editToggle)}>{editToggle ? "Save" : "Edit"}</Button> </Col>
                     </ListGroup>
             </Container>

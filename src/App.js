@@ -7,7 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './pages/Login'
 import Profile from './pages/Profile';
 import Signup from './pages/Signup'
-import ResetPassword from './pages/ResetPassword'
+import ResetPasswordLogin from './pages/ResetPassword'
 import Confirm from './pages/Confirm'
 import Landing from './pages/Landing'
 import Course from './pages/Course'
@@ -15,9 +15,11 @@ import SingleCoursePage from './pages/SingleCoursePage'
 import AddCourse from './pages/AddCourse'
 import Home from './pages/Home'
 
+
 import Navigation from './components/nav/Navigation'
 import useAuth from './hooks/useAuth'
 import { Navigate, Outlet } from 'react-router-dom';
+import ResetPasswordEmailConfirmation from './pages/ResetPassword';
 
 function App() {
 
@@ -36,7 +38,7 @@ function App() {
         <Route element={ loggedIn ? <Navigate to='/'/> : <><Outlet/></>}>
           <Route path='/login' element={ <Login/> } />
           <Route path='/create' element={ < Signup /> } /> {/* redirects to landing page if a user is logged in already */}
-          <Route path='/reset' element={ < ResetPassword /> } /> {/* redirects to landing page if a user is logged in already */}
+          <Route path='/emailconfirmation' element={ < ResetPasswordEmailConfirmation /> } /> {/* redirects to landing page if a user is logged in already */}
         </Route>
 
         { /* All routes below require a user be loggied in */}
@@ -49,7 +51,12 @@ function App() {
               <Route path='' element={ <SingleCoursePage /> } />
               {/* TODO: the remainder of the nested routes should go here */}
           </Route>
+
+          <Route path='/password-reset' element={ <ResetPasswordLogin/> } />
         </Route>
+        {/*Route to the Password reset page*/}
+        
+
       </Routes>
     </>  
     );
