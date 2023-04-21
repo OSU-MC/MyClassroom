@@ -13,3 +13,7 @@ export function getUserState(state) {
 export function getCourses(state) {
     return state.courses
 }
+
+export function getLectures(state) {
+    return state.courses.lectures
+}

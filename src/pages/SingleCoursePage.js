@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Link, NavLink, useNavigate, useParams } from 'react-router-dom'
 import apiUtil from '../utils/apiUtil'
 import Notice from '../components/Notice'
 import useCourse from "../hooks/useCourse";
+import useLectures from '../hooks/useLectures';
 import StudentCourse from "../components/SingleCoursePageComponents/StudentCourse";
 import TeacherCourse from "../components/SingleCoursePageComponents/TeacherCourse";
 
 function DisplayCoursePage(){
     const [ course, role, message, error, loading ] = useCourse()
+    const [ lectures, lecturesMessage, lecturesError, lecturesLoading ] = useLectures()
 
     return <>
         { loading ? <TailSpin visibile={true}/> : (error ? <Notice message={message} error={error}/> : <div className="singleCourseContainer">
