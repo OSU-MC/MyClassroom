@@ -9,7 +9,6 @@ import TeacherCourse from "../components/SingleCoursePageComponents/TeacherCours
 
 function DisplayCoursePage(){
     const [ course, role, message, error, loading ] = useCourse()
-    const [ lectures, lecturesMessage, lecturesError, lecturesLoading ] = useLectures()
 
     return <>
         { loading ? <TailSpin visibile={true}/> : (error ? <Notice message={message} error={error}/> : <div className="singleCourseContainer">
