@@ -21,7 +21,7 @@ function useLectures() {
             setMessage(response.message)
             setError(response.error)
             if (response.status === 200) {
-                dispatch(addLectures(courseId, response.data.lectures))
+                dispatch(addLectures(courseId, response.data.lecture))
             }
             setLoading(false)
         }
@@ -30,6 +30,7 @@ function useLectures() {
         }
     }, [])
 
+    console.log("returning... ", lectures)
     return [lectures, message, error, loading]
 }
 

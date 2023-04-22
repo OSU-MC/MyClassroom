@@ -11,6 +11,7 @@ import ResetPassword from './pages/ResetPassword'
 import Confirm from './pages/Confirm'
 import Landing from './pages/Landing'
 import Course from './pages/Course'
+import Lectures from './pages/Lectures'
 import SingleCoursePage from './pages/SingleCoursePage'
 import AddCourse from './pages/AddCourse'
 import Home from './pages/Home'
@@ -50,7 +51,7 @@ function App() {
               <Route path='' element={ <SingleCoursePage /> } />
               <Route path='students' element={ <div>Student Page</div>}/>
               <Route path='questions' element={ <div>Questions Page</div>}/>
-              <Route path='lectures' element={ <div>Lectures Page</div>}/>
+              <Route path='lectures' element={ <Lectures/>}/>
                 {/* TODO: the remainder of the nested routes should go here */}
             </Route>
           </Route>
