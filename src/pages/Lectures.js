@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { TailSpin } from  'react-loader-spinner'
 import useLectures from '../hooks/useLectures';
 import Notice from '../components/Notice'
@@ -9,6 +9,7 @@ import LectureCard from '../components/LectureCard';
 
 function Lectures(props){
     //get the lectures for the current course & section
+    const { courseId } = useParams()
     const [lectures, message, error, loading] = useLectures()
     const [ course, role, Cmessage, Cerror, Cloading ] = useCourse()
 
@@ -25,9 +26,8 @@ function Lectures(props){
         </div>
 
         <div className="lecture-container">
-            {console.log(course)}
-            {lectures[1].map((lecture) => {
-                return <LectureCard key={lecture.id} course={lecture[1][course.id]} role={role} />
+            { Cloading || loading ? <TailSpin visible={true}/> : lectures[courseId].map((lecture) => {
+                return <LectureCard key={lecture.id} lecture={lecture} view={role} />
             })}
         </div>
         </>

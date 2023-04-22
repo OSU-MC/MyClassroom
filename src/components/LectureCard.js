@@ -8,7 +8,7 @@ function LectureCard (props) {
             <Card>
                 <Card.Header>{props.lecture.title}</Card.Header>
                 <Card.Body>
-                    <p>props.lecture.description</p>
+                    <p>{props.lecture.description}</p>
 
                     {props.view==="student" ? 
                         <Link to={`/studentlecture`}>

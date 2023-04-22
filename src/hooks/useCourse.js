@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 
 function useCourse() {
     const { courseId } = useParams()
-    console.log("course id: ", courseId)
     const [ courses, coursesMessage, coursesError ] = useCourses()
     const [ course, setCourse ] = useState({})
     const [ role, setRole ] = useState("")
@@ -16,9 +15,7 @@ function useCourse() {
         function findCourse() {
             setLoading(true)
             let found = false
-            console.log("in find courses: ", courses.teacherCourses)
             courses.teacherCourses.forEach((teacherCourse) => {
-                console.log("teacher course: ", teacherCourse.id)
                 if (teacherCourse.id == courseId) {
                     found = true
                     setCourse(teacherCourse)
@@ -42,7 +39,7 @@ function useCourse() {
             findCourse()
         }
     }, [ courseId, courses ])
-    console.log("course to return: ", course)
+
     return [ course, role, message, error, loading ] 
 }
 

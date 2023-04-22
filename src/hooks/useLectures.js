@@ -21,16 +21,18 @@ function useLectures() {
             setMessage(response.message)
             setError(response.error)
             if (response.status === 200) {
-                dispatch(addLectures(courseId, response.data.lecture))
+                dispatch(addLectures(courseId, response.data.lectures))
             }
             setLoading(false)
         }
         if (lectures[courseId] == null) {
             getLectures()
         }
+        else {
+            setLoading(false)
+        }
     }, [])
 
-    console.log("returning... ", lectures)
     return [lectures, message, error, loading]
 }
 
