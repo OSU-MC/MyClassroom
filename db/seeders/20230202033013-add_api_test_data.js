@@ -81,6 +81,20 @@ module.exports = {
       role: 'student'
     }], {})
 
+    let lecture1course1 = await queryInterface.bulkInsert('Lectures', [{
+      courseId: course1,
+      title: 'Welcome',
+      description: 'A lecture to welcome you to the course',
+      order: 0
+    }])
+
+    let lecture2course1 = await queryInterface.bulkInsert('Lectures', [{
+      courseId: course1,
+      title: 'Introducing Main Course concepts',
+      description: 'A genera introduction to the course concepts',
+      order: 1
+    }])
+
     /*
       CREATE COURSE 2 DATA: only for testing multiple courses for a teacher and multiple courses for a student
     */

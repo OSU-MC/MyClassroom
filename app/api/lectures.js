@@ -87,7 +87,7 @@ router.get('/', requireAuthentication, async function (req, res) {
         }
         else {
             res.status(200).json({
-                "lecture": lectures
+                "lectures": lectures
             })
         }
     }

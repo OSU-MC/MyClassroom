@@ -189,22 +189,22 @@ describe('Test api/lecture.js request handlers', () => {
             const resp = await request(app).get(`/courses/${course.id}/lectures`).set('Cookie', teacherCookies).set('X-XSRF-TOKEN', teacherXsrfCookie)
         
             expect(resp.statusCode).toEqual(200)
-            expect(resp.body.lecture.length).toEqual(1)
-            expect(resp.body.lecture[0].title).toEqual('question set 1')
-            expect(resp.body.lecture[0].order).toEqual(1)
-            expect(resp.body.lecture[0].description).toEqual('intro qs')
-            expect(resp.body.lecture[0].courseId).toEqual(course.id)
+            expect(resp.body.lectures.length).toEqual(1)
+            expect(resp.body.lectures[0].title).toEqual('question set 1')
+            expect(resp.body.lectures[0].order).toEqual(1)
+            expect(resp.body.lectures[0].description).toEqual('intro qs')
+            expect(resp.body.lectures[0].courseId).toEqual(course.id)
         })
 
         it('should respond with 200 and lecture details for student in published course', async () => {
             const resp = await request(app).get(`/courses/${course_published.id}/lectures`).set('Cookie', studentCookies).set('X-XSRF-TOKEN', studentXsrfCookie)
         
             expect(resp.statusCode).toEqual(200)
-            expect(resp.body.lecture.length).toEqual(1)
-            expect(resp.body.lecture[0].title).toEqual('question set 2')
-            expect(resp.body.lecture[0].order).toEqual(2)
-            expect(resp.body.lecture[0].description).toEqual('intermediate qs')
-            expect(resp.body.lecture[0].courseId).toEqual(course_published.id)
+            expect(resp.body.lectures.length).toEqual(1)
+            expect(resp.body.lectures[0].title).toEqual('question set 2')
+            expect(resp.body.lectures[0].order).toEqual(2)
+            expect(resp.body.lectures[0].description).toEqual('intermediate qs')
+            expect(resp.body.lectures[0].courseId).toEqual(course_published.id)
         })
     })
 
