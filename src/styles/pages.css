@@ -313,3 +313,16 @@ input {
     padding-top: 20px;
 
 }
+
+/* ResetPassword Page Styling */
+
+.passwordDivContainer {
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 30vh;
+    display: block;
+    border: 2px solid rgb(92, 92, 92);
+    border-radius: 10px;
+}

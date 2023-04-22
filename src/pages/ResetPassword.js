@@ -9,8 +9,8 @@ function ResetPasswordLogin() {
 
     return (
         
-    <div>
-        <h1>Password Reset</h1>
+    <div className="passwordDivContainer">
+        <h1 className="passwordPageh1">Password Reset</h1>
         <p>Please enter in your email address
            related to your account. We will send
            a confirmation code to that email.</p>
