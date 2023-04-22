@@ -9,7 +9,6 @@ function ResetPasswordLogin() {
 
     return (
         
-//THIS IS STILL IN PROGRESS
     <div>
         <h1>Password Reset</h1>
         <p>Please enter in your email address

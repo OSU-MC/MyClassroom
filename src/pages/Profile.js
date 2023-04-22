@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux';
 import ResetPasswordEmailConfirmation from './ResetPassword';
 import { Link } from "react-router-dom";
 
+// 1: have a function for the editToggle setting. 
+// 2: have a function then grabs the data from the fields and then sends it off in the put request.
+
 function Profile(props) {
     // TODO: add password change fields: oldPassword, newPassword, confirmedPassword
     // TODO: add update functionality when clicking "Save"
@@ -35,6 +38,45 @@ function Profile(props) {
         }
         getUserInfo()
     }, [])
+
+    function settingEditToggle(){
+        setEditToggle(!editToggle)
+    }
+
+    //--This function is essentially the main "PUT" request for editing the Account info.
+    async function editAccountInfoRequest(accountPayload) {
+        let response = {};
+
+        try{
+            response = await apiUtil("put", `/users/${userState.user.id}`, accountPayload)
+            console.log(response);
+        } catch (e) {
+            if (e instanceof DOMException) {
+                console.log("== HTTP request was cancelled");
+            } else {
+                console.log(e);
+            }
+        }
+    }
+
+    function sendEditedAccountInfo(){
+
+        const newAccountInfo = {
+            oldPassword: currentPassword,
+            rawPassword: newPassword,
+            confirmedPassword: confirmedPassword,
+            email: email,
+            firstName: firstName,
+            lastName: lastName
+        }
+
+        editAccountInfoRequest(newAccountInfo);
+    }
+
+    function onClickFunctions(){
+        settingEditToggle();
+        sendEditedAccountInfo();
+    }
 
     // Doesn't resize well, need to make sure and fix that!
     if(editToggle){
@@ -72,10 +114,11 @@ function Profile(props) {
                             <Col xs={3}> <b>Confirm New Password:</b> </Col> <Col><input type='text' onChange={(event)=> {
                         setConfirmedPassword(event.target.value)}}></input></Col>
                         </ListGroup.Item>
-
-                        <Col xs={1} className='profileButton'> <Button onClick={() => setEditToggle(!editToggle)}>{editToggle ? "Save" : "Edit"}</Button> </Col>
+                        
+                        <Col xs={1} className='profileButton'> <Button onClick={onClickFunctions}> {editToggle ? "Save" : "Edit"} </Button> </Col>
                     </ListGroup>
             </Container>
+        
         );
     }
     else{
