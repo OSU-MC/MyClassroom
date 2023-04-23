@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../redux/actions';
 import Notice from '../components/Notice'
 import { Link } from "react-router-dom";
+import { TailSpin } from  'react-loader-spinner'
 
 export default function Login(props) {
   const dispatch = useDispatch()
@@ -16,8 +17,8 @@ export default function Login(props) {
   //form fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const [error, setError] = useState("")
+  const [error, setError] = useState(false)
+  const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
 
   // TODO: expand this validation & use it
@@ -27,14 +28,10 @@ export default function Login(props) {
 
   // TODO: add some sort of loading symbol when waiting for a response
   async function authenticateUser(user){
-    let response = {}
-    try {
-        response = await apiUtil('post', 'users/login', user)
-    } catch (e) {
-        console.log(e)
-        setError(e.response.data.error)
-      }
+    const response = await apiUtil('post', 'users/login', { dispatch: dispatch, navigate: navigate}, user)
     setLoading(false)
+    setMessage(response.message ? response.message : "")
+    setError(response.error)
     if (response.status === 200) {
       dispatch(login(response.data.user, response.data.status))
       try {
@@ -43,10 +40,8 @@ export default function Login(props) {
       catch(e) {
         navigate('/')
       }
-    }    
+    }
 }
-
-
 
 function handleSubmit() {
   event.preventDefault();
@@ -92,13 +87,13 @@ function handleSubmit() {
           />
         </Form.Group>
           <br></br>
-          { !loading && <Button onClick={() => {handleSubmit()}}>
+          { loading ? <TailSpin visible={true}/> : <Button onClick={() => {handleSubmit()}}>
             Login
           </Button> }
           <Link to="/password-reset">Change Password</Link>
         </Form>
           {
-            error != "" && <Notice error={true} message={error}/>
+            message != "" && error && <Notice message={message} error={error}/>
           }
       </Container>
     </div>

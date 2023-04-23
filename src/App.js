@@ -19,17 +19,18 @@ import Home from './pages/Home'
 import Navigation from './components/nav/Navigation'
 import useAuth from './hooks/useAuth'
 import { Navigate, Outlet } from 'react-router-dom';
+import { TailSpin } from  'react-loader-spinner'
 import ResetPasswordEmailConfirmation from './pages/ResetPassword';
 
 function App() {
 
-  const loggedIn = useAuth()
+  const [ loggedIn, message, error, loading ] = useAuth()
 
   return (
     <>
-
-      <Routes>
-        {/* There are only 3 accessible pages for users who are not logged in:
+      { loading === true ? <TailSpin visible={true}/> : <Routes>
+        {/* There are only 4 accessible pages for users who are not logged in:
+            - home
             - create account
             - login
             - password reset
@@ -42,13 +43,13 @@ function App() {
           <Route path='/password-reset' element={ <ResetPasswordLogin/> } />
         </Route>
 
-        { /* All routes below require a user be loggied in */}
-        <Route element={ <Navigation></Navigation> }>
-          <Route path='/' element= {<Landing/> }/>
-          <Route path='/profile' element={ <Profile /> } />
-          <Route path='/confirm' element={ <Confirm /> } />
-          <Route path='/createcourse' element={ <AddCourse/> }/>
-          <Route path='/:courseId'>
+          { /* All routes below require a user be loggied in */}
+          <Route element={ loggedIn === true ? <Outlet/> : <Navigate to='/login'/>}>
+            <Route path='/' element= {<Landing/> }/>
+            <Route path='/profile' element={ <Profile /> } />
+            <Route path='/confirm' element={ <Confirm /> } />
+            <Route path='/createcourse' element={ <AddCourse/> }/>
+            <Route path='/:courseId'>
               <Route path='' element={ <SingleCoursePage /> } />
               {/* TODO: the remainder of the nested routes should go here */}
           </Route>          

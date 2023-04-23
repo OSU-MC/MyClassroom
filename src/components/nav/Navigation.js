@@ -1,22 +1,20 @@
 import TopNavbar from './TopNavbar'
 import SideNavbar from './SideNavbar'
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import useCourse from '../../hooks/useCourse'
 import styled from '@emotion/styled/macro';
 
 function Navigation(props) {
-    const [ course, role ] = useCourse()
-    console.log(role)
-    const MainBody = styled.div`
-        display: flex;
-    `
+    const location = useLocation()
+    const courseRegex = /\/\d+/
+    const inCourse = location.pathname.match(courseRegex)
 
     return <>
-        <TopNavbar/>
-        <MainBody>
-            { course.id && role == 'teacher' && <SideNavbar course={course} /> }
+        <TopNavbar loggedIn={props.loggedIn}/>
+        <div className="mainBody">
+            { inCourse && <SideNavbar/> }
             <Outlet/>
-        </MainBody>
+        </div>
     </> 
 }
 

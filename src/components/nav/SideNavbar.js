@@ -9,37 +9,40 @@ import useCourse from '../../hooks/useCourse'
 
 //Sidebar creation
 function SideNavbar(props) {
+    const [ course, role, message, error, loading ] = useCourse()
+
     const instructorSidebarData = [
         {
             title: "Questions",
             icon: <QuestionMarkIcon />,
-            link: `courses/${props.course.id}/questions`
+            link: `${course.id}/questions`
         },
         {
             title: "Students",
             icon: <SchoolIcon />,
-            link: `courses/${props.course.id}/students`
+            link: `${course.id}/students`
         },
         {
             title: "Lectures",
             icon: <MenuBookIcon />,
-            link: `courses/${props.course.id}/lectures`
+            link: `${course.id}/lectures`
         }
     ]
 
     // TODO: check the role of the user in this course and only render if teacher for now
-    return <div className='sidebarBody'>
-            <ul className='sidebarList'>
-                {instructorSidebarData.map((val, key) => {
-                return(
-                        <Link className='sidebarItem' key={key} to={val.link}>
-                            <div id='sidebarIcon'>{val.icon}</div>
-                            <div id='sidebarTitle'>{val.title}</div>
-                        </Link> 
-                        );
-                })}
-            </ul>
-        </div>
+    return <>{ role == 'teacher' ? <div className='sidebarBody'>
+                <ul className='sidebarList'>
+                    {instructorSidebarData.map((val, key) => {
+                    return(
+                            <Link className='sidebarItem' key={key} to={val.link}>
+                                <div id='sidebarIcon'>{val.icon}</div>
+                                <div id='sidebarTitle'>{val.title}</div>
+                            </Link> 
+                            );
+                    })}
+                </ul>
+            </div>
+            : <></>}</>
 }
 
 export default SideNavbar;

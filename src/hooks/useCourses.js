@@ -2,40 +2,34 @@ import apiUtil from '../utils/apiUtil'
 import { setCourses, logout } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCourses } from '../redux/selectors'
-import { useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function useCourses() {
-    const location = useLocation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const courses = useSelector(getCourses)
+    const [ error, setError ] = useState(false)
+    const [ message, setMessage ] = useState("")
+    const [ loading, setLoading ] = useState(false)
 
     useEffect( () => {
         async function populateCourses(){
-            let response
-            try {
-                response = await apiUtil("get", "courses/");
-                //send the data to the redux so it can be used elsewhere
+            setLoading(true)
+            const response = await apiUtil("get", "courses/", { dispatch: dispatch, navigate: navigate} );
+            setLoading(false)
+            setMessage(response.message)
+            setError(response.error)
+            if (response.status === 200) {
                 dispatch(setCourses(response.data.studentCourses, response.data.teacherCourses))
-            } catch (e) {
-                if (e.response.status === 401) {
-                    dispatch(logout())
-                    navigate(`/login?redirect=${location.pathname}`)
-                }
-                else{
-                    console.log(e)
-                    throw e;
-                }    
             }
         }
         if (courses.studentCourses == null || courses.teacherCourses == null) {
             populateCourses()
         }
-
     }, [])
 
-    return courses
+    return [courses, message, error, loading]
 }
 
 export default useCourses

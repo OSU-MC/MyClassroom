@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap"
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 import Notice from "./Notice";
 import { joinCourse } from "../redux/actions";
 import apiUtil from '../utils/apiUtil'
@@ -13,28 +14,23 @@ import apiUtil from '../utils/apiUtil'
 
 function JoinCourse(props){
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [error, setError] = useState(false)
+    const [message, setMessage] = useState("")
     const [joinCode, setJoinCode] = useState("")
-    const [joinedCourse, setJoinedCourse] = useState()
-    const [error, setError] = useState("")
 
     async function handleJoinSubmit(e){
         event.preventDefault()
         //setJoinCode(e.target.value)
-        let joinResponse = {}
-        try{
-            //post to the courses/join endpoint
-            const joinCodePayload = {
-                joinCode: joinCode
-            }
-            joinResponse = await apiUtil("post", "courses/join", joinCodePayload);
-            dispatch(joinCourse(joinResponse.data.course))
+        //post to the courses/join endpoint
+        const joinCodePayload = {
+            joinCode: joinCode
         }
-        catch(e){
-            if (e instanceof DOMException) {
-                console.log("== HTTP request cancelled")
-            } else {
-                setError(e.response.data.error)
-            }
+        const response = await apiUtil("post", "courses/join", { dispatch: dispatch, navigate: navigate}, joinCodePayload);
+        setError(response.error)
+        setMessage(response.message)
+        if (response.status === 201) {
+            dispatch(joinCourse(response.data.course))
         }
     }
 
@@ -48,7 +44,7 @@ function JoinCourse(props){
                 Join Course
             </Button>
         </Form>
-        {(error === "") ? <></> : <Notice error="true" message={error}/>}
+        { message !== "" && <Notice error={error} message={message}/>}
         </>
     );
 }
