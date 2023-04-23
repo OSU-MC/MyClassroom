@@ -57,8 +57,9 @@ function App() {
         {/*Route to the Password reset page*/}
         
 
-      </Routes>
-    </>  
+        </Routes>
+      }
+      </>  
     );
 }
 
