@@ -88,25 +88,40 @@ function Profile(props) {
             <>
                 { message !== "" && <Notice message={message} error={error}/> }
                 { loading ? <TailSpin visible={true}/> : <Container className='profileInfo'>
-                        <ListGroup className='tester'>
-                            <ListGroup.Item className='profileRow'>
-                                <Col xs={3}> <b>First Name:</b> </Col> <Col><input type='text' value={firstName} onChange={(event)=> {
-                            setFirstName(event.target.value)}}></input></Col>     
-                            </ListGroup.Item>
+                <ListGroup className='tester'>
+                        <ListGroup.Item className='profileRow'>
+                            <Col xs={3}> <b>First Name:</b> </Col> <Col><input type='text' value={firstName} onChange={(event)=> {
+                        setFirstName(event.target.value)}}></input></Col>     
+                        </ListGroup.Item>
 
-                            <ListGroup.Item className='profileRow'>
-                                <Col xs={3}> <b>Last Name:</b> </Col> <Col><input type='text' value={lastName} onChange={(event)=> {
-                            setLastName(event.target.value)}}></input></Col>
-                            </ListGroup.Item>
+                        <ListGroup.Item className='profileRow'>
+                            <Col xs={3}> <b>Last Name:</b> </Col> <Col><input type='text' value={lastName} onChange={(event)=> {
+                        setLastName(event.target.value)}}></input></Col>
+                        </ListGroup.Item>
 
-                            <ListGroup.Item className='profileRow'>
-                                {/* Need to add validation for these to be numbers, add dashed automatically? */}
-                                <Col xs={3}> <b>Email:</b> </Col> <Col><input type='text' value={email} onChange={(event)=> {
-                            setEmail(event.target.value)}}></input></Col>
-                            </ListGroup.Item>
+                        <ListGroup.Item className='profileRow'>
+                            {/* Need to add validation for these to be numbers, add dashed automatically? */}
+                            <Col xs={3}> <b>Email:</b> </Col> <Col><input type='text' value={email} onChange={(event)=> {
+                        setEmail(event.target.value)}}></input></Col>
+                        </ListGroup.Item>
 
-                            <Col xs={1} className='profileButton'> <Button onClick={() => setEditToggle(!editToggle)}>{editToggle ? "Save" : "Edit"}</Button> </Col>
-                        </ListGroup>
+                        <ListGroup.Item className='profileRow'>
+                            <Col xs={3}> <b>Current Password:</b> </Col> <Col><input type='text' onChange={(event)=> {
+                        setCurrentPassword(event.target.value)}}></input> </Col>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item className='profileRow'>
+                            <Col xs={3}> <b>New Password:</b> </Col> <Col><input type='text' onChange={(event)=> {
+                        setNewPassword(event.target.value)}}></input></Col>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item className='profileRow'>
+                            <Col xs={3}> <b>Confirm New Password:</b> </Col> <Col><input type='text' onChange={(event)=> {
+                        setConfirmedPassword(event.target.value)}}></input></Col>
+                        </ListGroup.Item>
+                        
+                        <Col xs={1} className='profileButton'> <Button onClick={onClickFunctions}> {editToggle ? "Save" : "Edit"} </Button> </Col>
+                    </ListGroup>
                 </Container>}
             </>
         );
