@@ -20,7 +20,7 @@ function Lectures(props){
 
         {/*Add Lecture Button - ONLY if enrollment == instructor*/}
         <div className="buttons">
-            <Link to={`/createlecture`}>
+            <Link to={`/${courseId}/createlecture`}>
                 <Button variant="secondary">Create Lecture</Button>
             </Link>
         </div>
