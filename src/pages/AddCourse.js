@@ -62,6 +62,7 @@ function AddCourse(props){
                         placeholder="Enter Class Description"
                         onChange={(e) => setDescription(e.target.value)}/>
                 </Form.Group>
+                {/*Publish Course Doesn't do anything yet - NOT FUNCTION*/}
                 <Form.Group className="inputPublishedContainer" controlId="published">
                     <Form.Check 
                         type="switch" 
