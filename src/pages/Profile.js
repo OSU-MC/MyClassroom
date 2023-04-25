@@ -52,7 +52,7 @@ function Profile(props) {
         let response = {};
 
         try{
-            response = await apiUtil("put", `/users/${userState.user.id}`, accountPayload)
+            response = await apiUtil("put", `/users/${userState.user.id}`, {}, accountPayload)
             console.log(response);
         } catch (e) {
             if (e instanceof DOMException) {
@@ -66,15 +66,23 @@ function Profile(props) {
     function sendEditedAccountInfo(){
 
         const newAccountInfo = {
-            oldPassword: currentPassword,
-            rawPassword: newPassword,
-            confirmedPassword: confirmedPassword,
             email: email,
             firstName: firstName,
             lastName: lastName
         }
 
+        if (currentPassword != "")
+            newAccountInfo.oldPassword = currentPassword
+        if (newPassword != "")
+            newAccountInfo.rawPassword = newPassword
+        if (confirmedPassword != "")
+            newAccountInfo.confirmedPassword = confirmedPassword
+
         editAccountInfoRequest(newAccountInfo);
+
+        setCurrentPassword("")
+        setNewPassword("")
+        setConfirmedPassword("")
     }
 
     function onClickFunctions(){
