@@ -17,3 +17,7 @@ export function getCourses(state) {
 export function getLectures(state) {
     return state.courses.lectures
 }
+
+export function getQuestions(state) {
+    return state.courses.questions
+}
