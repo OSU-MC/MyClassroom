@@ -215,3 +215,101 @@ body{
 
 }
 
+
+/* Questions CSS */
+
+.questionListItem {
+    display: flex;
+    width: 80vw;
+    border: solid 2px black;
+    border-radius: 10px;
+    padding: 0.5vh 1vw 0.5vh 1vw;
+    font-size: calc(10px + 0.8vw);
+    margin: 2px;
+}
+
+.questionListItem .checkbox {
+    width: 2vw;
+    height: 2vh;
+}
+
+.questionListItem .checkboxContainer {
+    display: flex;
+    align-items: center;
+    padding-right: 0.5vw;
+}
+
+.questionListItemInformation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex: 1;
+}
+
+.questionListItemInformation .questionStem {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 50vw;
+}
+
+.questionListItemInformation .questionType {
+    font-size: calc(11px + 0.4vw);
+}
+
+.questionsView {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px;
+    width: 100%;
+}
+
+.searchBarContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3vh;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.searchBar {
+    border-radius: 5px;
+    width: 40vw;
+    font-size: calc(10px + 0.5vw);
+    padding: 0.5vw;
+}
+
+.searchButton {
+    font-size: calc(10px + 0.5vw);
+    border-radius: 5px;
+    margin-top: 1px;
+    padding: 0.5vw 0px 0.5vw 0px;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.basicLink {
+    text-decoration: none;
+    color: black;
+}
+
+.basicLink:hover {
+    color: black;
+}

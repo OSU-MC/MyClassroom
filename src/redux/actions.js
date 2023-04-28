@@ -28,6 +28,7 @@ export const DELETE_COURSE = "DELETE_COURSE"
 export const UPDATE_COURSE = "UPDATE_COURSE"
 export const JOIN_COURSE = "JOIN_COURSE"
 export const ADD_LECTURES = "ADD_LECTURES"
+export const ADD_QUESTIONS = "ADD_QUESTIONS"
 
 export function setCourses(studentCourses, teacherCourses) {
     return { type: SET_COURSES, studentCourses, teacherCourses }
@@ -51,4 +52,8 @@ export function joinCourse(course) {
 
 export function addLectures(courseId, lectures) {
     return { type: ADD_LECTURES, courseId, lectures}
+}
+
+export function addQuestions(courseId, questions) {
+    return { type: ADD_QUESTIONS, courseId, questions}
 }
