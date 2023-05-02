@@ -198,5 +198,7 @@ router.use('/:course_id/lectures', require('./lectures'))
 router.use('/:course_id/enrollments', require('./enrollments'))
 router.use('/:course_id/questions', require('./questions'))
 router.use('/:course_id/sections', require('./sections'))
+router.use('/:course_id/sections/:section_id/lectures/:lecture_id/responses', require('./lectureSummaries'))
+router.use('/:course_id/sections/:section_id/grades', require('./grades'))
 
 module.exports = router
