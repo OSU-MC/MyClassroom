@@ -50,7 +50,7 @@ function AddLecture(props){
 
     return(
         <>
-            { message !== "" && <Notice message={message} error={error}/> }
+            { message !== "" && <Notice message={message} error={error ? "error" : ""}/> }
             { loading ? <TailSpin visible={true}/> : <Form onSubmit={(e) => { addLectureSubmit(e) }}>
                 <Form.Group className="inputTitleContainer" controlId="title">
                     <Form.Label>Title Name:</Form.Label>

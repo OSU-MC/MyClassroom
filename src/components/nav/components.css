@@ -284,11 +284,17 @@ body{
     padding: 0.5vw;
 }
 
-.searchButton {
+.questionButton {
     font-size: calc(10px + 0.5vw);
     border-radius: 5px;
     margin-top: 1px;
     padding: 0.5vw 0px 0.5vw 0px;
+    flex: 1;
+    color: white;
+}
+
+.questionButton:hover {
+    color: white;
 }
 
 .footer {
@@ -307,9 +313,14 @@ body{
 
 .basicLink {
     text-decoration: none;
-    color: black;
+    color: inherit;
 }
 
 .basicLink:hover {
-    color: black;
+    color: inherit;
+}
+
+.split-space {
+    display: flex;
+    justify-content: center;
 }

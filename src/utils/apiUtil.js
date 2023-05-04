@@ -31,7 +31,6 @@ const handleRequest = async (method, route, reactOpts, body, params) => {
         else if (e.response.status === 403) {
             reactOpts.navigate(`/`)
         }
-        console.log(e.response.data.error)
         return {
             message: e.response.data.error,
             data: e.response.data,

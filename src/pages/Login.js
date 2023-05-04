@@ -91,7 +91,7 @@ function handleSubmit() {
           </Button> }
         </Form>
           {
-            message != "" && error && <Notice message={message} error={error}/>
+            message != "" && error && <Notice message={message} error={error ? "error" : ""}/>
           }
       </Container>
     </div>

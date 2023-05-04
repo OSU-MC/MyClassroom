@@ -21,3 +21,11 @@ export function getLectures(state) {
 export function getQuestions(state) {
     return state.courses.questions
 }
+
+/*
+    LECTURE SELECTORS
+*/
+
+export function getLectureDetails(state) {
+    return state.lectures
+}

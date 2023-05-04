@@ -11,7 +11,7 @@ function DisplayCoursePage(){
     const [ course, role, message, error, loading ] = useCourse()
 
     return <>
-        { loading ? <TailSpin visibile={true}/> : (error ? <Notice message={message} error={error}/> : <div className="singleCourseContainer">
+        { loading ? <TailSpin visibile={true}/> : (error ? <Notice message={message} error={error ? "error" : ""}/> : <div className="singleCourseContainer">
             <div className="singleCourseDetails">
                 {(role == 'student') && <StudentCourse course={course}/>}
                 {(role == 'teacher') && <TeacherCourse course={course}/>}

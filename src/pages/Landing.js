@@ -16,7 +16,7 @@ function Landing(props) {
     return(
         <>
             {/*No Courses*/}
-            { message ? <Notice error={error} message={message}/> : (!courses.studentCourses && !courses.instructorCourses) ? <Notice error={false} message={"You do not have any courses yet"}/> : <></>}
+            { message ? <Notice error={error ? "error" : ""} message={message}/> : (!courses.studentCourses && !courses.instructorCourses) ? <Notice message={"You do not have any courses yet"}/> : <></>}
             {/*Join Course button for all users*/}
             <JoinCourse className="buttons"/>
 

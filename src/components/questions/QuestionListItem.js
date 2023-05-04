@@ -1,17 +1,29 @@
-import { React, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { React, useState, useRef, useEffect } from 'react'
+import { NavLink, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import  { stageQuestionInLecture, unstageQuestionInLecture, addStagedQuestions } from '../../redux/actions'
 
 function QuestionListItem(props) {
-    const [ checked, setChecked ] = useState(false)
+    const checkRef = useRef("")
+    const { lectureId } = useParams()
+    const dispatch = useDispatch()
     const link = `${props.question.id}`
 
+    useEffect(() => {
+        if (props.selectable)
+            checkRef.current.checked = props.staged
+    }, [props.staged])
+
     const handleCheck = () => {
-        setChecked(!checked)
+        if (checkRef.current.checked)
+            dispatch(stageQuestionInLecture(lectureId, props.question))
+        else
+            dispatch(unstageQuestionInLecture(lectureId, props.question))
     }
 
     return <div className="questionListItem">
         <div className="checkboxContainer">
-            { props.selectable && <input className="checkbox" type="checkbox" checked={checked} onChange={handleCheck}/> }
+            { props.selectable && <input className="checkbox" ref={checkRef} type="checkbox" onChange={handleCheck}/> }
         </div>
         <NavLink className="basicLink questionListItemInformation" to={link}>
             <div className="questionStem">{props.question.stem}</div>
