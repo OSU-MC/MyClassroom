@@ -28,6 +28,9 @@ function useLectures() {
         if (lectures[courseId] == null) {
             getLectures()
         }
+        else {
+            setLoading(false)
+        }
     }, [])
 
     return [lectures, message, error, loading]
