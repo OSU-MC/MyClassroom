@@ -37,22 +37,18 @@ function ConfirmationCodePasswordRequest() {
     }
 
 
-    function emailObjectStaging(event){
+    function emailObjectStaging(){
 
         const emailInput = {
             email: email
         }
 
-        console.log({emailInput})
+        //console.log({emailInput})
         confirmationCodeRequest(emailInput)
 
     }
 
-    function onClickFunctions(){
-        emailObjectStaging()
-    }
-
-
+    
     return (
     <div className="passwordDivContainer">
         <h1 className="passwordPageh1">Confirmation Code</h1>
@@ -69,7 +65,7 @@ function ConfirmationCodePasswordRequest() {
                 </div>
                 <br/>
                 <div>
-                    <button type="submit" onClick={onClickFunctions}> Send Code </button>
+                    <button type="submit" onClick={emailObjectStaging}> Send Code </button>
                 </div>
             </form>
 
