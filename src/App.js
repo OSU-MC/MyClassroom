@@ -7,7 +7,8 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './pages/Login'
 import Profile from './pages/Profile';
 import Signup from './pages/Signup'
-import ResetPasswordLogin from './pages/ResetPassword'
+import ConfirmationCodePasswordRequest from './pages/ConfirmationCodePassword'
+import ResetPasswordForLoginUser from './pages/ResetPassword';
 import Confirm from './pages/Confirm'
 import Landing from './pages/Landing'
 import Course from './pages/Course'
@@ -20,7 +21,6 @@ import Navigation from './components/nav/Navigation'
 import useAuth from './hooks/useAuth'
 import { Navigate, Outlet } from 'react-router-dom';
 import { TailSpin } from  'react-loader-spinner'
-import ResetPasswordEmailConfirmation from './pages/ResetPassword';
 
 function App() {
 
@@ -40,7 +40,8 @@ function App() {
           <Route element={ loggedIn === true ? <Navigate to='/'/> : <Outlet/>}>
             <Route path='/login' element={ <Login/> } />
             <Route path='/create' element={ < Signup /> } /> {/* redirects to landing page if a user is logged in already */}
-            <Route path='/reset' element={ < ResetPasswordEmailConfirmation /> } /> {/* redirects to landing page if a user is logged in already */}
+            <Route path='/reset' element={ < ConfirmationCodePasswordRequest /> } /> {/* redirects to landing page if a user is logged in already */}
+            <Route path='/reset/password' element={ < ResetPasswordForLoginUser /> } />
           </Route>
 
           { /* All routes below require a user be loggied in */}

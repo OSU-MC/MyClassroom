@@ -11,8 +11,6 @@ import { TailSpin } from  'react-loader-spinner'
 function Profile(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    // TODO: add password change fields: oldPassword, newPassword, confirmedPassword
-    // TODO: add update functionality when clicking "Save"
     // TODO: create error handling functionality
     const userState = useSelector(getUserState);
     const [ firstName, setFirstName] = useState("");
@@ -34,7 +32,6 @@ function Profile(props) {
             setError(response.error)
             setMessage(response.message)
             if (response.status === 200) {
-                // TODO: create a handler to set the state's values and the store's values
                 setFirstName(response.data.user.firstName)
                 setLastName(response.data.user.lastName)
                 setEmail(response.data.user.email)
@@ -51,18 +48,15 @@ function Profile(props) {
     async function editAccountInfoRequest(accountPayload) {
         let response = {};
 
-        try{
-            response = await apiUtil("put", `/users/${userState.user.id}`, {}, accountPayload)
+            response = await apiUtil("put", `/users/${userState.user.id}`, {dispatch: dispatch, navigate: navigate}, accountPayload)
             console.log(response);
-        } catch (e) {
-            if (e instanceof DOMException) {
-                console.log("== HTTP request was cancelled");
-            } else {
-                console.log(e);
-            }
-        }
+            setError(response.error)
+            setMessage(response.message)
+        
     }
 
+    //this function calls the api call, as well as sets the states all back to 
+    //being blank.
     function sendEditedAccountInfo(){
 
         const newAccountInfo = {
@@ -85,6 +79,8 @@ function Profile(props) {
         setConfirmedPassword("")
     }
 
+    //this function bundles the functions into one central function so I can call this function 
+    //on the onClick() callback.
     function onClickFunctions(){
         settingEditToggle();
         sendEditedAccountInfo();
