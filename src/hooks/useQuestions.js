@@ -17,11 +17,6 @@ function useQuestions() {
     const [ nextLink, setNextLink ] = useState(null)
     const [ prevLink, setPrevLink ] = useState(null)
 
-    const updateLinks = ((links) => {
-        setNextLink(links.next)
-        setPrevLink(links.prev)
-    })
-
     useEffect( () => {
         async function getQuestions(){
             setLoading(true)
@@ -33,7 +28,8 @@ function useQuestions() {
             setError(response.error)
             if (response.status === 200) {
                 dispatch(addQuestions(courseId, response.data.questions))
-                updateLinks(response.data.links)
+                setNextLink(response.data.links.nextPage)
+                setPrevLink(response.data.links.prevPage)
             }
             setLoading(false)
         }

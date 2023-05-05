@@ -12,8 +12,9 @@ import Confirm from './pages/Confirm'
 import Landing from './pages/Landing'
 import Course from './pages/Course'
 import Lectures from './pages/Lectures'
+import Lecture from './pages/Lecture'
 import Questions from './pages/Questions'
-import QuestionEditor from './pages/QuestionEditor'
+import Question from './pages/Question'
 import SingleCoursePage from './pages/SingleCoursePage'
 import AddCourse from './pages/AddCourse'
 import AddLecture from './pages/AddLecture'
@@ -55,9 +56,20 @@ function App() {
               <Route path='students' element={ <div>Student Page</div>}/>
               <Route path='questions' element={<Outlet/>}>
                 <Route path='' element={ <Questions/>}/>
-                <Route path=':questionId' element={ <QuestionEditor/>}/>
+                <Route path=':questionId' element={ <Question create={false}/>}/>
+                <Route path='add' element={ <Question create={true}/> }/>
               </Route>
-              <Route path='lectures' element={ <Lectures/>}/>
+              <Route path='lectures' element={ <Outlet/>}>
+                <Route path='' element={<Lectures/>}/>
+                <Route path=':lectureId' element={<Outlet/>}>
+                  <Route path='' element={<Lecture/>}/>
+                  <Route path='questions' element={<Outlet/>}>
+                    <Route path='' element={<Questions/>}/>
+                    <Route path=':questionId' element={<Question create={false}/>}/>
+                  </Route>
+                  <Route path='add' element={<Question create={true}/>} />
+                </Route>
+              </Route>
               <Route path='createlecture' element={<AddLecture/>}/>
                 {/* TODO: the remainder of the nested routes should go here */}
             </Route>
