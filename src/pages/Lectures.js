@@ -16,7 +16,7 @@ function Lectures(props){
     return (
         <>
         {/*No Lectures*/}
-        { message ? <Notice error={error} message={message}/> : (!lectures) ? <Notice error={false} message={"You Do Not Have Any Lectures Yet"}/> : <></>}
+        { message ? <Notice error={error ? "error" : ""} message={message}/> : (!lectures) ? <Notice message={"You Do Not Have Any Lectures Yet"}/> : <></>}
 
         {/*Add Lecture Button - ONLY if enrollment == instructor*/}
         <div className="buttons">
@@ -26,7 +26,7 @@ function Lectures(props){
         </div>
 
         <div className="lecture-container">
-            { Cloading || loading ? <TailSpin visible={true}/> : lectures[courseId].map((lecture) => {
+            { (Cloading || loading) ? <TailSpin visible={true}/> : lectures[courseId].map((lecture) => {
                 return <LectureCard key={lecture.id} lecture={lecture} view={role} />
             })}
         </div>

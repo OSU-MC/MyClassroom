@@ -9,9 +9,9 @@ const axiosInstance = axios.create({
     withCredentials: true
 });
 
-const handleRequest = async (method, route, reactOpts, body) => {
+const handleRequest = async (method, route, reactOpts, body, params) => {
     try {
-        const response = await sendRequest(method, route, body)
+        const response = await sendRequest(method, route, body, params)
         const responseBody = {
             data: response.data,
             status: response.status,
@@ -41,10 +41,10 @@ const handleRequest = async (method, route, reactOpts, body) => {
 }
 
 // this method makes calling the axios methods a little simpler and handles bad request types
-const sendRequest = async (method, route, body) => {
+const sendRequest = async (method, route, body, params) => {
     switch(method) {
         case 'get':
-            return await getRequest(route)
+            return await getRequest(route, params)
         case 'post':
             return await postRequest(route, body)
         case 'put':
@@ -57,10 +57,11 @@ const sendRequest = async (method, route, body) => {
     }
 }
 
-const getRequest = async (route) => {
+const getRequest = async (route, params) => {
     return await axiosInstance.request({
         url: route,
-        method: "get"
+        method: "get",
+        params: params
     })
 }
 
