@@ -46,7 +46,7 @@ router.get('/', requireAuthentication, async function (req, res, next) {
                     courseId: courseId
                 }
             })
-            if (page * perPage < totalQuestions.length) {
+            if (page * perPage <= totalQuestions.length) {
                 const maxPageIndex = Math.ceil(totalQuestions.length / perPage) - 1;
                 const nextPage = (page + 1 <= maxPageIndex) ? page + 1 : null // dont let users go past the max page count
                 const prevPage = (page - 1 >= 0) ? page - 1 : null

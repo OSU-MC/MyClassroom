@@ -81,6 +81,83 @@ module.exports = {
       role: 'student'
     }], {})
 
+    let lecture1course1 = await queryInterface.bulkInsert('Lectures', [{
+      courseId: course1,
+      title: 'Welcome',
+      description: 'A lecture to welcome you to the course',
+      order: 0
+    }])
+
+    let lecture2course1 = await queryInterface.bulkInsert('Lectures', [{
+      courseId: course1,
+      title: 'Introducing Main Course concepts',
+      description: 'A genera introduction to the course concepts',
+      order: 1
+    }])
+
+    let question1course1 = await queryInterface.bulkInsert('Questions', [{
+      type: 'multiple choice',
+      stem: 'What is 1 + 2?',
+      content: `{
+          "options": {
+              "0": 2,
+              "1": 3,
+              "2": 4,
+              "3": 5
+          }
+      }`,
+      answers: `{
+          "0": false,
+          "1": true,
+          "3": false,
+          "4": false
+      }`,
+      courseId: course1
+    }])
+
+    let question2course1 = await queryInterface.bulkInsert('Questions', [{
+      type: 'multiple answer',
+      stem: 'Select all factors of 6? This is going to be a really long question stem to test how front end can respond to ugy long text of the stem',
+      content: `{
+          "options": {
+              "0": 2,
+              "1": 3,
+              "2": 4,
+              "3": 5
+          }
+      }`,
+      answers: `{
+          "0": true,
+          "1": true,
+          "3": false,
+          "4": false
+      }`,
+      courseId: course1
+    }])
+
+    // create 100 duplicate questions to 
+    for (let i = 0; i < 100; i++) {
+      await queryInterface.bulkInsert('Questions', [{
+        type: 'multiple choice',
+        stem: `What is 17 + ${i}?`,
+        content: `{
+            "options": {
+                "0": ${17 + i},
+                "1": ${17 + i - 1},
+                "2": ${17 - i},
+                "3": ${17 + i + 1}
+            }
+        }`,
+        answers: `{
+            "0": true,
+            "1": false,
+            "3": false,
+            "4": false
+        }`,
+        courseId: course1
+      }])
+    }
+
     /*
       CREATE COURSE 2 DATA: only for testing multiple courses for a teacher and multiple courses for a student
     */

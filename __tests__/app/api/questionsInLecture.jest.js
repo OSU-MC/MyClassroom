@@ -11,6 +11,7 @@ describe('Test api/questionsInLecture', () => {
     let section1
     let lecture1
     let question1
+    let question2
     let q1_lec1
 
     beforeAll(async() => {
@@ -68,6 +69,12 @@ describe('Test api/questionsInLecture', () => {
             questionId: question1.id,
             lectureId: lecture1.id,
             published: true
+        })
+
+        question2 = await db.Question.create({
+            courseId: course1.id,
+            type: "multiple choice",
+            stem: "not initially linked to lecture",
         })
 
         teachEnroll = await db.Enrollment.create({
@@ -250,6 +257,67 @@ describe('Test api/questionsInLecture', () => {
         })
     })
 
+    describe('POST /courses/:course_id/lectures/:lecture_id/questions/:question_id', () => {        
+        it('should respond with 201 for linking question to lecture', async () => {                    
+            let resp = await request(app).post(`/courses/${course1.id}/lectures/${lecture1.id}/questions/${question2.id}`).set('Cookie', teachCookies).set('X-XSRF-TOKEN', teachXsrfCookie)
+            
+            expect(resp.statusCode).toEqual(201)
+            expect(resp.body.questionId).toEqual(question2.id)
+            expect(resp.body.lectureId).toEqual(lecture1.id)
+        })
+
+        it('should respond with 403 for linking a question as a student', async () => {
+            let resp = await request(app).post(`/courses/${course1.id}/lectures/${lecture1.id}/questions/${question2.id}`).set('Cookie', studentCookies).set('X-XSRF-TOKEN', studentXsrfCookie)
+
+            expect(resp.statusCode).toEqual(403)
+        })
+
+        it('should respond with 400 for updating a question in lecture that is not in this course', async () => {
+            // create course to put new lecture in (will not be calling api using this course)
+            const randomCourse = await db.Course.create({
+                name: 'Random Course',
+                description: 'rando'
+            })
+            const lecNotInCourse = await db.Lecture.create({
+                title: 'not in course',
+                order: 1,
+                description: 'abc',
+                courseId: randomCourse.id
+            })
+            // put question1 in this lecture (to not trigger any other error)
+            await db.QuestionInLecture.create({
+                questionId: question1.id,
+                lectureId: lecNotInCourse.id,
+                published: true
+            })
+
+            // call GET using course1 and lecNotInCourse
+            const resp = await request(app).post(`/courses/${course1.id}/lectures/${lecNotInCourse.id}/questions/${question1.id}`).set('Cookie', teachCookies).set('X-XSRF-TOKEN', teachXsrfCookie)
+
+            expect(resp.statusCode).toEqual(400)
+        })
+
+        it('should respond with 201 for linking question to lecture with body', async () => {                    
+            // delete previous relationships to allow this one to be created
+            const createdRel = await db.QuestionInLecture.findOne({
+                where: {
+                    lectureId: lecture1.id,
+                    questionId: question2.id
+                }
+            })
+            await createdRel.destroy()
+
+            let resp = await request(app).post(`/courses/${course1.id}/lectures/${lecture1.id}/questions/${question2.id}`).send({
+                published: true
+            }).set('Cookie', teachCookies).set('X-XSRF-TOKEN', teachXsrfCookie)
+            
+            expect(resp.statusCode).toEqual(201)
+            expect(resp.body.questionId).toEqual(question2.id)
+            expect(resp.body.lectureId).toEqual(lecture1.id)
+            expect(resp.body.published).toEqual(true)
+        })
+    })
+
     afterAll(async () => {
         await teacher.destroy()
         await student.destroy()
@@ -259,6 +327,7 @@ describe('Test api/questionsInLecture', () => {
         await teachEnroll.destroy()
         await lecture1.destroy()
         await question1.destroy()
+        await question2.destroy()
         await q1_lec1.destroy()
     })
 })

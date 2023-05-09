@@ -87,7 +87,7 @@ router.get('/', requireAuthentication, async function (req, res) {
         }
         else {
             res.status(200).json({
-                "lecture": lectures
+                "lectures": lectures
             })
         }
     }
@@ -212,7 +212,7 @@ router.get('/:lecture_id', requireAuthentication, async function (req, res) {
         try {
             full_response['lecture'] = lecture  // full_response will hold wanted lecture along with its related questions in the end
             const questions_in_lec = await db.sequelize.query(  // raw sql query to get all questions in this lecture using `QuestionInLecture`
-                'SELECT q.* FROM Questions q INNER JOIN QuestionInLectures ql ON q.id = ql.questionId INNER JOIN Lectures l ON ql.lectureId = l.id WHERE l.id = $lectureId',
+                'SELECT q.*, ql.order FROM Questions q INNER JOIN QuestionInLectures ql ON q.id = ql.questionId INNER JOIN Lectures l ON ql.lectureId = l.id WHERE l.id = $lectureId ORDER BY ql.order',
                 {
                     bind: { lectureId: lectureId },
                     type: db.sequelize.QueryTypes.SELECT

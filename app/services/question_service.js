@@ -48,12 +48,28 @@ const questionInLectureInformationSchema = {
     published: {required: true}
 }
 
+// includes question ID (used when inserting a question-lecture relationship)
+const completeQuestionInLectureInformationSchema = {
+    questionId: {required: true},
+    lectureId: {required: true},
+    order: {required: false},
+    published: {required: false}
+}
+
+exports.validateQuestionInLectureCreationRequest = (body) => {
+    return validateAgainstSchema(body, completeQuestionInLectureInformationSchema)
+}
+
 exports.extractQuestionFields = (body) => {
     return extractValidFields(body, questionInformationSchema)
 }
 
 exports.extractQuestionInLectureFields = (body) => {
     return extractValidFields(body, questionInLectureInformationSchema)
+}
+
+exports.extractCompleteQuestionInLectureFields = (body) => {
+    return extractValidFields(body, completeQuestionInLectureInformationSchema)
 }
 
 const getQuestionScore = function (question, submission) {
