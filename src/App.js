@@ -23,6 +23,7 @@ import Navigation from './components/nav/Navigation'
 import useAuth from './hooks/useAuth'
 import { Navigate, Outlet } from 'react-router-dom';
 import { TailSpin } from  'react-loader-spinner'
+import SingleQuestion from './pages/SingleQuestion';
 
 function App() {
 
@@ -66,6 +67,7 @@ function App() {
                   <Route path='questions' element={<Outlet/>}>
                     <Route path='' element={<Questions/>}/>
                     <Route path=':questionId' element={<Question create={false}/>}/>
+                      <Route path='responses' element={ <SingleQuestion /> }/>
                   </Route>
                   <Route path='add' element={<Question create={true}/>} />
                 </Route>

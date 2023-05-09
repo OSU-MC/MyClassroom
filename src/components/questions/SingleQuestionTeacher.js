@@ -16,11 +16,13 @@ function SingleQuestionTeacher(props) {
                 { props.question.type }
             </p>
             {content.map( (option, index) =>
-                {
-                    (answers[index] === true) ? <p>{index}. {option} (correct answer)</p> : <p>{index}. {option}</p>
-                }
+                <div key={index}>
+                    {
+                        (answers[index] === true) ? <p>{index}. {option} (correct answer)</p> : <p>{index}. {option}</p>
+                    }
+                </div>
             )}
-            <Button variant="secondary">Edit</Button>
+            {/* <button className="btn btn-primary" onClick={((e) => addQuestionsToLecture(e))}>Submit</button> */}
         </>
     )
 }
