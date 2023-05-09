@@ -266,13 +266,6 @@ describe('Test api/questionsInLecture', () => {
             expect(resp.body.lectureId).toEqual(lecture1.id)
         })
 
-        // dependant on test above
-        it('should respond with 409 for linking question to lecture that is already linked', async () => {                    
-            let resp = await request(app).post(`/courses/${course1.id}/lectures/${lecture1.id}/questions/${question2.id}`).set('Cookie', teachCookies).set('X-XSRF-TOKEN', teachXsrfCookie)
-            
-            expect(resp.statusCode).toEqual(409)
-        })
-
         it('should respond with 403 for linking a question as a student', async () => {
             let resp = await request(app).post(`/courses/${course1.id}/lectures/${lecture1.id}/questions/${question2.id}`).set('Cookie', studentCookies).set('X-XSRF-TOKEN', studentXsrfCookie)
 

@@ -109,8 +109,6 @@ router.post('/:question_id', requireAuthentication, async function (req, res, ne
         if (isTeacher) {
             const isLecInCourse = await lectureService.getLectureInCourse(lectureId, courseId)
             if (isLecInCourse) {
-                const questionInLecture = await questionService.getQuestionInLecture(questionId, lectureId)
-                if (!questionInLecture) {
                     const question = await questionService.getQuestionInCourse(questionId, courseId)
                     if (question) {
                         let newQsLecRelation = req.body
@@ -129,10 +127,6 @@ router.post('/:question_id', requireAuthentication, async function (req, res, ne
                     else {  // if there's no question of this id (from this course)
                         res.status(404).send({error: "The given question ID not found in this course"})
                     }
-                }
-                else {  // if given question is already in this lecture
-                    res.status(409).send({error: "The given question is already in this lecture"})
-                }
             }
             else {  // if given lecture is not in this course
                 res.status(400).send({error: "The given lecture ID does not belong to this course"})
