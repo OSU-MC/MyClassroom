@@ -80,6 +80,7 @@ It's worth noting that the application is only configured for email use through 
 - WebSocket Open Polling Connection for Live Updates and Feedback
 - Upgrade Test Suite to Heavier Duty Framework
 - Smart Classmate Pairing Suggestions
+- Request Rate Limiting
 
 ## Getting Involved
 
