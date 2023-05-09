@@ -2,7 +2,7 @@
 
 ## Setting Up
 
-### Requirements
+### Dependencies
 
 - node: 16.13.0
 - npm: 9.1.2
@@ -69,6 +69,22 @@ A user's session is valid for a minimum of 4 hours, and as long as the user is a
 
 The application is configured to use Courier notification infastructure to message users. In order to use the application's mailer, create an account at https://www.courier.com/. Follow Courier's setup instructions and prompts.
 
-The process should yield a bearer token in the HTTPS request Courier generates. Copy this token, and paste it in the application environment as `COURIER_AUTH_TOKEN`. That's it! You should be able to interact with the configured emailer through Courier.
+The process should yield a bearer token in the HTTPS request Courier generates. Copy this token, and paste it in the application environment as `COURIER_AUTH_TOKEN`. Also set `EABLE_EMAIL='true'`. That's it! You should be able to interact with the configured emailer through Courier.
 
 It's worth noting that the application is only configured for email use through Courier, but Courier supports a variety of modern notification methods.
+
+## Roadmap
+
+- Learning Management System (LMS) Integration
+- Expanded Question Type Support
+- WebSocket Open Polling Connection for Live Updates and Feedback
+- Upgrade Test Suite to Heavier Duty Framework
+- Smart Classmate Pairing Suggestions
+
+## Getting Involved
+
+Feel free to open an issue for feature requests or bugs. We openly accept pull requests for bug fixes.
+
+## Licensing
+
+GNU General Public License v3.0
