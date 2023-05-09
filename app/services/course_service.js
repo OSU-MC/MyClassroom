@@ -7,6 +7,14 @@ const courseInformationSchema = {
     published: {required: false}
 }
 
+const courseStudentInformationSchema = {
+    id: {required: true},
+    name: {required: true},
+    description: {required: false},
+    published: {required: false},
+    Sections: {required: false}
+}
+
 const courseInsertSchema = {
     name: {required: true},
     description: {required: false},
@@ -27,4 +35,8 @@ exports.validateCourseCreationRequest = (body) => {
 
 exports.extractArrayCourseFields = (courses) => {
     return courses.map(course => extractValidFields(course, courseInformationSchema))
+}
+
+exports.extractArrayStudentCourseFields = (courses) => {
+    return courses.map(course => extractValidFields(course, courseStudentInformationSchema))
 }

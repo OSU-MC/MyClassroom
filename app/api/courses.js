@@ -25,7 +25,9 @@ router.get('/', requireAuthentication, async function (req, res) {
                 include: [
                     {
                         model: db.Enrollment,
-                        where: { role: 'student', userId: user.id }
+                        required: true,
+                        where: { role: 'student', userId: user.id },
+                        attributes: ['sectionId'],
                     }
                 ]
             }
@@ -33,7 +35,7 @@ router.get('/', requireAuthentication, async function (req, res) {
     })
 
     res.status(200).send({
-        studentCourses : courseService.extractArrayCourseFields(studentCourses),
+        studentCourses : courseService.extractArrayStudentCourseFields(studentCourses),
         teacherCourses : courseService.extractArrayCourseFields(teacherCourses)
     })
 

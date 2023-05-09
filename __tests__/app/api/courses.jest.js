@@ -9,11 +9,16 @@ describe('/courses endpoints', () => {
     let user
     let user2
     let course
+    let course2
     let section
+    let section2
+    let section3
     let userXsrfCookie
     let userCookies
     let user2XsrfCookie
     let user2Cookies
+    let enrollment
+    let enrollment2
 
     beforeAll(async() => {
 
@@ -43,6 +48,18 @@ describe('/courses endpoints', () => {
         const user2Session = await generateUserSession(user2)
         user2XsrfCookie = user2Session.csrfToken
         user2Cookies = [`_myclassroom_session=${user2Token}`]
+
+        course2 = await db.Course.create({
+            name: "TestingTest 123",
+            description: "Learning to test things",
+            published: true
+        })
+
+        enrollment = await db.Enrollment.create({
+            role: "teacher",
+            courseId: course2.id,
+            userId: user.id
+        })
     })
 
     it('should respond with 201 when a valid course is created and should create an enrollment', async () => {
@@ -84,6 +101,30 @@ describe('/courses endpoints', () => {
         section = respSection.body.section
     })
 
+    it('should respond with 201 when a second section is created', async () => {
+
+        const respSection = await request(app).post(`/courses/${course.id}/sections`).send({
+            number: 25
+        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        expect(respSection.statusCode).toEqual(201)
+        expect(respSection.body.section.courseId).toEqual(course.id)
+        expect(respSection.body.section.number).toEqual(25)
+        expect(respSection.body.section.joinCode).toBeTruthy()
+        section2 = respSection.body.section
+    })
+
+    it('should respond with 201 when a third section is created', async () => {
+
+        const respSection = await request(app).post(`/courses/${course.id}/sections`).send({
+            number: 35
+        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        expect(respSection.statusCode).toEqual(201)
+        expect(respSection.body.section.courseId).toEqual(course.id)
+        expect(respSection.body.section.number).toEqual(35)
+        expect(respSection.body.section.joinCode).toBeTruthy()
+        section3 = respSection.body.section
+    })
+
     it('should respond with 403 when a student tries to create a section', async () => {
 
         const respSection = await request(app).post(`/courses/${course.id}/sections`).send({
@@ -113,6 +154,21 @@ describe('/courses endpoints', () => {
         
     })
 
+    it('should respond with 201 when a student joins a course section', async () => {
+        
+        const resp = await request(app).post('/courses/join').send({
+            joinCode: section2.joinCode
+        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        expect(resp.statusCode).toEqual(201)
+        expect(resp.body.section.courseId).toEqual(course.id)
+        expect(resp.body.section.number).toEqual(section2.number)
+        expect(resp.body.enrollment.role).toEqual('student')
+        expect(resp.body.enrollment.sectionId).toEqual(section2.id)
+        expect(resp.body.enrollment.userId).toEqual(user2.id)
+        expect(resp.body.enrollment.courseId).toBeFalsy()
+        
+    })
+
     it('should respond with 404 when trying to join a course with incorrect join code', async () => {
         
         const resp = await request(app).post('/courses/join').send({
@@ -125,9 +181,9 @@ describe('/courses endpoints', () => {
         
         const resp = await request(app).get('/courses').set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
         expect(resp.statusCode).toEqual(200)
-        expect(resp.body.teacherCourses[0].id).toEqual(course.id)
-        expect(resp.body.teacherCourses[0].name).toEqual("Litness 101")
-        expect(resp.body.teacherCourses[0].description).toEqual("Wanna get lit? We'll show you how")
+        expect(resp.body.teacherCourses[1].id).toEqual(course.id)
+        expect(resp.body.teacherCourses[1].name).toEqual("Litness 101")
+        expect(resp.body.teacherCourses[1].description).toEqual("Wanna get lit? We'll show you how")
     })
 
     it('should respond with 200 and the student courses enrolled in', async () => {
@@ -137,6 +193,8 @@ describe('/courses endpoints', () => {
         expect(respStudent.body.studentCourses[0].id).toEqual(course.id)
         expect(respStudent.body.studentCourses[0].name).toEqual("Litness 101")
         expect(respStudent.body.studentCourses[0].description).toEqual("Wanna get lit? We'll show you how")
+        expect(respStudent.body.studentCourses[0].Sections[0].id).toEqual(section.id)
+        expect(respStudent.body.studentCourses[0].Sections[1].id).toEqual(section2.id)
     })
 
     it('should respond with 401 if authorization is wrong', async () => { 
