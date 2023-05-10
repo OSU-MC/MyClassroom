@@ -1,10 +1,16 @@
 import { useParams } from 'react-router-dom'
+import SingleQuestionTeacher from '../components/questions/SingleQuestionTeacher'
 
 function Question(props) {
     const { questionId } = useParams()
     const create = props.create
 
-    return <div>Question Page for Teacher {create ? "to Create a Question" : `to View/Edit Question with ID ${questionId}`}</div>
+    if (create) {
+        return <SingleQuestionTeacher/>
+    }
+    else {
+        return <h1>{`Question View for Question with ID ${questionId}`}</h1>
+    }
 }
 
 export default Question
