@@ -66,8 +66,7 @@ function App() {
                   <Route path='' element={<Lecture/>}/>
                   <Route path='questions' element={<Outlet/>}>
                     <Route path='' element={<Questions/>}/>
-                    <Route path=':questionId' element={<Question create={false}/>}/>
-                      <Route path='responses' element={ <SingleQuestion /> }/>
+                    <Route path=':questionId' element={<SingleQuestion/>}/>
                   </Route>
                   <Route path='add' element={<Question create={true}/>} />
                 </Route>

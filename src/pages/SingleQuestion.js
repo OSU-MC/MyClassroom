@@ -1,21 +1,31 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom'
 import { TailSpin } from  'react-loader-spinner'
 import Notice from '../components/Notice'
 import { Button, Card } from "react-bootstrap"
-import useCourse from "../hooks/useCourse";
+import useCourse from "../hooks/useCourse"
+import useLectureQuestions from "../hooks/useLectureQuestions"
+import useResponse from '../hooks/useResponse'
 import SingleQuestionStudent from '../components/questions/SingleQuestionStudent'
 import SingleQuestionTeacher from '../components/questions/SingleQuestionTeacher'
-import useResponse from '../hooks/useResponse';
 
 function SingleQuestion(props) {
     const { courseId, lectureId, questionId } = useParams()
     const [ course, role, Cmessage, Cerror, Cloading ] = useCourse()
-    const [ question, response, rMessage, rError, rLoading ] = (role === "student" && course) ? useResponse(course) : null
-    const [ questions, lMessage, lError, lLoading] = (role === "teacher") ? useLectureQuestions() : null
-    const teacherQuestion = (questions) ? questions.filter(question => question.id == questionId) : questions
+    //console.log(course)
+    const [ question, response, rMessage, rError, rLoading ] = useResponse(course)
+    const [ questions, lMessage, lError, lLoading] = useLectureQuestions()
+    //console.log("questions", questions)
+    const teacherQuestion = (questions.questions.length > 0) ? questions.questions.filter(question => question.id == questionId) : []
+    //console.log("teacherQuestions", teacherQuestion)
     const error = Cmessage || rMessage || lMessage
     const loading = Cloading || rLoading || lLoading
+    // console.log("Cloading:", Cloading)
+    // console.log("Cerror:", Cerror)
+    // console.log("rLoading:", rLoading)
+    // console.log("rError:", rError)
+    // console.log("lLoading:", lLoading)
+    // console.log("lError:", lError)
     return (
         <>
             { Cmessage ? <Notice error={Cerror ? "error" : ""} message={Cmessage}/> : <></>}
