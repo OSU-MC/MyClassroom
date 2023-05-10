@@ -30,3 +30,12 @@ exports.getLectureInCourse = async (lectureId, courseId) => {
         }
     })
 }
+
+exports.getLectureForSection = async (sectionId, lectureId) => {
+    return await db.LectureForSection.findOne({
+        where: {
+            lectureId: lectureId,
+            sectionId: sectionId
+        }
+    })
+}
