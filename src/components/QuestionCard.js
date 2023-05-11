@@ -9,7 +9,7 @@ import apiUtil from '../utils/apiUtil'
 function QuestionCard(props){
     //get the question published state
     const options = Object.entries(props.question.content.options)
-    const published = !!props.question.published
+    const [published, setPublished] = useState(!!props.question.published)
     const { courseId, lectureId } = useParams()
     const [error, setError] = useState(false)
     const [message, setMessage] = useState("")
@@ -26,6 +26,10 @@ function QuestionCard(props){
         setLoading(false)
         setError(response.error)
         setMessage(response.message)
+
+        if(response.status === 200){
+            setPublished(!published)
+        }
     }
 
     return(
@@ -56,7 +60,7 @@ function QuestionCard(props){
                         <label>
                             <span>Publish Question</span>
                             {/*TODO: published questions in questions for lectures*/}
-                            <Switch onValueChange={changePublishState()} checked={published}/>
+                            <Switch onChange={() => changePublishState()} checked={published}/>
                         </label>
                     </div>
                 </Card.Body>

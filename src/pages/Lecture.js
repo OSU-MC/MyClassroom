@@ -20,8 +20,6 @@ function Lecture() {
         return !!lectures[courseId][lectureId-1].LectureForSections[0].published
     }
 
-    console.log("questions", questions)
-
     return (
         <>
             {/*If Student*/}
