@@ -209,4 +209,6 @@ router.put('/:section_id', requireAuthentication, async function (req, res, next
     }
 })
 
+router.use('/:section_id/lectures', require('./lectureForSection'))
+
 module.exports = router
