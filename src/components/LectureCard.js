@@ -11,7 +11,7 @@ function LectureCard (props) {
                     <p>{props.lecture.description}</p>
 
                     {props.view==="student" ? 
-                        <Link to={`/studentlecture`}>
+                        <Link to={`${props.lecture.id}`}>
                             <Button className="viewLectureBtn">
                             Join Lecture
                             </Button>
@@ -19,7 +19,7 @@ function LectureCard (props) {
                     <div></div>}
 
                     {props.view==="teacher" ? 
-                        <Link to={`/teacherlecture`}>
+                        <Link to={`${props.lecture.id}`}>
                             <Button className="viewLectureBtn">
                             Edit Lecture 
                             </Button>
