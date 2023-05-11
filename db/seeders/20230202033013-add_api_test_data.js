@@ -48,7 +48,8 @@ module.exports = {
 
     let course1 = await queryInterface.bulkInsert('Courses', [{
       name: "Main Course",
-      description: "This course is for primary testing"
+      description: "This course is for primary testing",
+      published: true
     }], {});
 
     let teachercourse1 = await queryInterface.bulkInsert('Enrollments', [{
@@ -133,6 +134,26 @@ module.exports = {
           "4": false
       }`,
       courseId: course1
+    }])
+
+    let question1inlecture1 = await queryInterface.bulkInsert('QuestionInLectures', [{
+      questionId: question1course1,
+      lectureId: lecture1course1,
+      order: 1,
+      published: true
+    }])
+
+    let question2inlecture1 = await queryInterface.bulkInsert('QuestionInLectures', [{
+      questionId: question2course1,
+      lectureId: lecture1course1,
+      order: 2,
+      published: true
+    }])
+
+    let section1forlecture1 = await queryInterface.bulkInsert('LectureForSections', [{
+      sectionId: section1course1,
+      lectureId: lecture1course1,
+      published: true
     }])
 
     // create 100 duplicate questions to 
