@@ -80,8 +80,14 @@ router.get('/', requireAuthentication, async function (req, res) {
     }
     else {  // if teacher, OR student in published course
         const lectures = await db.Lecture.findAll({
-            where: { courseId: courseId }
+            where: { courseId: courseId },
+            include: {
+                model: db.LectureForSection,
+                attributes: ['published']
+            }
         })
+        //get the lectures for section as well
+
         if (lectures == []) {   // if no lectures are in this course
             res.status(204).send()
         }
