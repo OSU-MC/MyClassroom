@@ -62,7 +62,6 @@ export const STAGE_QUESTION_IN_LECTURE = "STAGE_QUESTION_IN_LECTURE"
 export const UNSTAGE_QUESTION_IN_LECTURE = "UNSTAGE_QUESTION_IN_LECTURE"
 export const ADD_STAGED_QUESTION = "ADD_STAGED_QUESTION"
 export const ADD_LECTURE_QUESTIONS = "ADD_LECTURE_QUESTIONS"
-export const UPDATE_LECTURE_QUESTIONS = "UPDATE_LECTURE_QUESTIONS"
 
 export function stageQuestionInLecture(lectureId, question) {
     return { type: STAGE_QUESTION_IN_LECTURE, lectureId, question}
@@ -78,8 +77,4 @@ export function addStagedQuestion(lectureId, questionId) {
 
 export function addLectureQuestions(lectureId, questions) {
     return { type: ADD_LECTURE_QUESTIONS, lectureId, questions }
-}
-
-export function updateLectureQuestions(lectureId, questionId){
-    return {type: UPDATE_LECTURE_QUESTIONS, lectureId, question, questionId}
 }
