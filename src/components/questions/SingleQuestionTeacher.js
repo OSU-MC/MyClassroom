@@ -5,6 +5,7 @@ import Notice from '../Notice'
 import { Button, Card } from "react-bootstrap"
 
 function SingleQuestionTeacher(props) {
+<<<<<<< HEAD
     const [ editing, setEditing ] = useState(false)
     const [ stem, setStem ] = useState("")
     const [ type, setType ] = useState("")
@@ -83,8 +84,6 @@ function SingleQuestionTeacher(props) {
             </form>
         )
     }
-    
-    
 }
 
 export default SingleQuestionTeacher
