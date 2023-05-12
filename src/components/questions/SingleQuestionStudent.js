@@ -15,7 +15,7 @@ function SingleQuestionStudent(props) {
     const answers = Object.values(props.question.answers)
     const [ radioOptionSelected, setRadioOptionSelected ] = useState([false, false, false, false])
     const [ radioChecked, setRadioChecked ] = useState()
-    const [ checkboxOptionsSelected, setCheckboxOptionsSelected ] = useState([])
+    const [ checkboxOptionsSelected, setCheckboxOptionsSelected ] = useState([false, false, false, false])
     const [ submissionError, setSubmissionError ] = useState()
 
     const createResponse = async (e) => {
@@ -36,23 +36,11 @@ function SingleQuestionStudent(props) {
         const nextRadioOptionSelected = radioOptionSelected.map((option, index) => e.target.value == content[index])
         setRadioOptionSelected(nextRadioOptionSelected)
         setRadioChecked(e.target.value)
-        console.log(e.target.value)
-        console.log(radioOptionSelected)
     }
 
     const onValueChangeCheckbox = (e) => {
-        e.preventDefault()
-        let currAnswers = []
-        for (let i = 0; i < content.length; i++) {
-            if (e.target.value === content[i]) {
-                currAnswers.push(e.target.checked)
-            }
-            else {
-                currAnswers.push((checkboxOptionsSelected[i]) ? checkboxOptionsSelected[i] : false)
-            }
-        }
-        setCheckboxOptionsSelected(currAnswers)
-        console.log(checkboxOptionsSelected)
+        const nextCheckboxOptionsSelected = checkboxOptionsSelected.map((option, index) => (e.target.value == content[index]) ? e.target.checked : option)
+        setCheckboxOptionsSelected(nextCheckboxOptionsSelected)
     }
 
     return (
@@ -60,7 +48,7 @@ function SingleQuestionStudent(props) {
             {
                 (!props.response) ? 
                 <>
-                    <h1>
+                    <h1 className="question-stem">
                         { props.question.stem }
                     </h1>
                     <form>
@@ -86,7 +74,7 @@ function SingleQuestionStudent(props) {
                     </Link>
                 </> : 
                 <>
-                    <h1>
+                    <h1 className="question-stem">
                         { props.question.stem }
                     </h1>
                     <ul>

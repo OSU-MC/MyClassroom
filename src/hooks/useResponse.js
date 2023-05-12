@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { LocalConvenienceStoreOutlined } from '@mui/icons-material';
 
-function useResponse(course) {
+function useResponse(course, role) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [ error, setError ] = useState(false)
@@ -30,7 +30,7 @@ function useResponse(course) {
             setLoading(false)
         }
         console.log("course:", course)
-        if (course) {
+        if (course && role === 'student') {
             getResponses()
         }
     }, [ course ])

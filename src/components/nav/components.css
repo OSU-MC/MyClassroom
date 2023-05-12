@@ -353,3 +353,12 @@ body{
     height: 80%;
     background-color: white;
 }
+/* Single Question CSS */
+
+.question-stem {
+    position: relative;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}

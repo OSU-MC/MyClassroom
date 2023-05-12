@@ -12,20 +12,11 @@ import SingleQuestionTeacher from '../components/questions/SingleQuestionTeacher
 function SingleQuestion(props) {
     const { courseId, lectureId, questionId } = useParams()
     const [ course, role, Cmessage, Cerror, Cloading ] = useCourse()
-    //console.log(course)
-    const [ question, response, rMessage, rError, rLoading ] = useResponse(course)
+    const [ question, response, rMessage, rError, rLoading ] = useResponse(course, role)
     const [ questions, lMessage, lError, lLoading] = useLectureQuestions()
-    //console.log("questions", questions)
     const teacherQuestion = (questions.questions.length > 0) ? questions.questions.filter(question => question.id == questionId) : []
-    //console.log("teacherQuestions", teacherQuestion)
     const error = Cmessage || rMessage || lMessage
     const loading = Cloading || rLoading || lLoading
-    // console.log("Cloading:", Cloading)
-    // console.log("Cerror:", Cerror)
-    // console.log("rLoading:", rLoading)
-    // console.log("rError:", rError)
-    // console.log("lLoading:", lLoading)
-    // console.log("lError:", lError)
     return (
         <>
             { Cmessage ? <Notice error={Cerror ? "error" : ""} message={Cmessage}/> : <></>}
