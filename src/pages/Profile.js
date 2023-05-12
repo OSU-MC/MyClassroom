@@ -90,7 +90,7 @@ function Profile(props) {
     if(editToggle){
         return (
             <>
-                { message !== "" && <Notice message={message} error={error}/> }
+                
                 { loading ? <TailSpin visible={true}/> : <Container className='profileInfo'>
                 <ListGroup className='tester'>
                         <ListGroup.Item className='profileRow'>
@@ -125,6 +125,7 @@ function Profile(props) {
                         </ListGroup.Item>
                         
                         <Col xs={1} className='profileButton'> <Button onClick={onClickFunctions}> {editToggle ? "Save" : "Edit"} </Button> </Col>
+                        { message !== "" && <Notice message={message} error={error}/> }
                     </ListGroup>
                 </Container>}
             </>

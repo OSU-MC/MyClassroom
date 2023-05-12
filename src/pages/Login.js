@@ -90,7 +90,7 @@ function handleSubmit() {
           { loading ? <TailSpin visible={true}/> : <Button onClick={() => {handleSubmit()}}>
             Login
           </Button> }
-          <Link className="changePasswordLink" to="/reset">Change Password</Link>
+          <Link className="changePasswordLink" to="/reset">Forgot password?</Link>
         </Form>
           {
             message != "" && error && <Notice message={message} error={error}/>

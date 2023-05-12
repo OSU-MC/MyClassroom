@@ -327,7 +327,7 @@ input {
 
 /* ResetPassword Page Styling */
 
-.passwordDivContainer {
+.confirmationCodeDivContainer {
     width: fit-content;
     justify-content: center;
     align-items: center;

@@ -50,8 +50,8 @@ function ConfirmationCodePasswordRequest() {
 
     
     return (
-    <div className="passwordDivContainer">
-        <h1 className="passwordPageh1">Confirmation Code</h1>
+    <div className="onfirmationCodeDivContainer">
+        <h1 className="confirmationCodePageh1">Confirmation Code</h1>
         <p>Please enter in your email address
            related to your account. We will send
            a confirmation code to that email.</p>
