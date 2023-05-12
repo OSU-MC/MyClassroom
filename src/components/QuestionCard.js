@@ -5,10 +5,11 @@ import { Switch } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import apiUtil from '../utils/apiUtil'
+import { TailSpin } from  'react-loader-spinner'
 
 function QuestionCard(props){
     //get the question published state
-    const options = Object.entries(props.question.content.options)
+    //const options = Object.entries(props.question.content.options)
     const [published, setPublished] = useState(!!props.question.published)
     const { courseId, lectureId } = useParams()
     const [error, setError] = useState(false)
@@ -28,33 +29,42 @@ function QuestionCard(props){
         setMessage(response.message)
 
         if(response.status === 200){
+            //TODO: add redux implementation
             setPublished(!published)
         }
     }
 
     return(
         <>
-        <div className="question-card">
+        {(loading) ? <TailSpin visible={true}/> : (props.view == "student" &&
+        <div className="question-card-student">
             <Card>
                 <Card.Header>{props.question.stem}</Card.Header>
                 <Card.Body>
                     <p>{props.question.type}</p>
 
-                    {(props.question.type == "multiple choice") &&
-                        <div className="multiple-choice-responses" >
-                            <p>
-                                Responses: {options.map((option) => {return option[1] + ", "; })}
-                            </p>
-                        </div>
-                    }
-
-                    {/*TODO: current link for edit question, feel free to change*/}
                     <Link to={`questions/${props.question.id}`}>
                         <Button className="editQuestionBtn">
-                            Edit Question
+                            View Question
                         </Button>
                     </Link>
 
+                </Card.Body>
+            </Card>
+        </div>
+        )}
+
+        {(loading) ? <TailSpin visible={true}/> : (props.view == "teacher" &&
+        <div className="question-card-teacher">
+            <Card>
+                <Card.Header>{props.question.stem}</Card.Header>
+                <Card.Body>
+                    <p>{props.question.type}</p>
+                    
+                    <Button onClick={() => navigate(`questions/${props.question.id}`)} className="editQuestionBtn">
+                            Edit Question
+                     </Button>
+                    
                     {/*Default is published state of lecture*/}
                     <div className='switch'>
                         <label>
@@ -66,6 +76,7 @@ function QuestionCard(props){
                 </Card.Body>
             </Card>
         </div>
+        )}
         </>
     )
 }

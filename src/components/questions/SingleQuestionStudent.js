@@ -11,6 +11,7 @@ function SingleQuestionStudent(props) {
     //console.log("singlequestionstudent:", props.question)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    console.log("props: ", props)
     const content = Object.values(props.question.content.options)
     const answers = Object.values(props.question.answers)
     const [ radioOptionSelected, setRadioOptionSelected ] = useState([false, false, false, false])
