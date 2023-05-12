@@ -69,8 +69,8 @@ function Lecture() {
             {(Cloading|Lloading|loading) ? <TailSpin visible={true}/> : (role == "teacher" &&
                 <div className='teacher-lecture'>
                     <div className='buttons'>
-                        <Link to={`addquestion`}>
-                            <Button variant="secondary">Add Question</Button>
+                        <Link to={`questions`}>
+                            <Button variant="secondary">Add Questions</Button>
                         </Link>
                     </div>
 
