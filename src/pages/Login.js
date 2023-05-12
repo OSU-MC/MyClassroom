@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Form from "react-bootstrap/Form";
-import { Container, Row, Col, Dropdown, NavLink, Button } from 'react-bootstrap'
+import { Container, Row, Col, Dropdown, NavLink, Button, } from 'react-bootstrap'
 import apiUtil from '../utils/apiUtil'
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/actions';
 import Notice from '../components/Notice'
+import { Link } from "react-router-dom";
 import { TailSpin } from  'react-loader-spinner'
 
 export default function Login(props) {
@@ -67,7 +68,7 @@ function handleSubmit() {
                 </div>
             </Row>
         </Container>
-      <Form onSubmit={handleSubmit}>
+      <Form className="formLoginContainer" onSubmit={handleSubmit}>
         <Form.Group className="emailContainer" size="lg" controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -89,6 +90,7 @@ function handleSubmit() {
           { loading ? <TailSpin visible={true}/> : <Button onClick={() => {handleSubmit()}}>
             Login
           </Button> }
+          <Link className="changePasswordLink" to="/reset">Forgot password?</Link>
         </Form>
           {
             message != "" && error && <Notice message={message} error={error ? "error" : ""}/>
