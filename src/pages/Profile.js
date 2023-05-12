@@ -134,7 +134,7 @@ function Profile(props) {
     else{
         return (
             <>
-                { message !== "" && <Notice message={message} error={error}/> }
+                { message !== "" && <Notice message={message} error={error ? "error" : ""}/> }
                 { loading ? <TailSpin visible={true}/> : <Container className='profileInfo'>
                         <ListGroup className='tester'>
                             <ListGroup.Item className='profileRow'>

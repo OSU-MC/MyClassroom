@@ -39,7 +39,7 @@ function useCourse() {
             findCourse()
         }
     }, [ courseId, courses ])
-    
+
     return [ course, role, message, error, loading ] 
 }
 

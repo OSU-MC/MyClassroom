@@ -40,11 +40,11 @@ function JoinCourse(props){
             <Form.Group controlId="formJoinCourse">
                 <Form.Control type="text" placeholder="Enter Join Code" value={joinCode} onChange={(e) => setJoinCode(e.target.value)}/>
             </Form.Group>
-            <Button className="joinBtn" variant="primary" type="submit">
+            <Button className="btn-add" variant="primary" type="submit">
                 Join Course
             </Button>
         </Form>
-        { message !== "" && <Notice error={error} message={message}/>}
+        { message !== "" && <Notice status={error ? "error" : ""} message={message}/>}
         </>
     );
 }

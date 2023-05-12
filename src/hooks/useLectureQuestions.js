@@ -1,39 +1,39 @@
 import apiUtil from '../utils/apiUtil'
-import { addLectures } from '../redux/actions';
+import { addLectureQuestions } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLectures } from '../redux/selectors'
+import { getLectureDetails } from '../redux/selectors'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-function useLectures() {
+function useLectureQuestions() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const lectures = useSelector(getLectures)
-    const { courseId } = useParams()
+    const lectures = useSelector(getLectureDetails)
+    const { courseId, lectureId } = useParams()
     const [ error, setError ] = useState(false)
     const [ message, setMessage ] = useState("")
     const [ loading, setLoading ] = useState(true)
 
     useEffect( () => {
-        async function getLectures(){
+        async function getLecture(){
             setLoading(true)
-            const response = await apiUtil("get", `courses/${courseId}/lectures`, { dispatch: dispatch, navigate: navigate} );
+            const response = await apiUtil("get", `courses/${courseId}/lectures/${lectureId}`, { dispatch: dispatch, navigate: navigate} );
             setMessage(response.message)
             setError(response.error)
             if (response.status === 200) {
-                dispatch(addLectures(courseId, response.data.lectures))
+                dispatch(addLectureQuestions(lectureId, response.data.questions))
             }
             setLoading(false)
         }
-        if (lectures[courseId] == null) {
-            getLectures()
+        if (lectureId && lectures[lectureId] == null) {
+            getLecture()
         }
         else {
             setLoading(false)
         }
     }, [])
 
-    return [lectures, message, error, loading]
+    return [lectures[lectureId] || { staged: {}, questions: [] }, message, error, loading]
 }
 
-export default useLectures
+export default useLectureQuestions

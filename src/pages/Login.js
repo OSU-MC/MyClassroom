@@ -93,7 +93,7 @@ function handleSubmit() {
           <Link className="changePasswordLink" to="/reset">Forgot password?</Link>
         </Form>
           {
-            message != "" && error && <Notice message={message} error={error}/>
+            message != "" && error && <Notice message={message} error={error ? "error" : ""}/>
           }
       </Container>
     </div>

@@ -28,6 +28,7 @@ export const DELETE_COURSE = "DELETE_COURSE"
 export const UPDATE_COURSE = "UPDATE_COURSE"
 export const JOIN_COURSE = "JOIN_COURSE"
 export const ADD_LECTURES = "ADD_LECTURES"
+export const ADD_QUESTIONS = "ADD_QUESTIONS"
 
 export function setCourses(studentCourses, teacherCourses) {
     return { type: SET_COURSES, studentCourses, teacherCourses }
@@ -51,4 +52,29 @@ export function joinCourse(course) {
 
 export function addLectures(courseId, lectures) {
     return { type: ADD_LECTURES, courseId, lectures}
+}
+
+export function addQuestions(courseId, questions) {
+    return { type: ADD_QUESTIONS, courseId, questions}
+}
+
+export const STAGE_QUESTION_IN_LECTURE = "STAGE_QUESTION_IN_LECTURE"
+export const UNSTAGE_QUESTION_IN_LECTURE = "UNSTAGE_QUESTION_IN_LECTURE"
+export const ADD_STAGED_QUESTION = "ADD_STAGED_QUESTION"
+export const ADD_LECTURE_QUESTIONS = "ADD_LECTURE_QUESTIONS"
+
+export function stageQuestionInLecture(lectureId, question) {
+    return { type: STAGE_QUESTION_IN_LECTURE, lectureId, question}
+}
+
+export function unstageQuestionInLecture(lectureId, question) {
+    return { type: UNSTAGE_QUESTION_IN_LECTURE, lectureId, question}
+}
+
+export function addStagedQuestion(lectureId, questionId) {
+    return { type: ADD_STAGED_QUESTION, lectureId, questionId }
+}
+
+export function addLectureQuestions(lectureId, questions) {
+    return { type: ADD_LECTURE_QUESTIONS, lectureId, questions }
 }

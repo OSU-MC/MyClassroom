@@ -39,7 +39,7 @@ function LectureCard (props) {
 
               <Button 
               variant="primary"
-              className="joinBtn" 
+              className="btn-add" 
               onClick={() => {
                 props.editToggle(true)
                 props.editLecture(props.LectureNumber)
@@ -96,7 +96,7 @@ function LectureCard (props) {
 
               <Button 
               variant="primary"
-              className="joinBtn" 
+              className="btn-add" 
               onClick={() => {
                 setSaveChanges(!saveChanges)
                 setEditedLecture({
@@ -117,7 +117,7 @@ function LectureCard (props) {
           </Card>
           <Button 
           variant="primary"
-          className="joinBtn"
+          className="btn-add"
           onClick={() => {
             props.editToggle(false)
           
