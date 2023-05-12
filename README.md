@@ -18,8 +18,6 @@
 
   > Explain current errors, bugs at project handoff for future teams/use
 
-## Errors As Of Walkthrough 
-  
 ## Organization
 
 ```bash
