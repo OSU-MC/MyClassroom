@@ -8,7 +8,13 @@ import StudentCourse from "../components/SingleCoursePageComponents/StudentCours
 import TeacherCourse from "../components/SingleCoursePageComponents/TeacherCourse";
 
 function DisplayCoursePage(){
+
+    const { courseId } = useParams()
+    let navigate = useNavigate()
     const [ course, role, message, error, loading ] = useCourse()
+    if (role === "student") {
+        navigate(`/${courseId}/lectures`)
+    }
 
     return <>
         { loading ? <TailSpin visibile={true}/> : (error ? <Notice message={message} error={error ? "error" : ""}/> : <div className="singleCourseContainer">

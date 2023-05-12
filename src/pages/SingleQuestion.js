@@ -17,6 +17,7 @@ function SingleQuestion(props) {
     const teacherQuestion = (questions.questions.length > 0) ? questions.questions.filter(question => question.id == questionId) : []
     const error = Cmessage || rMessage || lMessage
     const loading = Cloading || rLoading || lLoading
+    console.log("question: ", question)
     return (
         <>
             { Cmessage ? <Notice error={Cerror ? "error" : ""} message={Cmessage}/> : <></>}
