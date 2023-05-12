@@ -6,7 +6,7 @@ const enrollmentService = require('../services/enrollment_service')
 const sectionService = require('../services/section_service')
 const { requireAuthentication } = require('../../lib/auth')
 const string_helpers = require('../../lib/string_helpers')
-const { UniqueConstraintError } = require('sequelize')
+const { UniqueConstraintError, ValidationError } = require('sequelize')
 
 // GET request from /courses homepage
 router.get('/', requireAuthentication, async function (req, res) {
@@ -43,7 +43,7 @@ router.get('/', requireAuthentication, async function (req, res) {
 
 //User Creates a course
 //Authenticate token, create course & create enrollment for logged in user as teacher in the course
-router.post('/', requireAuthentication, async function (req, res) {
+router.post('/', requireAuthentication, async function (req, res, next) {
     const user = await db.User.findByPk(req.payload.sub) // find user by ID, which is stored in sub
 
     // create course & role as a teacher in enrollment
