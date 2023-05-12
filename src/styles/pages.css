@@ -61,7 +61,7 @@ div.Login{
     align-items: center;
     text-align: center;
     min-height: 100vh;
-    display: block;
+    width: 100vw;
 }
 
 .loginTop.container {

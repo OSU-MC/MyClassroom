@@ -1,5 +1,5 @@
 import { React, useState, useRef, useEffect } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import  { stageQuestionInLecture, unstageQuestionInLecture, addStagedQuestions } from '../../redux/actions'
 
@@ -7,7 +7,6 @@ function QuestionListItem(props) {
     const checkRef = useRef("")
     const { lectureId } = useParams()
     const dispatch = useDispatch()
-    const link = `${props.question.id}`
 
     useEffect(() => {
         if (props.selectable)
@@ -25,10 +24,10 @@ function QuestionListItem(props) {
         <div className="checkboxContainer">
             { props.selectable && <input className="checkbox" ref={checkRef} type="checkbox" onChange={handleCheck}/> }
         </div>
-        <NavLink className="basicLink questionListItemInformation" to={link}>
+        <div className="basicLink questionListItemInformation" onClick={(e) => { e.preventDefault(); props.onClick()}}>
             <div className="questionStem">{props.question.stem}</div>
             <div className="questionType">{props.question.type}</div>
-        </NavLink>
+        </div>
     </div>
 
 }

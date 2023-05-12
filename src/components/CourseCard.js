@@ -11,7 +11,7 @@ function CourseCard (props) {
             <Card.Body>
               
               {/*View Course Button*/}
-              <Link to={`/${props.course.id}`}>
+              <Link to={`/${props.course.id}/lectures`}> {/* TODO: remove /lectures once the single course page has been updated with more functionality */}
                 <Button className="hideBtn">
                   {props.role==="student" ? 'View Course' : 'View Sections For Course'}
                 </Button>

@@ -14,7 +14,7 @@ import Course from './pages/Course'
 import Lectures from './pages/Lectures'
 import Lecture from './pages/Lecture'
 import Questions from './pages/Questions'
-import Question from './pages/Question'
+import CreateQuestion from './pages/CreateQuestion'
 import SingleCoursePage from './pages/SingleCoursePage'
 import AddCourse from './pages/AddCourse'
 import AddLecture from './pages/AddLecture'
@@ -53,12 +53,12 @@ function App() {
             <Route path='/confirm' element={ <Confirm /> } />
             <Route path='/createcourse' element={ <AddCourse/> }/>
             <Route path='/:courseId'>
-              <Route path='' element={ <SingleCoursePage /> } />
+              <Route path='' element={ <SingleCoursePage /> } /> 
               <Route path='students' element={ <div>Student Page</div>}/>
               <Route path='questions' element={<Outlet/>}>
                 <Route path='' element={ <Questions/>}/>
-                <Route path=':questionId' element={ <Question create={false}/>}/>
-                <Route path='add' element={ <Question create={true}/> }/>
+                <Route path=':questionId' element={ <SingleQuestion/>}/>
+                <Route path='add' element={ <CreateQuestion/> }/>
               </Route>
               <Route path='lectures' element={ <Outlet/>}>
                 <Route path='' element={<Lectures/>}/>
@@ -66,9 +66,9 @@ function App() {
                   <Route path='' element={<Lecture/>}/>
                   <Route path='questions' element={<Outlet/>}>
                     <Route path='' element={<Questions/>}/>
+                    <Route path='add' element={<CreateQuestion/>} />
                     <Route path=':questionId' element={<SingleQuestion/>}/>
                   </Route>
-                  <Route path='add' element={<Question create={true}/>} />
                 </Route>
               </Route>
               <Route path='createlecture' element={<AddLecture/>}/>
