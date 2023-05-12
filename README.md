@@ -82,6 +82,11 @@ It's worth noting that the application is only configured for email use through 
 - Smart Classmate Pairing Suggestions
 - Request Rate Limiting
 
+## Extra Documentation
+
+- API Documentation: https://docs.google.com/document/d/1lUjOLdB_tneRijlLZ4I-8M6TZu3PzgDp_AIaP7k9aCw/edit?usp=sharing
+- Database Schema: https://drive.google.com/file/d/1voEDGvLU2KKCfZTKBfI4iFHGRnZedpE2/view?usp=sharing
+
 ## Getting Involved
 
 Feel free to open an issue for feature requests or bugs. We openly accept pull requests for bug fixes.
