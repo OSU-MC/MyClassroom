@@ -83,7 +83,7 @@ router.get('/', requireAuthentication, async function (req, res) {
             where: { courseId: courseId },
             include: {
                 model: db.LectureForSection,
-                attributes: ['published']
+                attributes: ['published', 'id']
             }
         })
         //get the lectures for section as well
