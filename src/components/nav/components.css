@@ -329,8 +329,73 @@ body{
 
 .question-stem {
     position: relative;
+    background-color: lightgray;
+    padding: 20px;
+    width: 100%;
+    font-size: x-large;
+    text-align: center;
+}
+
+.student-question-wrapper {
+    position: relative;
     border: 2px solid black;
     border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
+    margin-top: 50px;
+    left: 25%;
+    width: 50%;
+}
+
+.student-question-answer-option {
+
+}
+
+.student-question-option-label {
+    font-size: x-large;
+}
+
+.student-question-response-form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.student-question-radio {
+    width: 25%;
+    margin: 10px;
+}
+
+.student-question-response-submit-button {
+    position: relative;
+    margin-bottom: 20px;
+    left: 40%;
+    width: 20%;
+    font-size: larger;
+}
+
+.right-answer {
+    position: relative;
+    color: green;
+}
+
+.wrong-answer {
+    position: relative;
+    color: #FF9494;
+}
+
+.unselected-right-answer {
+    position: relative;
+    color: yellowgreen;
+}
+
+.student-question-score {
+    position: relative;
+    margin-bottom: 20px;
+    left: 40%;
+    width: 20%;
+    font-size: x-large;
+    text-align: center;
+}
+
+.student-question-li {
+    font-size: x-large;
+    margin-left: 20px;
 }

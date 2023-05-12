@@ -45,25 +45,25 @@ function SingleQuestionStudent(props) {
     }
 
     return (
-        <>
+        <div className='student-question-wrapper'>
             {
                 (!props.response) ? 
                 <>
-                    <h1 className="question-stem">
+                    <h1 className='question-stem'>
                         { props.question.stem }
                     </h1>
-                    <form>
+                    <form className='student-question-response-form'>
                         {content.map( (option, index) =>
-                            <div key={index}>
+                            <div key={index} className='student-question-answer-option'>
                                 {(props.question.type == 'multiple choice') ? 
                                     <>
-                                        <input type="radio" id={index} value={option} checked={radioChecked == option.toString()} onChange={onValueChangeRadio}></input>
-                                        <label htmlFor={index}>{option}</label>
+                                        <input className='student-question-radio' type="radio" id={index} value={option} checked={radioChecked == option.toString()} onChange={onValueChangeRadio}></input>
+                                        <label className='student-question-option-label' htmlFor={index}>{option}</label>
                                     </> :
                                     (props.question.type == 'multiple answer') ?
                                         <>
-                                            <input type="checkbox" id={index} key={index} value={option} onChange={onValueChangeCheckbox}></input>
-                                            <label htmlFor={index}>{option}</label>
+                                            <input className='student-question-radio' type="checkbox" id={index} key={index} value={option} onChange={onValueChangeCheckbox}></input>
+                                            <label className='student-question-option-label' htmlFor={index}>{option}</label>
                                         </> :
                                         <Notice error={false} key={index} message={"Only multiple choice and multiple answer are supported"}/>
                                 }
@@ -71,24 +71,24 @@ function SingleQuestionStudent(props) {
                         )}
                     </form>
                     <Link to={`/${props.courseId}/lectures/${props.lectureId}/questions/${props.questionId}`}>
-                        <button className="btn btn-primary" onClick={((e) => createResponse(e))}>Submit</button>
+                        <button className="btn btn-primary student-question-response-submit-button" onClick={((e) => createResponse(e))}>Submit</button>
                     </Link>
                 </> : 
                 <>
                     <h1 className="question-stem">
                         { props.question.stem }
                     </h1>
-                    <ul>
+                    <ul className='student-question-response-form'>
                         {content.map( (option, index) =>
-                            (answers[index] === true && props.response.submission[index] === true) ? <li key={index}>{option} (correct answer) (chosen answer)</li> : (answers[index] === true) ? <li key={index}>{option} (correct answer)</li> : (props.response.submission[index] === true) ? <li key={index}>{option} (chosen answer)</li> : <li key={index}>{option}</li>
+                            (answers[index] === true && props.response.submission[index] === true) ? <li className='right-answer student-question-li' key={index}>{option} Correct!</li> : (answers[index] === true) ? <li className='unselected-right-answer student-question-li' key={index}>{option} Unselected Correct Answer</li> : (props.response.submission[index] === true) ? <li className='wrong-answer student-question-li' key={index}>{option} Incorrect</li> : <li className='student-question-li' key={index}>{option}</li>
                         )}
                     </ul>
-                    <h2>
+                    <h2 className='student-question-score'>
                         Score: { props.response.score }
                     </h2>
                 </>
             }
-        </>
+        </div>
     )
 }
 
