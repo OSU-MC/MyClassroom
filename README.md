@@ -83,7 +83,7 @@ Database <- apiUtil <- Hooks -> Redux
 
 ## Using Hooks To Get Information From the Database
 
-**Landing.js**
+**Landing.js** Just Call Existing Hooks!
 ```
 const [ courses, message, error, loading ] = useCourses()   # Grabs the courses from the API for reading 
 ```
