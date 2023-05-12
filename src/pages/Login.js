@@ -68,7 +68,7 @@ function handleSubmit() {
                 </div>
             </Row>
         </Container>
-      <Form onSubmit={handleSubmit}>
+      <Form className="formLoginContainer" onSubmit={handleSubmit}>
         <Form.Group className="emailContainer" size="lg" controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -90,7 +90,7 @@ function handleSubmit() {
           { loading ? <TailSpin visible={true}/> : <Button onClick={() => {handleSubmit()}}>
             Login
           </Button> }
-          <Link to="/reset">Change Password</Link>
+          <Link className="changePasswordLink" to="/reset">Change Password</Link>
         </Form>
           {
             message != "" && error && <Notice message={message} error={error}/>
