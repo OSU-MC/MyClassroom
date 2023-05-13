@@ -110,8 +110,8 @@ module.exports = {
       answers: `{
           "0": false,
           "1": true,
-          "3": false,
-          "4": false
+          "2": false,
+          "3": false
       }`,
       courseId: course1
     }])
@@ -130,8 +130,8 @@ module.exports = {
       answers: `{
           "0": true,
           "1": true,
-          "3": false,
-          "4": false
+          "2": false,
+          "3": false
       }`,
       courseId: course1
     }])
@@ -172,8 +172,8 @@ module.exports = {
         answers: `{
             "0": true,
             "1": false,
-            "3": false,
-            "4": false
+            "2": false,
+            "3": false
         }`,
         courseId: course1
       }])
