@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
                     })
         
                     if (curr_max_order == null) {  // if no order was found (first entry for this course)
-                        questionInLecture.order = 0;
+                        questionInLecture.order = 0;    // NOTE: should start off at 0, -1 is used for temporary updating purposes
                     }
                     else {  // if there is an entry for this course, get appropriate order number
                         questionInLecture.order = curr_max_order + 1
