@@ -137,9 +137,11 @@ describe('/enrollments and /enrollments/enrollment_id endpoints', () => {
         expect(resp.body.enrollments[0].userId).toEqual(user2.id)
         expect(resp.body.enrollments[0].role).toEqual('student')
         expect(resp.body.enrollments[0].sectionId).toEqual(section.id)
+        expect(resp.body.enrollments[0].User.email).toEqual(user2.email)
         expect(resp.body.enrollments[1].userId).toEqual(user3.id)
         expect(resp.body.enrollments[1].role).toEqual('student')
         expect(resp.body.enrollments[1].sectionId).toEqual(section2.id)
+        expect(resp.body.enrollments[1].User.email).toEqual(user3.email)
     })
 
     it('should respond with 403 when a student tries to get the roster', async () => { 

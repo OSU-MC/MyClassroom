@@ -26,10 +26,12 @@ router.get('/', requireAuthentication, async function (req, res) {
                     where: {
                         courseId: courseId
                     }
-                    
+                },
+                {
+                    model: db.User,
+                    attributes: ['firstName', 'lastName', 'email']
                 }
             ]
-            
         })
         res.status(200).send({
             enrollments: enrollmentService.extractArrayEnrollmentFields(enrollments)

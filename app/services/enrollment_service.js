@@ -6,7 +6,8 @@ const enrollmentInformationSchema = {
     role: {required: true},
     courseId: {required: false},
     userId: {required: true},
-    sectionId: {required: false}
+    sectionId: {required: false},    
+    User: {required: true}
 }
 
 const enrollmentInsertSchema = {
