@@ -325,14 +325,78 @@ body{
     justify-content: center;
 }
 
+.question {
+    display: flex;
+    flex-direction: column;
+}
+
+.question-subcontainer {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    font-size: calc(12px + 0.4vw) !important;
+}
+
 .question-option {
     display: flex;
     flex-direction: row;
+    margin: 3px;
+    align-items: center;
+}
+
+.question-reorder {
+    display: flex;
+    flex-direction: row;
+    height: 4vh;
+    align-items: center;
+    padding: 2px;
+}
+
+.question-arrow {
+    display: flex;
+    font-size: calc(12px + 0.4vw) !important;
+    width: 4vh;
+    height: 4vh;
+    margin: 1px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.question-dropdown {
+
+}
+
+.question-text {
+    height: 4vh;
+    width: 40vw;
+    min-width: 100px;
+    max-width: 700px;
+}
+
+.question-select {
+    width: 4vh;
+    height: 4vh;
+    margin: 2px;
 }
 
 .negative-btn {
     background-color: #ff4d7b;
+    margin: 3px;
+    color: white;
 }
+
+.negative-btn:hover {
+    background-color: #e84470;
+    color: white;
+}
+
+.btn-secondary:focus {
+    background-color: #6c757d;
+    text-decoration: none;
+    border: none;
+}
+
 
 .popup-background {
     width: 100%;
@@ -426,4 +490,18 @@ body{
 .student-question-li {
     font-size: x-large;
     margin-left: 20px;
+}
+
+
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.right-aligned {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: flex-end;
 }

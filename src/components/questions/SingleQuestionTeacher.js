@@ -1,9 +1,20 @@
 import { React, useState, useEffect } from 'react';
 import { TailSpin } from  'react-loader-spinner'
 import Notice from '../Notice'
+import apiUtil from '../../utils/apiUtil'
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom'
+import { addQuestion, stageQuestionInLecture } from '../../redux/actions';
 
 function SingleQuestionTeacher(props) {
-    const editable = props.editable || false
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { courseId, lectureId } = useParams()
+
+    const editable = false // TODO: update to props.editable || false once update API endpoint has been implemented
+    const [ message, setMessage ] = useState("")
+    const [ error, setError ] = useState(false)
+    const [ loading, setLoading ] = useState(false)
     const [ question, setQuestion ] = useState(props.question)
     const [ editing, setEditing ] = useState(props.editing || false)
     const [ stem, setStem ] = useState("")
@@ -50,24 +61,36 @@ function SingleQuestionTeacher(props) {
         })
     }
 
-    const updateQuestion = (e) => {
+    const updateQuestion = async (e) => {
         e.preventDefault()
-        if (question != null) {
-            // TODO: update the question
-        }
-        else {
-            // TODO: create the question
-        }
-        setEditing(false)
-        setQuestion({
+        setLoading(true)
+        const questionBody = {
             stem: stem,
             type: type,
+            answers: answers,
             content: {
                 options: options
-            },
-            answers: answers
-        })
-        console.log("create question clicked")
+            }
+        }
+        if (question != null) {
+            // TODO: add update functionality once backend has implmented a put route for questions
+            setQuestion(questionBody)
+            setEditing(false)
+        }
+        else {
+            const response = await apiUtil("post", `courses/${courseId}/questions`, { dispatch: dispatch, navigate: navigate}, questionBody)
+            setError(response.error)
+            setMessage(response.message)
+            setLoading(false)
+            if (response.status === 201) {
+                // add the question to the course's questions
+                // if coming from lectures, add the question to staged
+                dispatch(addQuestion(courseId, response.data.question))
+                if (lectureId) {
+                    dispatch(stageQuestionInLecture(lectureId, response.data.question))
+                }
+            }
+        }
     }
 
     const updateOptions = (value, index) => {
@@ -152,63 +175,79 @@ function SingleQuestionTeacher(props) {
         let newOptions = {...options}
         
         let movedAnswer = newAnswers[parseInt(index)]
-        newAnswers[index] = newAnswers[parseInt(index) + value]
+        newAnswers[parseInt(index)] = newAnswers[parseInt(index) + value]
         newAnswers[parseInt(index) + value] = movedAnswer
 
         let movedOptions = newOptions[parseInt(index)]
-        newOptions[index] = newOptions[parseInt(index) + value]
+        newOptions[parseInt(index)] = newOptions[parseInt(index) + value]
         newOptions[parseInt(index) + value] = movedOptions
-
-        console.log(newAnswers)
-        console.log(newOptions)
 
         setAnswers(newAnswers)
         setOptions(newOptions)
     }
 
     if (editing) {
-        return (
-            <form>
-                <label>Question Stem:</label>
-                <input type="text" placeholder="What is 1 + 1?" name="stem" id="stem" value={stem} onChange={(e) => setStem(e.target.value)}></input>
-                <label>Question Type:</label>
-                <select id="question-type" name="question-type" value={type} onChange={(e) => changeType(e.target.value)}>
-                    <option value="multiple choice">Multiple Choice</option>
-                    <option value="multiple answer">Multiple Answer</option>
-                </select>
-                { Object.keys(options).length < 10 && <button className="btn btn-add" type="button" onClick={(e) => { addAnswer(e) }}>+</button> }
+        return (<div className="vertical-container">
+            { message != "" && error && <Notice status={"error"} message={message} /> }
+            <form className="question">
+                <div className="question-subcontainer">
+                    <label>Question Stem:</label>
+                    <input className="question-text" type="text" placeholder="What is 1 + 1?" name="stem" id="stem" value={stem} onChange={(e) => setStem(e.target.value)}></input>
+                </div>
+                <div className="question-subcontainer">
+                    <label>Question Type:</label>
+                    <select className="question-dropdown" id="question-type" name="question-type" value={type} onChange={(e) => changeType(e.target.value)}>
+                        <option value="multiple choice">Multiple Choice</option>
+                        <option value="multiple answer">Multiple Answer</option>
+                    </select>
+                </div>
+                <div className="question-subcontainer">
                     {
                         Object.keys(options).map( (index) => {
                             let option = options[index]
                             return <div className="question-option" key={index}>
-                                <input type={type == 'multiple choice' ? 'radio' : 'checkbox'} name="answers" checked={answers[index]} onChange={(e) => updateAnswers(index)}></input>
-                                <input type="text" value={option} onChange={(e) => updateOptions(e.target.value, index)}></input>
-                                <div>
-                                    <button disabled={index == 0} type="button" onClick={(e) => { moveAnswer(e, index, -1) }}>{'\u2191'}</button>
-                                    <button disabled={index == Object.keys(options).length - 1} type="button" onClick={(e) => { moveAnswer(e, index, 1) }}>{'\u2193'}</button>
+                                <input className="question-select" type={type == 'multiple choice' ? 'radio' : 'checkbox'} name="answers" checked={answers[index]} onChange={(e) => updateAnswers(index)}></input>
+                                <input className="question-text" type="text" value={option} onChange={(e) => updateOptions(e.target.value, index)}></input>
+                                <div className="question-reorder">
+                                    <button className="btn btn-secondary question-arrow" disabled={index == 0} type="button" onClick={(e) => { moveAnswer(e, index, -1) }}>{'\u2191'}</button>
+                                    <button className="btn btn-secondary question-arrow" disabled={index == Object.keys(options).length - 1} type="button" onClick={(e) => { moveAnswer(e, index, 1) }}>{'\u2193'}</button>
                                 </div>
                                 { Object.keys(options).length > 2 && <button type="button" className="btn negative-btn" onClick={(e) => { removeAnswer(e, index) }}>x</button> }
                             </div>
                         })
                     }
-                <button className="btn btn-add" type="submit" onClick={(e) => { updateQuestion(e) }}>{ question ? 'Save Question' : 'Create Question'}</button>
+                    { Object.keys(options).length < 10 && <button className="btn btn-secondary btn-add" type="button" onClick={(e) => { addAnswer(e) }}>+</button> }
+                </div>
+                    
+                { loading ? <TailSpin visible={true}/> : <button className="btn btn-secondary btn-add" type="submit" onClick={(e) => { updateQuestion(e) }}>{ question ? 'Save Question' : 'Create Question'}</button> }
             </form>
-        )
+        </div>)
     }
     else {
-        return <div>
-            <h1>
+        return <div className="vertical-container">
+            <h1 className='question-stem'>
                 { question.stem }
-            </h1>
-            <ul>
-                { 
-                    Object.keys(options).map( (index) => {
-                        let option = options[index]
-                        return (answers[index] === true) ? <li key={index}>{option} (correct answer)</li> : <li key={index}>{option}</li>
-                    })
-                }
-            </ul>
-            { editable ? <button onClick={(e) => {e.preventDefault(); setEditing(true)}}>Edit</button> : <></> }
+             </h1>
+            <form className='student-question-response-form'>
+                { Object.keys(options).map( (index) => {
+                    let option = options[index]
+                    return <div key={index} className='student-question-answer-option'>
+                        {(question.type == 'multiple choice') ? 
+                            <>
+                                <input className='student-question-radio' type="radio" id={index} value={option} checked={answers[index] == true} readOnly={true}></input>
+                                <label className='student-question-option-label' htmlFor={index}>{option}</label>
+                            </> :
+                            (question.type == 'multiple answer') ?
+                                <>
+                                    <input className='student-question-radio' type="checkbox" id={index} key={index} value={option} checked={answers[index] == true} readOnly={true}></input>
+                                    <label className='student-question-option-label' htmlFor={index}>{option}</label>
+                                </> :
+                                <Notice error={false} key={index} message={"Only multiple choice and multiple answer are supported"}/>
+                        }
+                    </div>
+                })}
+            </form>
+            { editable ? <button className="btn btn-secondary" onClick={(e) => {e.preventDefault(); setEditing(true)}}>Edit</button> : <></> }
         </div>
     }
 }

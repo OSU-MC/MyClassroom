@@ -122,6 +122,12 @@ div.Login{
     border-color: green;
 }
 
+.btn-add:hover {
+    background-color: rgb(1, 109, 1);
+    border-color: rgb(1, 109, 1);
+}
+
+
 .changePasswordLink{
     color: #fff;
     background-color: #0d6efd;

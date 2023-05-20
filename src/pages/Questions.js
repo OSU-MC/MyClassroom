@@ -58,9 +58,6 @@ function Questions(props) {
     }
 
     const openQuestion = (question) => {
-        console.log('opening question...')
-        console.log('question')
-        console.log(question)
         setQuestionView(question)
     }
 
@@ -70,7 +67,7 @@ function Questions(props) {
 
         return(
             <>
-                { questionView != null && <Popup close={closeQuestion}><SingleQuestionTeacher question={questionView} editable={TrustedScriptURL}/></Popup> }
+                { questionView != null && <Popup close={closeQuestion}><SingleQuestionTeacher question={questionView} editable={true}/></Popup> }
                 <div className="questionsView">
                     <div className="header">
                         <button className="btn btn-secondary"><NavLink className='basicLink' to={lectureId ? `/${courseId}/lectures/${lectureId}` : `/${courseId}`}>&lt;&lt; Back to {lectureId ? 'Lecture' : 'Course'}</NavLink></button>
