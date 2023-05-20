@@ -1,4 +1,4 @@
-const { STAGE_QUESTION_IN_LECTURE, UNSTAGE_QUESTION_IN_LECTURE, ADD_STAGED_QUESTION, ADD_LECTURE_QUESTIONS } = require('../actions')
+const { STAGE_QUESTION_IN_LECTURE, UNSTAGE_QUESTION_IN_LECTURE, ADD_STAGED_QUESTION, ADD_LECTURE_QUESTIONS, TOGGLE_PUBLISHED_FOR_QUESTION_IN_LECTURE } = require('../actions')
 
 function questionsInLectureReducer(state = {}, action) {
     switch (action.type) {
@@ -35,6 +35,25 @@ function questionsInLectureReducer(state = {}, action) {
             return {
                 ...state,
                 ...updatedQuestions
+            }
+        case TOGGLE_PUBLISHED_FOR_QUESTION_IN_LECTURE:
+            let newQuestions = state[action.lectureId].questions.map((question) => {
+                if (question.id === action.questionId) {
+                    return {
+                        ...question,
+                        published: question.published === 1 ? 0 : 1
+                    }
+                }
+                else {
+                    return question
+                }
+            })
+            return {
+                ...state,
+                [action.lectureId]: {
+                    ...state[action.lectureId],
+                    questions: newQuestions
+                }
             }
         default:
             return state

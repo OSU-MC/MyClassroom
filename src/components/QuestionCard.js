@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import apiUtil from '../utils/apiUtil'
 import { TailSpin } from  'react-loader-spinner'
+import { togglePublishedForQuestionInLecture } from '../redux/actions'
 
 function QuestionCard(props){
     //get the question published state
@@ -28,8 +29,8 @@ function QuestionCard(props){
         setError(response.error)
         setMessage(response.message)
 
-        if(response.status === 200){
-            //TODO: add redux implementation
+        if(response.status === 200) {
+            dispatch(togglePublishedForQuestionInLecture(lectureId, props.question.id))
             setPublished(!published)
         }
     }
