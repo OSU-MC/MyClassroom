@@ -16,6 +16,8 @@ import Lectures from './pages/Lectures'
 import Lecture from './pages/Lecture'
 import Questions from './pages/Questions'
 import CreateQuestion from './pages/CreateQuestion'
+import Roster from './pages/Roster'
+import Enrollments from './pages/Enrollments';
 import SingleCoursePage from './pages/SingleCoursePage'
 import AddCourse from './pages/AddCourse'
 import AddLecture from './pages/AddLecture'
@@ -58,7 +60,6 @@ function App() {
             <Route path='/createcourse' element={ <AddCourse/> }/>
             <Route path='/:courseId'>
               <Route path='' element={ <SingleCoursePage /> } /> 
-              <Route path='students' element={ <div>Student Page</div>}/>
               <Route path='questions' element={<Outlet/>}>
                 <Route path='' element={ <Questions/>}/>
                 <Route path=':questionId' element={ <SingleQuestion/>}/>
@@ -74,6 +75,10 @@ function App() {
                     <Route path=':questionId' element={<SingleQuestion/>}/>
                   </Route>
                 </Route>
+              </Route>
+              <Route path='roster' element={ <Outlet/>}>
+                <Route path='' element={<Roster/>}/>
+                <Route path=':sectionId' element={<Enrollments/>}/>
               </Route>
               <Route path='createlecture' element={<AddLecture/>}/>
                 {/* TODO: the remainder of the nested routes should go here */}

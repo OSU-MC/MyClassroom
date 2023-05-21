@@ -20,7 +20,7 @@ function SideNavbar(props) {
         {
             title: "Students",
             icon: <SchoolIcon />,
-            link: `${course.id}/students`
+            link: `${course.id}/roster`
         },
         {
             title: "Lectures",
