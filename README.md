@@ -72,6 +72,8 @@ npm install
 
 # Interacting With the Database
 
+![img](https://github.com/CS461PollingApplication/my-classroom-fe/blob/master/schema.PNG?raw=true)
+
 ```
 Database <- apiUtil <- Hooks -> Redux 
                              -> Pages 
