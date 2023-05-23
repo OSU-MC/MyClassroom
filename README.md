@@ -6,13 +6,14 @@
   
   With My Classroom, instructors and students can participate in interactive question and answer sessions. Professors can create courses, create lectures for those courses, and add questions within those lectures that students can answer. Student responses are saved so that both the professor and their students can track their comprehension of course material. The idea is to provide a service through which teachers can get a sense of what their students need, and students can get a sense of what they need to learn.
   
-## Final Tasks
+## Tasks For Future Teams 
 
-- [ ] Redux Upgrades and Improvements
-- [ ] Application-Wide Restyling
-- [ ] Component Factoring
-- [ ] Teacher & Student Gradebooks
-- [ ] Teacher Roster
+- [ ] Hosting
+   - [ ] Live Polling Using The Hosting
+- [ ] Student / Instructor Gradebooks
+   - [ ]  Instructor Grade Statistics
+- [ ] Multiple Question Types
+- [ ] Deleting / Editing Existing Courses, Sections, Questions, Lectures (Backend Finished)
 
 ## Build Status - WIP Edit Right Before Handoff
 
