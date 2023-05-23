@@ -84,7 +84,7 @@ It's worth noting that the application is only configured for email use through 
 
 ## Database Figures
 
-[Database Schema](https://github.com/CS461PollingApplication/my-classroom-backend/blob/master/schema.PNG?raw=true)
+![Database Schema](https://github.com/CS461PollingApplication/my-classroom-backend/blob/master/schema.PNG?raw=true)
 
 [API Endpoints Doc](https://github.com/CS461PollingApplication/my-classroom-backend/blob/master/API%20Endpoints%20MyClassroom.pdf)
 
