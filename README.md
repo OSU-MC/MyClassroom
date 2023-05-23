@@ -8,7 +8,7 @@
   
   [Read up on the project here](https://github.com/CS461PollingApplication/my-classroom-fe/blob/master/Project%20Vision%20and%20Scope.pdf)
   
-## Tasks For Future Teams 
+## Tasks For Future Teams / Build Status
 
 - [ ] Hosting
    - [ ] Live Polling Using The Hosting
@@ -16,10 +16,6 @@
    - [ ]  Instructor Grade Statistics
 - [ ] Multiple Question Types
 - [ ] Deleting / Editing Existing Courses, Sections, Questions, Lectures (Backend Finished)
-
-## Build Status - WIP Edit Right Before Handoff
-
-  > Explain current errors, bugs at project handoff for future teams/use
 
 ## Organization
 
