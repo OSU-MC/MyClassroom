@@ -82,9 +82,11 @@ It's worth noting that the application is only configured for email use through 
 - Smart Classmate Pairing Suggestions
 - Request Rate Limiting
 
-## Database Figures
+## Database Schema
 
 ![Database Schema](https://github.com/CS461PollingApplication/my-classroom-backend/blob/master/schema.PNG?raw=true)
+
+## Endpoints
 
 [API Endpoints Doc](https://github.com/CS461PollingApplication/my-classroom-backend/blob/master/API%20Endpoints%20MyClassroom.pdf)
 
