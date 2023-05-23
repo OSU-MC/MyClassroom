@@ -8,13 +8,12 @@ function SectionCard (props) {
             <Card>
                 <Card.Header>Section # {props.section.number}</Card.Header>
                 <Card.Body>
-                    {
-                        <Link to={`/${props.courseId}/roster/${props.section.id}`}>
-                            <Button>
-                            View students in section
-                            </Button>
-                        </Link>
-                    }
+                    <div>Join Code: {props.section.joinCode}</div>
+                    <Link to={`${props.section.id}`}> {/* relative path allows us to just go to the section id, regardless of the other preceding routing */}
+                        <Button>
+                            {props.view == 'roster' ? 'View students in section' : 'View Section'}
+                        </Button>
+                    </Link>
                 </Card.Body>
             </Card>
         </div>

@@ -284,7 +284,7 @@ body{
     font-size: calc(11px + 0.4vw);
 }
 
-.questionsView {
+.contentView {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -310,7 +310,7 @@ body{
     padding: 0.5vw;
 }
 
-.questionButton {
+.dynamic-btn {
     font-size: calc(10px + 0.5vw);
     border-radius: 5px;
     margin-top: 1px;
@@ -319,7 +319,7 @@ body{
     color: white;
 }
 
-.questionButton:hover {
+.dynamic-btn:hover {
     color: white;
 }
 
@@ -434,6 +434,7 @@ body{
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
 }
 
 .popup-container {
@@ -518,6 +519,15 @@ body{
     margin-left: 20px;
 }
 
+.horizontal-flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.lecture-card {
+    margin: 5px;
+}
 
 .vertical-container {
     display: flex;
@@ -530,4 +540,14 @@ body{
     align-items: flex-end;
     flex-direction: row;
     justify-content: flex-end;
+}
+
+.add-section-h1 {
+    margin-left: 20px;
+}
+
+.add-section-div {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
 }

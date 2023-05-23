@@ -68,7 +68,7 @@ function Questions(props) {
         return(
             <>
                 { questionView != null && <Popup close={closeQuestion}><SingleQuestionTeacher question={questionView} editable={true}/></Popup> }
-                <div className="questionsView">
+                <div className="contentView">
                     <div className="header">
                         <button className="btn btn-secondary"><NavLink className='basicLink' to={lectureId ? `/${courseId}/lectures/${lectureId}` : `/${courseId}`}>&lt;&lt; Back to {lectureId ? 'Lecture' : 'Course'}</NavLink></button>
                         { (submissionPosted || submissionErrors.length > 0) && <Notice message={submissionErrors.length > 0 ? submissionErrors[0] : "Questions added to lecture"} status={submissionErrors.length > 0 ? "error" : "success"}/>}
@@ -81,9 +81,9 @@ function Questions(props) {
                         }}>
                             <input className="searchBar" value={inputQuery} placeholder= "Question Stem" onChange={e => setInputQuery(e.target.value)} />
                             <div className="split-space">
-                                <button className="questionButton btn btn-primary" type="submit">Search</button>
+                                <button className="dynamic-btn btn btn-primary" type="submit">Search</button>
                                 <div>&nbsp;</div>
-                                <button className="questionButton btn btn-add" onClick={((event) => event.preventDefault())}><NavLink className='basicLink' to='add'>Create Question</NavLink></button>
+                                <button className="dynamic-btn btn btn-add" onClick={((event) => event.preventDefault())}><NavLink className='basicLink' to='add'>Create Question</NavLink></button>
                             </div>
                             
                         </form>

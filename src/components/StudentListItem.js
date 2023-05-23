@@ -1,4 +1,5 @@
 import React from "react";
+import Notice from "./Notice";
 
 function StudentListItem (props) {
     return <li className="studentrow">

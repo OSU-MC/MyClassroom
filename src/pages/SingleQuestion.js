@@ -17,14 +17,15 @@ function SingleQuestion(props) {
     const teacherQuestion = (questions.questions.length > 0) ? questions.questions.filter(question => question.id == questionId) : []
     const error = Cmessage || rMessage || lMessage
     const loading = Cloading || rLoading || lLoading
-    console.log("question: ", question)
+
     return (
         <>
             { Cmessage ? <Notice error={Cerror ? "error" : ""} message={Cmessage}/> : <></>}
             { rMessage ? <Notice error={rError ? "error" : ""} message={rMessage}/> : <></>}
             { lMessage ? <Notice error={lError ? "error" : ""} message={lMessage}/> : <></>}
             { loading ? <TailSpin visible={true} /> : <></> }
-            { (!error && !loading) ? ((role === 'student') ? <SingleQuestionStudent question={question} response={response} courseId={courseId} lectureId={lectureId} questionId={questionId}/> : <SingleQuestionTeacher question={teacherQuestion[0]} />) : <></> }
+            { (!error && !loading) && ((role === 'student') ? <SingleQuestionStudent question={question} response={response} courseId={courseId} lectureId={lectureId} questionId={questionId}/>
+                 : <SingleQuestionTeacher question={teacherQuestion[0]} />)}
         </>
     )
 }

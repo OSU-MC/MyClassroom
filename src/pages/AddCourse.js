@@ -3,9 +3,11 @@ import { Button, Form } from "react-bootstrap"
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { createCourse } from "../redux/actions";
+import { Link, useParams } from 'react-router-dom';
 import apiUtil from '../utils/apiUtil'
 import { TailSpin } from  'react-loader-spinner'
 import Notice from '../components/Notice'
+import useCourse from "../hooks/useCourse";
 
 function AddCourse(props){
     const [name, setName] = useState("")
@@ -49,23 +51,36 @@ function AddCourse(props){
     return (
         <>
             { message !== "" && <Notice message={message} error={error}/> }
-            { loading ? <TailSpin visible={true}/> : <Form onSubmit={(e) => { addCourseSubmit(e) }}>
-                <Form.Group className="inputNameContainer" controlId="name">
-                    <Form.Label>Class Name:</Form.Label>
+            { loading ? <TailSpin visible={true}/> : <Form className="create-container" onSubmit={(e) => { addCourseSubmit(e) }}>
+                <div className='create-bar'>
+                    <Link className='back-btn-create' to={`/`}>
+                        <Button className='back-btn'> 
+                            <div id="back-btn-image"/>
+                        </Button>
+                    </Link>
+                    <p className='create-subtitle'>Create Course</p>
+                </div>
+
+                <hr className='create-hr-bar'></hr>
+
+                <Form.Group className="inputNameContainer">
+                    <Form.Label>Class Name</Form.Label>
                     <Form.Control 
                         type="text" 
                         placeholder="Enter Class Name" 
                         onChange={(e) => setName(e.target.value)}/>
                 </Form.Group>
-                <Form.Group className="inputDescriptionContainer" controlId="description">
-                    <Form.Label>Class Description:</Form.Label>
+                <Form.Group className="inputDescriptionContainer">
+                    <Form.Label>Class Description</Form.Label>
                     <Form.Control 
-                        type="text" 
+                        id="create-description"
+                        as="textarea" 
+                        rows="4"
                         placeholder="Enter Class Description"
                         onChange={(e) => setDescription(e.target.value)}/>
                 </Form.Group>
                 {/*Publish Course Doesn't do anything yet - NOT FUNCTION*/}
-                <Form.Group className="inputPublishedContainer" controlId="published">
+                <Form.Group className="inputPublishedContainer">
                     <Form.Check 
                         type="switch" 
                         id="publishSwitch" 
@@ -73,9 +88,16 @@ function AddCourse(props){
                         size="large" 
                         onChange={(e) => setPublished(e.target.value)}/>
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Create Course
-                </Button>
+                <div class="create-btns">
+                    <Link to={`/`}>
+                        <Button variant="secondary" id="create-cancel">
+                            Cancel
+                        </Button>
+                    </Link>
+                    <Button variant="primary" type="submit" id="create-submit">
+                        Create Course
+                    </Button>
+                </div>
             </Form> }
         </>
     )

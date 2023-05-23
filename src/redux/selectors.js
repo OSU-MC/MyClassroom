@@ -30,6 +30,10 @@ export function getQuestions(state) {
     return state.courses.questions
 }
 
+export function getLecturesInSection(state) {
+    return state.courses.lecturesInSection
+}
+
 /*
     LECTURE SELECTORS
 */

@@ -5,6 +5,7 @@ import './components.css'
 import SchoolIcon from '@mui/icons-material/School';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import useCourse from '../../hooks/useCourse'
 
 //Sidebar creation
@@ -26,6 +27,11 @@ function SideNavbar(props) {
             title: "Lectures",
             icon: <MenuBookIcon />,
             link: `${course.id}/lectures`
+        },
+        {
+            title: "Sections",
+            icon: <AutoAwesomeMotionIcon />,
+            link: `${course.id}/sections`
         }
     ]
 

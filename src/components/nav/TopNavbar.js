@@ -4,6 +4,8 @@ import './components.css'
 import useAuth from '../../hooks/useAuth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+import apiUtil from '../../utils/apiUtil'
+import { useNavigate } from 'react-router';
 
 //NavBar for the whole website.
 function TopNavbar(props) {
@@ -24,11 +26,17 @@ function TopNavbar(props) {
 }
 
 function UserMenu(props) {
+
+    async function logoutUser(){
+        // TODO: Add error handling?
+        const response = await apiUtil("get", `/users/logout`)
+    }
+
     return <>{ 
         props.loggedIn === true ? 
                         <div className="dropdownMenu">
                             <div className="dropdownItem"><NavLink className='dropdownLink' to='/profile'>Profile</NavLink></div>
-                            <div className="dropdownItem"><NavLink className='dropdownLink' to='/login'>Logout</NavLink></div> {/* TODO: attach logout functionality (i.e. API request trigger)*/}
+                            <div className="dropdownItem"><NavLink onClick={logoutUser} className='dropdownLink' to='/login'>Logout</NavLink></div> {/* TODO: attach logout functionality (i.e. API request trigger)*/}
                         </div>
                         : <div className="dropdownMenu">
                             <div className="dropdownItem"><NavLink className='dropdownLink' to='/create'>Sign Up</NavLink></div>

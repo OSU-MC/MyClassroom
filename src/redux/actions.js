@@ -29,8 +29,11 @@ export const UPDATE_COURSE = "UPDATE_COURSE"
 export const JOIN_COURSE = "JOIN_COURSE"
 export const ADD_ENROLLMENTS = "ADD_ENROLLMENTS"
 export const ADD_SECTIONS = "ADD_SECTIONS"
+export const ADD_SECTION = "ADD_SECTION"
 export const ADD_LECTURES = "ADD_LECTURES"
 export const ADD_QUESTIONS = "ADD_QUESTIONS"
+export const ADD_LECTURES_IN_SECTION = "ADD_LECTURES_IN_SECTION"
+export const PUBLISH_LECTURE_IN_SECTION = "PUBLISH_LECTURE_IN_SECTION"
 export const ADD_QUESTION = "ADD_QUESTION"
 
 export function setCourses(studentCourses, teacherCourses) {
@@ -61,12 +64,28 @@ export function addSections(courseId, sections) {
     return { type: ADD_SECTIONS, courseId, sections}
 }
 
+export function addSection(courseId, section) {
+    return { type: ADD_SECTION, courseId, section }
+}
+
 export function addLectures(courseId, lectures) {
     return { type: ADD_LECTURES, courseId, lectures}
 }
 
+export function togglePublishedLecture(courseId, lectureId){
+    return { type: TOGGLE_PUBLISHED_STATE_FOR_LECTURE, courseId, lectureId}
+}
+
 export function addQuestions(courseId, questions) {
     return { type: ADD_QUESTIONS, courseId, questions}
+}
+
+export function addLecturesInSection(sectionId, lectures) {
+    return { type: ADD_LECTURES_IN_SECTION, sectionId, lectures }
+}
+
+export function publishLectureInSection(sectionId, lectureId) {
+    return { type: PUBLISH_LECTURE_IN_SECTION, sectionId, lectureId}
 }
 
 export function addQuestion(courseId, question) {

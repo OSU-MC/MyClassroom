@@ -1,12 +1,14 @@
-const { SET_COURSES, CREATE_COURSE, DELETE_COURSE, UPDATE_COURSE, JOIN_COURSE, ADD_LECTURES, ADD_QUESTIONS, ADD_QUESTION, ADD_SECTIONS, ADD_ENROLLMENTS } = require('../actions')
+const { ADD_QUESTION, PUBLISH_LECTURE_IN_SECTION, ADD_LECTURES_IN_SECTION, SET_COURSES, CREATE_COURSE, DELETE_COURSE, UPDATE_COURSE, JOIN_COURSE, ADD_LECTURES, ADD_QUESTIONS, ADD_SECTIONS, ADD_SECTION, ADD_ENROLLMENTS } = require('../actions')
 
 const emptyState = {
     studentCourses: null,
     teacherCourses: null,
+    lecturesInSection: {},
     sections: {},
     enrollments: {},
     lectures: {},
-    questions: {}
+    questions: {},
+    sections: {}
 }
 
 function coursesReducer(state = emptyState, action) {
@@ -60,13 +62,19 @@ function coursesReducer(state = emptyState, action) {
                 }
             }        
         case ADD_SECTIONS:
-            let newSections = {}
-            newSections[action.courseId] = action.sections
             return {
                 ...state,
                 sections: {
                     ...state.sections,
-                    ...newSections
+                    [action.courseId]: action.sections
+                }
+            }
+        case ADD_SECTION:
+            return {
+                ...state,
+                sections: {
+                    ...state.sections,
+                    [action.courseId]: (state.sections[action.courseId]) ? state.sections[action.courseId].concat([action.section]) : [action.section]
                 }
             }
         case ADD_LECTURES: // should be called after API returns course data for a user
@@ -96,6 +104,29 @@ function coursesReducer(state = emptyState, action) {
                             [action.question.id]: action.question
                         }
                     }
+                }
+            }
+        case ADD_LECTURES_IN_SECTION:
+            return {
+                ...state,
+                lecturesInSection: {
+                    ...state.lecturesInSection,
+                    [action.sectionId]: action.lectures
+                }
+            }
+        case PUBLISH_LECTURE_IN_SECTION:
+            let newLecturesInSection = [...state.lecturesInSection[action.sectionId]]
+            newLecturesInSection = newLecturesInSection.map((lectureInSection) => {
+                if (lectureInSection.id == action.lectureId) {
+                    return {...lectureInSection, published: !lectureInSection.published}
+                }
+                else return lectureInSection
+            })
+            return {
+                ...state,
+                lecturesInSection: {
+                    ...state.lecturesInSection,
+                    [action.sectionId]: newLecturesInSection
                 }
             }
         default:

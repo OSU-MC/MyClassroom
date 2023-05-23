@@ -18,7 +18,6 @@ function useLectureQuestions() {
         async function getLecture(){
             setLoading(true)
             const response = await apiUtil("get", `courses/${courseId}/lectures/${lectureId}`, { dispatch: dispatch, navigate: navigate} );
-            console.log("response data", response.data)
             setMessage(response.message)
             setError(response.error)
             if (response.status === 200) {

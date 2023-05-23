@@ -9,22 +9,20 @@ import { TailSpin } from  'react-loader-spinner'
 import { togglePublishedForQuestionInLecture } from '../redux/actions'
 
 function QuestionCard(props){
-    //get the question published state
-    //const options = Object.entries(props.question.content.options)
-    const [published, setPublished] = useState(!!props.question.published)
-    const { courseId, lectureId } = useParams()
-    const [error, setError] = useState(false)
-    const [message, setMessage] = useState("")
-    const [ loading, setLoading ] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [ published, setPublished ] = useState(!!props.question.published)
+    const { courseId, lectureId, sectionId } = useParams()
+    const [ error, setError ] = useState(false)
+    const [ message, setMessage ] = useState("")
+    const [ loading, setLoading ] = useState(false)
 
     //(un)publish a question
     //called on switch onChange()
     async function changePublishState(){
         //call the api for an update 
         setLoading(true)
-        const response = await apiUtil("put", `/courses/${props.courseId}/lectures/${props.lectureId}/questions/${props.question.id}}`, { dispatch: dispatch, navigate: navigate})
+        const response = await apiUtil("put", `/courses/${courseId}/lectures/${lectureId}/questions/${props.question.id}}`, { dispatch: dispatch, navigate: navigate})
         setLoading(false)
         setError(response.error)
         setMessage(response.message)
@@ -62,18 +60,18 @@ function QuestionCard(props){
                 <Card.Body>
                     <p>{props.question.type}</p>
                     
-                    <Button onClick={() => navigate(`questions/${props.question.id}`)} className="editQuestionBtn">
+                    { !sectionId && <Button onClick={() => navigate(`questions/${props.question.id}`)} className="editQuestionBtn">
                             Edit Question
-                     </Button>
+                     </Button> }
                     
                     {/*Default is published state of lecture*/}
-                    <div className='switch'>
-                        <label>
-                            <span>Publish Question</span>
-                            {/*TODO: published questions in questions for lectures*/}
-                            <Switch onChange={() => changePublishState()} checked={published}/>
-                        </label>
-                    </div>
+                    { sectionId && props.lecturePublished && <div className='switch'>
+                            <label>
+                                <span>Publish Question</span>
+                                <Switch onChange={() => changePublishState()} checked={published}/>
+                            </label>
+                        </div>
+                    }
                 </Card.Body>
             </Card>
         </div>
