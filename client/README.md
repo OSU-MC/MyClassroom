@@ -6,8 +6,6 @@
   
   With My Classroom, instructors and students can participate in interactive question and answer sessions. Professors can create courses, create lectures for those courses, and add questions within those lectures that students can answer. Student responses are saved so that both the professor and their students can track their comprehension of course material. The idea is to provide a service through which teachers can get a sense of what their students need, and students can get a sense of what they need to learn.
   
-  [Read up on the project here](https://github.com/CS461PollingApplication/my-classroom-fe/blob/master/Project%20Vision%20and%20Scope.pdf)
-  
 ## Tasks For Future Teams / Build Status
 
 - [ ] Hosting
@@ -50,11 +48,11 @@
 
 ## Setup
 
-![img](https://github.com/CS461PollingApplication/my-classroom-fe/blob/master/bigpicture.PNG?raw=true)
+![img](/bigpicture.PNG?raw=true)
 
-Clone this Repo and the [Backend Repo](https://github.com/CS461PollingApplication/my-classroom-backend) to your machine
+Clone this Repo to your machine
 
-Follow the steps to setup the Backend Repo & Local Database
+Follow the steps to setup the server database
 
 Copy `.env.example` into `.env` and set REACT_APP_API_URL to the backend URL
 
@@ -68,7 +66,7 @@ npm install
 
 # Interacting With the Database
 
-![img](https://github.com/CS461PollingApplication/my-classroom-fe/blob/master/schema.PNG?raw=true)
+![img](/schema.PNG?raw=true)
 
 ```
 Database <- apiUtil <- Hooks -> Redux 
