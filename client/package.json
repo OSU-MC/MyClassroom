@@ -1,0 +1,53 @@
+{
+  "name": "alert",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.6.0",
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@material-ui/core": "^4.12.3",
+    "@mui/icons-material": "^5.3.1",
+    "@mui/material": "^5.4.0",
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^1.3.4",
+    "bootstrap": "^5.1.3",
+    "font-awesome": "^4.7.0",
+    "latest-version": "^6.0.0",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.2",
+    "react-calendar": "^3.7.0",
+    "react-dom": "^17.0.2",
+    "react-loader-spinner": "^5.3.4",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "^5.0.1",
+    "react-table": "^7.8.0",
+    "redux": "^4.2.1",
+    "typeface-roboto": "^1.1.13",
+    "web-vitals": "^1.1.2",
+    "yarn": "^1.22.17"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

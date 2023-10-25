@@ -1,0 +1,141 @@
+body{
+    font-family:sans-serif;
+    /*margin: 20px 40px;*/
+}
+#mainbox{
+    
+    position: fixed;
+    font-size: 36px;
+    color: #4e4848;
+    display: block;
+    cursor: pointer;
+    transition: all 0.5s;
+    top:40%;
+    left: 0%;
+    
+    /*margin-left: -80px;*/
+    /*padding-top:50%;*/
+    
+}
+.sidemenu{
+    position: sticky;
+    top:0px;
+    left:0px;
+    height:100%;
+    width: 0px;
+    background-color: #E2e0e0;
+    z-index:1;
+    padding-top: 100px;
+    overflow-x: hidden;
+    transition: all 0.5s;
+}
+.sidemenu a{
+    padding: 18px 18px 18px 64px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #4e4848;
+    display: block;
+}
+
+.sidemenu a:hover{
+ color: #1d1a1a
+}
+
+.sidemenu .closebtn{
+    cursor: pointer;
+    position: absolute;
+    /*right:0%;*/
+    font-size: 36px;
+    text-align: center;
+    top: 40%;
+    left:70%;
+}
+
+/* Navbar */
+
+.navbarMain{
+    background-color: #293846;
+    position: sticky;
+}
+
+.navbarMain .navbarItem{
+    color: white !important;
+    font-size: 25px;
+}
+
+
+.navbarItem:hover {
+    text-decoration: underline;
+}
+
+.navbarItem {
+    margin-left: 40px;
+    text-decoration: none;
+}
+
+
+
+/*Matthew Sidebar*/
+
+.sidebarBody{
+    position: sticky;
+    height: 100vh;
+    width: 15vw;
+    background-color: #2f4050;
+    border: 0px;
+}
+
+.sidebarList{
+    height: auto;
+    padding: 0;
+    width: 100%;
+    white-space: wrap;
+}
+
+.sidebarList .sidebarItem{
+    width: 100%;
+    height: 8vh;
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.sidebarList .sidebarItem:hover{
+    cursor: pointer;
+    background-color: #293846;
+}
+
+.active{
+    background-color: #293846;
+}
+
+.sidebarItem #sidebarIcon{
+    display: grid;
+    flex: 30%;
+    place-items: center;
+}
+.sidebarItem #sidebarTitle{
+    flex: 70%;
+}
+
+.sidemenu a {
+    text-decoration: none;
+}
+/* Question Card CSS */
+
+
+.cardContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardBody{
+
+}
+

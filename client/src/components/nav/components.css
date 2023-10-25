@@ -1,0 +1,553 @@
+body{
+    font-family:sans-serif;
+    /*margin: 20px 40px;*/
+}
+#mainbox{
+    
+    position: fixed;
+    font-size: 36px;
+    color: #4e4848;
+    display: block;
+    cursor: pointer;
+    transition: all 0.5s;
+    top:40%;
+    left: 0%;
+    
+    /*margin-left: -80px;*/
+    /*padding-top:50%;*/
+    
+}
+.mainBody {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 1;
+    flex-direction: row;
+}
+
+.sidemenu{
+    position: sticky;
+    top:0px;
+    left:0px;
+    height:100%;
+    width: 0px;
+    background-color: #E2e0e0;
+    z-index:1;
+    padding-top: 100px;
+    overflow-x: hidden;
+    transition: all 0.5s;
+}
+.sidemenu a{
+    padding: 18px 18px 18px 64px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #4e4848;
+    display: block;
+}
+
+.sidemenu a:hover{
+ color: #1d1a1a
+}
+
+.sidemenu .closebtn{
+    cursor: pointer;
+    position: absolute;
+    /*right:0%;*/
+    font-size: 36px;
+    text-align: center;
+    top: 40%;
+    left:70%;
+}
+
+/* Navbar */
+
+.navbarMain{
+    background-color: #293846;
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1%;
+    height: 5vh;
+    z-index: 100;
+}
+
+.navbarMain .navbarItem{
+    color: white !important;
+    font-size: calc(8px + 1.5vw);
+    display: flex;
+}
+
+.navbarMain .navbarItem .main {
+    font-size: calc(12px + 1.5vw);
+}
+
+
+.navbarItem:hover {
+    text-decoration: underline;
+}
+
+.navbarItem {
+    margin-left: 40px;
+    text-decoration: none;
+}
+
+.navbarLeftContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navbarRightContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* Dropdown in Navbar */
+
+.dropdownMenu {
+    position: absolute;
+    display: none;
+    background-color: rgb(221, 221, 221);
+    padding: 0.5dvi;
+    border-radius: 3px;
+    top: 3vh;
+    right: 0;
+}
+
+.dropdownIcon {
+    color: white;
+    width: calc(12px + 2vw);
+    height: calc(12px + 2vh);
+}
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdownLink {
+    text-decoration: none;
+    padding: 0 0.5vw 0 0.5vw;
+    color: black !important;
+    font-size: calc(10px + 1vw);
+}
+
+.dropdownItem {
+}
+
+.dropdownLink:hover {
+    text-decoration: underline;
+}
+
+
+
+.dropdown:hover .dropdownMenu {
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+}
+
+
+
+
+/*Sidebar*/
+
+.sidebarBody{
+    position: relative;
+    height: 100vh;
+    width: 15vw;
+    background-color: #2f4050;
+    border: 0px;
+    display: block;
+}
+
+.sidebarList{
+    height: auto;
+    padding: 0;
+    width: 100%;
+    white-space: wrap;
+}
+
+.sidebarList .sidebarItem{
+    width: 100%;
+    height: 8vh;
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.sidebarList .sidebarItem:hover{
+    cursor: pointer;
+    background-color: #293846;
+}
+
+.sidebarItem #sidebarIcon{
+    display: grid;
+    flex: 30%;
+    place-items: center;
+}
+.sidebarItem #sidebarTitle{
+    flex: 70%;
+}
+
+.sidemenu a {
+    text-decoration: none;
+}
+/* Question Card CSS */
+
+
+.cardContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardBody{
+
+}
+
+
+/* Roster CSS */
+
+.allstudents {
+    display: block;
+    width: 80vw;
+    margin: 10px;
+    padding: 1.5vh 3vw 1.5vh 1vw;
+}
+
+.studentrow {
+    overflow: hidden;
+    font-size: calc(10px + 0.8vw);
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 1vh;
+    margin-bottom: 0.8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.studentemail {
+    font-size: calc(11px + 0.4vw);
+}
+
+
+/* Questions CSS */
+
+.questionListItem {
+    display: flex;
+    width: 80vw;
+    border: solid 2px black;
+    border-radius: 10px;
+    padding: 0.5vh 1vw 0.5vh 1vw;
+    font-size: calc(10px + 0.8vw);
+    margin: 2px;
+}
+
+.questionListItem .checkbox {
+    width: 2vw;
+    height: 2vh;
+}
+
+.questionListItem .checkboxContainer {
+    display: flex;
+    align-items: center;
+    padding-right: 0.5vw;
+}
+
+.questionListItemInformation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex: 1;
+}
+
+.questionListItemInformation .questionStem {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 50vw;
+}
+
+.questionListItemInformation .questionType {
+    font-size: calc(11px + 0.4vw);
+}
+
+.contentView {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px;
+    width: 100%;
+}
+
+.searchBarContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3vh;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.searchBar {
+    border-radius: 5px;
+    width: 40vw;
+    font-size: calc(10px + 0.5vw);
+    padding: 0.5vw;
+}
+
+.dynamic-btn {
+    font-size: calc(10px + 0.5vw);
+    border-radius: 5px;
+    margin-top: 1px;
+    padding: 0.5vw 0px 0.5vw 0px;
+    flex: 1;
+    color: white;
+}
+
+.dynamic-btn:hover {
+    color: white;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.basicLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.basicLink:hover {
+    color: inherit;
+}
+
+.split-space {
+    display: flex;
+    justify-content: center;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+}
+
+.question-subcontainer {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    font-size: calc(12px + 0.4vw) !important;
+}
+
+.question-option {
+    display: flex;
+    flex-direction: row;
+    margin: 3px;
+    align-items: center;
+}
+
+.question-reorder {
+    display: flex;
+    flex-direction: row;
+    height: 4vh;
+    align-items: center;
+    padding: 2px;
+}
+
+.question-arrow {
+    display: flex;
+    font-size: calc(12px + 0.4vw) !important;
+    width: 4vh;
+    height: 4vh;
+    margin: 1px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.question-dropdown {
+
+}
+
+.question-text {
+    height: 4vh;
+    width: 40vw;
+    min-width: 100px;
+    max-width: 700px;
+}
+
+.question-select {
+    width: 4vh;
+    height: 4vh;
+    margin: 2px;
+}
+
+.negative-btn {
+    background-color: #ff4d7b;
+    margin: 3px;
+    color: white;
+}
+
+.negative-btn:hover {
+    background-color: #e84470;
+    color: white;
+}
+
+.btn-secondary:focus {
+    background-color: #6c757d;
+    text-decoration: none;
+    border: none;
+}
+
+
+.popup-background {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.popup-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 80%;
+    background-color: white;
+}
+/* Single Question CSS */
+
+.question-stem {
+    position: relative;
+    background-color: lightgray;
+    padding: 20px;
+    width: 100%;
+    font-size: x-large;
+    text-align: center;
+}
+
+.student-question-wrapper {
+    position: relative;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 50px;
+    left: 25%;
+    width: 50%;
+}
+
+.student-question-answer-option {
+
+}
+
+.student-question-option-label {
+    font-size: x-large;
+}
+
+.student-question-response-form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.student-question-radio {
+    width: 25%;
+    margin: 10px;
+}
+
+.student-question-response-submit-button {
+    position: relative;
+    margin-bottom: 20px;
+    left: 40%;
+    width: 20%;
+    font-size: larger;
+}
+
+.right-answer {
+    position: relative;
+    color: green;
+}
+
+.wrong-answer {
+    position: relative;
+    color: #FF9494;
+}
+
+.unselected-right-answer {
+    position: relative;
+    color: yellowgreen;
+}
+
+.student-question-score {
+    position: relative;
+    margin-bottom: 20px;
+    left: 40%;
+    width: 20%;
+    font-size: x-large;
+    text-align: center;
+}
+
+.student-question-li {
+    font-size: x-large;
+    margin-left: 20px;
+}
+
+.horizontal-flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.lecture-card {
+    margin: 5px;
+}
+
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.right-aligned {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.add-section-h1 {
+    margin-left: 20px;
+}
+
+.add-section-div {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
