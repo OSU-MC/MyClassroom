@@ -1,0 +1,56 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/server/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+/server/coverage
+
+# production
+/build
+/server/dist
+
+# misc
+.DS_Store
+*.log*
+.env*
+/server/.env
+/server/logs
+
+# IDE & Editor configs
+.idea
+.vscode
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# Operating System Files
+Thumbs.db
+.DS_Store
+
+# Temporary and cache files/directories
+*.swp
+*.swo
+*.tmp
+*.temp
+/temp
+/cache
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Others
+*.pid
+*.seed
+*.pid.lock
+
