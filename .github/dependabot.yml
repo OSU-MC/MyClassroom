@@ -11,8 +11,8 @@ updates:
       interval: "daily"
     target-branch: "dev"
     assignees:
-      - nilsstreedain
-      - SirTinyHead
+      - "nilsstreedain"
+      - "SirTinyHead"
       
   - package-ecosystem: "npm"
     directory: "/server"
@@ -20,5 +20,5 @@ updates:
       interval: "daily"
     target-branch: "dev"
     assignees:
-      - Justin-Fernbaugh
-      - karinocheretny
+      - "Justin-Fernbaugh"
+      - "karinocheretny"
