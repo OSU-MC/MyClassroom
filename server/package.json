@@ -14,7 +14,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "npx": "^10.2.2",
-    "sequelize": "^6.28.0",
+    "sequelize": "^6.33.0",
     "sequelize-cli": "^6.5.2",
     "supertest": "^6.3.3",
     "winston": "^3.8.2",
