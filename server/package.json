@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@trycourier/courier": "^4.1.0",
+    "@trycourier/courier": "^5.7.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cookie": "^0.5.0",
