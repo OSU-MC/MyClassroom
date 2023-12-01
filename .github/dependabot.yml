@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "dev"
-    assignees:
+    reviewers:
       - "nilsstreedain"
       - "SirTinyHead"
       
@@ -19,6 +19,6 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "dev"
-    assignees:
+    reviewers:
       - "Justin-Fernbaugh"
       - "karinocheretny"
