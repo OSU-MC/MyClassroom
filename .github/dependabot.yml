@@ -11,8 +11,7 @@ updates:
       interval: "daily"
     target-branch: "dev"
     reviewers:
-      - "nilsstreedain"
-      - "SirTinyHead"
+      - "CS-461-nilsstreedain/frontend-team"
       
   - package-ecosystem: "npm"
     directory: "/server"
@@ -20,5 +19,4 @@ updates:
       interval: "daily"
     target-branch: "dev"
     reviewers:
-      - "Justin-Fernbaugh"
-      - "karinocheretny"
+      - "CS-461-nilsstreedain/backend-team"
