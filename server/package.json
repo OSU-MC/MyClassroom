@@ -26,7 +26,7 @@
   "main": "server.js",
   "devDependencies": {
     "dotenv": "^16.3.1",
-    "nodemon": "^2.0.20"
+    "nodemon": "^3.0.2"
   },
   "scripts": {
     "test": "NODE_ENV=test jest --runInBand",
