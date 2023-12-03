@@ -145,7 +145,7 @@ router.put("/:course_id", requireAuthentication, async function (req, res) {
 		return res
 			.status(403)
 			.send({ error: `Only the teacher for a course can edit the course` });
-	if (!req.body.name || !req.body.description || !req.body.published)
+	if (!req.body.name && !req.body.description && !req.body.published)
 		return res.status(400).send({
 			error:
 				"Request must contain either name, description, or published status",
@@ -160,7 +160,7 @@ router.put("/:course_id", requireAuthentication, async function (req, res) {
 		});
 	} catch (e) {
 		if (e instanceof ValidationError) {
-			res.status(400).send({
+			res.status(500).send({
 				error: string_helpers.serializeSequelizeErrors(e),
 			});
 		} else {
