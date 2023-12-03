@@ -8,15 +8,19 @@ updates:
   - package-ecosystem: "npm"
     directory: "/client"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     target-branch: "dev"
+    assignees:
+      - "CS-461-nilsstreedain/frontend-team"
     reviewers:
       - "CS-461-nilsstreedain/frontend-team"
       
   - package-ecosystem: "npm"
     directory: "/server"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     target-branch: "dev"
+    assignees:
+      - "CS-461-nilsstreedain/backend-team"
     reviewers:
       - "CS-461-nilsstreedain/backend-team"
