@@ -38,7 +38,7 @@ jobs:
       run: |
         sudo /etc/init.d/mysql start
         mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
-        mysql -e 'GRANT ALL PRIVILEGES ON ${{ env.DB_DATABASE }}.* TO '${{ env.DB_USER }}'@'{{ env.DB_HOST }}';
+        mysql -e 'GRANT ALL PRIVILEGES ON ${{ env.DB_DATABASE }}.* TO '${{ env.DB_USER }}'@'{{ env.DB_HOST }}';'
         mysql -e 'SHOW DATABASES;' -uroot -proot
       working-directory: './server'
 
