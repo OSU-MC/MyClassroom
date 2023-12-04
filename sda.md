@@ -25,7 +25,8 @@ The polling application employs a client-server architectural pattern, with the 
 
 ## Data Management
 The data within the current project is structured using a relational database schema, which is ideal for managing interconnected data in a systematic and organized manner. Below is a diagram of the schema explaining how data is structured, stored, and accessed within the system:
-![Schema](schema.png)
+![Schema](https://github.com/CS-461-nilsstreedain/classroom-polling/assets/25465133/c59d6a79-6e2d-4f8f-9ded-e3a0ad94ffdc)
+
 
 ## Interface Design
 The interface has already been designed, we are adding features and optimizing for performance on top of the current product. We will closely follow the current design application and adjust where instructed by our project partners. The API endpoints that we are currently using are below, although the routes and architecture may change as the project progresses further.
