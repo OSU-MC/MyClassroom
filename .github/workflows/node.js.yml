@@ -18,8 +18,8 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     env:
       DB_DATABASE: myclassroom_test
-      DB_USER: root
-      DB_PASSWORD: root
+      DB_USER: myclassroom
+      DB_PASSWORD: pw
 
     steps:   
     - uses: actions/checkout@v3
@@ -30,22 +30,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: 'server/package-lock.json'
     - name: Install Dependencies
-      run: npm install
-      working-directory: './server'
-      
-    - name: Set up MySQL
-      run: |
-        sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
-        mysql -e 'SHOW DATABASES;' -uroot -proot
-      working-directory: './server'
-
-    - name: Set Up Database
-      run: npx sequelize-cli db:migrate --env test
-      working-directory: './server'
-
-    - name: Seed Database 
-      run: npx sequelize-cli db:seed:all --env test
+      run: npm ci
       working-directory: './server'
     
     - name: Run Tests
