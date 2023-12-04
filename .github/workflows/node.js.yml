@@ -16,17 +16,11 @@ jobs:
       matrix:
         node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_USER: myclassroom
-          MYSQL_PASSWORD: pw
-          MYSQL_DATABASE: myclassroom_test
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    env:
+      DB_DATABASE: myclassroom_test
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_HOST: 127.0.0.1
 
     steps:   
     - uses: actions/checkout@v3
@@ -38,6 +32,14 @@ jobs:
         cache-dependency-path: 'server/package-lock.json'
     - name: Install Dependencies
       run: npm install
+      working-directory: './server'
+      
+    - name: Set up MySQL
+      run: |
+        sudo /etc/init.d/mysql start
+        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+        mysql -e 'GRANT ALL PRIVILEGES ON ${{ env.DB_DATABASE }}.* TO '${{ env.DB_USER }}'@'{{ env.DB_HOST }}';
+        mysql -e 'SHOW DATABASES;' -uroot -proot
       working-directory: './server'
 
     - name: Set Up Database
