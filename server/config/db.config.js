@@ -8,7 +8,7 @@ module.exports = {
     "username": process.env.DEV_DB_USER || 'myclassroom',
     "password": process.env.DEV_DB_PASS || null,
     "database": process.env.DEV_DB_NAME || 'myclassroom_development',
-        "host": process.env.DEV_DB_HOST || '127.0.0.1',
+        "host": process.env.DEV_DB_HOST || 'localhost',
     "port": process.env.DEV_DB_PORT || 3306,
     "dialect": "mysql"
   },
@@ -16,7 +16,7 @@ module.exports = {
      "username": process.env.TEST_DB_USER || 'myclassroom',
      "password": process.env.TEST_DB_PASS || null,
      "database": process.env.TEST_DB_NAME || 'myclassroom_test',
-     "host": process.env.TEST_DB_HOST || '127.0.0.1',
+     "host": process.env.TEST_DB_HOST || 'localhost',
      "port": process.env.TEST_DB_PORT || 3306,
      "dialect": "mysql"
    },
