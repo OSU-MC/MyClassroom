@@ -7,8 +7,11 @@ The architecture must be crafted to support a dynamic classroom polling applicat
 
 ## System Overview
 Considering the project is already heavily underway, below I have provided a diagram that already exists for the current state of the project architecture.
-![Image](bigpicture.png)
+![Old Architecture](https://github.com/CS-461-nilsstreedain/classroom-polling/assets/25465133/d510c3d5-ea89-4e88-b2cd-2bdec53e9f0d)
 The current architecture consists primarily of a frontend, backend, and database. React.js is currently being used for the frontend user interface components, which communicates in real time with the Node.js backend server. This Node.js server also interacts with the MySQL database for keeping track of students, classes, lectures, questions/answers, etc.
+
+Over the course of this project, the goal is to include seamless integration with Canvas, both importing classes from canvas into the application, and grades from the application into Canvas.
+![New Architecture](https://github.com/CS-461-nilsstreedain/classroom-polling/assets/25465133/7e0c9d57-e8e2-4d97-ba85-7b6daf6f6ee7)
 
 ## Architectural Patterns
 The polling application employs a client-server architectural pattern, with the React.js-based frontend as the client interacting with the Node.js-based backend server, which in turn communicates with the MySQL database. This pattern is chosen for its efficiency in handling real-time interactions, crucial for the classroom polling functionality. Additionally, a static content hosting pattern is utilized for delivering unchanging UI files swiftly, reducing server load, and ensuring faster user access. These patterns align with the project's objectives of scalability, low latency, and reliability, while also setting a solid groundwork for future expansions like Learning Management System integration and WebSocket connections for live updates.
@@ -22,7 +25,7 @@ The polling application employs a client-server architectural pattern, with the 
 
 ## Data Management
 The data within the current project is structured using a relational database schema, which is ideal for managing interconnected data in a systematic and organized manner. Below is a diagram of the schema explaining how data is structured, stored, and accessed within the system:
-![Image](schema.png)
+![Schema](schema.png)
 
 ## Interface Design
 The interface has already been designed, we are adding features and optimizing for performance on top of the current product. We will closely follow the current design application and adjust where instructed by our project partners. The API endpoints that we are currently using are below, although the routes and architecture may change as the project progresses further.
