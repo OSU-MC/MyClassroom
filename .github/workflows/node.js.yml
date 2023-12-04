@@ -25,11 +25,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install Dependencies
-    - run: npm install
+      run: npm install
 
     - name: Set Up Database
-    - run: npx sequelize-cli db:migrate --env test
-    - run: npx sequelize-cli db:seed:all --env test
+      run: npx sequelize-cli db:migrate --env test
+      run: npx sequelize-cli db:seed:all --env test
     
     - name: Run Tests
-    - run: npm test
+      run: npm test
