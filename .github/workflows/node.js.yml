@@ -30,7 +30,7 @@ jobs:
     - name: Set Up Database
       run: npx sequelize-cli db:migrate --env test
 
-    -name: Seed Database 
+    - name: Seed Database 
       run: npx sequelize-cli db:seed:all --env test
     
     - name: Run Tests
