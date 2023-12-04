@@ -73,7 +73,8 @@ It's worth noting that the application is only configured for email use through 
 - Request Rate Limiting
 
 ## Database Schema
-![Database Schema](/schema.png)
+![Schema](https://github.com/CS-461-nilsstreedain/classroom-polling/assets/25465133/d987e780-fd0e-4ea5-bd18-c72de5d8c32c)
+
 
 ## Endpoints
 [API Endpoints Doc](/API%20Endpoints%20MyClassroom.pdf)

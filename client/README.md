@@ -41,7 +41,9 @@
 - npm: 9.1.2
 
 ## Setup
-![img](/bigpicture.png)
+![New Architecture](https://github.com/CS-461-nilsstreedain/classroom-polling/assets/25465133/633b6e2b-bbdd-4ff6-b986-f5d809c96a9b)
+
+
 Clone this Repo to your machine
 
 Follow the steps to setup the server database
@@ -55,7 +57,8 @@ npm install
 `npm run start` or `npm start`
 
 # Interacting With the Database
-![img](/schema.PNG?raw=true)
+![Schema](https://github.com/CS-461-nilsstreedain/classroom-polling/assets/25465133/a4322ae3-b9b7-4b2f-98fb-116614e381d7)
+
 ```
 Database <- apiUtil <- Hooks -> Redux 
                              -> Pages 
