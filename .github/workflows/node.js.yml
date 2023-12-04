@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -27,12 +27,16 @@ jobs:
         cache-dependency-path: 'server/package-lock.json'
     - name: Install Dependencies
       run: npm install
+      working-directory: './server'
 
     - name: Set Up Database
       run: npx sequelize-cli db:migrate --env test
+      working-directory: './server'
 
     - name: Seed Database 
       run: npx sequelize-cli db:seed:all --env test
+      working-directory: './server'
     
     - name: Run Tests
       run: npm test
+      working-directory: './server'
