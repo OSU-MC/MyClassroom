@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"@trycourier/courier": "^5.7.0",
+		"@trycourier/courier": "^6.0.0",
 		"bcrypt": "^5.1.0",
 		"body-parser": "^1.20.2",
 		"caniuse-lite": "^1.0.30001565",
