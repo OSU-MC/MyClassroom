@@ -21,13 +21,7 @@ jobs:
       DB_USER: root
       DB_PASSWORD: root
 
-    steps:
-    - name: Set up MySQL
-      run: |
-        sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
-        mysql -e 'SHOW DATABASES;' -uroot -proot
-        
+    steps:   
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -37,6 +31,13 @@ jobs:
         cache-dependency-path: 'server/package-lock.json'
     - name: Install Dependencies
       run: npm install
+      working-directory: './server'
+      
+    - name: Set up MySQL
+      run: |
+        sudo /etc/init.d/mysql start
+        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+        mysql -e 'SHOW DATABASES;' -uroot -proot
       working-directory: './server'
 
     - name: Set Up Database
