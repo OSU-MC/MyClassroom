@@ -31,8 +31,8 @@
 	},
 	"scripts": {
 		"test": "NODE_ENV=test jest --runInBand",
-		"start": "node app.js --NODE_ENV=production",
-		"start:dev": "nodemon app.js --NODE_ENV=development",
+		"start": "node app/server.js --NODE_ENV=production",
+		"start:dev": "nodemon app/server.js --NODE_ENV=development",
 		"seed": "npx sequelize-cli db:seed:all",
 		"unseed": "npx sequelize-cli db:seed:undo:all"
 	},
