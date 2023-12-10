@@ -6,6 +6,13 @@
 - npm: 9.1.2
 - mysql: 8.0.31
 
+### Configuring Local Environment
+
+Copy the `.env.example` file into a `.env` file
+
+- Configure the database environment variables to match the database name, user, and password used when setting up the databases for development and test
+- Set `CLIENT_URL` to the front end application URL
+
 ### Configuring Local Database
 This process can and should be followed for instantiating both the local development and local testing database.
 
@@ -22,21 +29,20 @@ In the Command Line:
 Once the database has been made in mysql, using sequelize command line tools, database migrations need to be run to create the database
 - To migrate forward: `npx sequelize-cli db:migrate`
 - To migrate backward: `npx sequelize-cli db:migrate:undo` - add `:all` to undo all the migrations instead of just 1
-To do this in the test environment, simply add `--env test` to the end of the command
+
+### Setting Up Testing Database 
+
+- To migrate forward: `npx sequelize-cli db:migrate --env test`
 
 After migrations have been done, local testing data can be added to the database using sequelize seeders
-- To create: `npx sequelize-cli db:seed:all`
-- To delete: `npx sequelize-cli db:seed:undo` - add `:all` to undo all the seeds instead of just 1
+- To create: `npx sequelize-cli db:seed:all --env test`
+
+- To delete: `npx sequelize-cli db:seed:undo  --env test` - add `:all` to undo all the seeds instead of just 1
+
 
 If having issues, refer to the MySQL Getting Started Guide: https://dev.mysql.com/doc/mysql-getting-started/en/
 
-If you need to reset your local dev or test databases, login to MySQL as the root user (step 1), and run `DROP DATABASE database_name;`. Then, rerun steps 3 and 4. 
-
-### Configuring Local Environment
-Copy the `.env.example` file into a `.env` file
-
-- Configure the database environment variables to match the database name, user, and password used when setting up the databases for development and test
-- Set `CLIENT_URL` to the front end application URL
+If you need to reset your local dev or test databases, login to MySQL as the root user (step 1), and run `DROP DATABASE database_name;`. Then, rerun steps 3 and 4.
 
 ## Starting the Application
 `npm run start`
