@@ -16,7 +16,7 @@
 		"mysql2": "^2.3.3",
 		"npx": "^10.2.2",
 		"sequelize": "^6.35.0",
-		"sequelize-cli": "^6.5.2",
+		"sequelize-cli": "^6.6.2",
 		"supertest": "^6.3.3",
 		"winston": "^3.11.0",
 		"winston-daily-rotate-file": "^4.7.1"
