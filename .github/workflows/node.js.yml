@@ -5,50 +5,47 @@ name: Node.js CI
 
 on:
   pull_request:
-    branches: [ "main" , "dev" ]
+    branches: [ "main", "dev" ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+           MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_DATABASE: test_database
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_password
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
         
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    env:
-      DB_DATABASE: myclassroom_test
-      DB_USER: myclassroom
-      DB_PASSWORD: pw
+      - name: Set NODE_ENV to test
+        run: echo "NODE_ENV=test" >> $GITHUB_ENV
 
-    steps:   
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: 'server/package-lock.json'
-    - name: Install Dependencies
-      run: npm ci
-      working-directory: './server'
+      - name: Copy db.config.js
+        run: cp server/db.config.js config/db.config.js
+        
+      - name: Run migrations for testing
+        run: npx sequelize-cli db:migrate --env test
 
-    - name: Set up MySQL
-      run: |
-        sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} 
-        mysql -e 'GRANT ALL PRIVILEGES ON ${{ env.DB_DATABASE }}.* TO '${{ env.DB_USER }}'@'localhost';'
-        mysql -e 'SHOW DATABASES;' 
-      working-directory: './server'
+      - name: Seed testing data
+        run: npx sequelize-cli db:seed:all --env test
 
-    - name: Set Up Database
-      run: npx sequelize-cli db:migrate --env test
-      working-directory: './server'
-
-    - name: Seed Database 
-      run: npx sequelize-cli db:seed:all --env test
-      working-directory: './server'
-    
-    - name: Run Tests
-      run: npm test
-      working-directory: './server'
+      - name: Run tests
+        run: npm test
