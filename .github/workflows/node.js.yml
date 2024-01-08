@@ -15,7 +15,7 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-           MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_ROOT_PASSWORD: root_password
           MYSQL_DATABASE: test_database
           MYSQL_USER: test_user
           MYSQL_PASSWORD: test_password
