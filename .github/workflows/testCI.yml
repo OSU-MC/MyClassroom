@@ -26,8 +26,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          path: server/server
 
       - name: Debug - Check files
         run: |
@@ -44,7 +42,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: server/server
+        working-directory: server
         
       - name: Set NODE_ENV to test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
