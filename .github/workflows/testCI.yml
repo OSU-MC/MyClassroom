@@ -29,6 +29,11 @@ jobs:
         with:
           path: server
 
+      - name: Debug
+        run: |
+          pwd
+          ls -la
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
