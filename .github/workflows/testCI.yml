@@ -49,9 +49,12 @@ jobs:
         
       - name: Run migrations for testing
         run: npx sequelize-cli db:migrate --env test
+        working-directory: server
 
       - name: Seed testing data
         run: npx sequelize-cli db:seed:all --env test
+        working-directory: server
 
       - name: Run tests
         run: npm test
+        working-directory: server
