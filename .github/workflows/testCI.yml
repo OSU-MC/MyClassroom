@@ -33,6 +33,9 @@ jobs:
         run: |
           pwd
           ls -la
+          
+      - name: Debug - Check contents of server directory
+        run: ls -la server
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,9 +43,8 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: |
-          cd server
-          npm install
+        run: npm install
+        working-directory: server
         
       - name: Set NODE_ENV to test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
