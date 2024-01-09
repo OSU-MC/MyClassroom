@@ -37,9 +37,6 @@ jobs:
         
       - name: Set NODE_ENV to test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
-
-      - name: Copy db.config.js
-        run: cp server/db.config.js config/db.config.js
         
       - name: Run migrations for testing
         run: npx sequelize-cli db:migrate --env test
