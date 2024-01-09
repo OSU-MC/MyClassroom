@@ -15,10 +15,10 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          TEST_DB_USER: root
-          TEST_DB_PASS: pass123
-          TEST_DB_NAME: myclassroom_test
-          TEST_DB_HOST: localhost
+          MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_DATABASE: test_database
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_password
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
