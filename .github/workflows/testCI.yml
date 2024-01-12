@@ -49,6 +49,14 @@ jobs:
         
       - name: Set NODE_ENV to test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
+
+      - name: Create MySQL Database
+        run: |
+          mysql -h $TEST_DB_HOST -u $TEST_DB_USER -p$TEST_DB_PASS -e "CREATE DATABASE IF NOT EXISTS myclassroom_test"
+        env:
+          TEST_DB_HOST: ${{ env.TEST_DB_HOST }}
+          TEST_DB_USER: ${{ env.TEST_DB_USER }}
+          TEST_DB_PASS: ${{ env.TEST_DB_PASS }}
         
       - name: Run migrations for testing
         run: npx sequelize-cli db:migrate --env test 
