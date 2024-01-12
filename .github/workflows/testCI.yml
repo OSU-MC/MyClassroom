@@ -48,7 +48,11 @@ jobs:
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
         
       - name: Run migrations for testing
-        run: npx sequelize-cli db:migrate --env test
+        run: |
+          npx sequelize-cli db:migrate --env test \
+          --username=$TEST_DB_USER \
+          --password=$TEST_DB_PASS \
+          --database=$TEST_DB_NAME \
         working-directory: server
 
       - name: Seed testing data
