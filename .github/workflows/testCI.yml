@@ -15,13 +15,16 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          TEST_DB_USER: root
-          TEST_DB_PASS: 1234
-          TEST_DB_NAME: myclassroom_test
           MYSQL_ROOT_PASSWORD: 1234
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    env:
+      TEST_DB_USER: root
+      TEST_DB_PASS: 1234
+      TEST_DB_NAME: myclassroom_test
+      TEST_DB_HOST: localhost
+      TEST_DB_PORT: 3306
 
     steps:
       - name: Checkout code
@@ -48,11 +51,7 @@ jobs:
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
         
       - name: Run migrations for testing
-        run: |
-          npx sequelize-cli db:migrate --env test \
-          --username=$TEST_DB_USER \
-          --password=$TEST_DB_PASS \
-          --database=$TEST_DB_NAME \
+        run: npx sequelize-cli db:migrate --env test 
         working-directory: server
 
       - name: Seed testing data
