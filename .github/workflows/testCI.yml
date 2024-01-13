@@ -30,14 +30,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Debug - Check files
-        run: |
-          pwd
-          ls -la
-          
-      - name: Debug - Check contents of server directory
-        run: ls -la server
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -49,6 +41,14 @@ jobs:
         
       - name: Set NODE_ENV to test
         run: echo "NODE_ENV=test" >> $GITHUB_ENV
+
+      - name: Print MySQL Databases
+        run: |
+          echo "SHOW DATABASES;" | mysql -h $TEST_DB_HOST -u $TEST_DB_USER -p$TEST_DB_PASS
+        working-directory: server
+
+      - name: Delay before running Sequelize commands
+        run: sleep 10
         
       - name: Run migrations for testing
         run: npx sequelize-cli db:migrate --env test 
