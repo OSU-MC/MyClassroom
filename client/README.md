@@ -16,8 +16,16 @@ Install the Application Dependencies
 npm install
 ```
 
+Rename the .env.example file to configure the environment
+```
+mv .env.example .env
+```
+
 ## Configuring Node.js Client
 The client can be configured by modifying the `/client/.env` file. `REACT_APP_API_URL` should be set to the backend URL. For basic testing, the default values can be used.
+```
+nano .env
+```
 
 ## Starting the Application
 ```
