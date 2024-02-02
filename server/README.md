@@ -24,6 +24,11 @@ npm install
 ```
 
 ## Configuring Local Environment
+Rename the .env.example file to setup environment configuration
+```
+mv .env.example .env
+```
+
 The server application can be configured by modifying the `/server/.env` file. The `DEV_DB_...` and `TEST_DB_...` values should match those in the database/user creation commands listed in the setup steps below. Additionally, `CLIENT_URL` should be set to the front end application URL. For basic testing, the default values can be used.
 
 ## Create and Migrate the Database
