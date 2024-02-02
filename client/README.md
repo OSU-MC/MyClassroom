@@ -11,6 +11,11 @@
 ## Setup Server Application and Install Dependencies
 Setup the server application according to the [/server/README.md](../server/README.md#cloning-repo-and-installing-dependencies) documentation.
 
+Navigate to the client folder
+```
+cd client
+```
+
 Install the Application Dependencies
 ```
 npm install
