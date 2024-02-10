@@ -10,6 +10,7 @@ function Signup(props){
     const [confirmPassword, setConfirmPassword] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
+    const [isTeacher, setIsTeacher] = useState(false);
     const [ message, setMessage ] = useState("")
     const [ error, setError ] = useState(false)
     const emailInput = useRef(null)
@@ -19,7 +20,9 @@ function Signup(props){
     const lastNameInput = useRef(null)
     const navigate = useNavigate()
 
-
+    const handleCheckboxChange = (event) => {
+        setIsTeacher(event.target.checked);
+    }
     async function CreateAccountRequest(accountPayload){
 
         let response = {}
@@ -33,6 +36,7 @@ function Signup(props){
         setConfirmPassword("")
         setFirstName("")
         setLastName("")
+        setIsTeacher(false)
 
         if(response.status == 201){
             navigate("/login")
@@ -48,7 +52,8 @@ function Signup(props){
             rawPassword: password,
             confirmedPassword: confirmPassword,
             firstName: firstName,
-            lastName: lastName
+            lastName: lastName,
+            isTeacher: isTeacher
         }
 
         CreateAccountRequest(accountInformation)
@@ -70,6 +75,7 @@ function Signup(props){
                     </label>
                     <input ref={emailInput} onChange={ (event) => setEmail(event.target.value) } placeholder="Enter your email." />
                 </div>
+                
 
                 <div>
                     <label>
@@ -88,11 +94,17 @@ function Signup(props){
                 </div>
 
                 <div>
+                    <input type="checkbox" checked={isTeacher} onChange={handleCheckboxChange} />
+                    <label>I am a teacher</label>
+                </div>
+
+                <div>
                     <button onClick={createAccountStaging} type="submit">
                         <span>Sign Up</span>
                     </button>
                 </div>
             </form>
+
 
             <div>
                 { message !== "" && <Notice message={message} error={error ? "error" : ""}/> }

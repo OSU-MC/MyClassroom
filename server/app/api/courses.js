@@ -95,6 +95,9 @@ router.post("/join", requireAuthentication, async function (req, res, next) {
 	const section = await db.Section.findOne({
 		where: { joinCode: joinCode },
 	});
+	if (user.role !== "student") {
+		return res.status(403).send({ error: "Teachers can't join their own courses" });
+	}
 
 	if (!section)
 		return res
