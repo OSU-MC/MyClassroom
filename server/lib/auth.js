@@ -65,9 +65,8 @@ const removeUserAuthCookie = async (req, res) => {
  */
 const requireAuthentication = async (req, res, next) => {
     // Extract session/CSRF token from cookies
-    const token = req.cookies["_myclassroom_session"];
-//    const csrfToken = req.headers["x-xsrf-token"];
-    const csrfToken = req.cookies["xsrf-token"];
+    const token = req.cookies["_myclassroom_session"] || req.headers["_myclassroom_session"]; // Prefer cookie over header
+    const csrfToken = req.cookies["xsrf-token"] || req.headers["xsrf-token"]; // Prefer cookie over header
     
     try {
         const payload = jwtUtils.decode(token); // Decode JWT token to get payload
