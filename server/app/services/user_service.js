@@ -6,6 +6,7 @@ const userInformationSchema = {
     firstName: { required: true },
     lastName: { required: true },
     email: { required: true },
+    isTeacher: {required: true},
 }
 
 const userCreationSchema = {

@@ -89,6 +89,11 @@ module.exports = (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING // we exclude allowNull: false from the model definition because it enforces model validation, but we must include it in the migration so the schema enforces the NOT NULL constraint on the column
         },
+        isTeacher: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
         admin: {
             type: DataTypes.BOOLEAN,
             allowNull: false,

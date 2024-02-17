@@ -28,14 +28,9 @@ function useCourses() {
             populateCourses()
         }
     }, [])
-    function isUserTeacher(courseId, userId) {
-        if (courses.teacherCourses && courses.teacherCourses.some(course => course.id === courseId && course.teacherId === userId)) {
-            return true;
-        }
-        return false;
-    }
+  
 
-    return [courses, message, error, loading, isUserTeacher]
+    return [courses, message, error, loading]
 }
 
 export default useCourses

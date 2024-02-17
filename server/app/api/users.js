@@ -19,8 +19,8 @@ router.post('', async function (req, res, next) {
       if (req.body.rawPassword == req.body.confirmedPassword) {
         try {
           const user = await db.User.create(UserService.extractUserCreationFields(req.body))
-          console.log('User is a teacher: ${user.isTeacher}');
-          await setUserAuthCookie(res, user)
+            await setUserAuthCookie(res, user)
+          console.log('User created:', user);
           res.status(201).send({
             user: UserService.filterUserFields(user)
           })

@@ -35,7 +35,7 @@ function useCourse() {
                 setMessage(`The course with id ${courseId} cannot be found`)
             }
         }
-        if (courses && courses.teacherCourses != null && courses.studentCourses != null) {
+        if (courses.teacherCourses != null && courses.studentCourses != null) {
             findCourse()
         }
     }, [ courseId, courses ])
