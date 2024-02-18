@@ -48,6 +48,7 @@ body{
     color: black;
 }
 
+/*leftContainer takes up 46% of the left screen*/
 .leftContainer{
     position: relative;
     width: 46%;
@@ -92,6 +93,7 @@ body{
     margin-top: 3vh;
 }
 
+/* TODO: More visually appealing button*/
 .homeButton{
     font-size: 18px;
 
@@ -101,6 +103,7 @@ body{
     border-color: grey;
     background-color: transparent;
 
+    /* Icon attached to button using background image*/
     background: url(../../public/arrow-left-solid.svg);
     background-position: 142px 7px;
     background-repeat: no-repeat;
@@ -161,6 +164,7 @@ body{
 
     color: white;
 
+    /* Icon attached to button using background image*/
     padding-right: 32px;
     background: #76B47B url(../../public/Arrow_left_long.png);
     background-position: 150px 12px;
@@ -185,6 +189,7 @@ body{
     color: white;
     font-weight: bold;
 
+    /* Icon attached to button using background image*/
     padding-left: 32px;
     background: #76B47B url(../../public/ssoIcon.png);
     background-position: 28px 8px;
@@ -204,6 +209,7 @@ body{
     text-decoration: underline;
 }
 
+/*TODO: Horizonal line on either side of or text*/
 .orSSOText{
     margin-top: 20px;
     position: relative;

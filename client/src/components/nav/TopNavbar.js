@@ -13,9 +13,12 @@ function TopNavbar(props) {
     return (
             <div className='navbarMain' expand="lg">
                 <div className='navbarLeftContainer'>
+                    {/*Image attr: Unknown, need to ask*/}
                     <span><NavLink className='navbarItem' id='classroomLink' to='/home'><img id="classroomIcon" src="classroomIcon.png" />{process.env.REACT_APP_NAME}</NavLink></span> {/* Why not hard code??*/}
                     {/*{ props.loggedIn && <NavLink className='navbarItem' to='/'>Courses</NavLink> }*/}
                 </div>
+
+                {/*TODO: Finish obvious improvements, add functionality to read name of user*/}
                 <div className="navbarCenterContainer">
                     {props.loggedIn ?
                     <p className='navbarItem smallText'> Hello, NAME </p>
