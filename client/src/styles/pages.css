@@ -1,91 +1,218 @@
 /* Login Page CSS */
 
-div.arrowdown {
-    background-image: url(../../public/arrowdown.png);
-    width: 40px;
-    height: 34px;
-    background-size: cover;
+
+html{
+    font-family: 'Open Sans', sans-serif;
+    height: 100%;
+    width: 100%;
 }
 
-html * {
-font-family: 'Open Sans', sans-serif;
+body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0; 
 }
 
-.loginTitle{
-font-size: 54px;
-
+#root{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0; 
 }
 
-.deskImg{
-   width: auto;
-   height: 5%;
+.mainBody{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;  
 }
 
-.imgTitleContainer{
-    
+#login{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    line-height: 1;
 }
 
-label.form-label{
-    font-size: 28px;
+.classroomIcon
+{
+    height: 43px;
+    margin-right: 8px;
 }
 
-input.form-control{
+.classroomLink
+{
+    font-size: 36px;
+    font-weight: bold;
+    color: black;
+}
+
+.leftContainer{
+    position: relative;
+    width: 46%;
+    min-width: 210px;
+    background-color: rgb(210, 223, 211);
+    border-top-right-radius: 60px;
+    border-bottom-right-radius: 60px;
+}
+
+.rightContainer{
+    position: relative;
+    flex: 1;
+}
+
+.welcomeBox{
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    height: 40%;
+    padding-left: 10%;
+}
+
+.textBox{
+    margin-top: 3vh;
+}
+
+.mainText{
+    font-size: 50px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0px; /* without this, margin-bottom is 50, I have no idea why */
+}
+
+.subText{
+    font-size: 30px;
+    color: gray;
+    text-decoration: underline;
     margin-top: 1vh;
-    margin-bottom: 2vh;
 }
 
-.contentContainer{
-    background-color: white;
-    border: 2px solid white;
-    border-radius: 10px;
-    padding-bottom: 12vh;
-    width: fit-content;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+.linkBox{
+    margin-top: 3vh;
+}
+
+.homeButton{
+    font-size: 18px;
+
+    border-radius: 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: grey;
+    background-color: transparent;
+
+    background: url(../../public/arrow-left-solid.svg);
+    background-position: 142px 7px;
+    background-repeat: no-repeat;
+    background-size: 12px;
+
+    padding-top: 4px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 36px;
+}
+
+.homeButton:hover{
+    background-color: #76B47B;
+}
+
+.loginSection{
+    position: relative;
+    top: 15%;
+    width: 100%;
+    height: 60%;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.formLoginContainer{
+    margin-top: 3vh;
+}
+
+.inputContainer{
+    margin-top: 40px;
+    background:transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+    padding-left: 6px;
+    width: 100%;
 }
 
 .emailContainer{
-    display: block;
-    text-align: left;
+
 }
 
 .passwordContainer{
-    display: block;
-    text-align: left;
+
 }
 
-div.Login{
-    background-image: url(../../public/classroomBackground.jpg);
-    background-size: cover;
+.submitButton{
+    display: block;
+    position: relative;
+    margin-top: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border: none;
+    border-radius: 5px;
+
+    width: 256px;
+    height: 48px;
+
+    color: white;
+
+    padding-right: 32px;
+    background: #76B47B url(../../public/Arrow_left_long.png);
+    background-position: 150px 12px;
+    background-repeat: no-repeat;
+    background-size: 30px;
+}
+
+/*free SSO icon source: https://thenounproject.com/browse/icons/term/sso/*/
+.ssoButton{
+    display: block;
+    position: relative;
+    margin-top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border: none;
+    border-radius: 5px;
+
+    width: 256px;
+    height: 48px;
+
+    color: white;
+    font-weight: bold;
+
+    padding-left: 32px;
+    background: #76B47B url(../../public/ssoIcon.png);
+    background-position: 28px 8px;
+    background-repeat: no-repeat;
+    background-size: 32px;
+}
+
+
+.changePasswordLink{
+    display: block;
+    margin-top: 20px;
+    color: gray;
+    text-decoration: none;
+}
+
+.changePasswordLink:hover{
+    text-decoration: underline;
+}
+
+.orSSOText{
+    margin-top: 20px;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    min-height: 100vh;
-    width: 100vw;
-}
 
-.loginTop.container {
-    margin-top: 20px;
-    margin-bottom: 5vh;
-}
-
-
-
-@media all and (min-width: 480px) {
-    .Login {
-      padding: 60px 0;
-    }
-  
-    .Login form {
-      margin: 0 auto;
-      max-width: 320px;
-    }
-  }
-
-.signInPassword{
-    text-align: right;
-    margin-top: 7px;
-    width: 50%;
+    color: gray;
+    font-weight: bold;
 }
 
 /* Student Landing Page */
@@ -128,23 +255,6 @@ div.Login{
 .btn-add:hover {
     background-color: rgb(1, 109, 1);
     border-color: rgb(1, 109, 1);
-}
-
-
-.changePasswordLink{
-    color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-    padding: 0.375rem 0.75rem;
-    font-size: 16px;
-    margin: 1rem;
 }
 
 
