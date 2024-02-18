@@ -43,6 +43,13 @@ export default function Login(props) {
       }
     }
 }
+
+/* LoginForm component
+Could maybe be moved to its own component file.
+
+  This component is an email and password login with non-functional SSO button
+  logins are handled on submit through authenticateUser function
+*/
 class LoginForm extends React.Component {
   constructor(props){
     super(props);
@@ -55,6 +62,7 @@ class LoginForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // every time a text box is updated, it's react state is updated as well.
   handleChange(event) {
     const { name, value } = event.target;
     this.setState({
@@ -62,6 +70,7 @@ class LoginForm extends React.Component {
     });
   }
 
+  //input React states to authenticateUser function.
   handleSubmit() {
   event.preventDefault();
   setLoading(true)
@@ -76,6 +85,8 @@ class LoginForm extends React.Component {
     return(
       <form onSubmit={this.handleSubmit}>
 
+
+        {/*Input fields: value mapped to React state through handleChange*/}
         <input type="text" name="email"
           value={this.state.email} onChange={this.handleChange}
           className="inputContainer emailContainer" placeholder="Email Address"
@@ -102,6 +113,7 @@ class LoginForm extends React.Component {
       <div className='leftContainer'>
         <div className= 'welcomeBox'>
           <span className='classroomLink'>
+            {/*Image attr: Unknown, need to ask*/}
             <img className="classroomIcon" src="classroomIcon.png" />
             {process.env.REACT_APP_NAME}
           </span>
