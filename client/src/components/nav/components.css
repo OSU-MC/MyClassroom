@@ -127,7 +127,7 @@ body{
 }
 
 .dropdownIcon {
-    padding-top: 5px; /* For some reason this icon isn't centered in the div like the other items, so this is a band-aid fix. */
+    padding-top: 5px; /* For some reason this icon isn't centered vertically in the div like the other items, so this is a band-aid fix. */
     color: black;
     height: 32px;
     width: auto;

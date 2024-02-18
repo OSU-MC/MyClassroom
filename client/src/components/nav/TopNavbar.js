@@ -12,7 +12,7 @@ function TopNavbar(props) {
     return (
             <div className='navbarMain' expand="lg">
                 <div className='navbarLeftContainer'>
-                    <span><NavLink className='navbarItem' ID='classroomLink' to='/home'><img id="classroomIcon" src="classroomIcon.png" />{process.env.REACT_APP_NAME}</NavLink></span> {/* Why not hard code??*/}
+                    <span><NavLink className='navbarItem' id='classroomLink' to='/home'><img id="classroomIcon" src="classroomIcon.png" />{process.env.REACT_APP_NAME}</NavLink></span> {/* Why not hard code??*/}
                     {/*{ props.loggedIn && <NavLink className='navbarItem' to='/'>Courses</NavLink> }*/}
                 </div>
                 <div className="navbarCenterContainer">
@@ -23,10 +23,10 @@ function TopNavbar(props) {
 
                 </div>
                 <div className="navbarRightContainer">
-                    <span className="navbarItem dropdown">
+                    <div className="navbarItem dropdown">
                         <FontAwesomeIcon className="dropdownIcon" icon={faUser}/>
                         <UserMenu loggedIn={props.loggedIn}/>
-                    </span>
+                    </div>
                 </div>
             </div>
     );
