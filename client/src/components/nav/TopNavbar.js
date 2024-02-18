@@ -12,14 +12,21 @@ function TopNavbar(props) {
     return (
             <div className='navbarMain' expand="lg">
                 <div className='navbarLeftContainer'>
-                    <div className='navbarItem main'><NavLink className='navbarItem' to='/home'>{process.env.REACT_APP_NAME}</NavLink></div>
-                    { props.loggedIn && <NavLink className='navbarItem' to='/'>Courses</NavLink> }
+                    <span><NavLink className='navbarItem' ID='classroomLink' to='/home'><img id="classroomIcon" src="classroomIcon.png" />{process.env.REACT_APP_NAME}</NavLink></span> {/* Why not hard code??*/}
+                    {/*{ props.loggedIn && <NavLink className='navbarItem' to='/'>Courses</NavLink> }*/}
+                </div>
+                <div className="navbarCenterContainer">
+                    {props.loggedIn ?
+                    <p className='navbarItem smallText'> Hello, NAME </p>
+                    :
+                    <p className='navbarItem smallText'> placeholder not logged in </p>}
+
                 </div>
                 <div className="navbarRightContainer">
-                    <div className="dropdown">
-                        <div><FontAwesomeIcon className="dropdownIcon" icon={faUser}/></div>
+                    <span className="navbarItem dropdown">
+                        <FontAwesomeIcon className="dropdownIcon" icon={faUser}/>
                         <UserMenu loggedIn={props.loggedIn}/>
-                    </div>
+                    </span>
                 </div>
             </div>
     );
