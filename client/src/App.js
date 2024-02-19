@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 
 /*
   Page Imports
@@ -29,7 +29,6 @@ import SingleQuestion from './pages/SingleQuestion';
 
 import Navigation from './components/nav/Navigation';
 import useAuth from './hooks/useAuth'; 
-import { Navigate, Outlet } from 'react-router-dom';
 import { TailSpin } from 'react-loader-spinner';
 
 function App() {
@@ -54,24 +53,23 @@ function App() {
             - password reset
           */}
           <Route path='/home' element={<Home />} />
-          <Route element={!loggedIn && <Outlet />}>
+          <Route element={loggedIn ? <Navigate to='/' /> : <Outlet />}> {/* It seems like previous implementations tried to redirect to login from within each page. Instead this will redirect to '/' when already logged in*/}
             <Route path='/login' element={<Login />} />
-            <Route path='/create' element={<Signup />} /> {/* redirects to landing page if a user is logged in already */}
-            <Route
-              path='/reset'
+            <Route path='/create' element={<Signup />} /> {/* Meant to redirect to login */}
+            <Route path='/reset'
               element={<ConfirmationCodePasswordRequest />}
-            /> {/* redirects to landing page if a user is logged in already */}
-            <Route
-              path='/reset/password'
+            /> {/* Meant to redirect to login */}
+            <Route path='/reset/password'
               element={<ResetPasswordForLoginUser />}
             />
           </Route>
 
           {/* Routes requiring user to be logged in */}
           {/* All routes below require a user be logged in */}
-          <Route element={loggedIn ? <Outlet /> : <Navigate to='/login' />}>
+          <Route element={loggedIn ? <Outlet /> : <Navigate to='/login' />}> {/* Redirect to login if not logged in*/}
             {/* General routes */}
             <Route path='/' element={<Landing />} />
+            <Route path='/login' element={<Navigate to='/' />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/confirm' element={<Confirm />} />
             <Route path='/createcourse' element={<AddCourse />} />
