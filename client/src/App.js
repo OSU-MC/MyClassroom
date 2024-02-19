@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 
 /*
   Page Imports
@@ -25,16 +25,12 @@ import SingleCoursePage from './pages/SingleCoursePage'
 import AddCourse from './pages/AddCourse'
 import AddLecture from './pages/AddLecture'
 import Home from './pages/Home'
-
-
-import Navigation from './components/nav/Navigation'
-import useAuth from './hooks/useAuth'
-import { Navigate, Outlet } from 'react-router-dom';
-import { TailSpin } from  'react-loader-spinner'
 import SingleQuestion from './pages/SingleQuestion';
+import Navigation from './components/nav/Navigation';
+import useAuth from './hooks/useAuth'; 
+import { TailSpin } from 'react-loader-spinner';
 
 function App() {
-
   const [ loggedIn, message, error, loading ] = useAuth()
 
   return (
@@ -46,21 +42,29 @@ function App() {
             - login
             - password reset
           */}
-        <Route element={ <Navigation loggedIn={loggedIn}></Navigation> }>
-          <Route path='/home' element={ <Home/> }/>
-          <Route element={ loggedIn === true ? <Navigate to='/'/> : <Outlet/>}>
-            <Route path='/login' element={ <Login/> } />
-            <Route path='/create' element={ < Signup /> } /> {/* redirects to landing page if a user is logged in already */}
-            <Route path='/reset' element={ < ConfirmationCodePasswordRequest /> } /> {/* redirects to landing page if a user is logged in already */}
-            <Route path='/reset/password' element={ < ResetPasswordForLoginUser /> } />
+          <Route path='/home' element={<Home />} />
+          <Route element={loggedIn ? <Navigate to='/' /> : <Outlet />}> {/* It seems like previous implementations tried to redirect to login from within each page. Instead this will redirect to '/' when already logged in*/}
+            <Route path='/login' element={<Login />} />
+            <Route path='/create' element={<Signup />} /> {/* Meant to redirect to login */}
+            <Route path='/reset'
+              element={<ConfirmationCodePasswordRequest />}
+            /> {/* Meant to redirect to login */}
+            <Route path='/reset/password'
+              element={<ResetPasswordForLoginUser />}
+            />
           </Route>
 
-          { /* All routes below require a user be loggied in */}
-          <Route element={ loggedIn === true ? <Outlet/> : <Navigate to='/login'/>}>
-            <Route path='/' element= {<Landing/> }/>
-            <Route path='/profile' element={ <Profile /> } />
-            <Route path='/confirm' element={ <Confirm /> } />
-            <Route path='/createcourse' element={ <AddCourse/> }/>
+          {/* Routes requiring user to be logged in */}
+          {/* All routes below require a user be logged in */}
+          <Route element={loggedIn ? <Outlet /> : <Navigate to='/login' />}> {/* Redirect to login if not logged in*/}
+            {/* General routes */}
+            <Route path='/' element={<Landing />} />
+            <Route path='/login' element={<Navigate to='/' />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/confirm' element={<Confirm />} />
+            <Route path='/createcourse' element={<AddCourse />} />
+
+            {/* Course-related routes */}
             <Route path='/:courseId'>
               <Route path='' element={ <SingleCoursePage /> } /> 
               <Route path='questions' element={<Outlet/>}>

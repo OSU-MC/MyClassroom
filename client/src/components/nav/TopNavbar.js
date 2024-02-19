@@ -19,10 +19,11 @@ function TopNavbar(props) {
 
                 {/*TODO: Finish obvious improvements, add functionality to read name of user*/}
                 <div className="navbarCenterContainer">
+                {console.log(props.inCourse)}
                     {props.loggedIn ?
-                    <p className='navbarItem smallText'> Hello, NAME </p>
-                    :
-                    <p className='navbarItem smallText'> placeholder not logged in </p>}
+                        <LoggedInButtons />
+                        :
+                        <p className='navbarItem smallText'> placeholder not logged in </p>}
 
                 </div>
                 <div className="navbarRightContainer">
@@ -32,6 +33,17 @@ function TopNavbar(props) {
                     </div>
                 </div>
             </div>
+    );
+}
+
+function LoggedInButtons(){
+    return(
+        <>
+            <span className="navButtons">
+                <a href="/home" className="navHome"> Home </a>
+                <a href="/" className="navCourses"> Courses </a>
+            </span>
+        </>
     );
 }
 
