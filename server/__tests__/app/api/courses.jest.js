@@ -26,6 +26,7 @@ describe('/courses endpoints', () => {
             firstName: 'Dan',
             lastName: 'Smith',
             email: 'dannySmith@myclassroom.com',
+            isTeacher: true,
             rawPassword: 'Danny-o123!'
         })
         userToken = jwtUtils.encode({
@@ -40,6 +41,7 @@ describe('/courses endpoints', () => {
             firstName: 'Mitchell',
             lastName: 'DaGoat',
             email: 'mitchdagoat@myclassroom.com',
+            isTeacher: false,
             rawPassword: 'mitchell123!!'
         })
         user2Token = jwtUtils.encode({
