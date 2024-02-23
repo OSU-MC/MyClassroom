@@ -143,8 +143,8 @@ function Signup(props){
             {process.env.REACT_APP_NAME}
           </span>
           <div className='textBox'>
-            <p className='mainText'> Welcome Back! </p>
-            <p className='subText'> New user? </p>
+            <p className='mainText'> Create your free account today! </p>
+            <p className='subText'> already have an account? </p>
           </div>
           <div className='linkBox'>
             <button className='homeButton'> Return to home </button>
