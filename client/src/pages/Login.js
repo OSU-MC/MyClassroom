@@ -51,13 +51,13 @@ Could maybe be moved to its own component file.
   This component is an email and password login with non-functional SSO button
   logins are handled on submit through authenticateUser function
 */
-class LoginForm extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      email: '',
-      rawPassword: ''
-    };
+  class LoginForm extends React.Component {
+    constructor(props){
+      super(props);
+      this.state = {
+        email: '',
+        rawPassword: ''
+      };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -73,13 +73,13 @@ class LoginForm extends React.Component {
 
   //input React states to authenticateUser function.
   handleSubmit() {
-  event.preventDefault();
-  setLoading(true)
-  const user = {
-    email: this.state.email,
-    rawPassword: this.state.rawPassword,
-  }
-  authenticateUser(user);
+    event.preventDefault();
+    setLoading(true)
+    const user = {
+      email: this.state.email,
+      rawPassword: this.state.rawPassword,
+    }
+    authenticateUser(user);
   }
 
   render(){

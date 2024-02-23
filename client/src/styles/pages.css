@@ -1,3 +1,103 @@
+/* Signup Page CSS */
+
+#signUp{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    line-height: 1;
+}
+
+#studentText{
+    cursor: pointer;
+    z-index: 99;
+    color:black;
+
+    position: absolute;
+    top: 50%;
+    left: 12%;
+    transform: translate(0%, -50%);
+}
+
+#teacherText{
+    cursor: pointer;
+    z-index: 99;
+    color:black;
+
+    position: absolute;
+    top: 50%;
+    right: 12%;
+    transform: translate(0%, -50%);
+}
+
+.switch {
+    margin-top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    display: inline-block;
+    width: 400px;
+    height: 56px;
+    border: 2px black solid;
+    border-radius: 15px;
+
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+}
+
+.slider {
+    border-radius: 15px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 56px;
+  width: 208px;
+  bottom: -2px;
+  left: -4px;
+  background-color: #D2DFD3;
+  -webkit-transition: .4s;
+  transition: .8s;
+
+  border-radius: 15px;
+}
+
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(196px);
+  -ms-transform: translateX(196px);
+  transform: translateX(196px);
+}
+
+
+.firstNameContainer{
+    width: 45% !important;
+    float: left;
+}
+
+.lastNameContainer{
+    width: 45% !important;
+    margin-left: 10%;
+}
+
 /* Login Page CSS */
 
 
