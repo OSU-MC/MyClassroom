@@ -11,6 +11,7 @@ function Signup(props){
     const [confirmPassword, setConfirmPassword] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
+    const [isTeacher, setIsTeacher] = useState(false);
     const [ message, setMessage ] = useState("")
     const [ error, setError ] = useState(false)
     const emailInput = useRef(null)
@@ -20,7 +21,9 @@ function Signup(props){
     const lastNameInput = useRef(null)
     const navigate = useNavigate()
 
-
+    const handleCheckboxChange = (event) => {
+        setIsTeacher(event.target.checked);
+    }
     async function CreateAccountRequest(accountPayload){
 
         let response = {}
@@ -34,6 +37,7 @@ function Signup(props){
         setConfirmPassword("")
         setFirstName("")
         setLastName("")
+        setIsTeacher(false)
 
         if(response.status == 201){
             navigate("/login")
@@ -49,7 +53,8 @@ function Signup(props){
             rawPassword: password,
             confirmedPassword: confirmPassword,
             firstName: firstName,
-            lastName: lastName
+            lastName: lastName,
+            isTeacher: isTeacher
         }
 
         CreateAccountRequest(accountInformation)
@@ -92,7 +97,8 @@ function Signup(props){
           rawPassword: this.state.rawPassword,
           confirmedPassword: this.state.confirmedPassword,
           firstName: this.state.firstName,
-          lastName: this.state.lastName
+          lastName: this.state.lastName,
+          isTeacher: this.state.isTeacher
         }
         CreateAccountRequest(accountInformation)
       }
@@ -101,6 +107,13 @@ function Signup(props){
     return(
         <form onSubmit={this.handleSubmit}>
 
+        <label class="switch">
+            <p id="studentText"> I am a <b>student</b> </p>
+            <p id="teacherText"> I am a <b>teacher</b> </p>
+            {/* TODO: Fix animation (Unfortunately, using react on this checkbox breaks the animation.)*/}
+            <input type="checkbox" checked={isTeacher} onChange={handleCheckboxChange} />
+            <span class="slider"></span>
+        </label>
 
         {/*Input fields: value mapped to React state through handleChange*/}
         <input type="text" name="firstName"
@@ -144,10 +157,10 @@ function Signup(props){
           </span>
           <div className='textBox'>
             <p className='mainText'> Create your free account today! </p>
-            <p className='subText'> already have an account? </p>
+            <a href="login" className='subText'> already have an account? </a>
           </div>
           <div className='linkBox'>
-            <button className='homeButton'> Return to home </button>
+            <a href="/home" className='homeButton'> Return to home </a>
           </div>
         </div>
       </div>
@@ -155,12 +168,6 @@ function Signup(props){
       <div className='rightContainer'>
         <div className='loginSection'>
           <p className='mainText'> Sign Up </p>
-            <label class="switch">
-                <p id="studentText"> I am a <b>student</b> </p>
-                <p id="teacherText"> I am a <b>teacher</b> </p>
-                <input type="checkbox" />
-                <span class="slider"></span>
-            </label>
 
           <SignupForm />
 
