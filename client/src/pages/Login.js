@@ -120,10 +120,10 @@ Could maybe be moved to its own component file.
           </span>
           <div className='textBox'>
             <p className='mainText'> Welcome Back! </p>
-            <p className='subText'> New user? </p>
+            <a href="/create" className='subText'> New user? </a>
           </div>
           <div className='linkBox'>
-            <button className='homeButton'> Return to home </button>
+            <a href="/home" className='homeButton'> Return to home </a>
           </div>
         </div>
       </div>
