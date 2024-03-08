@@ -8,8 +8,10 @@ import { login } from '../redux/actions';
 import Notice from '../components/Notice'
 import { Link } from "react-router-dom";
 import { TailSpin } from  'react-loader-spinner'
+import styles from '../styles/pages.css';
 
 export default function Login(props) {
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [ params ] = useSearchParams()
@@ -43,60 +45,97 @@ export default function Login(props) {
     }
 }
 
-function handleSubmit() {
-  event.preventDefault();
-  setLoading(true)
-  const user = {
-    email: email,
-    rawPassword: password,
+/* LoginForm component
+Could maybe be moved to its own component file.
+
+  This component is an email and password login with non-functional SSO button
+  logins are handled on submit through authenticateUser function
+*/
+  class LoginForm extends React.Component {
+    constructor(props){
+      super(props);
+      this.state = {
+        email: '',
+        rawPassword: ''
+      };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  authenticateUser(user);
+
+  // every time a text box is updated, it's react state is updated as well.
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  //input React states to authenticateUser function.
+  handleSubmit() {
+    event.preventDefault();
+    setLoading(true)
+    const user = {
+      email: this.state.email,
+      rawPassword: this.state.rawPassword,
+    }
+    authenticateUser(user);
+  }
+
+  render(){
+    return(
+      <form onSubmit={this.handleSubmit}>
+
+
+        {/*Input fields: value mapped to React state through handleChange*/}
+        <input type="text" name="email"
+          value={this.state.email} onChange={this.handleChange}
+          className="inputContainer emailContainer" placeholder="Email Address"
+        />
+        <input type="password" name="rawPassword"
+          value={this.state.rawPassword} onChange={this.handleChange}
+          className="inputContainer passwordContainer" placeholder= "Password"
+        />
+
+        <Link className="changePasswordLink" to="/reset">Forgot your password?</Link>
+        {message != "" && error && <Notice message={message} error={error ? "error" : ""}/>}
+
+        <input type="submit" value="Log in" className= "submitButton" />
+
+        <p className='orSSOText'> or </p>
+
+        <input type="submit" value="Continue with SSO" className= "ssoButton" />
+      </form>)
+  }
 }
 
-//atrribution for image: <a href="https://www.freepik.com/free-vector/empty-classroom-interior-school-college-class_6993851.htm#query=school%20classroom&position=0&from_view=search&track=ais">Image by upklyak</a> on Freepik
   return (
-    <div className="Login">
-      <Container className="contentContainer">
-        <Container className='loginTop'>
-            <Row>
-                {/* <Col xs={3}>
-                    <Image src={photo1} roundedCircle />
-                </Col> */}
-                <div className="imgTitleContainer">
-                    {/* <img className="deskImg" src="deskimg.png"/> */}
-                    <h1 className="loginTitle">Classroom Polling Application</h1>
-                </div>
-            </Row>
-        </Container>
-      <Form className="formLoginContainer" onSubmit={handleSubmit}>
-        <Form.Group className="emailContainer" size="lg" controlId="email">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className="passwordContainer" size="lg" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-          <br></br>
-          { loading ? <TailSpin visible={true}/> : <Button onClick={() => {handleSubmit()}}>
-            Login
-          </Button> }
-          <Link className="changePasswordLink" to="/reset">Forgot password?</Link>
-        </Form>
-          {
-            message != "" && error && <Notice message={message} error={error ? "error" : ""}/>
-          }
-      </Container>
+    <div id="login">
+      <div className='leftContainer'>
+        <div className= 'welcomeBox'>
+          <span className='classroomLink'>
+            {/*Image attr: Unknown, need to ask*/}
+            <img className="classroomIcon" src="classroomIcon.png" />
+            {process.env.REACT_APP_NAME}
+          </span>
+          <div className='textBox'>
+            <p className='mainText'> Welcome Back! </p>
+            <a href="/create" className='subText'> New user? </a>
+          </div>
+          <div className='linkBox'>
+            <a href="/home" className='homeButton'> Return to home </a>
+          </div>
+        </div>
+      </div>
+
+      <div className='rightContainer'>
+        <div className='loginSection'>
+          <p className='mainText'> Log in </p>
+
+          <LoginForm />
+
+        </div>
+      </div>
     </div>
-    
   );
 }
