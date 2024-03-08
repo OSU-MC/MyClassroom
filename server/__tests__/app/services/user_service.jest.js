@@ -7,7 +7,8 @@ describe('Users Service', () => {
         firstName: "Memer",
         lastName: "Magic",
         email: "memer@myclassroom.com",
-        rawPassword: "Iamsuchamemer!"
+        rawPassword: "Iamsuchamemer!",
+        isTeacher: true
     }
 
     let incompleteRequestBody = completeCreationFields
@@ -50,7 +51,8 @@ describe('Users Service', () => {
                 id: user.id,
                 firstName: "Memer",
                 lastName: "Magic",
-                email: "memer@myclassroom.com"
+                email: "memer@myclassroom.com",
+                isTeacher:true
             })
         })
 

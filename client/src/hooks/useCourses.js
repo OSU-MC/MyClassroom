@@ -28,6 +28,7 @@ function useCourses() {
             populateCourses()
         }
     }, [])
+  
 
     return [courses, message, error, loading]
 }

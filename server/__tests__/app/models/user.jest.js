@@ -21,7 +21,8 @@ describe("User model", () => {
                 firstName: 'Dan',
                 lastName: 'Smith',
                 email: 'danSmith@myclassroom.com',
-                rawPassword: 'Danny-o123!'
+                rawPassword: 'Danny-o123!',
+                isTeacher: true
             })
             expect(user.rawPassword).toEqual("Danny-o123!")
             user = await user.reload()
@@ -144,7 +145,8 @@ describe("User model", () => {
                 firstName: 'Dan',
                 lastName: 'Smith',
                 email: 'dannySmith@myclassroom.com',
-                rawPassword: 'Danny-o123!'
+                rawPassword: 'Danny-o123!',
+                isTeacher: true
             })
         })
 
