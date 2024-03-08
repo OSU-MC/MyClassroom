@@ -170,14 +170,10 @@ function Signup(props){
           <p className='mainText'> Sign Up </p>
 
           <SignupForm />
-
         </div>
       </div>
     </div>
     )
 }
-
-
-
 
 export default Signup

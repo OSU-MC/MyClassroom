@@ -49,6 +49,7 @@ describe('Test api/lecture.js request handlers', () => {
             lastName: 'Smith',
             email: 'danSmith2@myclassroom.com',
             rawPassword: 'Danny-o123!',
+            isTeacher: true,
             confirmedPassword: 'Danny-o123!'
         })
         teacher = await getUserFromEmail(teacher_resp.body.user.email)  // used to get ID
@@ -63,6 +64,7 @@ describe('Test api/lecture.js request handlers', () => {
             lastName: 'Doe',
             email: 'johndoe@myclassroom.com',
             rawPassword: 'superdupersecret',
+            isTeacher: true,
             confirmedPassword: 'superdupersecret'
         })
         student = await getUserFromEmail(student_resp.body.user.email)  // used to get ID
@@ -77,6 +79,7 @@ describe('Test api/lecture.js request handlers', () => {
             lastName: 'Engineer',
             email: 'swe@myclassroom.com',
             rawPassword: 'secretpassword45',
+            isTeacher: true,
             confirmedPassword: 'secretpassword45'
         })
         unrelated = await getUserFromEmail(unrelated_resp.body.user.email)

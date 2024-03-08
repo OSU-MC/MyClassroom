@@ -13,6 +13,7 @@ describe('POST /users', () => {
             lastName: "Meme",
             email: "MemeyMeme@myclassroom.com",
             rawPassword: "TheMemeiestSecret",
+            isTeacher: true,
             confirmedPassword: "TheMemeiestSecret"
         })
         expect(resp.statusCode).toEqual(201)
@@ -29,7 +30,7 @@ describe('POST /users', () => {
             rawPassword: "TheMemeiestSecret",
         })
         expect(resp.statusCode).toEqual(400)
-        expect(resp.body.error).toEqual("Missing fields required to create user: lastName, confirmedPassword")
+        expect(resp.body.error).toEqual("Missing fields required to create user: lastName, isTeacher, confirmedPassword")
     })
 
     it('should respond with 400 and message that passwords do not match', async () => {
@@ -38,6 +39,7 @@ describe('POST /users', () => {
             lastName: "Memey",
             email: "MemeyMemer123@myclassroom.com",
             rawPassword: "TheMemeiestSecret",
+            isTeacher: true,
             confirmedPassword: "TheMemeiestSecret123"
         })
         expect(resp.statusCode).toEqual(400)
@@ -50,6 +52,7 @@ describe('POST /users', () => {
             lastName: "Memey",
             email: "MemeyMeme@myclassroom.com",
             rawPassword: "TheMemeiestSecret123",
+            isTeacher: true,
             confirmedPassword: "TheMemeiestSecret123"
         })
         expect(resp.statusCode).toEqual(400)
@@ -62,6 +65,7 @@ describe('POST /users', () => {
             lastName: "",
             email: "MemeyMemer123@myclassroom",
             rawPassword: "TheMemeiestSecret123",
+            isTeacher: true,
             confirmedPassword: "TheMemeiestSecret123"
         })
         expect(resp.statusCode).toEqual(400)
@@ -78,6 +82,7 @@ describe('POST /users/login', () => {
             lastName: "Tester",
             email: "loginTester1@myclassroom.com",
             rawPassword: "loginTester123!",
+            isTeacher: true,
             confirmedPassword: "loginTester123!"
         })
         const resp = await request(app).post('/users/login').send({
@@ -99,6 +104,7 @@ describe('POST /users/login', () => {
             lastName: "Tester",
             email: "loginTester2@myclassroom.com",
             rawPassword: "loginTester123!",
+            isTeacher: true,
             confirmedPassword: "loginTester123!",
             emailConfirmed: true
         })
@@ -122,6 +128,7 @@ describe('POST /users/login', () => {
             email: "loginTester3@myclassroom.com",
             rawPassword: "loginTester123!",
             confirmedPassword: "loginTester123!",
+            isTeacher: true,
             emailConfirmed: true,
             passwordResetInitiated: true
         })
@@ -153,6 +160,7 @@ describe('POST /users/login', () => {
             lastName: "Tester",
             email: "loginTester4@myclassroom.com",
             rawPassword: "loginTester123!",
+            isTeacher: true,
             confirmedPassword: "loginTester123!",
             failedLoginAttempts: 3
         })
@@ -170,6 +178,7 @@ describe('POST /users/login', () => {
             firstName: "Login",
             lastName: "Tester",
             email: "loginTester5@myclassroom.com",
+            isTeacher: true,
             rawPassword: "loginTester123!",
             confirmedPassword: "loginTester123!",
             failedLoginAttempts: 2
@@ -190,6 +199,7 @@ describe('POST /users/login', () => {
             firstName: "Login",
             lastName: "Tester",
             email: "loginTester6@myclassroom.com",
+            isTeacher: true,
             rawPassword: "loginTester123!",
             confirmedPassword: "loginTester123!"
         })
@@ -215,6 +225,7 @@ describe('PUT /users', () => {
             lastName: 'resetter',
             email: 'passwordresetter@myclassroom.com',
             rawPassword: 'toberesetuhoh!',
+            isTeacher: true,
             confirmedPassword: 'toberesetuhoh!',
             failedLoginAttempts: 1
         })
@@ -244,6 +255,7 @@ describe('PUT /users', () => {
         const resp = await request(app).put('/users').send({
             email: 'passwordresetter@myclassroom.com',
             rawPassword: 'newresetpassword!',
+            isTeacher: true,
             confirmedPassword: 'newresetpassword!'
         })
         expect(resp.statusCode).toEqual(400)
@@ -256,6 +268,7 @@ describe('PUT /users', () => {
             email: 'passwordresette@myclassroom.com',
             passwordResetCode: code,
             rawPassword: 'newresetpassword!',
+            isTeacher: true,
             confirmedPassword: 'newresetpassword!'
         })
         expect(resp.statusCode).toEqual(404)
@@ -267,6 +280,7 @@ describe('PUT /users', () => {
             email: 'passwordresetter@myclassroom.com',
             passwordResetCode: "abc123",
             rawPassword: 'newresetpassword!',
+            isTeacher: true,
             confirmedPassword: 'newresetpassword!'
         })
         expect(resp.statusCode).toEqual(401)
@@ -281,6 +295,7 @@ describe('PUT /users', () => {
             email: 'passwordresetter@myclassroom.com',
             passwordResetCode: code,
             rawPassword: 'newresetpassword!',
+            isTeacher: true,
             confirmedPassword: 'newresetpassword!'
         })
         expect(resp.statusCode).toEqual(401)
@@ -293,6 +308,7 @@ describe('PUT /users', () => {
             email: 'passwordresetter@myclassroom.com',
             passwordResetCode: code,
             rawPassword: 'newresetpassword!',
+            isTeacher: true,
             confirmedPassword: 'newresetpassword'
         })
         expect(resp.statusCode).toEqual(400)
@@ -305,6 +321,7 @@ describe('PUT /users', () => {
             email: 'passwordresetter@myclassroom.com',
             passwordResetCode: code,
             rawPassword: 'newpass',
+            isTeacher: true,
             confirmedPassword: 'newpass'
         })
         expect(resp.statusCode).toEqual(400)
@@ -325,6 +342,7 @@ describe('PUT /users/password', () => {
             firstName: 'password',
             lastName: 'resetreq',
             email: 'requestpassreset@myclassroom.com',
+            isTeacher: true,
             rawPassword: 'requestPassReset',
             confirmedPassword: 'requestPassReset'
         })
@@ -492,6 +510,7 @@ describe('/users/:userId', () => {
                 lastName: 'irregular',
                 email: 'irregularuser@myclassroom.com',
                 oldPassword: 'regularuserpass!',
+                isTeacher: true,
                 rawPassword: 'irregularuserpass!'
             })
             expect(resp.statusCode).toEqual(400)
@@ -504,6 +523,7 @@ describe('/users/:userId', () => {
                 lastName: 'irregular',
                 email: 'irregularuser@myclassroom.com',
                 oldPassword: 'regularuserpass',
+                isTeacher: true,
                 rawPassword: 'irregularuserpass!',
                 confirmedPassword: 'irregularuserpass!'
             })
@@ -517,6 +537,7 @@ describe('/users/:userId', () => {
                 lastName: 'irregular',
                 email: 'irregularuser@myclassroom.com',
                 oldPassword: 'regularuserpass!',
+                isTeacher: true,
                 rawPassword: 'irregularuserpass!',
                 confirmedPassword: 'irregularuserpass'
             })
@@ -531,6 +552,7 @@ describe('/users/:userId', () => {
                 email: 'irregularsuser@myclassroom.com',
                 oldPassword: 'regularuserpass!',
                 rawPassword: 'irregularuserpass!',
+                isTeacher: true,
                 confirmedPassword: 'irregularuserpass!'
             })
             expect(resp.statusCode).toEqual(200)
@@ -567,6 +589,7 @@ describe('/users/:userId', () => {
                 lastName: 'user',
                 email: 'adminuser2@myclassroom.com',
                 rawPassword: 'adminuserpass!',
+                isTeacher: true,
                 confirmedPassword: 'adminuserpassword!',
                 admin: true
             })
@@ -655,6 +678,7 @@ describe('/users/:userId', () => {
                 lastName: 'user',
                 email: 'regularuser3@myclassroom.com',
                 rawPassword: 'regularuserpass!',
+                isTeacher: true,
                 confirmedPassword: 'regularuserpassword!'
             })
     
@@ -663,6 +687,7 @@ describe('/users/:userId', () => {
                 lastName: 'user',
                 email: 'adminuser3@myclassroom.com',
                 rawPassword: 'adminuserpass!',
+                isTeacher: true,
                 confirmedPassword: 'adminuserpassword!',
                 admin: true
             })
@@ -718,6 +743,7 @@ describe('/users/:userId', () => {
                 lastName: 'user',
                 email: 'regularuser4@myclassroom.com',
                 rawPassword: 'regularuserpass!',
+                isTeacher: true,
                 confirmedPassword: 'regularuserpassword!'
             })
     
@@ -726,6 +752,7 @@ describe('/users/:userId', () => {
                 lastName: 'user',
                 email: 'adminuser4@myclassroom.com',
                 rawPassword: 'adminuserpass!',
+                isTeacher: true,
                 confirmedPassword: 'adminuserpassword!',
                 admin: true
             })
