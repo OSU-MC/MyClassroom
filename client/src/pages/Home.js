@@ -9,15 +9,14 @@ function Home() {
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet"/>
-
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
     <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap" rel="stylesheet"/>
 
         <VerticalContainer style={title}>
             <Title>MyClassroom</Title>
-            <Subtitle1>Senior Capstone Project</Subtitle1>
-            <Subtitle2>An Open Source Classroom Polling  Web Application</Subtitle2>
+            <Subtitle1>Senior Software Engineering Project</Subtitle1>
+            <Subtitle2>An Open Source Classroom Polling Web Application</Subtitle2>
         </VerticalContainer>
         <VerticalContainer>
             <div style={arrowdown}>
@@ -32,57 +31,88 @@ function Home() {
                 { productUse }
             </TextBox>
             <div style={usebuttoncontainer}>
-                <Button style={usebutton} href="/create">Use Polling Software</Button>
+                <Button style={usebutton} href="/create">Sign Up!</Button>
             </div>
         </VerticalContainer>
         <VerticalContainer style={githublinks}>
             <Section1>GitHub Repo</Section1>
             <HorizontalContainer>
-                <Link href="https://github.com/CS461PollingApplication/my-classroom-fe">
-                    Project Frontend: <FontAwesomeIcon icon={faLink} />
-                </Link>
-                <Link href="https://github.com/CS461PollingApplication/my-classroom-backend">
-                    Project Backend: <FontAwesomeIcon icon={faLink} />
+                <Link href="https://github.com/CS-461-nilsstreedain/classroom-polling">
+                    CS-461-nilsstreedain/classroom-polling: <FontAwesomeIcon icon={faLink} />
                 </Link>
             </HorizontalContainer>
         </VerticalContainer>
         <VerticalContainer style={contacts}>
-            <Section2>Project Contacts</Section2>
+            <Section1>Project Alumni</Section1>
+            <Section2>2023-2024</Section2>
             <HorizontalContainer>
-                <Contact>Matthew Hotchkiss: mphotchkiss01@gmail.com</Contact>
-                <Contact>Elayne Trimble: trimblma@oregonstate.edu</Contact>
-                <Contact>Gaven Robertson: gaven.robertson@gmail.com</Contact>
-                <Contact>Sanjay Ramanathan: ramanasa@oregonstate.edu</Contact>
-                <Contact>Mitchell Stewart: stewamit@oregonstate.edu</Contact>
+                <VerticalContainer style={contactBlock}>
+                    <Contact>Nils Streedain</Contact>
+                    <Contact>streedan@oregonstate.edu</Contact>
+                </VerticalContainer>
+                <VerticalContainer style={contactBlock}>
+                    <Contact>Justin Fernbaugh</Contact>
+                    <Contact>fernbauj@oregonstate.edu</Contact>
+                </VerticalContainer>
+                <VerticalContainer style={contactBlock}>
+                    <Contact>Karin Ocheretny</Contact>
+                    <Contact>ocheretk@oregonstate.edu</Contact>
+                </VerticalContainer>
+                <VerticalContainer style={contactBlock}>
+                    <Contact>Elijah Durbin</Contact>
+                    <Contact>durbine@oregonstate.edu</Contact>
+                </VerticalContainer>
+    
+            </HorizontalContainer>
+            <Section2>2022-2023</Section2>
+            <HorizontalContainer>
+                <VerticalContainer style={contactBlock}>
+                    <Contact>Matthew Hotchkiss</Contact>
+                    <Contact>hotchkma@oregonstate.edu</Contact>
+                </VerticalContainer>
+                <VerticalContainer style={contactBlock}>
+                    <Contact>Elayne Trimble</Contact>
+                    <Contact>trimblma@oregonstate.edu</Contact>
+                </VerticalContainer>
+                <VerticalContainer style={contactBlock}>
+                    <Contact>Mitchell Stewart</Contact>
+                    <Contact>stewamit@oregonstate.edu</Contact>
+                </VerticalContainer>
+                <VerticalContainer style={contactBlock}>
+                    <Contact>Gaven Robertson</Contact>
+                    <Contact>robergav@oregonstate.edu</Contact>
+                </VerticalContainer>
+                <VerticalContainer style={contactBlock}>
+                    <Contact>Sanjay Ramanathan</Contact>
+                    <Contact>ramanasa@oregonstate.edu</Contact>
+                </VerticalContainer>
             </HorizontalContainer>
         </VerticalContainer>
-        
     </div>
 }
 
 const title = {
     backgroundColor: "#70a84a",
     color: "white",
-    paddingTop: "15%",
-    paddingBottom: "5%"
+paddingTop: "100px",
+    paddingBottom: "25px"
 }
+
 const usebuttoncontainer = {
-    paddingTop: "2.5%",
-    width: "35%",
-    paddingBottom: "20px"
+    padding: "20px 0",
+    width: "160px"
 }
+
 const usebutton = {
     backgroundColor: "#72767d",
     border: "none",
-    width: "100%",
     borderRadius: "15px",
-    paddingBottom: "4%",
-    paddingTop: "4%",
-   
+    padding: "10px",
     fontFamily: "'Open Sans', sans-serif",
     fontSize: "calc(7px + 1.6vw)",
     fontWeight: "300",
 }
+
 const arrowdown ={
     backgroundColor: "#70a84a",
     minWidth: "40px",
@@ -93,21 +123,24 @@ const arrowdown ={
     borderBottomRightRadius: "20px",
     borderBottomLeftRadius: "20px"
 }
+
 const about = {
     textAlign: "center",
-    marginRight: "10%",
-    marginLeft: "10%",
-    marginTop: "20px",
-    marginBottom: "20px"
+    margin: "20px 50px"
 }
+
 const githublinks = {
     backgroundColor: "#70a84a",
     color: "white",
-    paddingTop: "2%",
-    paddingBottom: "2%"
+    padding: "20px 0"
 }
+
 const contacts = {
-    paddingTop: "2%"
+    padding: "20px"
+}
+
+const contactBlock = {
+    margin: "0 10px"
 }
 
 const VerticalContainer = styled.div`
@@ -130,8 +163,8 @@ const Title = styled.h1`
 
 const Subtitle1 = styled.h4`
     font-family: 'Open Sans', sans-serif;
-    padding-top: 2%;
-    font-weight: 600; 
+    padding-top: 5px;
+    font-weight: 600;
     font-size: calc(10px + 4vw);
 `
 
@@ -147,6 +180,7 @@ const Section1 = styled.h3`
     font-size: calc(10px + 3vw);
 `
 const Section2 = styled.h3`
+    padding-top: 10px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
     font-size: calc(10px + 1.8vw);
@@ -169,14 +203,12 @@ const Link = styled.a`
 `
 
 const Contact = styled.div`
-    padding: 10px;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
     font-size: calc(5px + .5vw);
 `
 
-const productSummary = "The Classroom Polling: Oregon State University project is an instance of the Open Source Polling Software developed as part of Oregon State University's senior capstone project."
+const productSummary = "MyClassroom is an instance of the Open Source Polling Software developed under Oregon State University's Senior Software Engineering program."
 const productUse = "The project's goal is to provide an affordable and high quality polling system for teachers to utilize in the classroom. The system provides all the features of a paid service without any of the trailing zeroes. Teachers are able to create courses and sections, to which they invite their students. Teachers create lectures and questions, which they release at their own pace for students to interact with. Teachers and students alike can look back on the lectures to assess performance on the lecture's questions and overall lecture performance."
-
 
 export default Home
