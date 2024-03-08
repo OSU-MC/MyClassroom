@@ -42,8 +42,7 @@ describe('/responses endpoints', () => {
             sub: user.id
         })
         const userSession = await generateUserSession(user)
-        userXsrfCookie = userSession.csrfToken
-        userCookies = [`_myclassroom_session=${userToken}`]
+        userCookies = [`_myclassroom_session=${userToken}`, `xsrf-token=${userSession.csrfToken}`]
         
 
         user2 = await db.User.create({
@@ -56,8 +55,7 @@ describe('/responses endpoints', () => {
             sub: user2.id
         })
         const user2Session = await generateUserSession(user2)
-        user2XsrfCookie = user2Session.csrfToken
-        user2Cookies = [`_myclassroom_session=${user2Token}`]
+        user2Cookies = [`_myclassroom_session=${user2Token}`, `xsrf-token=${user2Session.csrfToken}`]
 
         user3 = await db.User.create({
             firstName: 'Tester',
@@ -69,8 +67,7 @@ describe('/responses endpoints', () => {
             sub: user3.id
         })
         const user3Session = await generateUserSession(user3)
-        user3XsrfCookie = user3Session.csrfToken
-        user3Cookies = [`_myclassroom_session=${user3Token}`]
+        user3Cookies = [`_myclassroom_session=${user3Token}`, `xsrf-token=${user3Session.csrfToken}`]
 
         course = await db.Course.create({
             name: 'Testing Things 101',
@@ -199,7 +196,7 @@ describe('/responses endpoints', () => {
                 2: false,
                 3: false
             }
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(400)
     })
 
@@ -208,13 +205,13 @@ describe('/responses endpoints', () => {
             answers: {
                 0: false
             }
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(400)
     })
 
     it('should respond with 400 when the request has no submission', async () => {
         const resp = await request(app).post(`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses`).send({
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(400)
     })
 
@@ -226,7 +223,7 @@ describe('/responses endpoints', () => {
                 2: false,
                 3: false
             }
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(resp.statusCode).toEqual(403)
     })
 
@@ -238,7 +235,7 @@ describe('/responses endpoints', () => {
                 2: false,
                 3: false
             }
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(201)
         expect(resp.body.response.enrollmentId).toEqual(enrollment2.id)
         expect(resp.body.response.questionInLectureId).toEqual(questionInLecture.id)
@@ -259,7 +256,7 @@ describe('/responses endpoints', () => {
                 2: false,
                 3: true
             }
-        }).set('Cookie', user3Cookies).set('X-XSRF-TOKEN', user3XsrfCookie)
+        }).set('Cookie', user3Cookies)
         expect(resp.statusCode).toEqual(201)
         expect(resp.body.response.enrollmentId).toEqual(enrollment3.id)
         expect(resp.body.response.questionInLectureId).toEqual(questionInLecture.id)
@@ -281,7 +278,7 @@ describe('/responses endpoints', () => {
                 2: false,
                 3: true
             }
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(201)
         expect(resp.body.response.enrollmentId).toEqual(enrollment2.id)
         expect(resp.body.response.questionInLectureId).toEqual(questionInLecture2.id)
@@ -302,7 +299,7 @@ describe('/responses endpoints', () => {
                 2: true,
                 3: true
             }
-        }).set('Cookie', user3Cookies).set('X-XSRF-TOKEN', user3XsrfCookie)
+        }).set('Cookie', user3Cookies)
         expect(resp.statusCode).toEqual(201)
         expect(resp.body.response.enrollmentId).toEqual(enrollment3.id)
         expect(resp.body.response.questionInLectureId).toEqual(questionInLecture2.id)
@@ -325,12 +322,12 @@ describe('/responses endpoints', () => {
                 2: false,
                 3: false
             }
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(404)
     })
 
     it('should respond with 400 when resubmission has no request body', async () => {
-        const resp = await request(app).put(`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses/${response.id}`).send({}).set('Cookie', user3Cookies).set('X-XSRF-TOKEN', user3XsrfCookie)
+        const resp = await request(app).put(`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses/${response.id}`).send({}).set('Cookie', user3Cookies)
         expect(resp.statusCode).toEqual(400)
     })
 
@@ -342,7 +339,7 @@ describe('/responses endpoints', () => {
                 2: false,
                 3: false
             }
-        }).set('Cookie', user3Cookies).set('X-XSRF-TOKEN', user3XsrfCookie)
+        }).set('Cookie', user3Cookies)
         expect(resp.statusCode).toEqual(200)
         expect(resp.body.response.enrollmentId).toEqual(enrollment3.id)
         expect(resp.body.response.questionInLectureId).toEqual(questionInLecture.id)
