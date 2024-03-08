@@ -418,18 +418,15 @@ describe('/users/:userId', () => {
         })
 
         const userSession = await generateUserSession(user)
-        userXsrfCookie = userSession.csrfToken
-
         const adminSession = await generateUserSession(admin)
-        adminXsrfCookie = adminSession.csrfToken
         
-        userCookies = [`_myclassroom_session=${userJwt}`]
-        adminCookies = [`_myclassroom_session=${adminJwt}`]
+        userCookies = [`_myclassroom_session=${userJwt}`, `xsrf-token=${userSession.csrfToken}`]
+        adminCookies = [`_myclassroom_session=${adminJwt}`, `xsrf-token=${adminSession.csrfToken}`]
     })
 
     describe('GET', () => {
         it ('should return 200 and user information for that user', async () => {
-            const resp = await request(app).get(`/users/${user.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).get(`/users/${user.id}`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(200)
             expect(resp.body.user.firstName).toEqual('regular')
             expect(resp.body.user.lastName).toEqual('user')
@@ -437,7 +434,7 @@ describe('/users/:userId', () => {
         })
 
         it ('should return 200 and user information for admin user', async () => {
-            const resp = await request(app).get(`/users/${user.id}`).set('Cookie', adminCookies).set('X-XSRF-TOKEN', adminXsrfCookie).send()
+            const resp = await request(app).get(`/users/${user.id}`).set('Cookie', adminCookies).send()
             expect(resp.statusCode).toEqual(200)
             expect(resp.body.user.firstName).toEqual('regular')
             expect(resp.body.user.lastName).toEqual('user')
@@ -445,14 +442,14 @@ describe('/users/:userId', () => {
         })
 
         it ('should return 403 and insufficient permissions', async () => {
-            const resp = await request(app).get(`/users/${admin.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).get(`/users/${admin.id}`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(403)
             expect(resp.body.error).toEqual(`Insufficient permissions to access that resource`)
         })
 
         it ('should return 404 and user not found', async () => {
             const fakeId = 123123132
-            const resp = await request(app).get(`/users/${fakeId}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).get(`/users/${fakeId}`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(404)
             expect(resp.body.error).toEqual(`User with id ${fakeId} not found`)
         })
@@ -461,7 +458,7 @@ describe('/users/:userId', () => {
     describe('PUT', () => {
         it('should respond with 404 and user not found', async () => {
             const fakeId = 123123132
-            const resp = await request(app).put(`/users/${fakeId}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${fakeId}`).set('Cookie', userCookies).send({
                 firstName: 'faker'
             })
             expect(resp.statusCode).toEqual(404)
@@ -469,7 +466,7 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 403 and insufficient permissions', async () => {
-            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', adminCookies).set('X-XSRF-TOKEN', adminXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', adminCookies).send({
                 firstName: 'admintakeover'
             })
             expect(resp.statusCode).toEqual(403)
@@ -477,13 +474,13 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 400 and no fields', async () => {
-            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({})
+            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).send({})
             expect(resp.statusCode).toEqual(400)
             expect(resp.body.error).toEqual(`Missing any valid fields to update the user: email, firstName, lastName`)
         })
 
         it('should respond with 400 and not empty violation for firstName', async () => {
-            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).send({
                 firstName: ""
             })
             expect(resp.statusCode).toEqual(400)
@@ -491,7 +488,7 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 200 and updated information', async () => {
-            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).send({
                 firstName: 'updated',
                 lastName: 'irregular',
                 email: 'irregularuser@myclassroom.com'
@@ -508,7 +505,7 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 400 and missing fields for password change', async () => {
-            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).send({
                 firstName: 'updated',
                 lastName: 'irregular',
                 email: 'irregularuser@myclassroom.com',
@@ -521,7 +518,7 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 401 and incorrect password', async () => {
-            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).send({
                 firstName: 'updated',
                 lastName: 'irregular',
                 email: 'irregularuser@myclassroom.com',
@@ -535,7 +532,7 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 400 and password mismatch', async () => {
-            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).send({
                 firstName: 'updated',
                 lastName: 'irregular',
                 email: 'irregularuser@myclassroom.com',
@@ -549,7 +546,7 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 200 and updated information and password changed', async () => {
-            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}`).set('Cookie', userCookies).send({
                 firstName: 'updater',
                 lastName: 'irregulars',
                 email: 'irregularsuser@myclassroom.com',
@@ -602,21 +599,20 @@ describe('/users/:userId', () => {
             })
             
             const userSession = await generateUserSession(user)
-            userXsrfCookie = userSession.csrfToken
-            
-            userCookies = [`_myclassroom_session=${userJwt}`]
+            userCookies = [`_myclassroom_session=${userJwt}`, `xsrf-token=${userSession.csrfToken}`]
         })
 
         it('should respond with 404 and user not found', async () => {
-            const resp = await request(app).put(`/users/${12345}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${12345}/confirm`).set('Cookie', userCookies).send({
                 emailConfirmationCode: '123456'
             })
+            
             expect(resp.statusCode).toEqual(404)
             expect(resp.body.error).toEqual(`User with id 12345 not found`)
         })
 
         it('should respond with 403 and insufficient permissions', async () => {
-            const resp = await request(app).put(`/users/${admin.id}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${admin.id}/confirm`).set('Cookie', userCookies).send({
                 emailConfirmationCode: '123456'
             })
             expect(resp.statusCode).toEqual(403)
@@ -624,7 +620,7 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 400 and emailConfirmationCode required', async () => {
-            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).send({
                 garbage: 1
             })
             expect(resp.statusCode).toEqual(400)
@@ -632,7 +628,7 @@ describe('/users/:userId', () => {
         })
 
         it ('should respond with 401 and emailConfirmationCode incorrect', async () => {
-            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).send({
                 emailConfirmationCode: '123456'
             })
             expect(resp.statusCode).toEqual(401)
@@ -642,7 +638,7 @@ describe('/users/:userId', () => {
         it('should respond with 498 and emailConfirmationCode expired and new email send', async () => {
             await user.update({emailConfirmationExpiresAt: moment().utc()})
             expect(user.emailConfirmationExpired()).toEqual(true)
-            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).send({
                 emailConfirmationCode: user.emailConfirmationCode
             })
             expect(resp.statusCode).toEqual(498)
@@ -652,7 +648,7 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 200', async () => {
-            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).send({
                 emailConfirmationCode: user.emailConfirmationCode
             })
             expect(resp.statusCode).toEqual(200)
@@ -661,7 +657,7 @@ describe('/users/:userId', () => {
         })
 
         it('should respond with 409 and email already confirmed', async () => {
-            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send({
+            const resp = await request(app).put(`/users/${user.id}/confirm`).set('Cookie', userCookies).send({
                 emailConfirmationCode: user.emailConfirmationCode
             })
             expect(resp.statusCode).toEqual(409)
@@ -701,26 +697,24 @@ describe('/users/:userId', () => {
             })
 
             const userSession = await generateUserSession(user)
-            userXsrfCookie = userSession.csrfToken
-            
-            userCookies = [`_myclassroom_session=${userJwt}`]
+            userCookies = [`_myclassroom_session=${userJwt}`, `xsrf-token=${userSession.csrfToken}`]
         })
 
         it('should respond with 404 and user not found', async () => {
-            const resp = await request(app).get(`/users/${12345}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).get(`/users/${12345}/confirm`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(404)
             expect(resp.body.error).toEqual(`User with id 12345 not found`)
         })
 
         it('should respond with 403 and insufficient permissions', async () => {
-            const resp = await request(app).get(`/users/${admin.id}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).get(`/users/${admin.id}/confirm`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(403)
             expect(resp.body.error).toEqual(`Insufficient permissions to access that resource`)
         })
 
         it('should respond with 200', async () => {
             const emailConfirmationCode = user.emailConfirmationCode
-            const resp = await request(app).get(`/users/${user.id}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).get(`/users/${user.id}/confirm`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(200)
             await user.reload()
             expect(user.emailConfirmationCode).not.toEqual(emailConfirmationCode)
@@ -728,7 +722,7 @@ describe('/users/:userId', () => {
 
         it('should respond with 400 and email already confirmed', async () => {
             await user.update({emailConfirmed: true})
-            const resp = await request(app).get(`/users/${user.id}/confirm`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).get(`/users/${user.id}/confirm`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(400)
             expect(resp.body.error).toEqual(`email already confirmed`)
         })
@@ -771,35 +765,32 @@ describe('/users/:userId', () => {
             })
 
             const userSession = await generateUserSession(user)
-            userXsrfCookie = userSession.csrfToken
-
             const adminSession = await generateUserSession(admin)
-            adminXsrfCookie = adminSession.csrfToken
             
-            userCookies = [`_myclassroom_session=${userJwt}`]
-            adminCookies = [`_myclassroom_session=${adminJwt}`]
+            userCookies = [`_myclassroom_session=${userJwt}`, `xsrf-token=${userSession.csrfToken}`]
+            adminCookies = [`_myclassroom_session=${adminJwt}`, `xsrf-token=${adminSession.csrfToken}`]
         })
 
         it('should respond with 404 and user not found', async () => {
             const fakeId = 123123132
-            const resp = await request(app).delete(`/users/${fakeId}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).delete(`/users/${fakeId}`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(404)
             expect(resp.body.error).toEqual(`User with id ${fakeId} not found`)
         })
 
         it('should respond with 403 and insufficient permissions', async () => {
-            const resp = await request(app).delete(`/users/${admin.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).delete(`/users/${admin.id}`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(403)
             expect(resp.body.error).toEqual(`Insufficient permissions to access that resource`)
         })
 
         it ('should respond with 204 and admin deleted', async () => {
-            const resp = await request(app).delete(`/users/${admin.id}`).set('Cookie', adminCookies).set('X-XSRF-TOKEN', adminXsrfCookie).send()
+            const resp = await request(app).delete(`/users/${admin.id}`).set('Cookie', adminCookies).send()
             expect(resp.statusCode).toEqual(204)
         })
 
         it ('should respond with 204 and user deleted', async () => {
-            const resp = await request(app).delete(`/users/${user.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie).send()
+            const resp = await request(app).delete(`/users/${user.id}`).set('Cookie', userCookies).send()
             expect(resp.statusCode).toEqual(204)
         })        
     })
