@@ -42,6 +42,7 @@ function App() {
             - login
             - password reset
           */}
+
         <Route element={ <Navigation loggedIn={loggedIn}></Navigation> }>
           <Route path='/home' element={ <Home/> }/>
           <Route element={ loggedIn ? <Navigate to='/'/> : <Outlet/>}>
