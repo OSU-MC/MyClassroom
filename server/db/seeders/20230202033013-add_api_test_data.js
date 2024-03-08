@@ -79,12 +79,6 @@ module.exports = {
       role: 'student'
     }], {})
 
-    //let comboenrollmentsection1course2 = await queryInterface.bulkInsert('Enrollments', [{
-    //  userId: comboUser,
-    //  sectionId: section1course1,
-    //  role: 'student'
-    //}], {})
-
     let lecture1course1 = await queryInterface.bulkInsert('Lectures', [{
       courseId: course1,
       title: 'Welcome',
