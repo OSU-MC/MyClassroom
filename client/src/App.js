@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 
 /*
   Page Imports
@@ -25,11 +25,8 @@ import SingleCoursePage from './pages/SingleCoursePage';
 import AddCourse from './pages/AddCourse';
 import AddLecture from './pages/AddLecture';
 import Home from './pages/Home';
-
-
 import Navigation from './components/nav/Navigation';
 import useAuth from './hooks/useAuth';
-import { Navigate, Outlet } from 'react-router-dom';
 import { TailSpin } from  'react-loader-spinner';
 import SingleQuestion from './pages/SingleQuestion';
 
@@ -46,6 +43,7 @@ function App() {
             - login
             - password reset
           */}
+
         <Route element={ <Navigation loggedIn={loggedIn}></Navigation> }>
           <Route path='/home' element={ <Home/> }/>
           <Route element={ loggedIn ? <Navigate to='/'/> : <Outlet/>}>

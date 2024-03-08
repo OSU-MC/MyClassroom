@@ -64,46 +64,81 @@ body{
 
 /* Navbar */
 
-.navbarMain{
-    background-color: #293846;
-    position: sticky;
-    display: flex;
-    justify-content: space-between;
-    padding-right: 1%;
-    height: 5vh;
-    z-index: 100;
+#classroomIcon{
+    height: 32px;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 4px;
 }
-
-.navbarMain .navbarItem{
-    color: white !important;
-    font-size: calc(8px + 1.5vw);
-    display: flex;
+#classroomLink{
+    font-weight: bold;
 }
-
-.navbarMain .navbarItem .main {
-    font-size: calc(12px + 1.5vw);
-}
-
-
-.navbarItem:hover {
+#classroomLink:hover {
     text-decoration: underline;
 }
 
+.navbarMain{
+    /* background-color: #293846; */
+    position: sticky;
+    display: flex;
+    justify-content: space-between; /* content: (navbar) Left, Center, Right*/
+    /*padding-top: 5px;*/
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 5vh;
+    z-index: 100;
+    align-items: center;
+}
+.smallText{
+    font-size: 18px !important;
+}
+
+.navbarMain .navbarItem{
+    color: black !important;
+    font-size: 24px;
+}
+
 .navbarItem {
-    margin-left: 40px;
+    margin: 0px; /* best way to enforce centering? */
+    text-align: center;
     text-decoration: none;
 }
 
 .navbarLeftContainer {
+}
+
+.navbarCenterContainer{
     display: flex;
-    flex-direction: row;
+    justify-content: center;
     align-items: center;
 }
 
 .navbarRightContainer {
+}
+
+.navButtons{
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    width: 20%;
+}
+
+.navButtons a{
+
+    border-radius: 11px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: grey;
+    background-color: transparent;
+
+    color: black;
+    text-decoration: none;
+
+    padding: 0px 15px;
+    margin: 0px 5px;
+}
+
+.navButtons a:hover{
+    text-decoration: underline;
 }
 
 /* Dropdown in Navbar */
@@ -119,14 +154,13 @@ body{
 }
 
 .dropdownIcon {
-    color: white;
-    width: calc(12px + 2vw);
-    height: calc(12px + 2vh);
+    padding-top: 5px; /* For some reason this icon isn't centered vertically in the div like the other items, so this is a band-aid fix. */
+    color: black;
+    height: 32px;
+    width: auto;
 }
 
 .dropdown {
-    display: flex;
-    flex-direction: column;
 }
 
 .dropdownLink {

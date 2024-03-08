@@ -13,16 +13,38 @@ function TopNavbar(props) {
     return (
             <div className='navbarMain' expand="lg">
                 <div className='navbarLeftContainer'>
-                    <div className='navbarItem main'><NavLink className='navbarItem' to='/home'>{process.env.REACT_APP_NAME}</NavLink></div>
-                    { props.loggedIn && <NavLink className='navbarItem' to='/'>Courses</NavLink> }
+                    {/*Image attr: Unknown, need to ask*/}
+                    <span><NavLink className='navbarItem' id='classroomLink' to='/home'><img id="classroomIcon" src="classroomIcon.png" />{process.env.REACT_APP_NAME}</NavLink></span> {/* Why not hard code??*/}
+                    {/*{ props.loggedIn && <NavLink className='navbarItem' to='/'>Courses</NavLink> }*/}
+                </div>
+
+                {/*TODO: Finish obvious improvements, add functionality to read name of user*/}
+                <div className="navbarCenterContainer">
+                {console.log(props.inCourse)}
+                    {props.loggedIn ?
+                        <LoggedInButtons />
+                        :
+                        <p className='navbarItem smallText'> placeholder not logged in </p>}
+
                 </div>
                 <div className="navbarRightContainer">
-                    <div className="dropdown">
-                        <div><FontAwesomeIcon className="dropdownIcon" icon={faUser}/></div>
+                    <div className="navbarItem dropdown">
+                        <FontAwesomeIcon className="dropdownIcon" icon={faUser}/>
                         <UserMenu loggedIn={props.loggedIn}/>
                     </div>
                 </div>
             </div>
+    );
+}
+
+function LoggedInButtons(){
+    return(
+        <>
+            <span className="navButtons">
+                <a href="/home" className="navHome"> Home </a>
+                <a href="/" className="navCourses"> Courses </a>
+            </span>
+        </>
     );
 }
 
