@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import './components.css'
+import '../../styles/components.css'
 import useAuth from '../../hooks/useAuth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
