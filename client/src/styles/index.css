@@ -1,12 +1,1066 @@
-html {
+html, body, #root {
     height: 100%;
 }
 
 body {
-    height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow: scroll;
+}
+
+/* Signup Page CSS */
+#signUp {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    line-height: 1;
+}
+
+#studentText {
+    cursor: pointer;
+    z-index: 99;
+    color:black;
+    position: absolute;
+    top: 50%;
+    left: 12%;
+    transform: translate(0%, -50%);
+}
+
+#teacherText {
+    cursor: pointer;
+    z-index: 99;
+    color:black;
+    position: absolute;
+    top: 50%;
+    right: 12%;
+    transform: translate(0%, -50%);
+}
+
+.switch {
+    margin-top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    display: inline-block;
+    width: 400px;
+    height: 56px;
+    border: 2px black solid;
+    border-radius: 15px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+    border-radius: 15px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 56px;
+    width: 208px;
+    bottom: -2px;
+    left: -4px;
+    background-color: #D2DFD3;
+    -webkit-transition: .4s;
+    transition: .8s;
+    border-radius: 15px;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(196px);
+    -ms-transform: translateX(196px);
+    transform: translateX(196px);
+}
+
+.firstNameContainer {
+    width: 45% !important;
+    float: left;
+}
+
+.lastNameContainer {
+    width: 45% !important;
+    margin-left: 10%;
+}
+
+/* Login Page CSS */
+#login {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    line-height: 1;
+}
+
+.classroomIcon {
+    margin-right: 8px;
+}
+
+.classroomLink {
+    font-size: 36px;
+    font-weight: bold;
+    color: black;
+}
+
+/*leftContainer takes up 46% of the left screen*/
+.leftContainer {
+    position: relative;
+    height: 100%;
+    width: 50%;
+    min-width: 210px;
+    background-color: rgb(210, 223, 211);
+    border-top-right-radius: 60px;
+    border-bottom-right-radius: 60px;
+}
+
+.rightContainer {
+    position: relative;
+    flex: 1;
+}
+
+.welcomeBox {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    height: 40%;
+    padding-left: 10%;
+}
+
+.textBox {
+    margin-top: 3vh;
+    width: 72%;
+}
+
+.mainText {
+    font-size: 50px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 10px; /* without this, margin-bottom is 50, I have no idea why */
+}
+
+.subText {
+    font-size: 30px;
+    color: gray;
+    text-decoration: underline;
+    margin-top: 1vh; /* margin-top has no effect, I dont know why*/
+}
+
+.linkBox {
+    margin-top: 3vh;
+}
+
+/* TODO: More visually appealing button*/
+.homeButton {
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    border-radius: 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: grey;
+    background-color: transparent;
+
+    /* Icon attached to button using background image*/
+    background: url(../../public/arrow-left-solid.svg);
+    background-position: 142px 7px;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 36px;
+}
+
+.homeButton:hover {
+    color: black;
+    background-color: #76B47B;
+}
+
+.loginSection {
+    position: relative;
+    top: 15%;
+    width: 100%;
+    height: 60%;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.inputContainer {
+    margin-top: 40px;
+    background:transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+    padding-left: 6px;
+    width: 100%;
+}
+
+.submitButton {
+    display: block;
+    position: relative;
+    margin-top: 10vh;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    border-radius: 5px;
+    width: 256px;
+    height: 48px;
+    color: white;
+
+    /* Icon attached to button using background image*/
+    padding-right: 32px;
+    background: #76B47B url(../../public/Arrow_left_long.png);
+    background-position: 150px 12px;
+    background-repeat: no-repeat;
+    background-size: 30px;
+}
+
+/*free SSO icon source: https://thenounproject.com/browse/icons/term/sso/*/
+.ssoButton {
+    display: block;
+    position: relative;
+    margin-top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    border-radius: 5px;
+    width: 256px;
+    height: 48px;
+    color: white;
+    font-weight: bold;
+
+    /* Icon attached to button using background image*/
+    padding-left: 32px;
+    background: #76B47B url(../../public/ssoIcon.png);
+    background-position: 28px 8px;
+    background-repeat: no-repeat;
+    background-size: 32px;
+}
+
+.changePasswordLink {
+    display: block;
+    margin-top: 20px;
+    color: gray;
+    text-decoration: none;
+}
+
+.changePasswordLink:hover {
+    text-decoration: underline;
+}
+
+/*TODO: Horizonal line on either side of or text*/
+.orSSOText {
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+    font-weight: bold;
+}
+
+/* Student Landing Page */
+.card {
+    display:flex;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px lightgrey;
+}
+
+.navbar .nav-link {
+    font-size: 15px;
+    margin-left: 40px;
+}
+
+.buttons {
+    position: relative;
+    top: 70px;
+    left: 100px;
+
+}
+
+.hideBtn {
+    margin-left: 10px;
+}
+
+.btn-add {
+    background-color: green;
+    border-color: green;
+}
+
+.btn-add:hover {
+    background-color: rgb(1, 109, 1);
+    border-color: rgb(1, 109, 1);
+}
+
+/*Profile Pages*/
+.profileInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.tester {
+    margin-top: -10vh;
+    display: flex;
+    height: 40vh;
+    width: 40vw;
+}
+
+.profileRow {
+    display: flex;
+    padding: 1em;
+    overflow: auto;
+}
+
+.profileButton {
+    margin-top: 1em;
+    display: flex;
+}
+
+/* Single Course Page CSS */
+.singleCourseContainer {
+    padding: 20px;
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+}
+
+.singleCourseDetails {
+    border: 4px solid rgb(221, 221, 221);
+    background-color: rgb(221, 221, 221);
+    border-radius: 10px;
+    color: black;
+}
+
+.singleCourseBtnDiv {
+    padding-top: 20px;
+}
+
+/* Landing Page */
+.landing-page {
+    width: 100%;
+}
+
+#join-course {
+    width: 30%;
+    padding-top: 20px;
+    padding-left: 100px;
+}
+
+#landing-subtitle{
+    padding-top: 20px;
+    padding-left: 100px;
+    font-size: 27px;
+}
+
+#create-course-btn {
+    margin-left: 100px;
+    margin-bottom: 20px;
+}
+
+hr {
+    border-top: 2px solid black;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.course-card {
+    min-width: 300px;
+    width: 30%;
+}
+
+/* Lectures */
+.lectures {
+    width: 100%;
+}
+
+.lectures-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+    margin-top: 20px;
+}
+
+#lectures-subtitle {
+    font-size: 27px;
+    margin-top: auto;
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+
+.lecture-card {
+    min-width: 300px;
+    margin: 5px;
+    width: 29%;
+}
+
+.create-lecture-btn {
+    margin-left: auto;
+    margin-top: auto;
+}
+
+/* Back button */
+.back-btn {
+    width: 40px;
+    background-image: url(../../public/free-back-arrow-1767531-1502435.webp);
+    background-size: cover;
+    border: none;
+    background-color: transparent;
+}
+
+.back-btn:hover {
+    border: none;
+    background-color: transparent;
+}
+
+.back-btn-lectures {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.lectures-top-bar {
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    display: flex;
+}
+
+/* Create */
+.create-container {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.create-bar {
+    display: flex;
+    flex-direction: row;
+}
+
+.back-btn-create {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 40px;
+    height: 40px;
+}
+
+.create-subtitle {
+    font-size: 35px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 20px;
+}
+
+.create-hr-bar {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.inputPublishedContainer {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.create-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#create-submit {
+    margin-left: 10px;
+}
+
+.inputOrderContainer {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+#lecture-order-subtitle {
+    margin-right: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#lecture-order-textentry {
+    width: 30%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* Lecture */
+.lecture-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.lecture-page-container {
+    margin-left: 100px;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.lecture-subtitle {
+    font-size: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 20px;
+}
+
+.lecture-hr {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.lecture-header-btns {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.lecture-publish-switch{
+    margin-left: auto;
+}
+
+.lecture-header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+/* mainBody */
+.mainBody {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 1;
+    flex-direction: row;
+}
+
+/* Navbar */
+#classroomIcon {
+    height: 32px;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+#classroomLink {
+    font-weight: bold;
+}
+
+#classroomLink:hover {
+    text-decoration: underline;
+}
+
+.navbarMain {
+    position: sticky;
+    display: flex;
+    justify-content: space-between; /* content: (navbar) Left, Center, Right*/
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 5vh;
+    z-index: 100;
+    align-items: center;
+}
+
+.smallText {
+    font-size: 18px !important;
+}
+
+.navbarMain .navbarItem {
+    color: black !important;
+    font-size: 24px;
+    margin: 0px; /* best way to enforce centering? */
+    text-align: center;
+    text-decoration: none;
+}
+
+.navbarCenterContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navButtons {
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    width: 20%;
+}
+
+.rightButtons .navButtons {
+    width: 220px;
+}
+
+.navButtons a {
+    border-radius: 11px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: grey;
+    background-color: transparent;
+    color: black;
+    text-decoration: none;
+    padding: 0px 15px;
+    margin: 0px 5px;
+}
+
+.navButtons a:hover {
+    text-decoration: underline;
+}
+
+.navButtons .rightButtons a {
+    margin: 0px;
+}
+
+.rightButtons .navLogin {
+    border-color: transparent;
+    font-weight: bold;
+}
+
+.rightButtons .navSignup {
+    border-color: black;
+    background-color: black;
+    font-weight: bold;
+    color: white;
+}
+
+/* Dropdown in Navbar */
+.dropdownMenu {
+    position: absolute;
+    display: none;
+    background-color: rgb(221, 221, 221);
+    padding: 0.5dvi;
+    border-radius: 3px;
+    top: 3vh;
+    right: 0;
+}
+
+.dropdownIcon {
+    padding-top: 5px; /* For some reason this icon isn't centered vertically in the div like the other items, so this is a band-aid fix. */
+    color: black;
+    height: 32px;
+    width: auto;
+}
+
+.dropdownLink {
+    text-decoration: none;
+    padding: 0 0.5vw 0 0.5vw;
+    color: black !important;
+    font-size: calc(10px + 1vw);
+}
+
+.dropdownLink:hover {
+    text-decoration: underline;
+}
+
+.dropdown:hover .dropdownMenu {
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+}
+
+/*Sidebar*/
+.sidebarBody {
+    position: relative;
+    height: 100vh;
+    width: 15vw;
+    background-color: #2f4050;
+    border: 0px;
+    display: block;
+}
+
+.sidebarList {
+    height: auto;
+    padding: 0;
+    width: 100%;
+    white-space: wrap;
+}
+
+.sidebarList .sidebarItem {
+    width: 100%;
+    height: 8vh;
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.sidebarList .sidebarItem:hover {
+    cursor: pointer;
+    background-color: #293846;
+}
+
+.sidebarItem #sidebarIcon {
+    display: grid;
+    flex: 30%;
+    place-items: center;
+}
+
+.sidebarItem #sidebarTitle {
+    flex: 70%;
+}
+
+/* Roster CSS */
+.allstudents {
+    display: block;
+    width: 80vw;
+    margin: 10px;
+    padding: 1.5vh 3vw 1.5vh 1vw;
+}
+
+.studentrow {
+    overflow: hidden;
+    font-size: calc(10px + 0.8vw);
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 1vh;
+    margin-bottom: 0.8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.studentemail {
+    font-size: calc(11px + 0.4vw);
+}
+
+/* Questions CSS */
+.questionListItem {
+    display: flex;
+    width: 80vw;
+    border: solid 2px black;
+    border-radius: 10px;
+    padding: 0.5vh 1vw 0.5vh 1vw;
+    font-size: calc(10px + 0.8vw);
+    margin: 2px;
+}
+
+.questionListItem .checkbox {
+    width: 2vw;
+    height: 2vh;
+}
+
+.questionListItem .checkboxContainer {
+    display: flex;
+    align-items: center;
+    padding-right: 0.5vw;
+}
+
+.questionListItemInformation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex: 1;
+}
+
+.questionListItemInformation .questionStem {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 50vw;
+}
+
+.questionListItemInformation .questionType {
+    font-size: calc(11px + 0.4vw);
+}
+
+.contentView {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px;
+    width: 100%;
+}
+
+.searchBarContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3vh;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.searchBar {
+    border-radius: 5px;
+    width: 40vw;
+    font-size: calc(10px + 0.5vw);
+    padding: 0.5vw;
+}
+
+.dynamic-btn {
+    font-size: calc(10px + 0.5vw);
+    border-radius: 5px;
+    margin-top: 1px;
+    padding: 0.5vw 0px 0.5vw 0px;
+    flex: 1;
+    color: white;
+}
+
+.dynamic-btn:hover {
+    color: white;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.basicLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.basicLink:hover {
+    color: inherit;
+}
+
+.split-space {
+    display: flex;
+    justify-content: center;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+}
+
+.question-subcontainer {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    font-size: calc(12px + 0.4vw) !important;
+}
+
+.question-option {
+    display: flex;
+    flex-direction: row;
+    margin: 3px;
+    align-items: center;
+}
+
+.question-reorder {
+    display: flex;
+    flex-direction: row;
+    height: 4vh;
+    align-items: center;
+    padding: 2px;
+}
+
+.question-arrow {
+    display: flex;
+    font-size: calc(12px + 0.4vw) !important;
+    width: 4vh;
+    height: 4vh;
+    margin: 1px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.question-text {
+    height: 4vh;
+    width: 40vw;
+    min-width: 100px;
+    max-width: 700px;
+}
+
+.question-select {
+    width: 4vh;
+    height: 4vh;
+    margin: 2px;
+}
+
+.negative-btn {
+    background-color: #ff4d7b;
+    margin: 3px;
+    color: white;
+}
+
+.negative-btn:hover {
+    background-color: #e84470;
+    color: white;
+}
+
+.btn-secondary:focus {
+    background-color: #6c757d;
+    text-decoration: none;
+    border: none;
+}
+
+.popup-background {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.popup-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 80%;
+    background-color: white;
+}
+
+/* Single Question CSS */
+.question-stem {
+    position: relative;
+    background-color: lightgray;
+    padding: 20px;
+    width: 100%;
+    font-size: x-large;
+    text-align: center;
+}
+
+.student-question-wrapper {
+    position: relative;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 50px;
+    left: 25%;
+    width: 50%;
+}
+
+.student-question-option-label {
+    font-size: x-large;
+}
+
+.student-question-response-form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.student-question-radio {
+    width: 25%;
+    margin: 10px;
+}
+
+.student-question-response-submit-button {
+    position: relative;
+    margin-bottom: 20px;
+    left: 40%;
+    width: 20%;
+    font-size: larger;
+}
+
+.right-answer {
+    position: relative;
+    color: green;
+}
+
+.wrong-answer {
+    position: relative;
+    color: #FF9494;
+}
+
+.unselected-right-answer {
+    position: relative;
+    color: yellowgreen;
+}
+
+.student-question-score {
+    position: relative;
+    margin-bottom: 20px;
+    left: 40%;
+    width: 20%;
+    font-size: x-large;
+    text-align: center;
+}
+
+.student-question-li {
+    font-size: x-large;
+    margin-left: 20px;
+}
+
+.horizontal-flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.right-aligned {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.add-section-h1 {
+    margin-left: 20px;
+}
+
+.add-section-div {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
 }

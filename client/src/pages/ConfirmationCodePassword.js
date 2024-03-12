@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Row, Col, Container, ListGroup, Button, NavLink } from "react-bootstrap"
-import '../styles/pages.css'
 import apiUtil from '../utils/apiUtil'
 import { getUserState } from '../redux/selectors'
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,10 +17,8 @@ function ConfirmationCodePasswordRequest() {
     const [ message, setMessage ] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
-
     
-    async function confirmationCodeRequest(emailPayload){
+    async function confirmationCodeRequest(emailPayload) {
         let response = {}
 
         response = await apiUtil('put', '/users/password', {}, emailPayload)
@@ -36,29 +33,20 @@ function ConfirmationCodePasswordRequest() {
         setEmail("")
     }
 
-
     function emailObjectStaging(){
-
         const emailInput = {
             email: email
         }
 
-        //console.log({emailInput})
         confirmationCodeRequest(emailInput)
-
     }
-
     
     return (
     <div className="onfirmationCodeDivContainer">
         <h1 className="confirmationCodePageh1">Confirmation Code</h1>
-        <p>Please enter in your email address
-           related to your account. We will send
-           a confirmation code to that email.</p>
+        <p>Please enter in your email address related to your account. We will send a confirmation code to that email.</p>
         <br/>
-
         <div>
-
             <form onSubmit={(event) => event.preventDefault()}>
                 <div>
                     <input onChange={(input) => setEmail(input.target.value)} placeholder="Enter email address here..."/>
@@ -68,16 +56,11 @@ function ConfirmationCodePasswordRequest() {
                     <button type="submit" onClick={emailObjectStaging}> Send Code </button>
                 </div>
             </form>
-
         </div>
-
     </div>
-    
     )
 }
 
 //this function is the screen for the user to change their password to the account. 
-//Using the PUT that includes email, confirmation code, rawpassword, and confirmed new password. 
-
-
+//Using the PUT that includes email, confirmation code, rawpassword, and confirmed new password.
 export default ConfirmationCodePasswordRequest
