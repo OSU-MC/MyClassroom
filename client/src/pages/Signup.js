@@ -110,31 +110,30 @@ function Signup(props){
                     <input type="checkbox" name="isTeacher" className="teacherCheck" checked={this.state.isTeacher} onChange={this.handleChange} />
                     <span className="slider"></span>
                 </label>
-
                 {/*Input fields: value mapped to React state through handleChange*/}
                 <input type="text" name="firstName"
-                  value={this.state.firstName} onChange={this.handleChange}
-                  className="inputContainer firstNameContainer" placeholder="First Name"
+                    value={this.state.firstName} onChange={this.handleChange}
+                    className="inputContainer firstNameContainer" placeholder="First Name"
                 />
                 <input type="text" name="lastName"
-                  value={this.state.lastName} onChange={this.handleChange}
-                  className="inputContainer lastNameContainer" placeholder="Last Name"
+                    value={this.state.lastName} onChange={this.handleChange}
+                    className="inputContainer lastNameContainer" placeholder="Last Name"
                 />
                 <input type="text" name="email"
-                  value={this.state.email} onChange={this.handleChange}
-                  className="inputContainer emailContainer" placeholder="Email Address"
+                    value={this.state.email} onChange={this.handleChange}
+                    className="inputContainer emailContainer" placeholder="Email Address"
                 />
                 <input type="password" name="rawPassword"
-                  value={this.state.rawPassword} onChange={this.handleChange}
-                  className="inputContainer passwordContainer" placeholder= "Password"
+                    value={this.state.rawPassword} onChange={this.handleChange}
+                    className="inputContainer passwordContainer" placeholder="Password"
                 />
                 <input type="password" name="confirmedPassword"
-                  value={this.state.confirmedPassword} onChange={this.handleChange}
-                  className="inputContainer passwordContainer" placeholder= "Confirm Password"
+                    value={this.state.confirmedPassword} onChange={this.handleChange}
+                    className="inputContainer passwordContainer" placeholder="Confirm Password"
                 />
-                <input type="submit" value="Get Started" className= "submitButton" />
+                <input type="submit" value="Get Started" className="submitButton" />
                 <p className='orSSOText'> or </p>
-                <input type="submit" value="Continue with SSO" className= "ssoButton" />
+                <input type="submit" value="Continue with SSO" className="ssoButton" />
             </form>
         )
     }
@@ -153,9 +152,7 @@ function Signup(props){
                         <h1>Create your free account today!</h1>
                         <h2><a href="login">Already have an account?</a></h2>
                     </div>
-                    <div className='linkBox'>
-                        <a href="/home" className='homeButton'>Return to home</a>
-                    </div>
+                    <a href="/home" className='homeButton'><img src="/arrow-left-solid.svg"/>Return to home</a>
                 </div>
             </div>
             <div className='rightContainer'>

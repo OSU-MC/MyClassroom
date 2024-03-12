@@ -115,7 +115,7 @@ class LoginForm extends React.Component {
                         <h2><a href="/create" className='subText'>New user?</a></h2>
                     </div>
                     <div className='linkBox'>
-                        <a href="/home" className='homeButton'>Return to home</a>
+                        <a href="/home" className='homeButton'><img src="/arrow-left-solid.svg"/>Return to home</a>
                     </div>
                 </div>
             </div>
