@@ -1,28 +1,25 @@
 /* Signup Page CSS */
-
-#signUp{
+#signUp {
     display: flex;
     height: 100%;
     width: 100%;
     line-height: 1;
 }
 
-#studentText{
+#studentText {
     cursor: pointer;
     z-index: 99;
     color:black;
-
     position: absolute;
     top: 50%;
     left: 12%;
     transform: translate(0%, -50%);
 }
 
-#teacherText{
+#teacherText {
     cursor: pointer;
     z-index: 99;
     color:black;
-
     position: absolute;
     top: 50%;
     right: 12%;
@@ -39,14 +36,12 @@
     height: 56px;
     border: 2px black solid;
     border-radius: 15px;
-
 }
 
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
-
 }
 
 .slider {
@@ -63,93 +58,86 @@
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 56px;
-  width: 208px;
-  bottom: -2px;
-  left: -4px;
-  background-color: #D2DFD3;
-  -webkit-transition: .4s;
-  transition: .8s;
-
-  border-radius: 15px;
+    position: absolute;
+    content: "";
+    height: 56px;
+    width: 208px;
+    bottom: -2px;
+    left: -4px;
+    background-color: #D2DFD3;
+    -webkit-transition: .4s;
+    transition: .8s;
+    border-radius: 15px;
 }
 
-
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196F3;
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(196px);
-  -ms-transform: translateX(196px);
-  transform: translateX(196px);
+    -webkit-transform: translateX(196px);
+    -ms-transform: translateX(196px);
+    transform: translateX(196px);
 }
 
-
-.firstNameContainer{
+.firstNameContainer {
     width: 45% !important;
     float: left;
 }
 
-.lastNameContainer{
+.lastNameContainer {
     width: 45% !important;
     margin-left: 10%;
 }
 
 /* Login Page CSS */
-
-
-html{
+html {
     font-family: 'Open Sans', sans-serif;
     height: 100%;
     width: 100%;
 }
 
-body{
+body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0; 
 }
 
-#root{
+#root {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0; 
 }
 
-.mainBody{
+.mainBody {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;  
 }
 
-#login{
+#login {
     display: flex;
     height: 100%;
     width: 100%;
     line-height: 1;
 }
 
-.classroomIcon
-{
+.classroomIcon {
     height: 43px;
     margin-right: 8px;
 }
 
-.classroomLink
-{
+.classroomLink {
     font-size: 36px;
     font-weight: bold;
     color: black;
 }
 
 /*leftContainer takes up 46% of the left screen*/
-.leftContainer{
+.leftContainer {
     position: relative;
     width: 46%;
     min-width: 210px;
@@ -158,12 +146,12 @@ body{
     border-bottom-right-radius: 60px;
 }
 
-.rightContainer{
+.rightContainer {
     position: relative;
     flex: 1;
 }
 
-.welcomeBox{
+.welcomeBox {
     position: absolute;
     top: 10%;
     width: 100%;
@@ -171,35 +159,34 @@ body{
     padding-left: 10%;
 }
 
-.textBox{
+.textBox {
     margin-top: 3vh;
     width: 72%;
 }
 
-.mainText{
+.mainText {
     font-size: 50px;
     font-weight: bold;
     color: black;
     margin-bottom: 10px; /* without this, margin-bottom is 50, I have no idea why */
 }
 
-.subText{
+.subText {
     font-size: 30px;
     color: gray;
     text-decoration: underline;
     margin-top: 1vh; /* margin-top has no effect, I dont know why*/
 }
 
-.linkBox{
+.linkBox {
     margin-top: 3vh;
 }
 
 /* TODO: More visually appealing button*/
-.homeButton{
+.homeButton {
     font-size: 18px;
     color: black;
     text-decoration: none;
-
     border-radius: 15px;
     border-width: 1px;
     border-style: solid;
@@ -211,19 +198,18 @@ body{
     background-position: 142px 7px;
     background-repeat: no-repeat;
     background-size: 12px;
-
     padding-top: 4px;
     padding-bottom: 5px;
     padding-left: 8px;
     padding-right: 36px;
 }
 
-.homeButton:hover{
+.homeButton:hover {
     color: black;
     background-color: #76B47B;
 }
 
-.loginSection{
+.loginSection {
     position: relative;
     top: 15%;
     width: 100%;
@@ -232,11 +218,11 @@ body{
     padding-right: 15%;
 }
 
-.formLoginContainer{
+.formLoginContainer {
     margin-top: 3vh;
 }
 
-.inputContainer{
+.inputContainer {
     margin-top: 40px;
     background:transparent;
     border: none;
@@ -245,27 +231,16 @@ body{
     width: 100%;
 }
 
-.emailContainer{
-
-}
-
-.passwordContainer{
-
-}
-
-.submitButton{
+.submitButton {
     display: block;
     position: relative;
     margin-top: 10vh;
     left: 50%;
     transform: translateX(-50%);
-
     border: none;
     border-radius: 5px;
-
     width: 256px;
     height: 48px;
-
     color: white;
 
     /* Icon attached to button using background image*/
@@ -277,19 +252,16 @@ body{
 }
 
 /*free SSO icon source: https://thenounproject.com/browse/icons/term/sso/*/
-.ssoButton{
+.ssoButton {
     display: block;
     position: relative;
     margin-top: 20px;
     left: 50%;
     transform: translateX(-50%);
-
     border: none;
     border-radius: 5px;
-
     width: 256px;
     height: 48px;
-
     color: white;
     font-weight: bold;
 
@@ -301,26 +273,24 @@ body{
     background-size: 32px;
 }
 
-
-.changePasswordLink{
+.changePasswordLink {
     display: block;
     margin-top: 20px;
     color: gray;
     text-decoration: none;
 }
 
-.changePasswordLink:hover{
+.changePasswordLink:hover {
     text-decoration: underline;
 }
 
 /*TODO: Horizonal line on either side of or text*/
-.orSSOText{
+.orSSOText {
     margin-top: 20px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-
     color: gray;
     font-weight: bold;
 }
@@ -367,13 +337,8 @@ body{
     border-color: rgb(1, 109, 1);
 }
 
-
-
-
-
 /*Profile Pages*/
-
-.profileInfo{
+.profileInfo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -381,54 +346,50 @@ body{
     width: 100vw;
 }
 
-.tester{
+.tester {
     margin-top: -10vh;
     display: flex;
     height: 40vh;
     width: 40vw;
-    
 }
 
-.profileRow{
+.profileRow {
     display: flex;
     padding: 1em;
     overflow: auto;
 }
 
-.profileButton{
+.profileButton {
     margin-top: 1em;
     display: flex;
 }
 
 
 /* StudentGreadeforSingleLecture page*/
-.SLG-gradePoints-parent{
+.SLG-gradePoints-parent {
     margin-left: 2em;
     margin-top: 3em;
     color: black;
     display: flex;
 }
-.single-lecture-grade-info{
-    
-}
-.single-lecture-grade-points-info{
+
+.single-lecture-grade-points-info {
     margin-top: 1em;
     margin-left: 15em;
     float: right;
     padding-right: 3em;
     border: 2px solid rgb(29, 34, 112);
 }
+
 .single-lecture-grade-table {
     width: 100%;
     height: 100vh;
     margin-top: 3em;
     margin-left: 2em;
     justify-content: center;
-   
 }
     
 table {
-    
     border: 2px solid rgb(29, 34, 112);
     width: 800px;
     height: 200px;
@@ -449,7 +410,7 @@ td {
 }
 
 /* StudentGradebook page*/
-.student-gradebook-grade-table{
+.student-gradebook-grade-table {
     width: 100%;
     height: 100vh;
     margin-top: 3em;
@@ -457,13 +418,13 @@ td {
     justify-content: center;
 }
 
-#student-gradebook-grade-table-headline{
+#student-gradebook-grade-table-headline {
     font-weight: bold;
     color:black;
     font-size: large;
 }
 
-.student-gradebook-grade-table table{
+.student-gradebook-grade-table table {
     margin-bottom: 3em;
     margin-left:auto;
     margin-right:auto;
@@ -472,8 +433,6 @@ td {
 #student-gradebook-info {
     margin-top: 3em;
     text-align: center;
- 
-    
 }
 
 .delete {
@@ -532,7 +491,6 @@ input {
     margin-top: 20px;
 }
 
-
 /* Single Course Page CSS */
 .singleCourseContainer {
     padding: 20px;
@@ -540,7 +498,6 @@ input {
     width: fit-content;
     height: fit-content;
     text-align: center;
-
 }
 
 .singleCourseDetails {
@@ -552,11 +509,9 @@ input {
 
 .singleCourseBtnDiv {
     padding-top: 20px;
-
 }
 
 /* ResetPassword Page Styling */
-
 .confirmationCodeDivContainer {
     width: fit-content;
     justify-content: center;
@@ -612,7 +567,6 @@ hr {
 }
 
 /* Lectures */
-
 .lectures {
     width: 100%;
 }
@@ -645,7 +599,6 @@ hr {
 }
 
 /* Back button */
-
 .back-btn {
     width: 40px;
     background-image: url(../../public/free-back-arrow-1767531-1502435.webp);
@@ -675,7 +628,6 @@ hr {
 }
 
 /* Create */
-
 .create-container {
     display: flex;
     flex-direction: column;
