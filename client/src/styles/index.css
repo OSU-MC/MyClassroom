@@ -6,164 +6,224 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow: scroll;
+/*    overflow: scroll;*/
+}
+
+/* mainBody */
+.mainBody {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+/* Signup/Login */
+#auth {
+    display: flex;
+    width: 100%;
+    
+    .leftContainer {
+        position: relative;
+        width: 50%;
+        min-width: 210px;
+        background-color: rgb(210, 223, 211);
+        border-radius: 0 60px 60px 0;
+        
+        .welcomeBox {
+            position: absolute;
+            top: 10%;
+            width: 100%;
+            padding-left: 10%;
+            
+            .classroomLink {
+                font-size: 36px;
+                font-weight: bold;
+                color: black;
+                
+                .classroomIcon {
+                    margin-right: 8px;
+                }
+            }
+            
+            .textBox {
+                margin-top: 3vh;
+                width: 70%;
+            }
+            
+            .linkBox {
+                margin-top: 3vh;
+            }
+        }
+    }
+
+    .rightContainer {
+        width: 50%;
+        display: flex; /* Use flexbox */
+        align-items: center;
+        justify-content: center;
+        
+        .loginSection {
+            padding: 0 15%;
+            
+            .switch {
+                margin-top: 32px;
+                position: relative;
+                display: inline-block;
+                width: 400px;
+                height: 56px;
+                border: 2px black solid;
+                border-radius: 15px;
+                
+                #studentText, #teacherText {
+                    cursor: pointer;
+                    z-index: 99;
+                    color: black;
+                    position: absolute;
+                    top: 50%;
+                    transform: translate(0%, -50%);
+                }
+
+                #studentText {
+                    left: 12%;
+                }
+
+                #teacherText {
+                    right: 12%;
+                }
+                
+                .teacherCheck {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+                
+                .slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border-radius: 15px;
+                }
+                
+                .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 56px;
+                    width: 208px;
+                    left: -2px;
+                    bottom: -2px;
+                    background-color: #D2DFD3;
+                    transition: 0.4s;
+                    border-radius: 13px;
+                }
+                
+                .teacherCheck:checked + .slider:before {
+                    transform: translateX(196px);
+                }
+            }
+            
+            .firstNameContainer {
+                width: 45% !important;
+                float: left;
+            }
+
+            .lastNameContainer {
+                width: 45% !important;
+                margin-left: 10%;
+            }
+            
+            .inputContainer {
+                margin-top: 40px;
+                background:transparent;
+                border: none;
+                border-bottom: 1px solid #000000;
+                padding-left: 6px;
+                width: 100%;
+            }
+            
+            .changePasswordLink {
+                display: block;
+                margin-top: 20px;
+                color: gray;
+                text-decoration: none;
+                
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            
+            .orSSOText {
+                margin-top: 20px;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: gray;
+                font-weight: bold;
+            }
+            
+            .submitButton {
+                display: block;
+                position: relative;
+                margin-top: 10vh;
+                left: 50%;
+                transform: translateX(-50%);
+                border: none;
+                border-radius: 5px;
+                width: 256px;
+                height: 48px;
+                color: white;
+
+                /* Icon attached to button using background image*/
+                padding-right: 32px;
+                background: #76B47B url(../../public/Arrow_left_long.png);
+                background-position: 150px 12px;
+                background-repeat: no-repeat;
+                background-size: 30px;
+            }
+
+            /*free SSO icon source: https://thenounproject.com/browse/icons/term/sso/*/
+            .ssoButton {
+                display: block;
+                position: relative;
+                margin-top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                border: none;
+                border-radius: 5px;
+                width: 256px;
+                height: 48px;
+                color: white;
+                font-weight: bold;
+
+                /* Icon attached to button using background image*/
+                padding-left: 32px;
+                background: #76B47B url(../../public/ssoIcon.png);
+                background-position: 28px 8px;
+                background-repeat: no-repeat;
+                background-size: 32px;
+            }
+        }
+    }
 }
 
 /* Signup Page CSS */
-#signUp {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    line-height: 1;
-}
 
-#studentText {
-    cursor: pointer;
-    z-index: 99;
-    color:black;
-    position: absolute;
-    top: 50%;
-    left: 12%;
-    transform: translate(0%, -50%);
-}
-
-#teacherText {
-    cursor: pointer;
-    z-index: 99;
-    color:black;
-    position: absolute;
-    top: 50%;
-    right: 12%;
-    transform: translate(0%, -50%);
-}
-
-.switch {
-    margin-top: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    position: relative;
-    display: inline-block;
-    width: 400px;
-    height: 56px;
-    border: 2px black solid;
-    border-radius: 15px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-    border-radius: 15px;
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 56px;
-    width: 208px;
-    bottom: -2px;
-    left: -4px;
-    background-color: #D2DFD3;
-    -webkit-transition: .4s;
-    transition: .8s;
-    border-radius: 15px;
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-    -webkit-transform: translateX(196px);
-    -ms-transform: translateX(196px);
-    transform: translateX(196px);
-}
-
-.firstNameContainer {
-    width: 45% !important;
-    float: left;
-}
-
-.lastNameContainer {
-    width: 45% !important;
-    margin-left: 10%;
-}
 
 /* Login Page CSS */
-#login {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    line-height: 1;
-}
-
-.classroomIcon {
-    margin-right: 8px;
-}
-
-.classroomLink {
-    font-size: 36px;
-    font-weight: bold;
-    color: black;
-}
-
-/*leftContainer takes up 46% of the left screen*/
-.leftContainer {
-    position: relative;
-    height: 100%;
-    width: 50%;
-    min-width: 210px;
-    background-color: rgb(210, 223, 211);
-    border-top-right-radius: 60px;
-    border-bottom-right-radius: 60px;
-}
-
-.rightContainer {
-    position: relative;
-    flex: 1;
-}
-
-.welcomeBox {
-    position: absolute;
-    top: 10%;
-    width: 100%;
-    height: 40%;
-    padding-left: 10%;
-}
-
-.textBox {
-    margin-top: 3vh;
-    width: 72%;
-}
-
-.mainText {
-    font-size: 50px;
+h1 {
+    font-size: 60px;
     font-weight: bold;
     color: black;
     margin-bottom: 10px; /* without this, margin-bottom is 50, I have no idea why */
 }
 
-.subText {
+h2 a {
     font-size: 30px;
     color: gray;
     text-decoration: underline;
     margin-top: 1vh; /* margin-top has no effect, I dont know why*/
-}
-
-.linkBox {
-    margin-top: 3vh;
 }
 
 /* TODO: More visually appealing button*/
@@ -186,93 +246,11 @@ input:checked + .slider:before {
     padding-bottom: 5px;
     padding-left: 8px;
     padding-right: 36px;
-}
-
-.homeButton:hover {
-    color: black;
-    background-color: #76B47B;
-}
-
-.loginSection {
-    position: relative;
-    top: 15%;
-    width: 100%;
-    height: 60%;
-    padding-left: 15%;
-    padding-right: 15%;
-}
-
-.inputContainer {
-    margin-top: 40px;
-    background:transparent;
-    border: none;
-    border-bottom: 1px solid #000000;
-    padding-left: 6px;
-    width: 100%;
-}
-
-.submitButton {
-    display: block;
-    position: relative;
-    margin-top: 10vh;
-    left: 50%;
-    transform: translateX(-50%);
-    border: none;
-    border-radius: 5px;
-    width: 256px;
-    height: 48px;
-    color: white;
-
-    /* Icon attached to button using background image*/
-    padding-right: 32px;
-    background: #76B47B url(../../public/Arrow_left_long.png);
-    background-position: 150px 12px;
-    background-repeat: no-repeat;
-    background-size: 30px;
-}
-
-/*free SSO icon source: https://thenounproject.com/browse/icons/term/sso/*/
-.ssoButton {
-    display: block;
-    position: relative;
-    margin-top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    border: none;
-    border-radius: 5px;
-    width: 256px;
-    height: 48px;
-    color: white;
-    font-weight: bold;
-
-    /* Icon attached to button using background image*/
-    padding-left: 32px;
-    background: #76B47B url(../../public/ssoIcon.png);
-    background-position: 28px 8px;
-    background-repeat: no-repeat;
-    background-size: 32px;
-}
-
-.changePasswordLink {
-    display: block;
-    margin-top: 20px;
-    color: gray;
-    text-decoration: none;
-}
-
-.changePasswordLink:hover {
-    text-decoration: underline;
-}
-
-/*TODO: Horizonal line on either side of or text*/
-.orSSOText {
-    margin-top: 20px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: gray;
-    font-weight: bold;
+    
+    &:hover {
+        color: black;
+        background-color: #76B47B;
+    }
 }
 
 /* Student Landing Page */
@@ -330,7 +308,6 @@ input:checked + .slider:before {
 .profileRow {
     display: flex;
     padding: 1em;
-    overflow: auto;
 }
 
 .profileButton {
@@ -563,18 +540,6 @@ hr {
     flex-direction: row;
     margin-bottom: 0px;
     margin-top: 20px;
-}
-
-/* mainBody */
-.mainBody {
-    position: relative;
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    z-index: 1;
-    flex-direction: row;
 }
 
 /* Navbar */

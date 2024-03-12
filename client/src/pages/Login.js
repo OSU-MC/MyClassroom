@@ -102,7 +102,7 @@ class LoginForm extends React.Component {
 }
 
     return (
-        <div id="login">
+        <div id="auth">
             <div className='leftContainer'>
                 <div className= 'welcomeBox'>
                     <span className='classroomLink'>
@@ -111,17 +111,17 @@ class LoginForm extends React.Component {
                     {process.env.REACT_APP_NAME}
                     </span>
                     <div className='textBox'>
-                        <p className='mainText'> Welcome Back! </p>
-                        <a href="/create" className='subText'> New user? </a>
+                        <h1>Welcome Back!</h1>
+                        <h2><a href="/create" className='subText'>New user?</a></h2>
                     </div>
                     <div className='linkBox'>
-                        <a href="/home" className='homeButton'> Return to home </a>
+                        <a href="/home" className='homeButton'>Return to home</a>
                     </div>
                 </div>
             </div>
             <div className='rightContainer'>
                 <div className='loginSection'>
-                    <p className='mainText'> Log in </p>
+                    <h1>Log in</h1>
                     <LoginForm />
                 </div>
             </div>
