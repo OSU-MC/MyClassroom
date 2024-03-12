@@ -91,42 +91,17 @@ input:checked + .slider:before {
 }
 
 /* Login Page CSS */
-html {
-    font-family: 'Open Sans', sans-serif;
-    height: 100%;
-    width: 100%;
-}
-
-body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0; 
-}
-
 #root {
     height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0; 
-}
-
-.mainBody {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;  
 }
 
 #login {
     display: flex;
-    height: 100%;
     width: 100%;
     line-height: 1;
 }
 
 .classroomIcon {
-    height: 43px;
     margin-right: 8px;
 }
 
