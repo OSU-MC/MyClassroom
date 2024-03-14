@@ -274,6 +274,10 @@ h2 a {
 .profileRow {
     display: flex;
     padding: 1em;
+    
+    & input {
+        width: 100%;
+    }
 }
 
 .profileButton {
