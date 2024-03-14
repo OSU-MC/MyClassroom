@@ -12,10 +12,8 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-/*    overflow: scroll;*/
 }
 
-/* mainBody */
 .mainBody {
     height: 100%;
     display: flex;
@@ -31,7 +29,7 @@ body {
         position: relative;
         width: 50%;
         background-color: var(--splash);
-        border-radius: 0 60px 60px 0;
+        border-radius: 0 50px 50px 0;
         
         .welcomeBox {
             position: relative;
@@ -223,15 +221,10 @@ h2 a {
     margin-top: 1vh; /* margin-top has no effect, I dont know why*/
 }
 
-/* TODO: More visually appealing button*/
-
-
 /* Student Landing Page */
 .card {
     display:flex;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    margin: 20px;
     border: 1px solid black;
     box-shadow: 5px 5px 5px lightgrey;
 }
@@ -262,7 +255,7 @@ h2 a {
     border-color: rgb(1, 109, 1);
 }
 
-/*Profile Pages*/
+/* Profile Pages */
 .profileInfo {
     display: flex;
     justify-content: center;
@@ -315,25 +308,21 @@ h2 a {
 
 #join-course {
     width: 30%;
-    padding-top: 20px;
-    padding-left: 100px;
+    padding: 20px 0 0 100px;
 }
 
 #landing-subtitle{
-    padding-top: 20px;
-    padding-left: 100px;
+    padding: 20px 0 0 100px;
     font-size: 27px;
 }
 
 #create-course-btn {
-    margin-left: 100px;
-    margin-bottom: 20px;
+    margin: 0 0 20px 100px;
 }
 
 hr {
     border-top: 2px solid black;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin: 0 100px;
 }
 
 .course-card {
@@ -350,17 +339,12 @@ hr {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 100px;
-    margin-top: 20px;
+    margin: 20px 100px 100px 100px;
 }
 
 #lectures-subtitle {
     font-size: 27px;
-    margin-top: auto;
-    margin-left: 20px;
-    margin-bottom: 0px;
+    margin: 20px 20px 0px;
 }
 
 .lecture-card {
@@ -370,8 +354,7 @@ hr {
 }
 
 .create-lecture-btn {
-    margin-left: auto;
-    margin-top: auto;
+    margin: auto 0 auto auto;
 }
 
 /* Back button */
@@ -392,14 +375,11 @@ hr {
     display: flex;
     width: 40px;
     height: 40px;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto 0;
 }
 
 .lectures-top-bar {
-    margin-top: 20px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin: 20px 100px;
     display: flex;
 }
 
@@ -408,8 +388,7 @@ hr {
     display: flex;
     flex-direction: column;
     width: 40%;
-    margin: auto;
-    margin-top: 100px;
+    margin: 100px auto auto;
 }
 
 .create-bar {
@@ -419,27 +398,22 @@ hr {
 
 .back-btn-create {
     display: flex;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto 0 auto;
     width: 40px;
     height: 40px;
 }
 
 .create-subtitle {
     font-size: 35px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 20px;
+    margin: auto 0 auto 20px;
 }
 
 .create-hr-bar {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin: 0 0;
 }
 
 .inputPublishedContainer {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: 15px 0;
 }
 
 .create-btns {
@@ -453,23 +427,19 @@ hr {
 }
 
 .inputOrderContainer {
-    margin-top: 15px;
-    margin-bottom: 20px;
+    margin: 15px 0 20px;
     display: flex;
     flex-direction: row;
     justify-content: start;
 }
 
 #lecture-order-subtitle {
-    margin-right: 20px;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto 20px auto 0;
 }
 
 #lecture-order-textentry {
     width: 30%;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto 0;
 }
 
 /* Lecture */
@@ -480,22 +450,18 @@ hr {
 }
 
 .lecture-page-container {
-    margin-left: 100px;
-    margin-right: 100px;
+    margin: 0 100px;
     display: flex;
     flex-direction: column;
 }
 
 .lecture-subtitle {
     font-size: 40px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 20px;
+    margin: auto 0 auto 20px;
 }
 
 .lecture-hr {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin: 0;
 }
 
 .lecture-header-btns {
@@ -511,8 +477,7 @@ hr {
 .lecture-header {
     display: flex;
     flex-direction: row;
-    margin-bottom: 0px;
-    margin-top: 20px;
+    margin: 20px 0 0;
 }
 
 /* Navbar */
@@ -535,8 +500,7 @@ hr {
     position: sticky;
     display: flex;
     justify-content: space-between; /* content: (navbar) Left, Center, Right*/
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 0 10px;
     height: 5vh;
     z-index: 100;
     align-items: center;
@@ -638,7 +602,7 @@ hr {
     white-space: nowrap;
 }
 
-/*Sidebar*/
+/* Sidebar */
 .sidebarBody {
     position: relative;
     height: 100vh;
@@ -928,8 +892,7 @@ hr {
 }
 
 .student-question-response-form {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .student-question-radio {
@@ -976,6 +939,7 @@ hr {
 
 .horizontal-flex-container {
     display: flex;
+    width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -998,7 +962,5 @@ hr {
 }
 
 .add-section-div {
-    margin-left: 20px;
-    margin-top: 20px;
-    margin-right: 20px;
+    margin: 20px 20px 0 20px;
 }
