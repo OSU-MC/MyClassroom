@@ -65,13 +65,13 @@ npm run start
 ```
 
 ## Tech Stack
-![New Architecture](https://github.com/CS-461-nilsstreedain/classroom-polling/assets/25465133/633b6e2b-bbdd-4ff6-b986-f5d809c96a9b)
+![New Architecture](https://github.com/OSU-MC/MyClassroom/assets/25465133/633b6e2b-bbdd-4ff6-b986-f5d809c96a9b)
 - React / React Native
 - Redux
 - Javascript
 
 # Interacting With the Database
-![Schema](https://github.com/CS-461-nilsstreedain/classroom-polling/assets/25465133/a4322ae3-b9b7-4b2f-98fb-116614e381d7)
+![Schema](https://github.com/OSU-MC/MyClassroom/assets/25465133/a4322ae3-b9b7-4b2f-98fb-116614e381d7)
 
 ```
 Database <- apiUtil <- Hooks -> Redux 
