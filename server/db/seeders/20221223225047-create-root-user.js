@@ -8,6 +8,7 @@ module.exports = {
        lastName: 'Admin',
        email: 'admin@myclassroom.com',
        password: 'adminpassword123',
+       isTeacher: true,
        admin: true
      }], {});
   },

@@ -1,36 +1,32 @@
-import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 
 /*
   Page Imports
 */
-import Login from './pages/Login'
+import Login from './pages/Login';
 import Profile from './pages/Profile';
-import Signup from './pages/Signup'
+import Signup from './pages/Signup';
 import ConfirmationCodePasswordRequest from './pages/ConfirmationCodePassword'
 import ResetPasswordForLoginUser from './pages/ResetPassword';
-import Confirm from './pages/Confirm'
-import Landing from './pages/Landing'
-import Course from './pages/Course'
-import Lectures from './pages/Lectures'
-import Lecture from './pages/Lecture'
-import Sections from './pages/Sections'
-import Section from './pages/Section'
-import LectureInSection from './pages/LectureInSection'
-import Questions from './pages/Questions'
-import CreateQuestion from './pages/CreateQuestion'
-import Roster from './pages/Roster'
+import Confirm from './pages/Confirm';
+import Landing from './pages/Landing';
+import Course from './pages/Course';
+import Lectures from './pages/Lectures';
+import Lecture from './pages/Lecture';
+import Sections from './pages/Sections';
+import Section from './pages/Section';
+import LectureInSection from './pages/LectureInSection';
+import Questions from './pages/Questions';
+import CreateQuestion from './pages/CreateQuestion';
+import Roster from './pages/Roster';
 import Enrollments from './pages/Enrollments';
-import SingleCoursePage from './pages/SingleCoursePage'
-import AddCourse from './pages/AddCourse'
-import AddLecture from './pages/AddLecture'
-import Home from './pages/Home'
-
-
-import Navigation from './components/nav/Navigation'
-import useAuth from './hooks/useAuth'
-import { Navigate, Outlet } from 'react-router-dom';
-import { TailSpin } from  'react-loader-spinner'
+import SingleCoursePage from './pages/SingleCoursePage';
+import AddCourse from './pages/AddCourse';
+import AddLecture from './pages/AddLecture';
+import Home from './pages/Home';
+import Navigation from './components/nav/Navigation';
+import useAuth from './hooks/useAuth';
+import { TailSpin } from  'react-loader-spinner';
 import SingleQuestion from './pages/SingleQuestion';
 
 function App() {
@@ -46,9 +42,10 @@ function App() {
             - login
             - password reset
           */}
+
         <Route element={ <Navigation loggedIn={loggedIn}></Navigation> }>
           <Route path='/home' element={ <Home/> }/>
-          <Route element={ loggedIn === true ? <Navigate to='/'/> : <Outlet/>}>
+          <Route element={ loggedIn ? <Navigate to='/'/> : <Outlet/>}>
             <Route path='/login' element={ <Login/> } />
             <Route path='/create' element={ < Signup /> } /> {/* redirects to landing page if a user is logged in already */}
             <Route path='/reset' element={ < ConfirmationCodePasswordRequest /> } /> {/* redirects to landing page if a user is logged in already */}

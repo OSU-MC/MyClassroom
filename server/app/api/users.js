@@ -13,12 +13,14 @@ const { setUserAuthCookie, requireAuthentication, removeUserAuthCookie } = requi
 
 // POST '/users' create a user
 router.post('', async function (req, res, next) {
+    console.log('creating a user');
     const missingFields = UserService.validateUserCreationRequest(req.body)
     if (missingFields.length == 0) {
       if (req.body.rawPassword == req.body.confirmedPassword) {
         try {
           const user = await db.User.create(UserService.extractUserCreationFields(req.body))
           await setUserAuthCookie(res, user)
+          console.log('User created:', user);
           res.status(201).send({
             user: UserService.filterUserFields(user)
           })
@@ -179,8 +181,8 @@ router.get('/logout', requireAuthentication, async function (req, res, next) {
   const user = await db.User.findByPk(req.payload.sub)
   if (user != null) {
     await removeUserAuthCookie(req, res)
-  }
-  res.status(204).send()
+    }
+  res.status(200).send()
 })
 
 // GET 'users/:userId' authenticated as userId, requesting account information

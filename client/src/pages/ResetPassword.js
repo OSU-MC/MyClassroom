@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react"
-import '../styles/pages.css'
 import apiUtil from '../utils/apiUtil'
 import { useNavigate } from 'react-router-dom'
 import Notice from '../components/Notice'
@@ -42,10 +41,7 @@ const navigate = useNavigate()
         }
     }
 
-    
-
     function resetPasswordObjectStaging(){
-
         const resetPasswordInformation = {
             email: email,
             passwordResetCode: confirmationCode,
@@ -67,9 +63,7 @@ const navigate = useNavigate()
             new password for the account.
         </p>
         <br/>
-
         <div>
-
             <form onSubmit={(event) => event.preventDefault()}>
                 <input ref={emailInput} placeholder="Enter email here..." onChange={ (event) => {setEmail(event.target.value)} }/>
                 <input ref={confirmationCodeInput} placeholder="Enter confirmation code here..." onChange={ (event) => {setConfirmationCode(event.target.value)} }/>
@@ -80,11 +74,8 @@ const navigate = useNavigate()
             </form>
             { message !== "" && <Notice message={message} error={error}/> }
         </div>
-
-
     </div>
     )
-
 }
 
 export default ResetPasswordForLoginUser

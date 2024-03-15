@@ -26,28 +26,28 @@ describe('/courses endpoints', () => {
             firstName: 'Dan',
             lastName: 'Smith',
             email: 'dannySmith@myclassroom.com',
+            isTeacher: true,
             rawPassword: 'Danny-o123!'
         })
         userToken = jwtUtils.encode({
             sub: user.id
         })
         const userSession = await generateUserSession(user)
-        userXsrfCookie = userSession.csrfToken
-        userCookies = [`_myclassroom_session=${userToken}`]
+        userCookies = [`_myclassroom_session=${userToken}`, `xsrf-token=${userSession.csrfToken}`]
         
 
         user2 = await db.User.create({
             firstName: 'Mitchell',
             lastName: 'DaGoat',
             email: 'mitchdagoat@myclassroom.com',
+            isTeacher: false,
             rawPassword: 'mitchell123!!'
         })
         user2Token = jwtUtils.encode({
             sub: user2.id
         })
         const user2Session = await generateUserSession(user2)
-        user2XsrfCookie = user2Session.csrfToken
-        user2Cookies = [`_myclassroom_session=${user2Token}`]
+        user2Cookies = [`_myclassroom_session=${user2Token}`, `xsrf-token=${user2Session.csrfToken}`]
 
         course2 = await db.Course.create({
             name: "TestingTest 123",
@@ -68,7 +68,7 @@ describe('/courses endpoints', () => {
             name: "Litness 101",
             description: "Wanna get lit? We'll show you how",
             published: false
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(resp.statusCode).toEqual(201)
         expect(resp.body.course.name).toEqual("Litness 101")
         expect(resp.body.course.description).toEqual("Wanna get lit? We'll show you how")
@@ -85,7 +85,7 @@ describe('/courses endpoints', () => {
         const resp = await request(app).post('/courses').send({
             description: "Wanna get lit? We'll show you how",
             published: false
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(resp.statusCode).toEqual(400)
     })
 
@@ -93,7 +93,7 @@ describe('/courses endpoints', () => {
 
         const respSection = await request(app).post(`/courses/${course.id}/sections`).send({
             number: 15
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(respSection.statusCode).toEqual(201)
         expect(respSection.body.section.courseId).toEqual(course.id)
         expect(respSection.body.section.number).toEqual(15)
@@ -105,7 +105,7 @@ describe('/courses endpoints', () => {
 
         const respSection = await request(app).post(`/courses/${course.id}/sections`).send({
             number: 25
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(respSection.statusCode).toEqual(201)
         expect(respSection.body.section.courseId).toEqual(course.id)
         expect(respSection.body.section.number).toEqual(25)
@@ -117,7 +117,7 @@ describe('/courses endpoints', () => {
 
         const respSection = await request(app).post(`/courses/${course.id}/sections`).send({
             number: 35
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(respSection.statusCode).toEqual(201)
         expect(respSection.body.section.courseId).toEqual(course.id)
         expect(respSection.body.section.number).toEqual(35)
@@ -129,13 +129,13 @@ describe('/courses endpoints', () => {
 
         const respSection = await request(app).post(`/courses/${course.id}/sections`).send({
             number: 20
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(respSection.statusCode).toEqual(403)
     })
 
     it('should respond with 400 for malformed request when there is no section number', async () => {
         const respSection = await request(app).post(`/courses/${course.id}/sections`).send({
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(respSection.statusCode).toEqual(400)
     })
 
@@ -143,7 +143,7 @@ describe('/courses endpoints', () => {
         
         const resp = await request(app).post('/courses/join').send({
             joinCode: section.joinCode
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(201)
         expect(resp.body.section.courseId).toEqual(course.id)
         expect(resp.body.section.number).toEqual(section.number)
@@ -158,7 +158,7 @@ describe('/courses endpoints', () => {
         
         const resp = await request(app).post('/courses/join').send({
             joinCode: section2.joinCode
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(201)
         expect(resp.body.section.courseId).toEqual(course.id)
         expect(resp.body.section.number).toEqual(section2.number)
@@ -173,13 +173,13 @@ describe('/courses endpoints', () => {
         
         const resp = await request(app).post('/courses/join').send({
             joinCode: "XXXXXX"
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(404)
     })
 
     it('should respond with 200 and the teacher courses enrolled in', async () => {
         
-        const resp = await request(app).get('/courses').set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        const resp = await request(app).get('/courses').set('Cookie', userCookies)
         expect(resp.statusCode).toEqual(200)
         expect(resp.body.teacherCourses[1].id).toEqual(course.id)
         expect(resp.body.teacherCourses[1].name).toEqual("Litness 101")
@@ -188,7 +188,7 @@ describe('/courses endpoints', () => {
 
     it('should respond with 200 and the student courses enrolled in', async () => {
 
-        const respStudent = await request(app).get('/courses').set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        const respStudent = await request(app).get('/courses').set('Cookie', user2Cookies)
         expect(respStudent.statusCode).toEqual(200)
         expect(respStudent.body.studentCourses[0].id).toEqual(course.id)
         expect(respStudent.body.studentCourses[0].name).toEqual("Litness 101")
@@ -198,7 +198,7 @@ describe('/courses endpoints', () => {
     })
 
     it('should respond with 401 if authorization is wrong', async () => { 
-        const resp = await request(app).get('/courses').set('Cookie', 'booooooo').set('X-XSRF-TOKEN', userXsrfCookie)
+        const resp = await request(app).get('/courses').set('Cookie', 'booooooo')
         expect(resp.statusCode).toEqual(401)
     })
 
@@ -207,18 +207,18 @@ describe('/courses endpoints', () => {
             name: "Willy Wonka and his darn chocolate factory",
             description: "I've got a golden ticket dun dun dun dun dun",
             published: true
-        }).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        }).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(403)
     })
 
     it('should respond with 403 when student tries to delete a course', async () => {
-        const resp = await request(app).delete(`/courses/${course.id}`).set('Cookie', user2Cookies).set('X-XSRF-TOKEN', user2XsrfCookie)
+        const resp = await request(app).delete(`/courses/${course.id}`).set('Cookie', user2Cookies)
         expect(resp.statusCode).toEqual(403)
     })
 
     it('should respond with 400 when teacher tries to edit a course without required fields', async () => {
         const resp = await request(app).put(`/courses/${course.id}`).send({
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(resp.statusCode).toEqual(400)
     })
 
@@ -227,7 +227,7 @@ describe('/courses endpoints', () => {
             name: "Willy Wonka and his darn chocolate factory",
             description: "I've got a golden ticket dun dun dun dun dun",
             published: true
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(resp.statusCode).toEqual(200)
         expect(resp.body.course.name).toEqual("Willy Wonka and his darn chocolate factory")
         expect(resp.body.course.description).toEqual("I've got a golden ticket dun dun dun dun dun")
@@ -237,7 +237,7 @@ describe('/courses endpoints', () => {
     it('should respond with 200 when teacher tries to edit a course with only some fields', async () => {
         const resp = await request(app).put(`/courses/${course.id}`).send({
             description: "This is a description. No, like seriously it is"
-        }).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        }).set('Cookie', userCookies)
         expect(resp.statusCode).toEqual(200)
         expect(resp.body.course.name).toEqual("Willy Wonka and his darn chocolate factory")
         expect(resp.body.course.description).toEqual("This is a description. No, like seriously it is")
@@ -246,7 +246,7 @@ describe('/courses endpoints', () => {
 
     it('should respond with 204 when a teacher tries to delete a course', async () => {
         const courseId = course.id
-        const resp = await request(app).delete(`/courses/${course.id}`).set('Cookie', userCookies).set('X-XSRF-TOKEN', userXsrfCookie)
+        const resp = await request(app).delete(`/courses/${course.id}`).set('Cookie', userCookies)
         expect(resp.statusCode).toEqual(204)
         const deletedCourse = await db.Course.findByPk(courseId)
         expect(deletedCourse).toBeFalsy()
