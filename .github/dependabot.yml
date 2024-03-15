@@ -11,9 +11,9 @@ updates:
       interval: "weekly"
     target-branch: "dev"
     assignees:
-      - "CS-461-nilsstreedain/frontend-team"
+      - "OSU-MC/frontend-team"
     reviewers:
-      - "CS-461-nilsstreedain/frontend-team"
+      - "OSU-MC/frontend-team"
       
   - package-ecosystem: "npm"
     directory: "/server"
@@ -21,6 +21,6 @@ updates:
       interval: "weekly"
     target-branch: "dev"
     assignees:
-      - "CS-461-nilsstreedain/backend-team"
+      - "OSU-MC/backend-team"
     reviewers:
-      - "CS-461-nilsstreedain/backend-team"
+      - "OSU-MC/backend-team"
