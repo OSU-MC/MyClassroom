@@ -1,15 +1,36 @@
-import styled from '@emotion/styled/macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'react-bootstrap';
 import { faLink } from '@fortawesome/free-solid-svg-icons'
 import { borderRadius, fontFamily, fontStyle, minHeight } from '@mui/system';
+import styles from "../styles/home.css"
 
 function Home() {
     return(
 
         <div id="home">
-            <p className='mainText'> Welcome Back! </p>
+            <div className="section">
+                <p className="homeHeader"> Welcome to MyClassroom </p>
+                <p className="homeText"> Open-Source Free-to-Use Polling Software </p>
+                <img  src="classroomImage.png" />
+            </div>
+
+            <div className="section infoContainer">
+                <div className="infoBox rightBox">
+                    <img id="img1" src="online-course-1.png" />
+                    <p className="infoText" id="text1"> Create courses, manage lectures and questions for free </p>
+                </div>
+                <div className="infoBox leftBox">
+                    <img id="img2" src="survey-results-1.png" />
+                    <p className="infoText" id="text2"> Track student progress, manage a gradebook </p>
+                </div>
+                <div className="infoBox rightBox">
+
+                </div>
+            </div>
+
+            <a className="getStarted" href="/create"> Get Started </a>
         </div>
+
     )
 }
 
