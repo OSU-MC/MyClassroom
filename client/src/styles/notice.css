@@ -1,0 +1,32 @@
+.noticeContainer
+{
+	    display: flex;
+        flex-direction: row;
+        background-color: #D2DFD3;
+/*        background-color: ${props.status == "error" ? noticeRed : ( props.status == "success" ? noticeGreen : noticeBlue)}; Need to find a way to do this without styled*/  
+        padding: 10px;
+        border-radius: 20px;
+        justify-content: center;
+        margin: 10px;
+        max-width: 450px;
+}
+
+/*const noticeRed = '#ea5b6a'
+const noticeBlue = '#7bb0d0'
+const noticeGreen = '#77dd77'*/
+
+.noticeWrapper
+{
+    display: flex;
+    justify-content: center;
+}
+
+.noticeSymbol
+{
+    margin-right: 10px;
+}
+
+.noticeMessage
+{    font-weight: 600;
+
+}
