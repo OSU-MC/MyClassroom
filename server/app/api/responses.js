@@ -130,63 +130,65 @@ router.put(
 		const oldResponse = await db.Response.findByPk(responseId);
 		// SELECT * FROM Responses WHERE id = ${responseId} AND Enrollment.userId = ${user.id}, { model: db.Response };
 
-		if (enrollmentStudent) {
-			// for now, only multiple choice and multiple answer available
-			if (req.body.answers && Object.keys(req.body.answers).length > 1) {
-				// request must have an answer and it must have at least two options to pick from
-				//const oldResponse = await db.Response.findByPk(responseId)
-				if (oldResponse) {
-					try {
-						const questionInLecture =
-							await questionService.getQuestionInLecture(questionId, lectureId);
-						if (questionInLecture) {
-							// if we found a valid questionInLecture
-							if (questionInLecture.published === true) {
-								// if the question in lecture exists, we know there is a question that we can check for scoring
-								const question = await questionService.getQuestionInCourse(
-									questionId,
-									courseId
-								);
-								const questionScore = questionService.getQuestionScore(
-									question,
-									req.body
-								);
-								const responseToUpdate = {
-									score: questionScore,
-									submission: req.body.answers,
-								};
-								const response = await oldResponse.update(responseToUpdate);
-								res.status(200).send({
-									response: responseService.extractResponseFields(response),
-								});
-							} else {
-								// question is no longer available
-								res
-									.status(400)
-									.send({ error: `The question is not published` });
-							}
-						} else {
-							res.status(404).send({
-								error: `No question in lecture found for the given lecture and question`,
-							});
-						}
-					} catch (e) {
-						next(e);
-					}
-				} else {
-					// maybe better to have a different status code if it belongs to another user
-					// the thought here is that if it does belong to another user it would be better to not explicitly tell an attacker that
-					res.status(404).send({ error: "response with given id not found" });
-				}
-			} else {
-				res.status(400).send({
-					error: `Submission must be present and must contain at least two options`,
-				});
-			}
-		} else {
-			res.status(403).send({
+		if (!enrollmentStudent) {
+			return res.status(403).send({
 				error: `Only a student in the course can submit a response to the question`,
 			});
+		}
+
+		if (!req.body.answers || !(Object.keys(req.body.answers).length > 1)) {
+			return res.status(400).send({
+				error: `Submission must be present and must contain at least two options`,
+			});
+		}
+
+		if (!oldResponse) {
+			return res.status(404).send({
+				error: "response with given id not found",
+			});
+		}
+
+		if (oldResponse.enrollmentId !== enrollmentStudent.id) {
+			return res.status(403).send({
+				error: `Only a student in the course can submit a response to the question`,
+			});
+		}
+
+		try {
+			const questionInLecture = await questionService.getQuestionInLecture(
+				questionId,
+				lectureId
+			);
+			if (!questionInLecture) {
+				return res.status(404).send({
+					error: `No question in lecture found for the given lecture and question`,
+				});
+			}
+
+			if (questionInLecture.published !== true) {
+				return res.status(400).send({
+					error: `The question is not published`,
+				});
+			}
+
+			const question = await questionService.getQuestionInCourse(
+				questionId,
+				courseId
+			);
+			const questionScore = questionService.getQuestionScore(
+				question,
+				req.body
+			);
+			const responseToUpdate = {
+				score: questionScore,
+				submission: req.body.answers,
+			};
+			const response = await oldResponse.update(responseToUpdate);
+			res.status(200).send({
+				response: responseService.extractResponseFields(response),
+			});
+		} catch (e) {
+			next(e);
 		}
 	}
 );
