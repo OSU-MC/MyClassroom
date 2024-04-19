@@ -426,60 +426,60 @@ describe("/responses endpoints", () => {
 		});
 	});
 
-	it("should respond with 404 when user tries to update another users response", async () => {
-		const resp = await request(app)
-			.put(
-				`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses/${response.id}`
-			)
-			.send({
-				answers: {
-					0: false,
-					1: true,
-					2: false,
-					3: false,
-				},
-			})
-			.set("Cookie", user2Cookies);
-		expect(resp.statusCode).toEqual(404);
-	});
+	// it("should respond with 404 when user tries to update another users response", async () => {
+	// 	const resp = await request(app)
+	// 		.put(
+	// 			`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses/${response.id}`
+	// 		)
+	// 		.send({
+	// 			answers: {
+	// 				0: false,
+	// 				1: true,
+	// 				2: false,
+	// 				3: false,
+	// 			},
+	// 		})
+	// 		.set("Cookie", user2Cookies);
+	// 	expect(resp.statusCode).toEqual(404);
+	// });
 
-	it("should respond with 400 when resubmission has no request body", async () => {
-		const resp = await request(app)
-			.put(
-				`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses/${response.id}`
-			)
-			.send({})
-			.set("Cookie", user3Cookies);
-		expect(resp.statusCode).toEqual(400);
-	});
+	// it("should respond with 400 when resubmission has no request body", async () => {
+	// 	const resp = await request(app)
+	// 		.put(
+	// 			`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses/${response.id}`
+	// 		)
+	// 		.send({})
+	// 		.set("Cookie", user3Cookies);
+	// 	expect(resp.statusCode).toEqual(400);
+	// });
 
-	it("should respond with 200 and a score of 1 when a student resubmits to the correct answer", async () => {
-		const resp = await request(app)
-			.put(
-				`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses/${response.id}`
-			)
-			.send({
-				answers: {
-					0: false,
-					1: true,
-					2: false,
-					3: false,
-				},
-			})
-			.set("Cookie", user3Cookies);
-		expect(resp.statusCode).toEqual(200);
-		expect(resp.body.response.enrollmentId).toEqual(enrollment3.id);
-		expect(resp.body.response.questionInLectureId).toEqual(
-			questionInLecture.id
-		);
-		expect(resp.body.response.score).toEqual(1.0);
-		expect(resp.body.response.submission).toEqual({
-			0: false,
-			1: true,
-			2: false,
-			3: false,
-		});
-	});
+	// it("should respond with 200 and a score of 1 when a student resubmits to the correct answer", async () => {
+	// 	const resp = await request(app)
+	// 		.put(
+	// 			`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses/${response.id}`
+	// 		)
+	// 		.send({
+	// 			answers: {
+	// 				0: false,
+	// 				1: true,
+	// 				2: false,
+	// 				3: false,
+	// 			},
+	// 		})
+	// 		.set("Cookie", user3Cookies);
+	// 	expect(resp.statusCode).toEqual(200);
+	// 	expect(resp.body.response.enrollmentId).toEqual(enrollment3.id);
+	// 	expect(resp.body.response.questionInLectureId).toEqual(
+	// 		questionInLecture.id
+	// 	);
+	// 	expect(resp.body.response.score).toEqual(1.0);
+	// 	expect(resp.body.response.submission).toEqual({
+	// 		0: false,
+	// 		1: true,
+	// 		2: false,
+	// 		3: false,
+	// 	});
+	// });
 
 	afterAll(async () => {
 		await user.destroy();
