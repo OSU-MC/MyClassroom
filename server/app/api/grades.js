@@ -160,10 +160,10 @@ router.get("/", requireAuthentication, async function (req, res, next) {
 					lectureGradeObj.totalPoints = totalPoints;
 					lectureGradeObj.points = points;
 					studentGradeObj.lectures.push(lectureGradeObj);
+					studentGradeObj.grade = parseFloat(
+						(lectureScore / lectureQuestionsAsked).toFixed(2)
+					);
 				}
-				studentGradeObj.grade = parseFloat(
-					(totalScore / totalPoints).toFixed(2)
-				);
 				studentGradeObj.totalQuestions = totalQuestionsAsked;
 				studentGradeObj.totalAnswered = totalQuestionsAnswered;
 				studentGradeObj.totalScore = totalScore;

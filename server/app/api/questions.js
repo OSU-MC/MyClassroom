@@ -108,7 +108,7 @@ router.post("/", requireAuthentication, async function (req, res, next) {
 	const questionToInsert = { ...req.body, courseId: courseId };
 	const missingRequestFields =
 		questionService.validateQuestionCreationRequest(questionToInsert);
-	if (missingRequestFields) {
+	if (!missingRequestFields) {
 		return res.status(400).send({
 			error: `Request is missing the following required fields: ${missingRequestFields}`,
 		});
