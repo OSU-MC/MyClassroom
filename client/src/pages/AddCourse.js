@@ -8,6 +8,7 @@ import apiUtil from '../utils/apiUtil'
 import { TailSpin } from  'react-loader-spinner'
 import Notice from '../components/Notice'
 import useCourse from "../hooks/useCourse";
+import styles from '../styles/addcourse.css'
 
 function AddCourse(props){
     const [name, setName] = useState("")
