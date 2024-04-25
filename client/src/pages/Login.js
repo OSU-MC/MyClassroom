@@ -48,36 +48,36 @@ Could maybe be moved to its own component file.
   This component is an email and password login with non-functional SSO button
   logins are handled on submit through authenticateUser function
 */
-class LoginForm extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            email: '',
-            rawPassword: ''
-        };
+        class LoginForm extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                email: '',
+                rawPassword: ''
+            };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    // every time a text box is updated, it's react state is updated as well.
-    handleChange(event) {
-        const { name, value } = event.target;
-        this.setState({
-            [name]: value
-        });
-    }
-
-    //input React states to authenticateUser function.
-    handleSubmit() {
-        event.preventDefault();
-        setLoading(true)
-        const user = {
-            email: this.state.email,
-            rawPassword: this.state.rawPassword,
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         }
-        authenticateUser(user);
-    }
+
+        // every time a text box is updated, it's react state is updated as well.
+        handleChange(event) {
+            const { name, value } = event.target;
+            this.setState({
+                [name]: value
+            });
+        }
+
+        //input React states to authenticateUser function.
+        handleSubmit() {
+            event.preventDefault();
+            setLoading(true)
+            const user = {
+                email: this.state.email,
+                rawPassword: this.state.rawPassword,
+            }
+            authenticateUser(user);
+        }
 
     render(){
         return(

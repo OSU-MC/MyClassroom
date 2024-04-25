@@ -16,7 +16,7 @@ class AddCourseModal extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            viewForm: true
+            viewForm: false
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -24,7 +24,6 @@ class AddCourseModal extends React.Component{
 
     handleClick()
     {
-        console.log(this.state.viewForm)
 
         this.setState({
             viewForm: !this.state.viewForm
@@ -34,14 +33,18 @@ class AddCourseModal extends React.Component{
     render(){
         return(
             <>
-                <button onClick={this.handleClick}> Create Course </button>
+                <button onClick={this.handleClick} className="createCourseButton"> Create Course </button>
 
-                {this.state.viewForm && 
+                {this.state.viewForm &&
+                <>
+                    <div className='backdrop' />
                     <div className='centeredModal'>
                         <div className='courseModal'>
+                            <button onClick={this.handleClick} className='xButton'>X</button>
                             <AddCourse />
                         </div>
                     </div>
+                </>
                 }
                 
             </>
@@ -64,11 +67,12 @@ function TeacherLanding(props) {
                         <Button variant="primary" className='btn-add'>Create Course</Button>
                     </Link> */}
 
-                <AddCourseModal / >
 
 
                 <p id="landing-subtitle">Instructor Courses</p>
                 <hr></hr>
+
+                <AddCourseModal / >
 
                 <div className='courses'>
                     {courses.teacherCourses.map((teacherCourse) => {
