@@ -11,6 +11,9 @@ Before starting work on a feature, please create an issue detailing the problem 
 - **Bug Report**: Use this template for reporting bugs. Include steps to reproduce, expected behavior, and any other relevant information.
 - **Feature Request**: Use this template to propose new features. Describe the problem your feature solves, your proposed solution, and any alternative solutions you've considered.
 
+#### Tracking Issues
+All issues are tracked in the MyClassroom [GitHub Project](https://github.com/orgs/OSU-MC/projects/1). Here, assignments, statuses, milestones, and timelines are managed to keep our development process smooth and transparent.
+
 ### Branch Structure
 Our development process involves the following branch structure:
 - **Feature Branches:** All features should be developed on individual feature branches created from the `dev` branch.
