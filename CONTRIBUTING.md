@@ -7,6 +7,10 @@ Before contributing, please ensure you have a GitHub account. To participate, yo
 ### Creating Issues
 Before starting work on a feature, please create an issue detailing the problem you intend to solve or the feature you want to implement. This helps us track what's being worked on and discuss potential changes before they're implemented.
 
+#### Issue Templates
+- **Bug Report**: Use this template for reporting bugs. Include steps to reproduce, expected behavior, and any other relevant information.
+- **Feature Request**: Use this template to propose new features. Describe the problem your feature solves, your proposed solution, and any alternative solutions you've considered.
+
 ### Branch Structure
 Our development process involves the following branch structure:
 - **Feature Branches:** All features should be developed on individual feature branches created from the `dev` branch.
