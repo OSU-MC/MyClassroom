@@ -434,7 +434,7 @@ hr {
     margin: 15px 0 20px;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 #lecture-order-subtitle {
