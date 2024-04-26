@@ -14,11 +14,11 @@ Before starting work on a feature, please create an issue detailing the problem 
 #### Tracking Issues
 All issues are tracked in the MyClassroom [GitHub Project](https://github.com/orgs/OSU-MC/projects/1). Here, assignments, statuses, milestones, and timelines are managed to keep our development process smooth and transparent.
 
-### Branch Structure
+### Branch/Tag Structure
 Our development process involves the following branch structure:
 - **Feature Branches:** All features should be developed on individual feature branches created from the `dev` branch.
 - **`dev` Branch:** Once a feature is complete, tested, and reviewed, submit a pull request to the `dev` branch.
-- **`main` Branch:** Cumulative updates in the `dev` branch are considered for merging into the `main` branch, which holds the stable release.
+- **Tags:** Cumulative updates in the `dev` branch are considered for tagging into release versions, holding the stable release.
 
 ### Working on Features
 1. Fork the repository.
