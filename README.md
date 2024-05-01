@@ -32,41 +32,10 @@ npm install
 ### Configure Environment
 Setup custom environment variables
 ```
-npm run setup
+npm run config
 ```
 - The server can be reconfigured by modifying the `/server/.env` file. The `DEV_DB_...` and `TEST_DB_...` values should match those in the database/user creation commands listed in the setup steps below. Additionally, `CLIENT_URL` should be set to the front end application URL. For basic testing, the default values can be used.
 - The client can be reconfigured by modifying the `/client/.env` file. `REACT_APP_API_URL` should be set to the backend URL. For basic testing, the default values can be used.
-
-### Connect MySQL Database
-Connect to the MySQL Database using the Root User
-```
-mysql -u root -p
-```
-
-Create the Application Database
-```
-CREATE DATABASE myclassroom;
-```
-
-Create the Administrative Database User
-```
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'Password_1';
-```
-
-Grant the Administrative User Access to the Application Database
-```
-GRANT ALL PRIVILEGES ON myclassroom.* TO 'admin'@'localhost';
-```
-
-Disconnect from the MySQL Database
-```
-exit
-```
-
-Migrate the Database using Sequelize
-```
-npm run migrate-db
-```
 
 ### Start MyClassroom
 Start MyClassroom for local testing. For production deployments, we recommend building and serving the client seprately from the server.
@@ -77,7 +46,7 @@ npm start
 ### Reset Database
 Undo Database Migrations
 ```
-npm run unmigrate-db
+npm run reset-db
 ```
 
 For more database commands and testing controls, review [server/README.md](https://github.com/OSU-MC/MyClassroom/tree/dev/server)

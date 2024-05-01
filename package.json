@@ -12,9 +12,8 @@
         "client"
     ],
     "scripts": {
-        "setup": "npm run setup --workspace=server && npm run setup --workspace=client",
-        "migrate-db": "npm run migrate --workspace=server",
-        "unmigrate-db": "npm run unmigrate --workspace=server",
+        "config": "npm run config --workspace=server && npm run config --workspace=client && npm run setup-db --workspace=server && npm run migrate --workspace=server",
+        "reset-db": "npm run unmigrate --workspace=server",
         "start": "concurrently \"npm start --workspace=server\" \"npm start --workspace=client\""
     },
     "keywords": [],

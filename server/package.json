@@ -26,15 +26,22 @@
 		"nodemon": "^3.1.0"
 	},
 	"scripts": {
-        "setup": "cp .env.example .env && nano .env",
+        "config": "cp .env.example .env && nano .env",
+        "setup-db": "node db/setup-db.js",
 		"test": "NODE_ENV=test jest --runInBand",
 		"start": "node app/server.js --NODE_ENV=production",
-		"start:dev": "nodemon app/server.js --NODE_ENV=development",
-        "migrate": "npx sequelize-cli db:migrate",
+        "start:dev": "nodemon app/server.js --NODE_ENV=development",
+        "start:test": "nodemon app/server.js --NODE_ENV=test",
+        "migrate": "npx sequelize-cli db:migrate --env production",
+        "migrate:dev": "npx sequelize-cli db:migrate --env development",
         "migrate:test": "npx sequelize-cli db:migrate --env test",
-        "unmigrate": "npx sequelize-cli db:migrate:undo:all",
-        "seed": "npx sequelize-cli db:seed:all",
+        "unmigrate": "npx sequelize-cli db:migrate:undo:all --env production",
+        "unmigrate:dev": "npx sequelize-cli db:migrate:undo:all --env development",
+        "unmigrate:test": "npx sequelize-cli db:migrate:undo:all --env test",
+        "seed": "npx sequelize-cli db:seed:all  --env production",
         "seed:test": "npx sequelize-cli db:seed:all --env test",
-		"unseed": "npx sequelize-cli db:seed:undo:all"
+        "unseed": "npx sequelize-cli db:seed:undo:all --env production",
+        "unseed:dev": "npx sequelize-cli db:seed:undo:all --env development",
+        "unseed:test": "npx sequelize-cli db:seed:undo:all --env test"
 	}
 }
