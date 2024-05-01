@@ -8,8 +8,26 @@ const rl = readline.createInterface({
 });
 
 async function getPassword() {
-    return new Promise((resolve, reject) => {
-        rl.question('Enter MySQL admin password: ', (password) => {
+    return new Promise((resolve) => {
+        const stdin = process.openStdin();
+        let password = '';
+
+        process.stdin.on('data', function (char) {
+            char = char + '';
+            switch (char) {
+                case '\n':
+                case '\r':
+                case '\u0004':
+                    process.stdin.pause();
+                    break;
+                default:
+                    password += char;
+                    process.stdout.write('\x1B[2K\x1B[200D' + 'Enter admin password: ' + '*'.repeat(password.length));
+                    break;
+            }
+        });
+
+        rl.question('Enter admin password: ', () => {
             resolve(password);
         });
     });
