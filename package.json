@@ -13,6 +13,12 @@
     ],
     "scripts": {
         "setup": "npm run setup --workspace=server && npm run setup --workspace=client",
+        "migrate-db": "npm run migrate --workspace=server",
+        "migrate-db:test": "npm run migrate:test --workspace=server",
+        "unmigrate-db": "npm run unmigrate --workspace=server",
+        "seed-db": "npm run seed --workspace=server",
+        "seed-db:test": "npm run seed:test --workspace=server",
+        "unseed-db": "npm run unseed --workspace=server",
         "start": "concurrently \"npm start --workspace=server\" \"npm start --workspace=client\""
     },
     "keywords": [],

@@ -1,4 +1,4 @@
-# Frontend: Open Source Classroom Polling Software (MyClassroom)
+# MyClassroom Client
 ## Motivation
   The Open Source Classroom Polling Software, or My Classroom, was designed to solve a very specific problem: a lack of free, individually tailored, classroom polling tools for students and professors. The inception of this project was problems with current polling software used in Oregon State University's Intro Physics program. These courses use Learning Catalytics; a polling software from Pearson. The cost of this software is not included in the student's tuition, so students have to pay for it out of pocket. My Classroom provides students with an alternative classroom tool that is equal in functionality but at no additional cost to the student. 
   
@@ -7,35 +7,6 @@
 ## Dependencies
 - node: 16.13.0
 - npm: 9.1.2
-
-## Setup Server Application and Install Dependencies
-Setup the server application according to the [/server/README.md](../server/README.md#cloning-repo-and-installing-dependencies) documentation.
-
-Navigate to the client folder
-```
-cd client
-```
-
-Install the Application Dependencies
-```
-npm install
-```
-
-Rename the .env.example file to configure the environment
-```
-mv .env.example .env
-```
-
-## Configuring Node.js Client
-The client can be configured by modifying the `/client/.env` file. `REACT_APP_API_URL` should be set to the backend URL. For basic testing, the default values can be used.
-```
-nano .env
-```
-
-## Starting the Application
-```
-npm run start
-```
 
 ## Tasks For Future Teams / Build Status
 - [ ] Hosting

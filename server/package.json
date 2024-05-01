@@ -26,11 +26,15 @@
 		"nodemon": "^3.1.0"
 	},
 	"scripts": {
-        "setup": "cp .env.example .env",
+        "setup": "cp .env.example .env && nano .env",
 		"test": "NODE_ENV=test jest --runInBand",
 		"start": "node app/server.js --NODE_ENV=production",
 		"start:dev": "nodemon app/server.js --NODE_ENV=development",
-		"seed": "npx sequelize-cli db:seed:all",
+        "migrate": "npx sequelize-cli db:migrate",
+        "migrate:test": "npx sequelize-cli db:migrate --env test",
+        "unmigrate": "npx sequelize-cli db:migrate:undo:all",
+        "seed": "npx sequelize-cli db:seed:all",
+        "seed:test": "npx sequelize-cli db:seed:all --env test",
 		"unseed": "npx sequelize-cli db:seed:undo:all"
 	}
 }

@@ -21,7 +21,7 @@
         "redux": "^5.0.1"
     },
     "scripts": {
-        "setup": "cp .env.example .env",
+        "setup": "cp .env.example .env && nano .env",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
