@@ -1,7 +1,7 @@
-const env = process.env.NODE_ENV || 'development'
-if (env === 'development' || env === 'test') { // dotenv file will only be used in dev and testing
+const env = process.env.NODE_ENV || 'development';
+//if (env === 'development' || env === 'test') { // dotenv file will only be used in dev and testing
   require('dotenv').config({ override: false}); // will not override current environment variables if they exist
-}
+//}
 
 module.exports = {
   "development": {
@@ -24,7 +24,7 @@ module.exports = {
     "username": process.env.PROD_DB_USER,
     "password": process.env.PROD_DB_PASS,
     "database": process.env.PROD_DB_NAME,
-    "host": process.env.PROD_HOSTNAME,
+    "host": process.env.PROD_DB_HOST,
     "dialect": "mysql",
     "ssl": 'Amazon RDS',
     "port": process.env.PROD_DB_PORT || 3306

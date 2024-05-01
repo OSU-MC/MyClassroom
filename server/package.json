@@ -29,9 +29,9 @@
         "config": "cp .env.example .env && nano .env",
         "setup-db": "node db/setup-db.js",
 		"test": "NODE_ENV=test jest --runInBand",
-		"start": "node app/server.js --NODE_ENV=production",
-        "start:dev": "nodemon app/server.js --NODE_ENV=development",
-        "start:test": "nodemon app/server.js --NODE_ENV=test",
+		"start": "NODE_ENV=production node app/server.js",
+        "start:dev": "NODE_ENV=development nodemon app/server.js",
+        "start:test": "NODE_ENV=test nodemon app/server.js",
         "migrate": "npx sequelize-cli db:migrate --env production",
         "migrate:dev": "npx sequelize-cli db:migrate --env development",
         "migrate:test": "npx sequelize-cli db:migrate --env test",
@@ -42,6 +42,9 @@
         "seed:test": "npx sequelize-cli db:seed:all --env test",
         "unseed": "npx sequelize-cli db:seed:undo:all --env production",
         "unseed:dev": "npx sequelize-cli db:seed:undo:all --env development",
-        "unseed:test": "npx sequelize-cli db:seed:undo:all --env test"
+        "unseed:test": "npx sequelize-cli db:seed:undo:all --env test",
+        "drop": "npx sequelize-cli db:drop --env production",
+        "drop:dev": "npx sequelize-cli db:drop --env development",
+        "drop:test": "npx sequelize-cli db:drop --env test"
 	}
 }

@@ -16,7 +16,7 @@ Learning Management System integration Algorithms
 
 ## Get Started!
 ### Download/Install
-Install MySQL
+Install MySQL and setup the root user
 - Refer to the [MySQL Getting Started Guide](https://dev.mysql.com/doc/mysql-getting-started/en/) for installing and troubleshooting MySQL.
 
 Clone the GitHub Repository
@@ -34,13 +34,13 @@ Setup custom environment variables
 ```
 npm run config
 ```
-- The server can be reconfigured by modifying the `/server/.env` file. The `DEV_DB_...` and `TEST_DB_...` values should match those in the database/user creation commands listed in the setup steps below. Additionally, `CLIENT_URL` should be set to the front end application URL. For basic testing, the default values can be used.
-- The client can be reconfigured by modifying the `/client/.env` file. `REACT_APP_API_URL` should be set to the backend URL. For basic testing, the default values can be used.
+- The server can be manually configured by modifying the `/server/.env` file. The `DEV_DB_...` and `TEST_DB_...` values should match those in the database/user creation commands listed in the setup steps below. Additionally, `CLIENT_URL` should be set to the front end application URL. For basic testing, the default values can be used.
+- The client can be manually configured by modifying the `/client/.env` file. `REACT_APP_API_URL` should be set to the backend URL. For basic testing, the default values can be used.
 
 ### Start MyClassroom
 Start MyClassroom for local testing. For production deployments, we recommend building and serving the client seprately from the server.
 ```
-npm start
+npm run start
 ```
 
 ### Reset Database

@@ -12,9 +12,11 @@
         "client"
     ],
     "scripts": {
-        "config": "npm run config --workspace=server && npm run config --workspace=client && npm run setup-db --workspace=server && npm run migrate --workspace=server",
-        "reset-db": "npm run unmigrate --workspace=server",
-        "start": "concurrently \"npm start --workspace=server\" \"npm start --workspace=client\""
+        "config": "./scripts/config.sh",
+        "reset-db": "npm run drop -w=server && npm run drop:dev -w=server && npm run drop:test -w=server",
+        "start": "concurrently \"npm start -w=server\" \"npm start -w=client\"",
+        "start:dev": "concurrently \"npm run start:dev -w=server\" \"npm start -w=client\"",
+        "start:test": "concurrently \"npm run start:test -w=server\" \"npm start -w=client\""
     },
     "keywords": [],
     "author": "",
