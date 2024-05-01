@@ -4,6 +4,88 @@
 - npm: 9.1.2
 - mysql: 8.0.31
 
+## Install/Configure
+General installation/configuration steps can be found [here](https://github.com/OSU-MC/MyClassroom). See below for server specific npm commands.
+
+### Set Up Backend Testing Environment
+Connect to the MySQL Database using the Root User
+```
+mysql -u root -p
+```
+
+Create the Test Application Database
+```
+CREATE DATABASE myclassroom_test;
+```
+
+Create the Testing Administrative Database User
+```
+CREATE USER 'testadmin'@'localhost' IDENTIFIED BY 'Password_2';
+```
+
+Grant the Testing Administrative User Access to the Test Application Database
+```
+GRANT ALL PRIVILEGES ON myclassroom_test.* TO 'testadmin'@'localhost';
+```
+
+Disconnect from the MySQL Database
+```
+exit
+```
+
+Navigate to the server directory
+```
+cd server
+```
+
+Migrate the Test Database using Sequelize
+```
+npm run migrate:test
+```
+
+Seed the Test Database using Sequelize
+```
+npm run seed:test
+```
+
+### Resetting/Rolling Back Databases
+Navigate to the server directory
+```
+cd server
+```
+
+Undo Database Migrations
+```
+npm run unmigrate
+```
+
+Undo Test Database Seeding
+```
+npm run unseed
+```
+
+Reset Local Database
+```
+mysql -u root -p
+```
+```
+DROP DATABASE myclassroom;
+```
+or
+```
+DROP DATABASE myclassroom_test;
+```
+
+### Testing the Application
+Testing the application is easy. The Jest testing framework is used to write tests for the system. A script has been added to the package.json file to run tests locally:
+```
+npm test
+```
+
+If you run into issues, ensure you have done the following:
+1. Created a local test database
+2. Properly instantiated all env variables for the test environment
+
 ## Application Authentication & Session
 The application uses cookie-based authentication once a user session has been created (i.e. a user has logged in). A user's session will have a specific XSRF token value associated with it to protect against XSRF attacks. As such, the value of that token will be sent back as a cookie, and the application expects to recieve with each authenticated request a custom X-XSRF-TOKEN header with that value, along with the traditional authentication cookie _myclassroom_session which the application generated as part of initial session creation.
 
@@ -27,7 +109,6 @@ It's worth noting that the application is only configured for email use through 
 
 ## Database Schema
 ![Schema](https://github.com/OSU-MC/MyClassroom/assets/25465133/d987e780-fd0e-4ea5-bd18-c72de5d8c32c)
-
 
 ## Endpoints
 [API Endpoints Doc](/API%20Endpoints%20MyClassroom.pdf)

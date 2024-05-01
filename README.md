@@ -67,78 +67,15 @@ Migrate the Database using Sequelize
 npm run migrate-db
 ```
 
-## Setup Backend Testing Environment
-Connect to the MySQL Database using the Root User
+## Starting MyClassroom
+Start MyClassroom for local testing. For production deployments, we recommend building and serving the client seprately from the server.
 ```
-mysql -u root -p
-```
-
-Create the Test Application Database
-```
-CREATE DATABASE myclassroom_test;
+npm start
 ```
 
-Create the Testing Administrative Database User
-```
-CREATE USER 'testadmin'@'localhost' IDENTIFIED BY 'Password_2';
-```
-
-Grant the Testing Administrative User Access to the Test Application Database
-```
-GRANT ALL PRIVILEGES ON myclassroom_test.* TO 'testadmin'@'localhost';
-```
-
-Disconnect from the MySQL Database
-```
-exit
-```
-
-Migrate the Test Database using Sequelize
-```
-npm run migrate-db:test
-```
-
-Seed the Test Database using Sequelize
-```
-npm run seed-db:test
-```
-
-## Resetting/Rolling Back Databases
-(Append `npx` commands with `--env test` to run on the test database)
+## Resetting Database
 
 Undo Database Migrations
 ```
 npm run unmigrate-db
 ```
-
-Undo Test Database Seeding
-```
-npm run unseed-db
-```
-
-Reset Local Database
-```
-mysql -u root -p
-```
-```
-DROP DATABASE myclassroom;
-```
-or
-```
-DROP DATABASE myclassroom_test;
-```
-
-## Starting the Application
-```
-npm start
-```
-
-## Testing the Application
-Testing the application is easy. The Jest testing framework is used to write tests for the system. A script has been added to the package.json file to run tests locally:
-```
-npm test
-```
-
-If you run into issues, ensure you have done the following:
-1. Created a local test database
-2. Properly instantiated all env variables for the test environment
