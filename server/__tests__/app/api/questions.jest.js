@@ -356,6 +356,12 @@ describe("/questions endpoints", () => {
 					2: true,
 					3: false,
 				},
+				weights: {
+					0: 1,
+					1: 1,
+					2: 1,
+					3: 1,
+				},
 			})
 			.set("Cookie", userCookies);
 		console.log("LOG HEREE: ", resp.body);
