@@ -76,9 +76,7 @@ router.post("/", requireAuthentication, async function (req, res, next) {
 		// question.data.Values.weights looks like: weights: { '0': 1, '1': 1, '2': 1, '3': 1 }
 		// Assign points equal to the sum of the weights of the true answers selected and totalPoints equal to the sum of all correct answers
 		for (let i = 0; i < Object.keys(question.dataValues.weights).length; i++) {
-			if (question.dataValues.answers[i] === true) {
-				totalPoints += question.dataValues.weights[i];
-			}
+			totalPoints += question.dataValues.weights[i];
 			if (req.body.answers[i] === true) {
 				points += question.dataValues.weights[i];
 			}
@@ -173,10 +171,6 @@ router.put(
 			],
 		});
 
-		// check to make sure response exists and belongs to the user making the request
-		// this is timing out because it's not finding the response
-		// rewrite the query to set a timeout if a response is not found
-		console.log(`responseId: ${responseId} user.id: ${user.id}`);
 		// write a query to find the response
 		const oldResponse = await db.Response.findByPk(responseId);
 		// SELECT * FROM Responses WHERE id = ${responseId} AND Enrollment.userId = ${user.id}, { model: db.Response };
