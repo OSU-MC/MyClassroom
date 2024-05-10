@@ -1,6 +1,6 @@
 "use strict";
 
-const { use } = require("../api");
+// const { use } = require("../api");
 
 // Create a table to store the grades of a student based between 0 and 1 as well as the points they've earned out of total points on all questions and tie it in relation to their user and enrollment in a course
 module.exports = (sequelize, DataTypes) => {
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			id: {
 				type: DataTypes.INTEGER,
-				allowNull: false,
+				allowNull: true,
 				autoIncrement: true,
 				primaryKey: true,
 			},
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
 					},
 				},
 			},
-			score: {
+			grade: {
 				type: DataTypes.DOUBLE,
 				allowNull: false,
 				validate: {
