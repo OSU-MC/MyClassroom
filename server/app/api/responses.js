@@ -5,6 +5,8 @@ const { serializeSequelizeErrors } = require("../../lib/string_helpers");
 const { UniqueConstraintError, ValidationError } = require("sequelize");
 const questionService = require("../services/question_service");
 const responseService = require("../services/response_service");
+const gradeService = require("../services/grade_service");
+const { log } = require("winston");
 
 // student is answering a question
 // Path is /courses/:course_id/lectures/:lecture_id/questions/:question_id/responses
@@ -13,8 +15,10 @@ router.post("/", requireAuthentication, async function (req, res, next) {
 	const courseId = parseInt(req.params["course_id"]);
 	const lectureId = parseInt(req.params["lecture_id"]);
 	const questionId = parseInt(req.params["question_id"]);
-	const points = parseInt(req.params["points"]) || 0;
-	const totalPoints = parseInt(req.params["total_points"]) || 0;
+	let points = 0,
+		totalPoints = 0;
+	// const points = parseInt(req.params["points"]) || 0;
+	// const totalPoints = parseInt(req.params["total_points"]) || 0;
 	// code to check if the req params are valid
 	if (!user || !courseId || !lectureId || !questionId) {
 		return res.status(400).send({
@@ -69,7 +73,16 @@ router.post("/", requireAuthentication, async function (req, res, next) {
 			submission: req.body.answers,
 		};
 
-		// code to verify points and totalPoints are valid
+		// question.data.Values.weights looks like: weights: { '0': 1, '1': 1, '2': 1, '3': 1 }
+		// Assign points equal to the sum of the weights of the true answers selected and totalPoints equal to the sum of all correct answers
+		for (let i = 0; i < Object.keys(question.dataValues.weights).length; i++) {
+			if (question.dataValues.answers[i] === true) {
+				totalPoints += question.dataValues.weights[i];
+			}
+			if (req.body.answers[i] === true) {
+				points += question.dataValues.weights[i];
+			}
+		}
 		if (points && totalPoints) {
 			responseToInsert.points = points;
 			responseToInsert.totalPoints = totalPoints;
@@ -78,10 +91,48 @@ router.post("/", requireAuthentication, async function (req, res, next) {
 		const response = await db.Response.create(
 			responseService.extractResponseInsertFields(responseToInsert)
 		);
+
+		// pull the grade for the current student by enrollment id and user.id. If it doesn't exist, create it; If it does exist update the score, points and totalPoints.
+		const studentGrade = await db.Grades.findOne({
+			where: { enrollmentId: enrollmentStudent.id, userId: user.id },
+			include: [
+				{
+					model: db.Enrollment,
+					required: true,
+					where: { courseId: courseId },
+				},
+			],
+		});
+
+		let newGrade = {};
+		newGrade.userId = user.id;
+		newGrade.enrollmentId = enrollmentStudent.id;
+		if (!studentGrade) {
+			newGrade.points = points;
+			newGrade.totalPoints = totalPoints;
+			newGrade.grade = newGrade.points / newGrade.totalPoints;
+			if (isNaN(newGrade.grade)) newGrade.grade = 0;
+
+			const updatedGrade = await db.Grades.create(
+				gradeService.extractResponseInsertFields(newGrade)
+			);
+		} else {
+			newGrade.points = studentGrade.points += points;
+			newGrade.totalPoints = studentGrade.totalPoints += totalPoints;
+			newGrade.score = newGrade.points / newGrade.totalPoints;
+
+			const updatedGrade = await studentGrade.update({
+				grade: studentGrade.grade,
+				points: studentGrade.points,
+				totalPoints: studentGrade.totalPoints,
+			});
+		}
+
 		res.status(201).send({
 			response: responseService.extractResponseFields(response),
 		});
 	} catch (e) {
+		console.log(e);
 		next(e);
 	}
 });
