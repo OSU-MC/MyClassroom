@@ -110,6 +110,12 @@ describe("/responses endpoints", () => {
 				2: false,
 				3: false,
 			},
+			weights: {
+				0: 1,
+				1: 1,
+				2: 1,
+				3: 1,
+			},
 			courseId: course.id,
 		});
 
@@ -130,6 +136,12 @@ describe("/responses endpoints", () => {
 				2: true,
 				3: true,
 			},
+			weights: {
+				0: 1,
+				1: 1,
+				2: 1,
+				3: 1,
+			},
 			courseId: course.id,
 		});
 
@@ -149,6 +161,12 @@ describe("/responses endpoints", () => {
 				1: false,
 				2: true,
 				3: true,
+			},
+			weights: {
+				0: 1,
+				1: 1,
+				2: 1,
+				3: 1,
 			},
 			courseId: course.id,
 		});
