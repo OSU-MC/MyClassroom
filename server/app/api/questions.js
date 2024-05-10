@@ -105,7 +105,7 @@ router.post("/", requireAuthentication, async function (req, res, next) {
 			.send({ error: `Only the teacher for a course can create a question` });
 	}
 
-	const questionToInsert = { ...req.body, courseId: courseId };
+	let questionToInsert = { ...req.body, courseId: courseId };
 	const missingRequestFields =
 		questionService.validateQuestionCreationRequest(questionToInsert);
 	if (!missingRequestFields) {
@@ -113,6 +113,14 @@ router.post("/", requireAuthentication, async function (req, res, next) {
 			error: `Request is missing the following required fields: ${missingRequestFields}`,
 		});
 	}
+	// Check if question has the key 'weights' and if it doesn't then create it and assign each weight to 1
+	if (!questionToInsert.weights) {
+		questionToInsert.weights = {};
+		for (let i = 0; i < Object.keys(questionToInsert.answers).length; i++) {
+			questionToInsert.weights[i] = 1;
+		}
+	}
+
 	try {
 		const question = await db.Question.create(
 			questionService.extractQuestionUpdateFields(questionToInsert)
