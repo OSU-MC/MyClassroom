@@ -11,3 +11,8 @@
     background-color: var(--primary);
 	}
 }
+
+.courses
+{
+	display: inline-block;
+}

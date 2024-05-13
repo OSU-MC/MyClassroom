@@ -1,0 +1,63 @@
+.course-card
+{
+	position: relative;
+	border-radius: 25px;
+
+	width: 250px;
+	height: 250px;
+	background-color: #D9D9D9;
+
+	padding: 25px
+}
+
+.course-header
+{
+	margin-top: 10px;
+}
+
+.course-header h1
+{
+	font-size: 20px;
+}
+
+.course-header h2
+{
+	font-size: 18px;
+}
+
+.course-body
+{
+	position: absolute;
+	bottom: 25px;
+	width: 83.4%; /* .2 pixels too far to the right compared to padding */
+	height: 25%;
+
+	display: flex;
+}
+
+.registered
+{
+	margin-top: auto;
+
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.viewButton
+{
+	align-self: center;
+	width: 100px;
+	height: 50px;
+
+	border-radius: 22px;
+	margin-left: auto; /* Positions to the right */
+	background-color: #85C68A;
+
+	/* text */
+	font-weight: 700;
+	font-size: 20px;
+
+	padding-top: 3%; /* thanks for nothing, <center>*/
+	color: white;
+	text-decoration: none;
+}
