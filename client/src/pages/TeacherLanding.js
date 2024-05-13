@@ -18,13 +18,16 @@ function TeacherLanding(props) {
             {/*No Courses*/}
             {message ? <Notice error={error ? "error" : ""} message={message} /> : (!courses.studentCourses && !courses.instructorCourses) ? <Notice message={"You do not have any courses yet"} /> : <></>}
 
-            {courses.teacherCourses && <div id="teacher-courses">
+            {courses.teacherCourses && 
+            <div id="teacher-courses">
 
-                <p id="landing-subtitle">Instructor Courses</p>
-                <hr></hr>
+                <div className='landing-header'>
+                    <p id="landing-subtitle">Instructor Courses</p>
 
-                <PageButton newPage={< AddCourse/>} className='createCourseButton'>
-                + Create New </PageButton>
+                    <PageButton newPage={< AddCourse/>} className='createCourseButton'>
+                    + Create New </PageButton>
+                </div>
+                <hr/>
 
                 <div className='courses'>
                     {courses.teacherCourses.map((teacherCourse) => {

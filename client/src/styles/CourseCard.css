@@ -1,13 +1,16 @@
 .course-card
 {
+
 	position: relative;
 	border-radius: 25px;
 
-	width: 250px;
+	width: 200px;
 	height: 250px;
 	background-color: #D9D9D9;
 
-	padding: 25px
+	display: inline-block;
+	padding: 25px;
+	margin: 15px;
 }
 
 .course-header
