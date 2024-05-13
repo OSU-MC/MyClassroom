@@ -165,4 +165,4 @@ function Signup(props){
         )
     }
 
-export default Signups
+export default Signup

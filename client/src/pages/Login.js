@@ -8,7 +8,6 @@ import { login } from '../redux/actions';
 import Notice from '../components/Notice'
 import { Link } from "react-router-dom";
 import { TailSpin } from  'react-loader-spinner'
-import styles from '../styles/pages.css';
 
 export default function Login(props) {
     const dispatch = useDispatch()

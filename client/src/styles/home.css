@@ -1,11 +1,6 @@
 /* Home Page CSS */
-
-/*mainBody is part of components, so this may not be a good way to add space to the bottom of the page*/
-.mainBody{
-    height: 165%;
-}
-
 #home{
+    height: 165%;
     width: 100%;
     display: flex;
     flex-direction: column;
