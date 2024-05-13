@@ -26,6 +26,10 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
         allowNull: false
+        },
+      isTeacher: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
       },
       admin: {
         type: Sequelize.BOOLEAN,

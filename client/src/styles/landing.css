@@ -1,0 +1,13 @@
+.createCourseButton
+{
+	border-radius: 5px;
+	border-width: 1px;
+	background-color: var(--splash);
+
+	margin-left: 20px;
+
+	&:hover{
+    border: 1px solid black;
+    background-color: var(--primary);
+	}
+}

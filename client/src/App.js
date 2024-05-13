@@ -1,4 +1,3 @@
-import './App.css';
 import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 
 /*

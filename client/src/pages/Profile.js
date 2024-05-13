@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Container, ListGroup, Button, NavLink } from "react-bootstrap"
-import '../styles/pages.css'
 import apiUtil from '../utils/apiUtil'
 import { getUserState } from '../redux/selectors'
 import { useSelector, useDispatch } from 'react-redux';
@@ -58,7 +57,6 @@ function Profile(props) {
     //this function calls the api call, as well as sets the states all back to 
     //being blank.
     function sendEditedAccountInfo(){
-
         const newAccountInfo = {
             email: email,
             firstName: firstName,
@@ -90,7 +88,6 @@ function Profile(props) {
     if(editToggle){
         return (
             <>
-                
                 { loading ? <TailSpin visible={true}/> : <Container className='profileInfo'>
                 <ListGroup className='tester'>
                         <ListGroup.Item className='profileRow'>
@@ -130,8 +127,7 @@ function Profile(props) {
                 </Container>}
             </>
         );
-    }
-    else{
+    } else{
         return (
             <>
                 { message !== "" && <Notice message={message} error={error ? "error" : ""}/> }
@@ -155,7 +151,6 @@ function Profile(props) {
             </>
         );
     }
-
 }
 
 export default Profile;

@@ -11,6 +11,7 @@ describe("Enrollment model", () => {
             firstName: 'Dan',
             lastName: 'Smith',
             email: 'danSmith2@myclassroom.com',
+            isTeacher: true,
             rawPassword: 'Danny-o123!'
         })
         course = await db.Course.create({
