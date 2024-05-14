@@ -21,13 +21,6 @@ function CourseCard (props) {
                 </a>
               </div>
 
-
-
-{/*         Old view course button       <Link to={(props.role == "teacher") ? `/${props.course.id}/sections` : `/${props.course.id}` }> 
-                  <Button className="hideBtn">
-                    {props.role==="student" ? 'View Course' : 'View Sections For Course'}
-                  </Button>
-                </Link>*/}
           </div>
         
       );
