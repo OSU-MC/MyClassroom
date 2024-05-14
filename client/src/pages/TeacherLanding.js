@@ -22,12 +22,18 @@ function TeacherLanding(props) {
             <div id="teacher-courses">
 
                 <div className='landing-header'>
-                    <p id="landing-subtitle">Instructor Courses</p>
+                    <p id="landing-subtitle">Courses</p>
 
                     <PageButton newPage={< AddCourse/>} className='createCourseButton'>
                     + Create New </PageButton>
                 </div>
-                <hr/>
+                
+                <div className='course-sort'>
+                    <span id='All'>ALL</span>
+                    <span id='Published'>PUBLISHED</span>
+                    <span id='Archived'>ARCHIVED</span>
+                    <span id='Draft'>DRAFT</span>
+                </div>
 
                 <div className='courses'>
                     {courses.teacherCourses.map((teacherCourse) => {

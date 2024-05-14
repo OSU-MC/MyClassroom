@@ -1,7 +1,14 @@
 #landing-subtitle
 {
+	padding: 0px; /* Padding should be removed from index.css */
+	margin-left: 70px;
 	display: inline;
-	margin-left: 75px;
+	font-weight: bold;
+}
+
+.landing-header
+{
+	margin-top: 32px;
 }
 
 .createCourseButton
@@ -16,6 +23,27 @@
     border: 1px solid black;
     background-color: var(--primary);
 	}
+}
+
+.course-sort
+{
+	margin: 15px 70px;
+}
+
+.course-sort span
+{
+	margin-right: 12px;
+
+	font-size: 18px;
+	font-weight: 500;
+	color: #808080;
+
+	cursor: pointer;
+}
+
+#All
+{
+
 }
 
 .courses

@@ -1,11 +1,13 @@
 .course-card
 {
+	min-width: 1px; /* min-width should be removed from index */
+					/* styling should eventually be re done to fit more types of screens*/
 
 	position: relative;
 	border-radius: 25px;
 
-	width: 200px;
-	height: 250px;
+	width: 225px;
+	height: 225px;
 	background-color: #D9D9D9;
 
 	display: inline-block;
@@ -16,6 +18,7 @@
 .course-header
 {
 	margin-top: 10px;
+	position: absolute;
 }
 
 .course-header h1
@@ -49,18 +52,25 @@
 .viewButton
 {
 	align-self: center;
-	width: 100px;
-	height: 50px;
+	width: 75px;
+	height: 40px;
 
-	border-radius: 22px;
+	border-radius: 18px;
 	margin-left: auto; /* Positions to the right */
 	background-color: #85C68A;
 
 	/* text */
 	font-weight: 700;
-	font-size: 20px;
+	font-size: 18px;
 
-	padding-top: 3%; /* thanks for nothing, <center>*/
+	padding-top: 6%; /* thanks for nothing, <center>*/
 	color: white;
 	text-decoration: none;
+}
+
+.viewButton center
+{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 }
