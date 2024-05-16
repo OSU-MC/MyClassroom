@@ -105,6 +105,7 @@ router.post("/", requireAuthentication, async function (req, res, next) {
 		let newGrade = {};
 		newGrade.userId = user.id;
 		newGrade.enrollmentId = enrollmentStudent.id;
+		newGrade.sectionId = enrollmentStudent.sectionId;
 		if (!studentGrade) {
 			newGrade.points = points;
 			newGrade.totalPoints = totalPoints;
