@@ -21,5 +21,14 @@ module.exports = {
 			},
 			onDelete: "CASCADE",
 		});
+		await queryInterface.addColumn("Grades", "sectionId", {
+			type: Sequelize.INTEGER,
+			allowNull: false,
+			references: {
+				model: "Sections",
+				key: "id",
+			},
+			onDelete: "CASCADE",
+		});
 	},
 };
