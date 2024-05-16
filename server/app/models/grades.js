@@ -39,6 +39,19 @@ module.exports = (sequelize, DataTypes) => {
 					},
 				},
 			},
+			sectionId: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				references: {
+					model: "Sections",
+					key: "id",
+				},
+				validate: {
+					notNull: {
+						msg: "a grade must have a section",
+					},
+				},
+			},
 			grade: {
 				type: DataTypes.DOUBLE,
 				allowNull: false,
@@ -73,6 +86,14 @@ module.exports = (sequelize, DataTypes) => {
 	Grades.associate = (models) => {
 		Grades.belongsTo(models.Enrollment, {
 			foreignKey: "enrollmentId",
+			onDelete: "CASCADE",
+		});
+		Grades.belongsTo(models.User, {
+			foreignKey: "userId",
+			onDelete: "CASCADE",
+		});
+		Grades.belongsTo(models.Section, {
+			foreignKey: "sectionId",
 			onDelete: "CASCADE",
 		});
 	};
