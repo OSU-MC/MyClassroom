@@ -267,4 +267,205 @@ router.get("/", requireAuthentication, async function (req, res, next) {
 	}
 });
 
+//URL: /courses/:course_id/sections/:section_id/grades/all
+router.get("/all", requireAuthentication, async function (req, res, next) {
+	const user = await db.User.findByPk(req.payload.sub); // find user by ID, which is stored in sub
+	const courseId = parseInt(req.params["course_id"]);
+	const sectionId = parseInt(req.params["section_id"]);
+
+	// check if user is a teacher for the course
+	const enrollmentTeacher = await db.Enrollment.findOne({
+		where: {
+			userId: user.id,
+			courseId: courseId,
+			role: "teacher",
+		},
+	});
+
+	// check if user is a student in the correct section for the correct course
+	const enrollmentStudent = await db.Enrollment.findOne({
+		where: {
+			role: "student",
+			userId: user.id,
+			sectionId: sectionId,
+		},
+	});
+
+	// check to make sure given section is part of the correct course
+	const sectionCheck = await db.Section.findOne({
+		where: {
+			id: sectionId,
+			courseId: courseId,
+		},
+	});
+
+	// Check if the user is a teacher or student for the course/section
+	if (!enrollmentStudent && !sectionCheck) {
+		if (!enrollmentTeacher) {
+			res.status(403).send({
+				error: `Only a teacher or student for the given course/section can see grades for the course`,
+			});
+			return;
+		}
+	}
+
+	// Get the grades for each student in the section
+	if (enrollmentTeacher) {
+		const students = await db.User.findAll({
+			include: [
+				{
+					model: db.Enrollment,
+					required: true,
+					where: {
+						sectionId: sectionId,
+					},
+				},
+			],
+		});
+
+		const grades = await db.Grades.findAll({
+			where: {
+				sectionId: sectionId,
+			},
+		});
+
+		const studentGrades = [];
+		for (let i = 0; i < students.length; i++) {
+			const studentGrade =
+				grades.find((grade) => grade.userId === students[i].id) || 0;
+			studentGrades.push({
+				studentId: students[i].id,
+				studentName: `${students[i].firstName} ${students[i].lastName}`,
+				grade: studentGrade.grade,
+			});
+		}
+
+		res.status(200).send(studentGrades);
+		return;
+	}
+
+	// Return the grade for the individual student
+	if (enrollmentStudent) {
+		const grades = await db.Grades.findAll({
+			where: {
+				sectionId: sectionId,
+			},
+		});
+
+		const studentGrades = [];
+		const studentGrade = grades.find((grade) => grade.userId === user.id) || 0;
+		studentGrades.push({
+			studentId: user.id,
+			studentName: `${user.firstName} ${user.lastName}`,
+			grade: studentGrade.grade,
+		});
+
+		res.status(200).send(studentGrades);
+		return;
+	}
+});
+
+router.get(
+	"/:student_id",
+	requireAuthentication,
+	async function (req, res, next) {
+		const user = await db.User.findByPk(req.payload.sub); // find user by ID, which is stored in sub
+		const courseId = parseInt(req.params["course_id"]);
+		const sectionId = parseInt(req.params["section_id"]);
+		const studentId = parseInt(req.params["student_id"]);
+
+		// if (user.id !== studentId) {
+		// 	res.status(403).send({
+		// 		error: `Only a teacher or student for the given course/section can see grades for the course`,
+		// 	});
+		// 	return;
+		// }
+
+		// check if user is a teacher for the course
+		const enrollmentTeacher = await db.Enrollment.findOne({
+			where: {
+				userId: user.id,
+				courseId: courseId,
+				role: "teacher",
+			},
+		});
+
+		// check if user is a student in the correct section for the correct course
+		const enrollmentStudent = await db.Enrollment.findOne({
+			where: {
+				role: "student",
+				userId: user.id,
+				sectionId: sectionId,
+			},
+		});
+
+		// check to make sure given section is part of the correct course
+		const sectionCheck = await db.Section.findOne({
+			where: {
+				id: sectionId,
+				courseId: courseId,
+			},
+		});
+
+		// Check if the user is a teacher or student for the course/section
+		if ((!enrollmentStudent && !sectionCheck) || user.id !== studentId) {
+			if (!enrollmentTeacher) {
+				res.status(403).send({
+					error: `Only a teacher or student for the given course/section can see grades for the course`,
+				});
+				return;
+			}
+		}
+
+		// Get the grades for the individual student
+		if (enrollmentTeacher) {
+			const student = await db.User.findByPk(studentId);
+			const grades = await db.Grades.findOne({
+				where: {
+					sectionId: sectionId,
+					userId: studentId,
+				},
+			});
+			if (!grades) {
+				res.status(204).send({
+					error: `No grades found for student with id ${studentId}`,
+				});
+				return;
+			}
+
+			const grade = grades.grade || 0;
+			res.status(200).send({
+				studentId: student.id,
+				studentName: `${student.firstName} ${student.lastName}`,
+				grade: grade,
+			});
+			return;
+		}
+
+		// Return the grade for the individual student
+		if (enrollmentStudent) {
+			const grades = await db.Grades.findOne({
+				where: {
+					sectionId: sectionId,
+					userId: user.id,
+				},
+			});
+			if (!grades) {
+				res.status(204).send({
+					error: `No grades found for student with ID ${user.id}`,
+				});
+				return;
+			}
+
+			const grade = grades.grade || 0;
+			res.status(200).send({
+				studentId: user.id,
+				studentName: `${user.firstName} ${user.lastName}`,
+				grade: grade,
+			});
+			return;
+		}
+	}
+);
+
 module.exports = router;
