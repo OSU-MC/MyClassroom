@@ -323,6 +323,44 @@ describe("/grades endpoints", () => {
 		expect(resp.body[0].totalScore).toEqual(1);
 	});
 
+	it("should respond with 200 when a student gets grades for students on /all", async () => {
+		const resp = await request(app)
+			.get(`/courses/${course.id}/sections/${section.id}/grades/all`)
+			.set("Cookie", user2Cookies);
+		expect(resp.statusCode).toEqual(200);
+		expect(resp.body[0].studentId).toEqual(user2.id);
+	});
+
+	it("should respond with 200 when a teacher gets grades for students on /all", async () => {
+		const resp = await request(app)
+			.get(`/courses/${course.id}/sections/${section.id}/grades/all`)
+			.set("Cookie", userCookies);
+		expect(resp.statusCode).toEqual(200);
+		expect(resp.body[0].studentId).toEqual(user2.id);
+	});
+
+	it("should respond with 205 when a student gets their grades and it doesn't exist /:studentId", async () => {
+		const resp = await request(app)
+			.get(`/courses/${course.id}/sections/${section.id}/grades/${user2.id}`)
+			.set("Cookie", user2Cookies);
+		expect(resp.statusCode).toEqual(204);
+	});
+
+	it("should respond with 205 when a teacher gets grades for a student and it doesn't exist /:studentId", async () => {
+		const resp = await request(app)
+			.get(`/courses/${course.id}/sections/${section.id}/grades/${user2.id}`)
+			.set("Cookie", userCookies);
+		expect(resp.statusCode).toEqual(204);
+	});
+
+	// respond with 403 on id
+	it("should respond with 403 when a student tries to get grades for another student", async () => {
+		const resp = await request(app)
+			.get(`/courses/${course.id}/sections/${section.id}/grades/${user2.id}`)
+			.set("Cookie", user3Cookies);
+		expect(resp.statusCode).toEqual(403);
+	});
+
 	it("should respond with 403 when a student enrolled in a different section tries to get scores for the section in the URL", async () => {
 		const resp = await request(app)
 			.get(`/courses/${course.id}/sections/${section.id}/grades`)
