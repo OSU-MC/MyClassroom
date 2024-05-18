@@ -1,8 +1,10 @@
 #landing-subtitle
 {
 	padding: 0px; /* Padding should be removed from index.css */
+
 	margin-left: 70px;
 	display: inline;
+
 	font-weight: bold;
 }
 
@@ -13,7 +15,7 @@
 
 .createCourseButton
 {
-	/* position */
+	/* Position */
 	position: absolute;
 	right: 75px;
 	display: inline;
@@ -44,8 +46,10 @@
 {
 	span
 	{
+		/* Position */
 		margin-right: 12px;
 
+		/* Contents */
 		font-size: 18px;
 		font-weight: 500;
 		color: #808080;

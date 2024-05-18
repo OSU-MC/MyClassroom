@@ -3,16 +3,22 @@
 	min-width: 1px; /* min-width should be removed from index */
 					/* styling should eventually be re done to fit more types of screens*/
 
+	/* Position */
 	position: relative;
-	border-radius: 25px;
+	display: inline-block;
+	margin: 15px;
 
 	width: 225px;
 	height: 225px;
-	background-color: #D9D9D9;
 
-	display: inline-block;
+	/* Border */
+	border-radius: 25px;
+
+	/* Contents */
+	background-color: #D9D9D9;
 	padding: 25px;
-	margin: 15px;
+
+
 }
 
 .course-header
@@ -51,16 +57,19 @@
 
 .viewButton
 {
+	/* Position */
 	align-self: center;
+
 	width: 75px;
 	height: 40px;
 
+	/* Border */
 	border-radius: 18px;
 	border: 1px solid transparent;
 	margin-left: auto; /* Positions to the right */
 	background-color: #85C68A;
 
-	/* text */
+	/* Contents */
 	font-weight: 700;
 	font-size: 18px;
 	text-align: center;
@@ -74,9 +83,4 @@
 		border: 1px solid gray; /* Text moves if you just put 'black'*/
 
 	}
-}
-
-.viewButton center
-{
-
 }

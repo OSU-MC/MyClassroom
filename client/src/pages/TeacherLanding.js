@@ -21,13 +21,15 @@ function TeacherLanding(props) {
             {courses.teacherCourses && 
             <div id="teacher-courses">
 
+                {/*Top line of  page*/}
                 <div className='landing-header'>
                     <p id="landing-subtitle">Courses</p>
 
                     <PageButton newPage={< AddCourse/>} className='createCourseButton'>
                     + Create New </PageButton>
                 </div>
-                
+               
+                {/*Sorting buttons*/}
                 <div className='course-sort'>
                     <span className ='selected'>ALL</span>
                     <span >PUBLISHED</span>
@@ -35,6 +37,7 @@ function TeacherLanding(props) {
                     <span >DRAFT</span>
                 </div>
 
+                {/*Places all courses in course cards*/}
                 <div className='courses'>
                     {courses.teacherCourses.map((teacherCourse) => {
                         return <CourseCard key={teacherCourse.id} course={teacherCourse} role={"teacher"} />

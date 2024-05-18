@@ -5,14 +5,14 @@ import styles from '../styles/CourseCard.css'
 
 function CourseCard (props) {
     return (
-          //Using Card imported from React
-         
+            /* Top section of course card - placeholder term X*/
             <div className="course-card">
               <div className="course-header">
                 <h1>{props.course.name}</h1>
-                <h2 className="course-term">Term X</h2>
+                <h2 className="course-term">Term X</h2> 
               </div>
               
+              {/* Bottom section of course card, placeholder registered number X*/}
               <div className="course-body">
                 <p className='registered'> X registered </p>
 
