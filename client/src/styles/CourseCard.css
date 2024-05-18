@@ -56,21 +56,27 @@
 	height: 40px;
 
 	border-radius: 18px;
+	border: 1px solid transparent;
 	margin-left: auto; /* Positions to the right */
 	background-color: #85C68A;
 
 	/* text */
 	font-weight: 700;
 	font-size: 18px;
-
-	padding-top: 6%; /* thanks for nothing, <center>*/
+	text-align: center;
 	color: white;
 	text-decoration: none;
+
+	padding-top: 3%; /* Why is it so hard to vertically align text?*/
+
+	&:hover
+	{
+		border: 1px solid gray; /* Text moves if you just put 'black'*/
+
+	}
 }
 
 .viewButton center
 {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
+
 }

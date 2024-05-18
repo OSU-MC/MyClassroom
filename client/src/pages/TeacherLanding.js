@@ -29,10 +29,10 @@ function TeacherLanding(props) {
                 </div>
                 
                 <div className='course-sort'>
-                    <span id='All'>ALL</span>
-                    <span id='Published'>PUBLISHED</span>
-                    <span id='Archived'>ARCHIVED</span>
-                    <span id='Draft'>DRAFT</span>
+                    <span className ='selected'>ALL</span>
+                    <span >PUBLISHED</span>
+                    <span >ARCHIVED</span>
+                    <span >DRAFT</span>
                 </div>
 
                 <div className='courses'>

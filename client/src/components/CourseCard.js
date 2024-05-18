@@ -17,7 +17,7 @@ function CourseCard (props) {
                 <p className='registered'> X registered </p>
 
                 <a className = 'viewButton' href={`${props.course.id}/sections`}> {/*string template, fills in courseID/sections*/}
-                  <center>VIEW</center>
+                  VIEW
                 </a>
               </div>
 
