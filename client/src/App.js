@@ -24,13 +24,12 @@ import SingleCoursePage from './pages/SingleCoursePage';
 import AddCourse from './pages/AddCourse';
 import AddLecture from './pages/AddLecture';
 import Home from './pages/Home';
-import Navigation from './components/nav/Navigation';
-import useAuth from './hooks/useAuth';
-import { TailSpin } from  'react-loader-spinner';
 import SingleQuestion from './pages/SingleQuestion';
+import Navigation from './components/nav/Navigation';
+import useAuth from './hooks/useAuth'; 
+import { TailSpin } from 'react-loader-spinner';
 
 function App() {
-
   const [ loggedIn, message, error, loading ] = useAuth()
 
   return (
@@ -52,12 +51,17 @@ function App() {
             <Route path='/reset/password' element={ < ResetPasswordForLoginUser /> } />
           </Route>
 
-          { /* All routes below require a user be loggied in */}
-          <Route element={ loggedIn === true ? <Outlet/> : <Navigate to='/login'/>}>
-            <Route path='/' element= {<Landing/> }/>
-            <Route path='/profile' element={ <Profile /> } />
-            <Route path='/confirm' element={ <Confirm /> } />
-            <Route path='/createcourse' element={ <AddCourse/> }/>
+          {/* Routes requiring user to be logged in */}
+          {/* All routes below require a user be logged in */}
+          <Route element={loggedIn ? <Outlet /> : <Navigate to='/login' />}> {/* Redirect to login if not logged in*/}
+            {/* General routes */}
+            <Route path='/' element={<Landing />} />
+            <Route path='/login' element={<Navigate to='/' />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/confirm' element={<Confirm />} />
+            <Route path='/createcourse' element={<AddCourse />} />
+
+            {/* Course-related routes */}
             <Route path='/:courseId'>
               <Route path='' element={ <SingleCoursePage /> } /> 
               <Route path='questions' element={<Outlet/>}>
