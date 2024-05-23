@@ -11,7 +11,9 @@ services:
         condition: service_healthy
     environment:
       DEV_DB_HOST: db
+      DEV_DB_PASS: password
       TEST_DB_HOST: db
+      TEST_DB_PASS: password
     entrypoint: ["./entrypoint.sh"]
     ports:
       - "3001:3001"
