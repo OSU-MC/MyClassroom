@@ -23,6 +23,7 @@ services:
   db:
     image: mysql:latest
     container_name: myclassroom_db
+    command: ["mysqld", "--mysql-native-password=ON"]
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
     ports:
