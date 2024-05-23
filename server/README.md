@@ -187,7 +187,10 @@ docker-compose logs
 ```
 
 Optionally, the MySQL database can be started and stopped individually after the first build
-`docker container start myclasroom_db`
+
+```
+docker container start myclasroom_db
+```
 
 ## Starting the Application (Conventional NodeJS)
 
