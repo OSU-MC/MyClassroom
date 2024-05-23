@@ -18,20 +18,26 @@ function TeacherLanding(props) {
             {/*No Courses*/}
             {message ? <Notice error={error ? "error" : ""} message={message} /> : (!courses.studentCourses && !courses.instructorCourses) ? <Notice message={"You do not have any courses yet"} /> : <></>}
 
-            {/*Teacher Courses*/}
-            {courses.teacherCourses && <div id="teacher-courses">
-                    {/*<Link id="create-course-btn" to={`/createcourse`}>
-                        <Button variant="primary" className='btn-add'>Create Course</Button>
-                    </Link> */}
+            {courses.teacherCourses && 
+            <div id="teacher-courses">
 
+                {/*Top line of  page*/}
+                <div className='landing-header'>
+                    <p id="landing-subtitle">Courses</p>
 
+                    <PageButton newPage={< AddCourse/>} className='createCourseButton'>
+                    + Create New </PageButton>
+                </div>
+               
+                {/*Sorting buttons*/}
+                <div className='course-sort'>
+                    <span className ='selected'>ALL</span>
+                    <span >PUBLISHED</span>
+                    <span >ARCHIVED</span>
+                    <span >DRAFT</span>
+                </div>
 
-                <p id="landing-subtitle">Instructor Courses</p>
-                <hr></hr>
-
-                <PageButton newPage={< AddCourse/>} className='createCourseButton'>
-                + Create New </PageButton>
-
+                {/*Places all courses in course cards*/}
                 <div className='courses'>
                     {courses.teacherCourses.map((teacherCourse) => {
                         return <CourseCard key={teacherCourse.id} course={teacherCourse} role={"teacher"} />
