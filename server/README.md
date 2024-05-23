@@ -158,24 +158,33 @@ DROP DATABASE myclassroom_test;
 
 The backend NodeJS app and MySQL database can be deployed in containers using Docker. The Dockerfile will build the backend NodeJS app as a standalone whilst the compose.yml file will build and run the backend and MySQL containers.
 
-# Build the backend Dockerfile alone (Optional)
+### Build the backend Dockerfile alone (Optional)
 
 ```
 docker build -t myclassroom_backend .
 docker run -p 3001:3001: myclassroom_backend
 ```
 
-# Utilizing docker-compose (Preferred)
+### Utilizing docker-compose (Preferred)
 
 Build and start then detach with '-d'
-`docker-compose up --build -d`
+
+```
+docker-compose up --build -d
+```
 
 After first build we can start and stop using docker-compose
-`docker-compose up -d`
-`docker-compose down `
+
+```
+docker-compose up -d
+docker-compose down
+```
 
 Inspecting detached containers
-`docker-compose logs`
+
+```
+docker-compose logs
+```
 
 Optionally, the MySQL database can be started and stopped individually after the first build
 `docker container start myclasroom_db`
@@ -183,7 +192,9 @@ Optionally, the MySQL database can be started and stopped individually after the
 ## Starting the Application (Conventional NodeJS)
 
 ```
+
 npm run start
+
 ```
 
 ## Testing the Application
@@ -191,7 +202,9 @@ npm run start
 Testing the application is easy. The Jest testing framework is used to write tests for the system. A script has been added to the package.json file to run tests locally:
 
 ```
+
 npm run test
+
 ```
 
 If you run into issues, ensure you have done the following:
@@ -239,3 +252,7 @@ Feel free to open an issue for feature requests or bugs. We openly accept pull r
 ## Licensing
 
 GNU General Public License v3.0
+
+```
+
+```
