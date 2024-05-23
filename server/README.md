@@ -156,7 +156,7 @@ DROP DATABASE myclassroom_test;
 
 ## Docker
 
-The backend NodeJS app and MySQL database can be deployed in containers using Docker. The Dockerfile will build the backend NodeJS app as a standalone whilst the compose.yml file will build and run the backend and MySQL containers.
+The backend NodeJS app and MySQL database can be deployed in containers using Docker. The Dockerfile will build the backend NodeJS app as a standalone whilst the compose.yml file will build and run the backend and MySQL containers. If you plan to re-initialize the database from scratch remember to delete the docker volume for it as well.
 
 ### Build the backend Dockerfile alone (Optional)
 
