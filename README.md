@@ -19,6 +19,11 @@ Clone the GitHub repository:
 git clone git@github.com:OSU-MC/MyClassroom.git
 ```
 
+Navigate to the cloned repository:
+```
+cd MyClassroom
+```
+
 Install the application dependencies:
 ```
 npm install
