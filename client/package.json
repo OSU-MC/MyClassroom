@@ -1,5 +1,5 @@
 {
-  "name": "alert",
+  "name": "@myclassroom/client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,11 +18,15 @@
     "react-router-dom": "^6.23.1",
     "react-scripts": "^5.0.1",
     "react-table": "^7.8.0",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "serve": "^14.2.3"
   },
   "scripts": {
+    "config": "cp .env.example .env && nano .env",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "serve": "serve -s build",
+    "deploy": "react-scripts build && serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
