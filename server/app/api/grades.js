@@ -163,6 +163,9 @@ router.get("/", requireAuthentication, async function (req, res, next) {
 					studentGradeObj.grade = parseFloat(
 						(lectureScore / lectureQuestionsAsked).toFixed(2)
 					);
+					studentGradeObj.pointScore = parseFloat(
+						(lectureScore / lectureQuestionsAsked).toFixed(2)
+					);
 				}
 				studentGradeObj.totalQuestions = totalQuestionsAsked;
 				studentGradeObj.totalAnswered = totalQuestionsAnswered;

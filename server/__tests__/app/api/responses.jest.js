@@ -397,34 +397,67 @@ describe("/responses endpoints", () => {
 		});
 	});
 
-	it("should respond with 200 and a score of 1 when a student resubmits to the correct answer", async () => {
+	// write a test which uses points and totalPoints in the query params
+	it("should respond with 201 and a score of 0.5", async () => {
 		const resp = await request(app)
-			.put(
-				`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses/${response.id}`
+			.post(
+				`/courses/${course.id}/lectures/${lecture.id}/questions/${question2.id}/responses`
 			)
 			.send({
 				answers: {
 					0: false,
 					1: true,
-					2: false,
-					3: false,
+					2: true,
+					3: true,
 				},
 			})
-			.set("Cookie", user3Cookies)
-			.set("X-XSRF-TOKEN", user3XsrfCookie);
-		expect(resp.statusCode).toEqual(200);
-		expect(resp.body.response.enrollmentId).toEqual(enrollment3.id);
+			.query({ points: 1, totalPoints: 2 })
+			.set("Cookie", user2Cookies);
+		expect(resp.statusCode).toEqual(201);
+		expect(resp.body.response.enrollmentId).toEqual(enrollment2.id);
 		expect(resp.body.response.questionInLectureId).toEqual(
-			questionInLecture.id
+			questionInLecture2.id
 		);
-		expect(resp.body.response.score).toEqual(1.0);
+		expect(resp.body.response.score).toEqual(0.5);
 		expect(resp.body.response.submission).toEqual({
 			0: false,
 			1: true,
-			2: false,
-			3: false,
+			2: true,
+			3: true,
 		});
 	});
+
+	// write another test which uses points and totalPoints in the query params and has a score of 0.8
+	it("should respond with 201 and a score of 0.8", async () => {
+		const resp = await request(app)
+			.post(
+				`/courses/${course.id}/lectures/${lecture.id}/questions/${question2.id}/responses`
+			)
+			.send({
+				answers: {
+					0: false,
+					1: true,
+					2: true,
+					3: true,
+				},
+			})
+			.query({ points: 4, totalPoints: 5 })
+			.set("Cookie", user3Cookies);
+		expect(resp.statusCode).toEqual(201);
+		expect(resp.body.response.enrollmentId).toEqual(enrollment3.id);
+		expect(resp.body.response.questionInLectureId).toEqual(
+			questionInLecture2.id
+		);
+		expect(resp.body.response.score).toEqual(0.5);
+		expect(resp.body.response.submission).toEqual({
+			0: false,
+			1: true,
+			2: true,
+			3: true,
+		});
+	});
+
+	// Updating
 
 	// it("should respond with 404 when user tries to update another users response", async () => {
 	// 	const resp = await request(app)
