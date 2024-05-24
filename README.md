@@ -7,7 +7,7 @@
 ## Get Started!
 ### Download/Install
 Install Docker
-- Refer to the  Get Docker Guide](https://docs.docker.com/get-docker/) for installing and setting up Docker. Docker Desktop is recommended for simplifying local development.
+- Refer to the [Get Docker Guide](https://docs.docker.com/get-docker/) for installing and setting up Docker. Docker Desktop is recommended for simplifying local development.
 
 Clone the GitHub repository:
 ```
@@ -24,8 +24,8 @@ Configure the local environment:
 ```
 npm run config
 ```
-- The server can be manually configured by modifying the `/server/.env` file. The `DEV_DB_...` and `TEST_DB_...` values should match those in the database/user creation commands listed in the setup steps below. Additionally, `CLIENT_URL` should be set to the front end application URL. For basic testing, the default values can be used.
-- The client can be manually configured by modifying the `/client/.env` file. `REACT_APP_API_URL` should be set to the backend URL. For basic testing, the default values can be used.
+- Modify `/server/.env` to update the MyClassroom Server configuration.
+- Modify `/client/.env` to update the MyClassroom Client configuration.
 
 ### Start MyClassroom Application
 Start MyClassroom using the following command:
@@ -33,6 +33,12 @@ Start MyClassroom using the following command:
 npm run start
 ```
 
+### Stop MyClassroom Application
 Press **Ctrl+C** to stop the server and shut down the Docker container.
 
-For more database commands and testing controls, review [server/README.md](https://github.com/OSU-MC/MyClassroom/tree/dev/server)
+## Development info
+### Client
+For more info about developing for the frontend client, visit [client/README.md](https://github.com/OSU-MC/MyClassroom/tree/dev/client)
+
+### Server 
+For more info about developing for the backend server and database, visit [server/README.md](https://github.com/OSU-MC/MyClassroom/tree/dev/server)

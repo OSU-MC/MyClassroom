@@ -1,6 +1,6 @@
 # MyClassroom Client
-## Configuring MyClassroom Client
-The client can be configured by modifying the `/client/.env` file. `REACT_APP_API_URL` should be set to the backend URL. For basic testing, the default values can be used.
+## Update Client Configuration
+Modify `/client/.env` to update the MyClassroom Client configuration. The `REACT_APP_API_URL` environment variable should be set to the MyClassroom Server URL. For basic testing, the default values can be used.
 
 ## Setup Application for Client Development
 This guide is specifically for local development of the MyClassroom Client. You may prefer to use the main [README.md](../README.md) install/setup instructions for other deployments.
@@ -32,7 +32,7 @@ npm run stop
 - [ ] Student / Instructor Gradebooks
    - [ ]  Instructor Grade Statistics
 - [ ] Multiple Question Types
-- [ ] Deleting / Editing Existing Courses, Sections, Questions, Lectures (Backend Finished)
+- [ ] Deleting / Editing Existing Courses, Sections, Questions, Lectures (Server Finished)
 
 ## Organization
 ```bash

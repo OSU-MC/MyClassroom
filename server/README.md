@@ -1,6 +1,6 @@
 # MyClassroom Server
-## Configuring MyClassroom Server
-The server application can be configured by modifying the `/server/.env` file. The `DEV_DB_...` and `TEST_DB_...` values should match those in the database/user creation commands listed in the setup steps below. Additionally, `CLIENT_URL` should be set to the client application URL. For basic testing, the default values can be used.
+## Update Server Configuration
+Modify `/server/.env` to update the MyClassroom Server configuration. The `DEV_DB_...` and `TEST_DB_...` environment variables should match those in the database/user creation commands listed in the [MySQL](#mysql) setup steps below. Additionally, `CLIENT_URL` should be set to the MyClassroom Client application URL. For basic testing, the default values can be used.
 
 ## Setup Application for Server Development
 This guide is specifically for local development of the MyClassroom Server. You may prefer to use the main [README.md](../README.md) install/setup instructions for other deployments.
