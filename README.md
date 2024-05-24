@@ -1,4 +1,9 @@
 # Open-Source Classroom Polling Software
+## About
+The Open-Source Classroom Polling Project seeks to simplify the interactive side of the educational experience, through the development of a free-to-use web-based polling system. Addressing the shortcomings of existing polling software, this project emphasizes affordability, responsiveness, and enhanced interactive capabilities suitable for today’s classrooms. The app aims to deliver a solution that fosters real-time engagement, collaborative learning, and seamless integration with educational platforms.
+
+Read more about MyClassroom on the [MyClassroom website](https://osu-mc.github.io).
+
 ## Dependencies
 - npm: 10.7.0
 - node: 22.2.0
