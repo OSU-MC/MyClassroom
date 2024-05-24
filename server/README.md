@@ -15,13 +15,13 @@ Install MySQL
 Clone the GitHub Repository
 
 ```
-git clone git@github.com:CS-461-nilsstreedain/classroom-polling.git
+git clone git@github.com:OSU-MC/MyClassroom.git
 ```
 
 Navigate to the Server Directory
 
 ```
-cd classroom-polling/server
+cd MyClassroom/server
 ```
 
 Install the Application Dependencies
@@ -200,7 +200,7 @@ It's worth noting that the application is only configured for email use through 
 
 ## Database Schema
 
-![Schema](https://github.com/CS-461-nilsstreedain/classroom-polling/assets/25465133/d987e780-fd0e-4ea5-bd18-c72de5d8c32c)
+![Schema](https://github.com/OSU-MC/MyClassroom/assets/25465133/d987e780-fd0e-4ea5-bd18-c72de5d8c32c)
 
 ## Endpoints
 
