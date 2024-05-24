@@ -18,6 +18,7 @@ module.exports = {
 					lastName: "User",
 					email: "teacheruser@myclassroom.com",
 					password: await bcrypt.hash("teacherteacher", saltRounds),
+					isTeacher: true,
 					admin: false,
 				},
 			],
@@ -32,6 +33,7 @@ module.exports = {
 					lastName: "User",
 					email: "studentuser@myclassroom.com",
 					password: await bcrypt.hash("studentstudent", saltRounds),
+					isTeacher: false,
 					admin: false,
 				},
 			],
@@ -46,25 +48,20 @@ module.exports = {
 					lastName: "Courses",
 					email: "nocourses@myclassroom.com",
 					password: await bcrypt.hash("nocourses", saltRounds),
+					isTeacher: false,
 					admin: false,
 				},
 			],
 			{}
 		);
 
-		let comboUser = await queryInterface.bulkInsert(
-			"Users",
-			[
-				{
-					firstName: "Combo",
-					lastName: "User",
-					email: "combouser@myclassroom.com",
-					password: await bcrypt.hash("combocombocombo", saltRounds),
-					admin: false,
-				},
-			],
-			{}
-		);
+		//let comboUser = await queryInterface.bulkInsert('Users', [{
+		//  firstName: 'Combo',
+		//  lastName: 'User',
+		//  email: 'combouser@myclassroom.com',
+		//  password: await bcrypt.hash('combocombocombo', saltRounds),
+		//  admin: false
+		//}], {});
 
 		/*
       CREATE COURSE 1 DATA: for comprehensive testing
@@ -123,18 +120,6 @@ module.exports = {
 			[
 				{
 					userId: studentOnlyUser,
-					sectionId: section1course1,
-					role: "student",
-				},
-			],
-			{}
-		);
-
-		let comboenrollmentsection1course2 = await queryInterface.bulkInsert(
-			"Enrollments",
-			[
-				{
-					userId: comboUser,
 					sectionId: section1course1,
 					role: "student",
 				},
@@ -349,17 +334,11 @@ module.exports = {
 			{}
 		);
 
-		let teachercourse3 = await queryInterface.bulkInsert(
-			"Enrollments",
-			[
-				{
-					userId: comboUser,
-					courseId: course3,
-					role: "teacher",
-				},
-			],
-			{}
-		);
+		//let teachercourse3 = await queryInterface.bulkInsert('Enrollments', [{
+		//  userId: comboUser,
+		//  courseId: course3,
+		//  role: 'teacher'
+		//}], {})
 	},
 
 	async down(queryInterface, Sequelize) {
