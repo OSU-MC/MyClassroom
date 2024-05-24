@@ -1,15 +1,38 @@
 # Open-Source Classroom Polling Software
-This project will develop a free, open-source, classroom polling website. Once developed, the project will be used in OSU classrooms and shared with instructors around the world. This project will include front end and back end web development, a Canvas / LMS interface, and responsive user interface development for live polling and advanced question formats on desktop, mobile, and other devices. Stretch goals include an intelligent grouping algorithm to pair students based on answers, tracking of students to give feedback to instructors, and an in-class social network for just-in-time Learning Assistant interventions.
+## Dependencies
+- npm: 10.7.0
+- node: 22.2.0
+- docker: 24.0.9
 
-## Objectives
-Website interface, student/teacher login, and tracking of student grades, class questions, course lectures Live polling interface Bi-directional Canvas communication Intelligent grouping algorithm (stretch) Instructor feedback interface (stretch) In-class social network (stretch)
+## Get Started!
+### Download/Install
+Install Docker
+- Refer to the  Get Docker Guide](https://docs.docker.com/get-docker/) for installing and setting up Docker. Docker Desktop is recommended for simplifying local development.
 
-## Motivations
-Currently, the only non-tuition cost for students in the Physics 20x sequence at OSU is an old, but necessary polling software. There are free alternatives available, but none feature intelligent grouping, and most are limited in question types. This project will provide a free option for teachers around the world, as well as an open-source starting point for developing more features. This project will save OSU students more than $6000 each year. It will also provide a more flexible, fully featured and integrated software.
+Clone the GitHub repository:
+```
+git clone git@github.com:OSU-MC/MyClassroom.git
+```
 
-## Qualifications
-### Minimum Qualifications:
-Website development experience (full stack, or client side, or server side) Problem solving skills Excellent communication skills Excellent teamwork skills
+Install the application dependencies:
+```
+npm install
+```
 
-### Preferred Qualifications:
-Learning Management System integration Algorithms
+### Configure Environment
+Configure the local environment:
+```
+npm run config
+```
+- The server can be manually configured by modifying the `/server/.env` file. The `DEV_DB_...` and `TEST_DB_...` values should match those in the database/user creation commands listed in the setup steps below. Additionally, `CLIENT_URL` should be set to the front end application URL. For basic testing, the default values can be used.
+- The client can be manually configured by modifying the `/client/.env` file. `REACT_APP_API_URL` should be set to the backend URL. For basic testing, the default values can be used.
+
+### Start MyClassroom Application
+Start MyClassroom using the following command:
+```
+npm run start
+```
+
+Press **Ctrl+C** to stop the server and shut down the Docker container.
+
+For more database commands and testing controls, review [server/README.md](https://github.com/OSU-MC/MyClassroom/tree/dev/server)

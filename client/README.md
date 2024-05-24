@@ -1,41 +1,30 @@
-# Frontend: Open Source Classroom Polling Software (MyClassroom)
-## Motivation
-  The Open Source Classroom Polling Software, or My Classroom, was designed to solve a very specific problem: a lack of free, individually tailored, classroom polling tools for students and professors. The inception of this project was problems with current polling software used in Oregon State University's Intro Physics program. These courses use Learning Catalytics; a polling software from Pearson. The cost of this software is not included in the student's tuition, so students have to pay for it out of pocket. My Classroom provides students with an alternative classroom tool that is equal in functionality but at no additional cost to the student. 
-  
-  With My Classroom, instructors and students can participate in interactive question and answer sessions. Professors can create courses, create lectures for those courses, and add questions within those lectures that students can answer. Student responses are saved so that both the professor and their students can track their comprehension of course material. The idea is to provide a service through which teachers can get a sense of what their students need, and students can get a sense of what they need to learn.
-
-## Dependencies
-- node: 16.13.0
-- npm: 9.1.2
-
-## Setup Server Application and Install Dependencies
-Setup the server application according to the [/server/README.md](../server/README.md#cloning-repo-and-installing-dependencies) documentation.
-
-Navigate to the client folder
-```
-cd client
-```
-
-Install the Application Dependencies
-```
-npm install
-```
-
-Rename the .env.example file to configure the environment
-```
-mv .env.example .env
-```
-
-## Configuring Node.js Client
+# MyClassroom Client
+## Configuring MyClassroom Client
 The client can be configured by modifying the `/client/.env` file. `REACT_APP_API_URL` should be set to the backend URL. For basic testing, the default values can be used.
+
+## Setup Application for Client Development
+This guide is specifically for local development of the MyClassroom Client. You may prefer to use the main [README.md](../README.md) install/setup instructions for other deployments.
+
+Install and configure the Application according to the steps in the main README.md but do not start the application. Then run the following from the root directory.
+
+### Start Server and Client
+Start the MyClassroom Server with Docker:
 ```
-nano .env
+npm run server
 ```
 
-## Starting the Application
+Start the local development version of the MyClassroom Client:
 ```
-npm run start
+npm run start -w=client
 ```
+
+### Stop Server and Client
+The MyClassroom Client can be stopped by pressing **Ctrl+C** while the process is running in the shell.
+
+The MyClassroom Server can be stopped using the command:
+```
+npm run stop
+``` 
 
 ## Tasks For Future Teams / Build Status
 - [ ] Hosting
@@ -70,7 +59,7 @@ npm run start
 - Redux
 - Javascript
 
-# Interacting With the Database
+## Interacting With the Database
 ![Schema](https://github.com/OSU-MC/MyClassroom/assets/25465133/a4322ae3-b9b7-4b2f-98fb-116614e381d7)
 
 ```
