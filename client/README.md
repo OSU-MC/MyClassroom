@@ -10,7 +10,7 @@ Install and configure the Application according to the steps in the main README.
 ### Start Server and Client
 Start the MyClassroom Server with Docker:
 ```
-npm run server
+npm run start:server
 ```
 
 Start the local development version of the MyClassroom Client:
