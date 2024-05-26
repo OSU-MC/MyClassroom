@@ -3,14 +3,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable("Responses", {
+		await queryInterface.createTable("Grades", {
 			id: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
-				autoIncrement: true,
 				primaryKey: true,
+				autoIncrement: true,
 			},
-			score: {
+			grade: {
 				type: Sequelize.DOUBLE,
 				allowNull: false,
 			},
@@ -21,10 +21,6 @@ module.exports = {
 			totalPoints: {
 				type: Sequelize.INTEGER,
 				allowNull: true,
-			},
-			submission: {
-				type: Sequelize.JSON,
-				defaultValue: {},
 			},
 			// these columns should be standardized across all future tables created
 			createdAt: {
@@ -41,6 +37,6 @@ module.exports = {
 	},
 
 	async down(queryInterface, Sequelize) {
-		return queryInterface.dropTable("Responses");
+		return queryInterface.dropTable("Grades");
 	},
 };

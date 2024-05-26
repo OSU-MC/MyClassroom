@@ -4,22 +4,23 @@ const {
 } = require("../../lib/validator");
 
 const responseInformationSchema = {
-	id: { required: true },
+	id: { required: false },
+	userId: { required: true },
 	enrollmentId: { required: true },
-	questionInLectureId: { required: true },
+	sectionId: { required: true },
 	score: { required: true },
-	points: { required: false },
-	totalPoints: { required: false },
-	submission: { required: true },
+	points: { required: true },
+	totalPoints: { required: true },
 };
 
 const responseInsertSchema = {
+	id: { required: false },
+	userId: { required: true },
 	enrollmentId: { required: true },
-	questionInLectureId: { required: true },
-	score: { required: true },
-	points: { required: false },
-	totalPoints: { required: false },
-	submission: { required: true },
+	sectionId: { required: true },
+	grade: { required: true },
+	points: { required: true },
+	totalPoints: { required: true },
 };
 
 exports.extractResponseInsertFields = (body) => {
