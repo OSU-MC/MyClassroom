@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from "react"
 import apiUtil from '../utils/apiUtil'
 import Notice from '../components/Notice'
 import { useNavigate } from 'react-router-dom'
 import { Link } from "react-router-dom";
+import styles from "../styles/home.css"
 
 function Signup(props){
     const [email, setEmail] = useState("")
@@ -150,7 +151,7 @@ function Signup(props){
                     </span>
                     <div className='textBox'>
                         <h1>Create your free account today!</h1>
-                        <h2><a href="login">Already have an account?</a></h2>
+                        <h2><a href="login" className='subText'>Already have an account?</a></h2>
                     </div>
                     <a href="/home" className='homeButton'><img src="/arrow-left-solid.svg"/>Return to home</a>
                 </div>
