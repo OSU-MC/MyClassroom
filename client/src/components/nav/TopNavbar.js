@@ -11,7 +11,7 @@ function TopNavbar(props) {
     return (
         <nav>
             <a className='page' id='classroomLink' href='/home'>
-                <img id="classroomIcon" src="classroomIcon.png"></img>
+                <img id="classroomIcon" src="/classroomIcon.png"></img>
                 <span>MyClassroom</span>
             </a>
             {props.loggedIn ?
