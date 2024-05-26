@@ -13,7 +13,6 @@
             }
             
             .create-course, .join-course-form {
-                z-index: -1;
                 display: inline;
                 position: absolute;
                 right: 75px;
