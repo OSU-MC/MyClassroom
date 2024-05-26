@@ -49,6 +49,11 @@ body {
             .textBox {
                 margin-top: 3vh;
                 width: 70%;
+                
+                .subText {
+                    font-size: 30px;
+                    color: gray;
+                }
             }
 
             .homeButton {
@@ -204,21 +209,6 @@ body {
             }
         }
     }
-}
-
-/* Login Page CSS */
-h1 {
-    font-size: 60px;
-    font-weight: bold;
-    color: black;
-    margin-bottom: 10px; /* without this, margin-bottom is 50, I have no idea why */
-}
-
-h2 a {
-    font-size: 30px;
-    color: gray;
-    text-decoration: underline;
-    margin-top: 1vh; /* margin-top has no effect, I dont know why*/
 }
 
 /* Student Landing Page */
