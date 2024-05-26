@@ -23,26 +23,23 @@ function JoinCourse(props) {
         event.preventDefault()
         //setJoinCode(e.target.value)
         //post to the courses/join endpoint
-        const joinCodePayload = {
-            joinCode: joinCode
-        }
+        const joinCodePayload = { joinCode: joinCode }
         const response = await apiUtil("post", "courses/join", { dispatch: dispatch, navigate: navigate }, joinCodePayload);
         setError(response.error)
         setMessage(response.message)
-        if (response.status === 201) {
+        if (response.status === 201)
             dispatch(joinCourse(response.data.course))
-        }
     }
 
     return (
-        <div id="join-course">
+        <div className="join-course-form">
             <Form onSubmit={(e) => { handleJoinSubmit(e) }}>
                 <Form.Group controlId="formJoinCourse">
                     <Form.Control type="text" placeholder="Enter Join Code" value={joinCode} onChange={(e) => setJoinCode(e.target.value)} />
                 </Form.Group>
-                <Button className="btn-add" variant="primary" type="submit">
-                    Join Course
-                </Button>
+                <button type="submit" className="join-course">
+                    + Join Course
+                </button>
             </Form>
             {message !== "" && <Notice status={error ? "error" : ""} message={message} />}
         </div>

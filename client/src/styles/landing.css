@@ -1,70 +1,78 @@
-#landing-subtitle
-{
-	padding: 0px; /* Padding should be removed from index.css */
+.landing-page {
+    width: 100%;
+    
+    .user-courses {
+        .landing-header {
+            margin-top: 32px;
+            
+            #landing-subtitle {
+                font-size: 27px;
+                margin-left: 70px;
+                display: inline;
+                font-weight: bold;
+            }
+            
+            .create-course, .join-course-form {
+                display: inline;
+                position: absolute;
+                right: 75px;
+                border-radius: 25px;
+            }
+            
+            .create-course, .join-course {
+                /* Border */
+                border: 1px solid transparent;
+                background-color: var(--splash);
+                
+                /* Contents*/
+                height: 50px;
+                font-weight: bold;
+                padding: 10px 20px;
+                
+                &:hover {
+                    border: 1px solid black;
+                    background-color: var(--primary);
+                }
+            }
+            
+            .join-course-form {
+                form div {
+                    display: inline-block;
+                    
+                    #formJoinCourse {
+                        height: 50px;
+                        padding: 10px 20px;
+                        border-radius: 25px 0 0 25px;
+                    }
+                }
+                
+                .join-course {
+                    border-radius: 0 25px 25px 0;
+                }
+            }
+        }
 
-	margin-left: 70px;
-	display: inline;
+        .course-sort {
+            margin: 15px 70px;
+            
+            span {
+                /* Position */
+                margin-right: 12px;
 
-	font-weight: bold;
-}
+                /* Contents */
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--accent);
+                cursor: pointer;
 
-.landing-header
-{
-	margin-top: 32px;
-}
+                &.selected {
+                    color: black;
+                }
+            }
+        }
 
-.createCourseButton
-{
-	/* Position */
-	position: absolute;
-	right: 75px;
-	display: inline;
-
-	/* Border */
-	box-sizing: border-box;
-	border-radius: 20px;
-	border: 1px solid transparent;
-
-	/* Contents*/
-	margin-left: 20px;
-	font-weight: bold;
-	padding: 10px 20px;
-	background-color: var(--splash);
-
-	&:hover {
-    	border: 1px solid black;
-    	background-color: var(--primary);
-	}
-}
-
-.course-sort
-{
-	margin: 15px 70px;
-}
-
-.course-sort
-{
-	span
-	{
-		/* Position */
-		margin-right: 12px;
-
-		/* Contents */
-		font-size: 18px;
-		font-weight: 500;
-		color: #808080;
-
-		cursor: pointer;
-
-		&.selected
-		{
-			color: black;
-		}
-	}
-}
-
-
-.courses
-{
-	margin: 0px 50px;
+        .courses {
+            margin: 0px 50px;
+        }
+    }
 }
