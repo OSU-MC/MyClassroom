@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import './components.css'
 import SchoolIcon from '@mui/icons-material/School';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';

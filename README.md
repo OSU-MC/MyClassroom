@@ -1,15 +1,72 @@
 # Open-Source Classroom Polling Software
-This project will develop a free, open-source, classroom polling website. Once developed, the project will be used in OSU classrooms and shared with instructors around the world. This project will include front end and back end web development, a Canvas / LMS interface, and responsive user interface development for live polling and advanced question formats on desktop, mobile, and other devices. Stretch goals include an intelligent grouping algorithm to pair students based on answers, tracking of students to give feedback to instructors, and an in-class social network for just-in-time Learning Assistant interventions.
 
-## Objectives
-Website interface, student/teacher login, and tracking of student grades, class questions, course lectures Live polling interface Bi-directional Canvas communication Intelligent grouping algorithm (stretch) Instructor feedback interface (stretch) In-class social network (stretch)
+## About
 
-## Motivations
-Currently, the only non-tuition cost for students in the Physics 20x sequence at OSU is an old, but necessary polling software. There are free alternatives available, but none feature intelligent grouping, and most are limited in question types. This project will provide a free option for teachers around the world, as well as an open-source starting point for developing more features. This project will save OSU students more than $6000 each year. It will also provide a more flexible, fully featured and integrated software.
+The Open-Source Classroom Polling Project seeks to simplify the interactive side of the educational experience, through the development of a free-to-use web-based polling system. Addressing the shortcomings of existing polling software, this project emphasizes affordability, responsiveness, and enhanced interactive capabilities suitable for today’s classrooms. The app aims to deliver a solution that fosters real-time engagement, collaborative learning, and seamless integration with educational platforms.
 
-## Qualifications
-### Minimum Qualifications:
-Website development experience (full stack, or client side, or server side) Problem solving skills Excellent communication skills Excellent teamwork skills
+Read more about MyClassroom on the [MyClassroom website](https://osu-mc.github.io).
 
-### Preferred Qualifications:
-Learning Management System integration Algorithms
+## Dependencies
+
+- npm: 10.7.0
+- node: 22.2.0
+- docker: 24.0.9
+
+## Get Started!
+
+### Download/Install
+
+Install Docker
+
+- Refer to the [Get Docker Guide](https://docs.docker.com/get-docker/) for installing and setting up Docker. Docker Desktop is recommended for simplifying local development.
+
+Clone the GitHub repository:
+
+```
+git clone git@github.com:OSU-MC/MyClassroom.git
+```
+
+Navigate to the cloned repository:
+
+```
+cd MyClassroom
+```
+
+Install the application dependencies:
+
+```
+npm install
+```
+
+### Configure Environment
+
+Configure the local environment:
+
+```
+npm run config
+```
+
+- Modify `/server/.env` to update the MyClassroom Server configuration.
+- Modify `/client/.env` to update the MyClassroom Client configuration.
+
+### Start MyClassroom Application
+
+Start MyClassroom using the following command:
+
+```
+npm run start
+```
+
+### Stop MyClassroom Application
+
+Press **Ctrl+C** to stop the server and shut down the Docker container.
+
+## Development info
+
+### Client
+
+For more info about developing for the frontend client, visit [client/README.md](https://github.com/OSU-MC/MyClassroom/tree/dev/client)
+
+### Server
+
+For more info about developing for the backend server and database, visit [server/README.md](https://github.com/OSU-MC/MyClassroom/tree/dev/server)

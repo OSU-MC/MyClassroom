@@ -4,6 +4,7 @@
 /node_modules
 /client/node_modules
 /server/node_modules
+/client/node_modules
 /.pnp
 .pnp.js
 
@@ -12,7 +13,7 @@
 /server/coverage
 
 # production
-/build
+/client/build
 /server/dist
 
 # misc

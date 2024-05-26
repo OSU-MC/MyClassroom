@@ -331,57 +331,45 @@ describe("/grades endpoints", () => {
 		expect(resp.body[0].studentId).toEqual(user2.id);
 	});
 
-	it("should respond with 200 when a teacher gets grades for students on /all", async () => {
-		const resp = await request(app)
-			.get(`/courses/${course.id}/sections/${section.id}/grades/all`)
-			.set("Cookie", userCookies);
-		expect(resp.statusCode).toEqual(200);
-		expect(resp.body[0].studentId).toEqual(user2.id);
-	});
+    it('should respond with 200 when a teacher gets grades for students in a section', async () => {
+        const resp = await request(app).get(`/courses/${course.id}/sections/${section.id}/grades`).set('Cookie', userCookies)
+        expect(resp.statusCode).toEqual(200)
+        expect(resp.body[0].studentName).toEqual(`${user2.firstName} ${user2.lastName}`)
+        expect(resp.body[0].studentId).toEqual(user2.id)
+        expect(resp.body[0].grade).toEqual(0.33)
+        expect(resp.body[0].totalQuestions).toEqual(3)
+        expect(resp.body[0].totalAnswered).toEqual(1)
+        expect(resp.body[0].totalScore).toEqual(1)
+        expect(resp.body[0].lectures[0].lectureGrade).toEqual(0.33)
+    })
 
-	it("should respond with 205 when a student gets their grades and it doesn't exist /:studentId", async () => {
-		const resp = await request(app)
-			.get(`/courses/${course.id}/sections/${section.id}/grades/${user2.id}`)
-			.set("Cookie", user2Cookies);
-		expect(resp.statusCode).toEqual(204);
-	});
+    it('should respond with 200 when a student gets their for a section', async () => {
+        const resp = await request(app).get(`/courses/${course.id}/sections/${section.id}/grades`).set('Cookie', user2Cookies)
+        expect(resp.statusCode).toEqual(200)
+        expect(resp.body[0].lectureId).toEqual(lecture.id)
+        expect(resp.body[0].lectureGrade).toEqual(0.33)
+        expect(resp.body[0].totalQuestions).toEqual(3)
+        expect(resp.body[0].totalAnswered).toEqual(1)
+        expect(resp.body[0].totalScore).toEqual(1)
+    })
 
-	it("should respond with 205 when a teacher gets grades for a student and it doesn't exist /:studentId", async () => {
-		const resp = await request(app)
-			.get(`/courses/${course.id}/sections/${section.id}/grades/${user2.id}`)
-			.set("Cookie", userCookies);
-		expect(resp.statusCode).toEqual(204);
-	});
+    it('should respond with 403 when a student enrolled in a different section tries to get scores for the section in the URL', async () => {
+        const resp = await request(app).get(`/courses/${course.id}/sections/${section.id}/grades`).set('Cookie', user5Cookies)
+        expect(resp.statusCode).toEqual(403)
+    })
 
-	// respond with 403 on id
-	it("should respond with 403 when a student tries to get grades for another student", async () => {
-		const resp = await request(app)
-			.get(`/courses/${course.id}/sections/${section.id}/grades/${user2.id}`)
-			.set("Cookie", user3Cookies);
-		expect(resp.statusCode).toEqual(403);
-	});
+    it('should respond with 403 when a user not enrolled in the course tries to get grades', async () => {
+        const resp = await request(app).get(`/courses/${course.id}/sections/${section.id}/grades`).set('Cookie', user6Cookies)
+        expect(resp.statusCode).toEqual(403)
+    })
 
-	it("should respond with 403 when a student enrolled in a different section tries to get scores for the section in the URL", async () => {
-		const resp = await request(app)
-			.get(`/courses/${course.id}/sections/${section.id}/grades`)
-			.set("Cookie", user5Cookies);
-		expect(resp.statusCode).toEqual(403);
-	});
-
-	it("should respond with 403 when a user not enrolled in the course tries to get grades", async () => {
-		const resp = await request(app)
-			.get(`/courses/${course.id}/sections/${section.id}/grades`)
-			.set("Cookie", user6Cookies);
-		expect(resp.statusCode).toEqual(403);
-	});
-
-	afterAll(async () => {
-		await user.destroy();
-		await user2.destroy();
-		await user3.destroy();
-		await user4.destroy();
-		await user5.destroy();
-		await user6.destroy();
-		await course.destroy(); // should cascade on delete and delete sections and enrollments as well
-	});
-});
+    afterAll(async () => {
+        await user.destroy()
+        await user2.destroy()
+        await user3.destroy()
+        await user4.destroy()
+        await user5.destroy()
+        await user6.destroy()
+        await course.destroy() // should cascade on delete and delete sections and enrollments as well
+    })
+})

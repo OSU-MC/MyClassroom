@@ -75,6 +75,18 @@ describe("/responses endpoints", () => {
 			`xsrf-token=${user3Session.csrfToken}`,
 		];
 
+		course = await db.Course.create({
+			name: "Testing Things 101",
+			description:
+				"This will be a course about testing things, most notably in jest",
+			published: false,
+		});
+
+		section = await db.Section.create({
+			courseId: course.id,
+			number: 1,
+		});
+
 		enrollment = await db.Enrollment.create({
 			role: "teacher",
 			courseId: course.id,
@@ -213,8 +225,7 @@ describe("/responses endpoints", () => {
 					3: false,
 				},
 			})
-			.set("Cookie", user2Cookies)
-			.set("X-XSRF-TOKEN", user2XsrfCookie);
+			.set("Cookie", user2Cookies);
 		expect(resp.statusCode).toEqual(400);
 	});
 
@@ -228,8 +239,7 @@ describe("/responses endpoints", () => {
 					0: false,
 				},
 			})
-			.set("Cookie", user2Cookies)
-			.set("X-XSRF-TOKEN", user2XsrfCookie);
+			.set("Cookie", user2Cookies);
 		expect(resp.statusCode).toEqual(400);
 	});
 
@@ -239,8 +249,7 @@ describe("/responses endpoints", () => {
 				`/courses/${course.id}/lectures/${lecture.id}/questions/${question.id}/responses`
 			)
 			.send({})
-			.set("Cookie", user2Cookies)
-			.set("X-XSRF-TOKEN", user2XsrfCookie);
+			.set("Cookie", user2Cookies);
 		expect(resp.statusCode).toEqual(400);
 	});
 
@@ -474,8 +483,6 @@ describe("/responses endpoints", () => {
 			3: true,
 		});
 	});
-
-	// Updating
 
 	// it("should respond with 404 when user tries to update another users response", async () => {
 	// 	const resp = await request(app)

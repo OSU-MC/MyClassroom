@@ -6,11 +6,12 @@ import styled from '@emotion/styled/macro';
 
 function Navigation(props) {
     const location = useLocation()
-    const courseRegex = /\/\d+/
+    const courseRegex = /\/\d+/ //regular expression: / followed by 1 or more digits
     const inCourse = location.pathname.match(courseRegex)
+    const disableTopNavbar = !(location.pathname.match("login") || location.pathname.match("create")) //between this and inCourse, surely theres a better way.
 
     return <>
-        <TopNavbar loggedIn={props.loggedIn}/>
+        {disableTopNavbar && <TopNavbar loggedIn={props.loggedIn}/>}
         <div className="mainBody">
             { inCourse && <SideNavbar/> }
             <Outlet/>

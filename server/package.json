@@ -1,4 +1,7 @@
 {
+    "name": "@myclassroom/server",
+    "version": "0.1.0",
+    "private": true,
 	"dependencies": {
 		"@trycourier/courier": "^6.1.1",
 		"bcrypt": "^5.1.1",
@@ -18,21 +21,18 @@
 		"winston": "^3.13.0",
 		"winston-daily-rotate-file": "^5.0.0"
 	},
-	"name": "myclassroom",
-	"version": "1.0.0",
-	"description": "Open Source Polling software Backend system",
-	"main": "app.js",
 	"devDependencies": {
 		"dotenv": "^16.4.5",
 		"nodemon": "^3.1.0"
 	},
 	"scripts": {
-		"test": "NODE_ENV=test jest --runInBand --silent=false",
+        "config": "cp .env.example .env && nano .env",
+		"test": "NODE_ENV=test jest --runInBand",
 		"start": "node app/server.js --NODE_ENV=production",
 		"start:dev": "nodemon app/server.js --NODE_ENV=development",
+        "start:docker": "docker compose up -d --build",
+        "stop:docker": "docker compose down",
 		"seed": "npx sequelize-cli db:seed:all",
 		"unseed": "npx sequelize-cli db:seed:undo:all"
-	},
-	"author": "",
-	"license": "ISC"
+	}
 }

@@ -287,6 +287,116 @@ describe("/questions endpoints", () => {
 		});
 	});
 
+	it("should respond with 200 when a teacher gets the questions for a course", async () => {
+		const resp = await request(app)
+			.get(`/courses/${course.id}/questions?page=0&perPage=2`)
+			.set("Cookie", userCookies);
+		expect(resp.statusCode).toEqual(200);
+		expect(resp.body.questions.length).toEqual(2);
+		expect(resp.body.questions[0].courseId).toEqual(course.id);
+		expect(resp.body.questions[0].type).toEqual("multiple choice");
+		expect(resp.body.questions[0].stem).toEqual("What is 1 + 2?");
+		expect(resp.body.questions[0].content.options).toEqual({
+			0: 2,
+			1: 3,
+			2: 4,
+			3: 5,
+		});
+		expect(resp.body.questions[0].answers).toEqual({
+			0: false,
+			1: true,
+			2: false,
+			3: false,
+		});
+		expect(resp.body.questions[1].courseId).toEqual(course.id);
+		expect(resp.body.questions[1].type).toEqual("multiple choice");
+		expect(resp.body.questions[1].stem).toEqual(
+			"What is the capital of Oregon?"
+		);
+		expect(resp.body.questions[1].content.options).toEqual({
+			0: "Portland",
+			1: "Corvallis",
+			2: "Bend",
+			3: "Salem",
+		});
+		expect(resp.body.questions[1].answers).toEqual({
+			0: false,
+			1: false,
+			2: false,
+			3: true,
+		});
+		expect(resp.body.links.nextPage).toEqual(
+			`/courses/${course.id}/questions?string=&page=1&perPage=2`
+		);
+		expect(resp.body.links.prevPage).toEqual("");
+	});
+
+	// note: pages are indexed like an array, starting at 0
+	it("should respond with 200 when a teacher gets page 2 of the questions for a course", async () => {
+		const resp = await request(app)
+			.get(`/courses/${course.id}/questions?page=2&perPage=2`)
+			.set("Cookie", userCookies);
+		expect(resp.statusCode).toEqual(200);
+		expect(resp.body.questions.length).toEqual(1);
+		expect(resp.body.questions[0].courseId).toEqual(course.id);
+		expect(resp.body.questions[0].type).toEqual("multiple choice");
+		expect(resp.body.questions[0].stem).toEqual("What is 3 + 5?");
+		expect(resp.body.questions[0].content.options).toEqual({
+			0: 6,
+			1: 7,
+			2: 8,
+			3: 9,
+		});
+		expect(resp.body.questions[0].answers).toEqual({
+			0: false,
+			1: false,
+			2: true,
+			3: false,
+		});
+		expect(resp.body.links.nextPage).toEqual("");
+		expect(resp.body.links.prevPage).toEqual(
+			`/courses/${course.id}/questions?string=&page=1&perPage=2`
+		);
+	});
+
+	it("should respond with 200 when a teacher gets the questions for a course filtered by a search parameter", async () => {
+		const resp = await request(app)
+			.get(`/courses/${course.id}/questions?search=3&page=0&perPage=2`)
+			.set("Cookie", userCookies);
+		expect(resp.statusCode).toEqual(200);
+		expect(resp.body.questions.length).toEqual(2);
+		expect(resp.body.questions[0].courseId).toEqual(course.id);
+		expect(resp.body.questions[0].type).toEqual("multiple choice");
+		expect(resp.body.questions[0].stem).toEqual("What is 3 + 4?");
+		expect(resp.body.questions[0].content.options).toEqual({
+			0: 6,
+			1: 7,
+			2: 8,
+			3: 9,
+		});
+		expect(resp.body.questions[0].answers).toEqual({
+			0: false,
+			1: true,
+			2: false,
+			3: false,
+		});
+		expect(resp.body.questions[1].courseId).toEqual(course.id);
+		expect(resp.body.questions[1].type).toEqual("multiple choice");
+		expect(resp.body.questions[1].stem).toEqual("What is 3 + 5?");
+		expect(resp.body.questions[1].content.options).toEqual({
+			0: 6,
+			1: 7,
+			2: 8,
+			3: 9,
+		});
+		expect(resp.body.questions[1].answers).toEqual({
+			0: false,
+			1: false,
+			2: true,
+			3: false,
+		});
+	});
+
 	it("should respond with 200 when query string parameters are left out and should get first 25 questions by default", async () => {
 		const resp = await request(app)
 			.get(`/courses/${course.id}/questions`)
@@ -356,15 +466,8 @@ describe("/questions endpoints", () => {
 					2: true,
 					3: false,
 				},
-				weights: {
-					0: 1,
-					1: 1,
-					2: 1,
-					3: 1,
-				},
 			})
 			.set("Cookie", userCookies);
-		console.log("LOG HEREE: ", resp.body);
 		expect(resp.statusCode).toEqual(201);
 		expect(resp.body.question.type).toEqual("multiple choice");
 		expect(resp.body.question.stem).toEqual("What is 2 + 2?");

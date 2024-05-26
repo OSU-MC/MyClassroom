@@ -8,8 +8,11 @@ import apiUtil from '../utils/apiUtil'
 import { TailSpin } from  'react-loader-spinner'
 import Notice from '../components/Notice'
 import useCourse from "../hooks/useCourse";
+import styles from '../styles/addcourse.css'
 
-function AddCourse(props){
+export default function AddCourse(props){
+
+    //Old things, not sure how much of this is needed
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [published, setPublished] = useState()
@@ -18,6 +21,73 @@ function AddCourse(props){
     const [ loading, setLoading ] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    class CreateForm extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                name: '',
+                description: '',
+                published: 'off'
+            };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
+        }
+
+        // every time a text box is updated, it's react state is updated as well.
+        handleChange(event) {
+            const { name, value } = event.target;
+            this.setState({
+                [name]: value
+            });
+        }
+
+        handleCheck(event){
+            const {name, checked } = event.target;
+            this.setState({
+                [name]: checked
+            });
+        }
+
+        //input React states to authenticateUser function.
+        handleSubmit() {
+            event.preventDefault();
+            const newCourse = {
+                name: this.state.name,
+                description: this.state.description,
+                published: (this.state.published == "on") ? 1 : 0
+            }
+            postCourse(newCourse);
+        }
+
+        render(){
+            return(
+                <form onSubmit={this.handleSubmit}>
+                    {/*Input fields: value mapped to React state through handleChange*/}
+                    <input type="text" name="name"
+                        value={this.state.name} onChange={this.handleChange}
+                        className="inputContainer" placeholder="Class Name"
+                    />
+                    <input type="text" name="description"
+                        value={this.state.description} onChange={this.handleChange}
+                        className="inputContainer" placeholder= "Class Description"
+                    />
+
+                    <input type="checkbox" name="published"
+                        checked={this.state.published} onChange={this.handleCheck}
+                        className="publishedCheck"
+                    />
+                    <label className='publishedLabel'> Publish course? </label>
+
+
+
+                    <input type="submit" value="Create Course" className= "submitButton" />
+                </form>
+            )
+        }
+    }
 
     async function postCourse(newCoursePayload){
         //make a POST course api call
@@ -36,71 +106,11 @@ function AddCourse(props){
         }
     }
 
-    function addCourseSubmit(e){
-        e.preventDefault()
-
-        const newCourse = {
-            name: name,
-            description: description,
-            published: (published == "on") ? 1 : 0
-        }
-
-        postCourse(newCourse)
-    }
-
     return (
         <>
-            { message !== "" && <Notice message={message} error={error}/> }
-            { loading ? <TailSpin visible={true}/> : <Form className="create-container" onSubmit={(e) => { addCourseSubmit(e) }}>
-                <div className='create-bar'>
-                    <Link className='back-btn-create' to={`/`}>
-                        <Button className='back-btn'> 
-                            <div id="back-btn-image"/>
-                        </Button>
-                    </Link>
-                    <p className='create-subtitle'>Create Course</p>
-                </div>
-
-                <hr className='create-hr-bar'></hr>
-
-                <Form.Group className="inputNameContainer">
-                    <Form.Label>Class Name</Form.Label>
-                    <Form.Control 
-                        type="text" 
-                        placeholder="Enter Class Name" 
-                        onChange={(e) => setName(e.target.value)}/>
-                </Form.Group>
-                <Form.Group className="inputDescriptionContainer">
-                    <Form.Label>Class Description</Form.Label>
-                    <Form.Control 
-                        id="create-description"
-                        as="textarea" 
-                        rows="4"
-                        placeholder="Enter Class Description"
-                        onChange={(e) => setDescription(e.target.value)}/>
-                </Form.Group>
-                {/*Publish Course Doesn't do anything yet - NOT FUNCTION*/}
-                <Form.Group className="inputPublishedContainer">
-                    <Form.Check 
-                        type="switch" 
-                        id="publishSwitch" 
-                        label="Publish Class" 
-                        size="large" 
-                        onChange={(e) => setPublished(e.target.value)}/>
-                </Form.Group>
-                <div class="create-btns">
-                    <Link to={`/`}>
-                        <Button variant="secondary" id="create-cancel">
-                            Cancel
-                        </Button>
-                    </Link>
-                    <Button variant="primary" type="submit" id="create-submit">
-                        Create Course
-                    </Button>
-                </div>
-            </Form> }
+            <div className='createContainer'>
+                <CreateForm />
+            </div>
         </>
     )
 }
-
-export default AddCourse;
