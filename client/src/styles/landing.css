@@ -12,24 +12,42 @@
                 font-weight: bold;
             }
             
-            .createCourseButton {
-                /* Position */
+            .create-course, .join-course-form {
+                display: inline;
                 position: absolute;
                 right: 75px;
-                display: inline;
-
+                border-radius: 25px;
+            }
+            
+            .create-course, .join-course {
                 /* Border */
                 border: 1px solid transparent;
-                border-radius: 25px;
-
+                background-color: var(--splash);
+                
                 /* Contents*/
+                height: 50px;
                 font-weight: bold;
                 padding: 10px 20px;
-                background-color: var(--splash);
-
+                
                 &:hover {
                     border: 1px solid black;
                     background-color: var(--primary);
+                }
+            }
+            
+            .join-course-form {
+                form div {
+                    display: inline-block;
+                    
+                    #formJoinCourse {
+                        height: 50px;
+                        padding: 10px 20px;
+                        border-radius: 25px 0 0 25px;
+                    }
+                }
+                
+                .join-course {
+                    border-radius: 0 25px 25px 0;
                 }
             }
         }

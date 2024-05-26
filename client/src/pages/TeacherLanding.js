@@ -3,8 +3,7 @@ import CourseCard from '../components/CourseCard'
 import { Button, Card } from "react-bootstrap"
 import useCourses from '../hooks/useCourses'
 import Notice from '../components/Notice'
-import { Link } from 'react-router-dom';
-import styles from '../styles/landing.css'
+import { Link } from 'react-router-dom'
 import AddCourse from './AddCourse.js'
 import PageButton from '../components/2024/PageButton.js'
 
@@ -24,7 +23,7 @@ function TeacherLanding(props) {
                     <div className='landing-header'>
                         <p id="landing-subtitle">Courses</p>
                         
-                        <PageButton newPage={< AddCourse/>} className='createCourseButton'>
+                        <PageButton newPage={< AddCourse/>} className='create-course'>
                         + Create New </PageButton>
                     </div>
                     
