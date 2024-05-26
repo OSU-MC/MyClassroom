@@ -9,7 +9,7 @@ function Home() {
        <div id="home">
            <div class="section">
                <p class="homeHeader">Welcome to MyClassroom</p>
-               <p class="homeText">Open-Source Classroom Polling Software</p>
+               <p>Open-Source Classroom Polling Software</p>
            </div>
 
            <div class="infoContainer">

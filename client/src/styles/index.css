@@ -1,7 +1,9 @@
 :root {
     --primary: #fff;
     --splash: #D2DFD3;
-    --accent: darkgrey;
+    --splash2: #93c48f;
+    --accent: lightgrey;
+    --accent2: #f9f9f9;
 }
 
 html, body, #root {
@@ -281,128 +283,6 @@ hr {
     display: flex;
     flex-direction: row;
     margin: 20px 0 0;
-}
-
-/* Navbar */
-#classroomIcon {
-    height: 32px;
-    width: auto;
-    vertical-align: middle;
-    margin-right: 4px;
-}
-
-#classroomLink {
-    font-weight: bold;
-}
-
-#classroomLink:hover {
-    text-decoration: underline;
-}
-
-.navbarMain {
-    position: sticky;
-    display: flex;
-    justify-content: space-between; /* content: (navbar) Left, Center, Right*/
-    padding: 0 10px;
-    height: 5vh;
-    z-index: 100;
-    align-items: center;
-}
-
-.smallText {
-    font-size: 18px !important;
-}
-
-.navbarMain .navbarItem {
-    color: black !important;
-    font-size: 24px;
-    margin: 0px; /* best way to enforce centering? */
-    text-align: center;
-    text-decoration: none;
-}
-
-.navbarCenterContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.navButtons {
-    box-sizing: content-box;
-    display: flex;
-    justify-content: center;
-    width: 20%;
-}
-
-.rightButtons .navButtons {
-    width: 220px;
-}
-
-.navButtons a {
-    border-radius: 11px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: grey;
-    background-color: transparent;
-    color: black;
-    text-decoration: none;
-    padding: 0px 15px;
-    margin: 0px 5px;
-}
-
-.navButtons a:hover {
-    text-decoration: underline;
-}
-
-.navButtons .rightButtons a {
-    margin: 0px;
-}
-
-.rightButtons .navLogin {
-    border-color: transparent;
-    font-weight: bold;
-}
-
-.rightButtons .navSignup {
-    border-color: black;
-    background-color: black;
-    font-weight: bold;
-    color: white;
-}
-
-/* Dropdown in Navbar */
-.dropdownMenu {
-    position: absolute;
-    display: none;
-    background-color: rgb(221, 221, 221);
-    padding: 0.5dvi;
-    border-radius: 3px;
-    top: 3vh;
-    right: 0;
-}
-
-.dropdownIcon {
-    padding-top: 5px; /* For some reason this icon isn't centered vertically in the div like the other items, so this is a band-aid fix. */
-    color: black;
-    height: 32px;
-    width: auto;
-}
-
-.dropdownLink {
-    text-decoration: none;
-    padding: 0 0.5vw 0 0.5vw;
-    color: black !important;
-    font-size: calc(10px + 1vw);
-}
-
-.dropdownLink:hover {
-    text-decoration: underline;
-}
-
-.dropdown:hover .dropdownMenu {
-    display: flex;
-    flex-direction: column;
-    white-space: nowrap;
 }
 
 /* Sidebar */
