@@ -24,7 +24,7 @@ function TeacherLanding(props) {
                         <p id="landing-subtitle">Courses</p>
                         
                         <PageButton newPage={< AddCourse/>} className='create-course'>
-                        + Create New </PageButton>
+                        + Create Course </PageButton>
                     </div>
                     
                     {/*Sorting buttons*/}
