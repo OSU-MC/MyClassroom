@@ -44,7 +44,7 @@ export default class PageButton extends React.Component{
                     <div className='backdrop' />
                     <div className='centeredModal'>
                         <div className='modalContents'>
-                            <button onClick={this.handleClick} className='xButton'>X</button>
+                            <button onClick={this.handleClick} className='xButton'>Close</button>
                             {this.props.newPage}
                         </div>
                     </div>

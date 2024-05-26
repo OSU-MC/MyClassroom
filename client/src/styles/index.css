@@ -1,7 +1,9 @@
 :root {
     --primary: #fff;
     --splash: #D2DFD3;
-    --accent: darkgrey;
+    --splash2: #93c48f;
+    --accent: lightgrey;
+    --accent2: #f3f3f3;
 }
 
 html, body, #root {
@@ -18,241 +20,6 @@ body {
     height: 100%;
     display: flex;
     flex-direction: row;
-}
-
-/* Signup/Login */
-#auth {
-    display: flex;
-    width: 100%;
-    
-    .leftContainer {
-        position: relative;
-        width: 50%;
-        background-color: var(--splash);
-        border-radius: 0 50px 50px 0;
-        
-        .welcomeBox {
-            position: relative;
-            padding: 10vh 5vw;
-            height: 100%;
-            
-            .classroomLink {
-                font-size: 36px;
-                font-weight: bold;
-                color: black;
-                
-                .classroomIcon {
-                    margin-right: 8px;
-                }
-            }
-            
-            .textBox {
-                margin-top: 3vh;
-                width: 70%;
-            }
-
-            .homeButton {
-                position: absolute;
-                bottom: 5vw;
-                font-size: 18px;
-                color: black;
-                text-decoration: none;
-                border-radius: 13px;
-                background-color: var(--splash);
-                padding: 15px;
-                
-                img {
-                    padding: 0px 10px 3px 5px;
-                    height: 18px;
-                }
-                
-                &:hover {
-                    background-color: var(--primary);
-                    transition: .4s ease;
-                }
-            }
-        }
-    }
-
-    .rightContainer {
-        width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-        .loginSection {
-            padding: 0 15%;
-            
-            .switch {
-                left: 50%;
-                transform: translateX(-50%);
-                margin-top: 32px;
-                position: relative;
-                display: inline-block;
-                width: 400px;
-                height: 56px;
-                border: 2px var(--accent) solid;
-                border-radius: 15px;
-                
-                #studentText, #teacherText {
-                    cursor: pointer;
-                    z-index: 99;
-                    color: black;
-                    position: absolute;
-                    top: 50%;
-                    transform: translate(0%, -50%);
-                }
-
-                #studentText {
-                    left: 12%;
-                }
-
-                #teacherText {
-                    right: 12%;
-                }
-                
-                .teacherCheck {
-                    opacity: 0;
-                    width: 0;
-                    height: 0;
-                    
-                    &:checked + .slider:before {
-                        transform: translateX(196px);
-                    }
-                }
-                
-                .slider {
-                    position: absolute;
-                    cursor: pointer;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    border-radius: 15px;
-                    
-                    &:before {
-                        position: absolute;
-                        content: "";
-                        height: 56px;
-                        width: 208px;
-                        left: -2px;
-                        bottom: -2px;
-                        background-color: var(--splash);
-                        transition: 0.4s;
-                        border-radius: 13px;
-                    }
-                }
-            }
-            
-            .inputContainer {
-                margin-top: 40px;
-                background:transparent;
-                border: none;
-                border-bottom: 1px solid var(--accent);
-                padding-left: 6px;
-                width: 100%;
-            }
-            
-            .firstNameContainer {
-                width: 45% !important;
-                float: left;
-            }
-
-            .lastNameContainer {
-                width: 45% !important;
-                margin-left: 10%;
-            }
-            
-            .changePasswordLink {
-                display: block;
-                margin-top: 20px;
-                color: gray;
-                text-decoration: none;
-                
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-            
-            .submitButton {
-                margin-top: 10vh;
-            }
-            
-            .submitButton, .ssoButton {
-                display: block;
-                position: relative;
-                left: 50%;
-                transform: translateX(-50%);
-                border: 1px solid var(--splash);
-                border-radius: 9px;
-                width: 256px;
-                height: 48px;
-                transition: 0.4s;
-                background-color: var(--splash);
-                
-                &:hover {
-                    border: 1px solid black;
-                    background-color: var(--primary);
-                }
-            }
-            
-            .orSSOText {
-                margin: 20px 0;
-                display: flex;
-                justify-content: center;
-                color: var(--accent);
-            }
-        }
-    }
-}
-
-/* Login Page CSS */
-h1 {
-    font-size: 60px;
-    font-weight: bold;
-    color: black;
-    margin-bottom: 10px; /* without this, margin-bottom is 50, I have no idea why */
-}
-
-h2 a {
-    font-size: 30px;
-    color: gray;
-    text-decoration: underline;
-    margin-top: 1vh; /* margin-top has no effect, I dont know why*/
-}
-
-/* Student Landing Page */
-.card {
-    display:flex;
-    margin: 20px;
-    border: 1px solid black;
-    box-shadow: 5px 5px 5px lightgrey;
-}
-
-.navbar .nav-link {
-    font-size: 15px;
-    margin-left: 40px;
-}
-
-.buttons {
-    position: relative;
-    top: 70px;
-    left: 100px;
-
-}
-
-.hideBtn {
-    margin-left: 10px;
-}
-
-.btn-add {
-    background-color: green;
-    border-color: green;
-}
-
-.btn-add:hover {
-    background-color: rgb(1, 109, 1);
-    border-color: rgb(1, 109, 1);
 }
 
 /* Profile Pages */
@@ -295,8 +62,8 @@ h2 a {
 }
 
 .singleCourseDetails {
-    border: 4px solid rgb(221, 221, 221);
-    background-color: rgb(221, 221, 221);
+    background-color: var(--accent2);
+    padding: 4px;
     border-radius: 10px;
     color: black;
 }
@@ -305,33 +72,9 @@ h2 a {
     padding-top: 20px;
 }
 
-/* Landing Page */
-.landing-page {
-    width: 100%;
-}
-
 #join-course {
     width: 30%;
     padding: 20px 0 0 100px;
-}
-
-#landing-subtitle{
-    padding: 20px 0 0 100px;
-    font-size: 27px;
-}
-
-#create-course-btn {
-    margin: 0 0 20px 100px;
-}
-
-hr {
-    border-top: 2px solid black;
-    margin: 0 100px;
-}
-
-.course-card {
-    min-width: 300px;
-    width: 30%;
 }
 
 /* Lectures */
@@ -385,49 +128,6 @@ hr {
 .lectures-top-bar {
     margin: 20px 100px;
     display: flex;
-}
-
-/* Create */
-.create-container {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    margin: 100px auto auto;
-}
-
-.create-bar {
-    display: flex;
-    flex-direction: row;
-}
-
-.back-btn-create {
-    display: flex;
-    margin: auto 0 auto;
-    width: 40px;
-    height: 40px;
-}
-
-.create-subtitle {
-    font-size: 35px;
-    margin: auto 0 auto 20px;
-}
-
-.create-hr-bar {
-    margin: 0 0;
-}
-
-.inputPublishedContainer {
-    margin: 15px 0;
-}
-
-.create-btns {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-}
-
-#create-submit {
-    margin-left: 10px;
 }
 
 .inputOrderContainer {
@@ -484,195 +184,19 @@ hr {
     margin: 20px 0 0;
 }
 
-/* Navbar */
-#classroomIcon {
-    height: 32px;
-    width: auto;
-    vertical-align: middle;
-    margin-right: 4px;
-}
-
-#classroomLink {
-    font-weight: bold;
-}
-
-#classroomLink:hover {
-    text-decoration: underline;
-}
-
-.navbarMain {
-    position: sticky;
-    display: flex;
-    justify-content: space-between; /* content: (navbar) Left, Center, Right*/
-    padding: 0 10px;
-    height: 5vh;
-    z-index: 100;
-    align-items: center;
-}
-
-.smallText {
-    font-size: 18px !important;
-}
-
-.navbarMain .navbarItem {
-    color: black !important;
-    font-size: 24px;
-    margin: 0px; /* best way to enforce centering? */
-    text-align: center;
-    text-decoration: none;
-}
-
-.navbarCenterContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.navButtons {
-    box-sizing: content-box;
-    display: flex;
-    justify-content: center;
-    width: 20%;
-}
-
-.rightButtons .navButtons {
-    width: 220px;
-}
-
-.navButtons a {
-    border-radius: 11px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: grey;
-    background-color: transparent;
-    color: black;
-    text-decoration: none;
-    padding: 0px 15px;
-    margin: 0px 5px;
-}
-
-.navButtons a:hover {
-    text-decoration: underline;
-}
-
-.navButtons .rightButtons a {
-    margin: 0px;
-}
-
-.rightButtons .navLogin {
-    border-color: transparent;
-    font-weight: bold;
-}
-
-.rightButtons .navSignup {
-    border-color: black;
-    background-color: black;
-    font-weight: bold;
-    color: white;
-}
-
-/* Dropdown in Navbar */
-.dropdownMenu {
-    position: absolute;
-    display: none;
-    background-color: rgb(221, 221, 221);
-    padding: 0.5dvi;
-    border-radius: 3px;
-    top: 3vh;
-    right: 0;
-}
-
-.dropdownIcon {
-    padding-top: 5px; /* For some reason this icon isn't centered vertically in the div like the other items, so this is a band-aid fix. */
-    color: black;
-    height: 32px;
-    width: auto;
-}
-
-.dropdownLink {
-    text-decoration: none;
-    padding: 0 0.5vw 0 0.5vw;
-    color: black !important;
-    font-size: calc(10px + 1vw);
-}
-
-.dropdownLink:hover {
-    text-decoration: underline;
-}
-
-.dropdown:hover .dropdownMenu {
-    display: flex;
-    flex-direction: column;
-    white-space: nowrap;
-}
-
-/* Sidebar */
-.sidebarBody {
-    position: relative;
-    height: 100vh;
-    width: 15vw;
-    background-color: #2f4050;
-    border: 0px;
-    display: block;
-}
-
-.sidebarList {
-    height: auto;
-    padding: 0;
-    width: 100%;
-    white-space: wrap;
-}
-
-.sidebarList .sidebarItem {
-    width: 100%;
-    height: 8vh;
-    list-style-type: none;
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-    color: white;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-.sidebarList .sidebarItem:hover {
-    cursor: pointer;
-    background-color: #293846;
-}
-
-.sidebarItem #sidebarIcon {
-    display: grid;
-    flex: 30%;
-    place-items: center;
-}
-
-.sidebarItem #sidebarTitle {
-    flex: 70%;
-}
-
 /* Roster CSS */
 .allstudents {
     display: block;
     width: 80vw;
     margin: 10px;
-    padding: 1.5vh 3vw 1.5vh 1vw;
 }
 
 .studentrow {
-    overflow: hidden;
-    font-size: calc(10px + 0.8vw);
-    border: solid 1px black;
-    border-radius: 5px;
+    border-bottom: solid 1px var(--accent);
     padding: 1vh;
-    margin-bottom: 0.8vh;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-}
-
-.studentemail {
-    font-size: calc(11px + 0.4vw);
 }
 
 /* Questions CSS */
@@ -843,6 +367,23 @@ hr {
 .negative-btn:hover {
     background-color: #e84470;
     color: white;
+}
+
+.btn.btn-primary {
+    background-color: var(--splash);
+    border-color: var(--splash);
+    color: black;
+    
+    &:hover {
+        background-color: white;
+        border-color: black;
+        color: black;
+    }
+    
+    &:active {
+        background-color: white;
+        border-color: black;
+    }
 }
 
 .btn-secondary:focus {

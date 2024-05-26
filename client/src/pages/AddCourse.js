@@ -66,6 +66,7 @@ export default function AddCourse(props){
             return(
                 <form onSubmit={this.handleSubmit}>
                     {/*Input fields: value mapped to React state through handleChange*/}
+                   <h1>Create Course</h1>
                     <input type="text" name="name"
                         value={this.state.name} onChange={this.handleChange}
                         className="inputContainer" placeholder="Class Name"
@@ -81,9 +82,7 @@ export default function AddCourse(props){
                     />
                     <label className='publishedLabel'> Publish course? </label>
 
-
-
-                    <input type="submit" value="Create Course" className= "submitButton" />
+                    <input type="submit" value="+ Create Course" className="submitButton" />
                 </form>
             )
         }

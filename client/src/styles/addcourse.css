@@ -1,60 +1,28 @@
-.backdrop
-{
-	z-index: 2;
+.createContainer {
+	padding-top: 15%;
+    
+    .inputContainer {
+        margin-bottom: 20px;
+        padding-left: 6px;
+        width: 100%;
+    }
 
-	position: absolute;
-	top: 0px;
-	width: 100%;
-	height: 100%;
+    .submitButton {
+        margin-top: 100px;
+        border: 1px solid var(--splash);
+        border-radius: 10px;
+        width: 100%;
+        height: 48px;
+        background-color: var(--splash);
+        font-weight: bold;
 
-	background-color: rgba(100, 100, 100, 0.5);
-}
+        &:hover {
+            border: 1px solid black;
+            background-color: var(--primary);
+        }
+    }
 
-.createContainer
-{
-	position: relative;
-	top: 15%;
-	left:50%;
-	transform: translateX(-50%);
-	width: 80%;
-	height: 80%;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.inputContainer
-{
-	margin-bottom: 20px;
-	background:transparent;
-	padding-left: 6px;
-	border:solid gray;
-	width: 100%;
-}
-
-.submitButton
-{
-	margin-top: 5vh;
-
-	display: block;
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
-	border: 1px solid var(--splash);
-	border-radius: 9px;
-	width: 256px;
-	height: 48px;
-	transition: 0.4s;
-	background-color: var(--splash);
-
-	&:hover {
-		border: 1px solid black;
-		background-color: var(--primary);
-	}
-}
-
-.publishedLabel
-{
-	margin-left: 4px;
+    .publishedLabel {
+        margin-left: 4px;
+    }
 }

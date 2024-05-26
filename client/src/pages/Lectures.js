@@ -36,9 +36,9 @@ function Lectures(props){
             { message ? <Notice error={error ? "error" : ""} message={message}/> : (!lectures) ? <Notice message={"You Do Not Have Any Lectures Yet"}/> : <></>}
 
             <div className="lectures-container">
-                { (Cloading || loading) ? <TailSpin visible={true}/> : lectures[courseId].map((lecture) => {
-                        return <LectureCard key={lecture.id} lecture={lecture} view={role} />
-                    })}
+                {lectures[courseId] && lectures[courseId].map((lecture) => {
+                    return <LectureCard key={lecture.id} lecture={lecture} view={role} />;
+                })}
             </div>
         </div>
     )
