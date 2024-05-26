@@ -62,8 +62,8 @@ body {
 }
 
 .singleCourseDetails {
-    border: 4px solid rgb(221, 221, 221);
-    background-color: rgb(221, 221, 221);
+    background-color: var(--accent2);
+    padding: 4px;
     border-radius: 10px;
     color: black;
 }
@@ -130,49 +130,6 @@ body {
     display: flex;
 }
 
-/* Create */
-/*.create-container {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    width: 40%;*/
-/*    margin: 100px auto auto;*/
-/*}*/
-/**/
-/*.create-bar {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*}*/
-/**/
-/*.back-btn-create {*/
-/*    display: flex;*/
-/*    margin: auto 0 auto;*/
-/*    width: 40px;*/
-/*    height: 40px;*/
-/*}*/
-/**/
-/*.create-subtitle {*/
-/*    font-size: 35px;*/
-/*    margin: auto 0 auto 20px;*/
-/*}*/
-/**/
-/*.create-hr-bar {*/
-/*    margin: 0 0;*/
-/*}*/
-/**/
-/*.inputPublishedContainer {*/
-/*    margin: 15px 0;*/
-/*}*/
-/**/
-/*.create-btns {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    justify-content: flex-end;*/
-/*}*/
-/**/
-/*#create-submit {*/
-/*    margin-left: 10px;*/
-/*}*/
-
 .inputOrderContainer {
     margin: 15px 0 20px;
     display: flex;
@@ -227,73 +184,19 @@ body {
     margin: 20px 0 0;
 }
 
-/* Sidebar */
-.sidebarBody {
-    position: relative;
-    height: 100vh;
-    width: 15vw;
-    background-color: #2f4050;
-    border: 0px;
-    display: block;
-}
-
-.sidebarList {
-    height: auto;
-    padding: 0;
-    width: 100%;
-    white-space: wrap;
-}
-
-.sidebarList .sidebarItem {
-    width: 100%;
-    height: 8vh;
-    list-style-type: none;
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-    color: white;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-.sidebarList .sidebarItem:hover {
-    cursor: pointer;
-    background-color: #293846;
-}
-
-.sidebarItem #sidebarIcon {
-    display: grid;
-    flex: 30%;
-    place-items: center;
-}
-
-.sidebarItem #sidebarTitle {
-    flex: 70%;
-}
-
 /* Roster CSS */
 .allstudents {
     display: block;
     width: 80vw;
     margin: 10px;
-    padding: 1.5vh 3vw 1.5vh 1vw;
 }
 
 .studentrow {
-    overflow: hidden;
-    font-size: calc(10px + 0.8vw);
-    border: solid 1px black;
-    border-radius: 5px;
+    border-bottom: solid 1px var(--accent);
     padding: 1vh;
-    margin-bottom: 0.8vh;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-}
-
-.studentemail {
-    font-size: calc(11px + 0.4vw);
 }
 
 /* Questions CSS */
