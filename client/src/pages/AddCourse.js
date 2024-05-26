@@ -28,7 +28,7 @@ export default function AddCourse(props){
             this.state = {
                 name: '',
                 description: '',
-                published: 'off'
+                published: true
             };
 
         this.handleChange = this.handleChange.bind(this);
@@ -57,8 +57,9 @@ export default function AddCourse(props){
             const newCourse = {
                 name: this.state.name,
                 description: this.state.description,
-                published: (this.state.published == "on") ? 1 : 0
+                published: this.state.published ? 1 : 0
             }
+            
             postCourse(newCourse);
         }
 
