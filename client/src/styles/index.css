@@ -3,7 +3,7 @@
     --splash: #D2DFD3;
     --splash2: #93c48f;
     --accent: lightgrey;
-    --accent2: #f9f9f9;
+    --accent2: #f3f3f3;
 }
 
 html, body, #root {
@@ -20,40 +20,6 @@ body {
     height: 100%;
     display: flex;
     flex-direction: row;
-}
-
-/* Student Landing Page */
-.card {
-    display:flex;
-    margin: 20px;
-    border: 1px solid black;
-    box-shadow: 5px 5px 5px lightgrey;
-}
-
-.navbar .nav-link {
-    font-size: 15px;
-    margin-left: 40px;
-}
-
-.buttons {
-    position: relative;
-    top: 70px;
-    left: 100px;
-
-}
-
-.hideBtn {
-    margin-left: 10px;
-}
-
-.btn-add {
-    background-color: green;
-    border-color: green;
-}
-
-.btn-add:hover {
-    background-color: rgb(1, 109, 1);
-    border-color: rgb(1, 109, 1);
 }
 
 /* Profile Pages */
@@ -106,33 +72,9 @@ body {
     padding-top: 20px;
 }
 
-/* Landing Page */
-.landing-page {
-    width: 100%;
-}
-
 #join-course {
     width: 30%;
     padding: 20px 0 0 100px;
-}
-
-#landing-subtitle{
-    padding: 20px 0 0 100px;
-    font-size: 27px;
-}
-
-#create-course-btn {
-    margin: 0 0 20px 100px;
-}
-
-hr {
-    border-top: 2px solid black;
-    margin: 0 100px;
-}
-
-.course-card {
-    min-width: 300px;
-    width: 30%;
 }
 
 /* Lectures */

@@ -1,86 +1,64 @@
-.course-card
-{
-	min-width: 1px; /* min-width should be removed from index */
-					/* styling should eventually be re done to fit more types of screens*/
+.course-card {
+	min-width: 1px;
 
 	/* Position */
 	position: relative;
 	display: inline-block;
 	margin: 15px;
 
-	width: 225px;
-	height: 225px;
+	width: 200px;
+	height: 200px;
 
 	/* Border */
 	border-radius: 25px;
 
 	/* Contents */
-	background-color: #D9D9D9;
-	padding: 25px;
+	background-color: var(--accent2);
+	padding: 15px;
 
+    .course-header {
+        margin-top: 10px;
+        position: absolute;
+        
+        h1 {
+            font-size: 20px;
+        }
+        
+        p {
+            width: 170px;
+        }
+    }
+    
+    .registered {
+        position: absolute;
+        bottom: 15px;
+        margin: 0;
+        font-weight: bold;
+        font-size: 12px;
+    }
+    
+    .viewButton {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        
+        width: 75px;
+        height: 40px;
 
-}
+        /* Border */
+        border-radius: 15px;
+        background-color: var(--splash);
 
-.course-header
-{
-	margin-top: 10px;
-	position: absolute;
-}
+        /* Contents */
+        font-weight: 700;
+        padding-top: 7px;
+        text-align: center;
+        color: black;
+        text-decoration: none;
+        
 
-.course-header h1
-{
-	font-size: 20px;
-}
-
-.course-header h2
-{
-	font-size: 18px;
-}
-
-.course-body
-{
-	position: absolute;
-	bottom: 25px;
-	width: 83.4%; /* .2 pixels too far to the right compared to padding */
-	height: 25%;
-
-	display: flex;
-}
-
-.registered
-{
-	margin-top: auto;
-
-	font-weight: bold;
-	font-size: 12px;
-}
-
-.viewButton
-{
-	/* Position */
-	align-self: center;
-
-	width: 75px;
-	height: 40px;
-
-	/* Border */
-	border-radius: 18px;
-	border: 1px solid transparent;
-	margin-left: auto; /* Positions to the right */
-	background-color: #85C68A;
-
-	/* Contents */
-	font-weight: 700;
-	font-size: 18px;
-	text-align: center;
-	color: white;
-	text-decoration: none;
-
-	padding-top: 3%; /* Why is it so hard to vertically align text?*/
-
-	&:hover
-	{
-		border: 1px solid gray; /* Text moves if you just put 'black'*/
-
-	}
+        &:hover {
+            background-color: white;
+        }
+    }
 }

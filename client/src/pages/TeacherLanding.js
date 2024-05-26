@@ -10,14 +10,14 @@ import PageButton from '../components/2024/PageButton.js'
 
 
 function TeacherLanding(props) {
-
     const [courses, message, error, loading] = useCourses()
 
     return (
-        <div className="courses">
+        <div className="user-courses">
             {/*No Courses*/}
             {message ? <Notice error={error ? "error" : ""} message={message} /> : (!courses.studentCourses && !courses.instructorCourses) ? <Notice message={"You do not have any courses yet"} /> : <></>}
 
+            {/*Teacher Courses*/}
             {courses.teacherCourses &&
                 <div id="courses-page">
                     {/*Top line of  page*/}

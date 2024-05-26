@@ -1,58 +1,60 @@
-.courses {
-    .landing-header {
-        margin-top: 32px;
-        
-        #landing-subtitle {
-            padding: 0px;
-            margin-left: 70px;
-            display: inline;
-            font-weight: bold;
-        }
-        
-        .createCourseButton {
-            /* Position */
-            position: absolute;
-            right: 75px;
-            display: inline;
+.landing-page {
+    width: 100%;
+    
+    .user-courses {
+        .landing-header {
+            margin-top: 32px;
+            
+            #landing-subtitle {
+                font-size: 27px;
+                margin-left: 70px;
+                display: inline;
+                font-weight: bold;
+            }
+            
+            .createCourseButton {
+                /* Position */
+                position: absolute;
+                right: 75px;
+                display: inline;
 
-            /* Border */
-            box-sizing: border-box;
-            border-radius: 20px;
-            border: 1px solid transparent;
+                /* Border */
+                border: 1px solid transparent;
+                border-radius: 25px;
 
-            /* Contents*/
-            margin-left: 20px;
-            font-weight: bold;
-            padding: 10px 20px;
-            background-color: var(--splash);
+                /* Contents*/
+                font-weight: bold;
+                padding: 10px 20px;
+                background-color: var(--splash);
 
-            &:hover {
-                border: 1px solid black;
-                background-color: var(--primary);
+                &:hover {
+                    border: 1px solid black;
+                    background-color: var(--primary);
+                }
             }
         }
-    }
 
-    .course-sort {
-        margin: 15px 70px;
-        
-        span {
-            /* Position */
-            margin-right: 12px;
+        .course-sort {
+            margin: 15px 70px;
+            
+            span {
+                /* Position */
+                margin-right: 12px;
 
-            /* Contents */
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--accent);
-            cursor: pointer;
+                /* Contents */
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--accent);
+                cursor: pointer;
 
-            &.selected {
-                color: black;
+                &.selected {
+                    color: black;
+                }
             }
         }
-    }
 
-    .courses {
-        margin: 0px 50px;
+        .courses {
+            margin: 0px 50px;
+        }
     }
 }
