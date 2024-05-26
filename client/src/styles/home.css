@@ -1,109 +1,70 @@
-/* Home Page CSS */
-#home{
-    height: 165%;
+#home {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 80px;
 }
 
-/*homeBox: Containers for home page centered with rows of contents*/
-.section{
+.section {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
 }
 
-/*infoContainer is a section that takes up the full width*/
-.infoContainer{
-    width: 100%;
-}
-
-.homeHeader{
+.homeHeader {
     font-weight: bold;
     font-size: 28px;
     margin-bottom: 0.5rem;
 }
 
-
-.homeText{
-    font-size: 16px;
-}
-
-/*infoBoxes contain bits of introduction for the application*/
-.infoBox{
-/*    position: relative;*/
-
-    background-color: #D2DFD3;
-    width: 352px;
-    height: 225px;
-    border-radius: 24px;
-    margin: 64px 10%;
-}
-
-/*infoBoxes that align to the right or left side of the container*/
-.leftBox{
-    align-self: flex-start;
-}
-
-.rightBox{
-    align-self: flex-end;
-}
-
-.infoText{
-    width: 180px;
-    color: black;
-    font-weight: 500;
-    text-align: center;
-    line-height: 20px;
+.infoContainer {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
     position: relative;
-
 }
 
-/* Placements styled individually as it allows for design variety */
-#img1{
-    width: 128px;
-    margin: 12px;
+.infoBox {
+    background-color: #D2DFD3;
+    border-radius: 24px;
+    margin: 16px 0;
+/*    display: flex;*/
+/*    align-items: center;*/
+    z-index: 1;
 }
 
-#text1{
-
-    left: 116px;
-    bottom: 30px;
+.infoBox img {
+    width: 100px;
+    padding: 20px;
 }
 
-#img2{
-    width: 128px;
-    margin: 30px 20px;
+.infoText {
+    font-weight: 500;
+    margin: 0;
+    padding: 20px;
+    padding-top: 0;
 }
 
-#text2{
-
-    left: 154px;
-    bottom: 110px;
+.infoBox.leftBox {
+    flex-direction: row-reverse;
+    margin-left: 20vw;
+    margin-right: calc(50vw - 50px);
 }
 
-/*getStarted button is complicated due to containing an image*/
-.getStarted{
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 32px;
+.infoBox.rightBox {
+    margin-left: calc(50vw - 50px);
+    margin-right: 20vw;
+/*    img {*/
+/*        margin-left: calc(100% - 100px);*/
+/*    }*/
+}
 
-    margin-top: 80px;
-
-    border: none;
-    border-radius: 5px;
-
-    width: 256px;
-
-    color: white;
-
-    /* Icon attached to button using background image*/
-    padding: 5px 48px 5px 16px;
-    background: black url(../../public/arrowBox.png);
-    background-position: 200px 14px;
-    background-repeat: no-repeat;
-    background-size: 30px;
+.infoConnector {
+    width: 3px;
+    background-color: #ccc;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
 }
