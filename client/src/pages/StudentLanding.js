@@ -11,26 +11,29 @@ function StudentLanding(props) {
 
     // cards for student and teacher courses
     return (
-        <div className="Student-landing-page">
+        <div className="courses-page">
             {/*No Courses*/}
             {message ? <Notice error={error ? "error" : ""} message={message} /> : (!courses.studentCourses && !courses.instructorCourses) ? <Notice message={"You do not have any courses yet"} /> : <></>}
             {/*Join Course button for all users*/}
             <JoinCourse className="buttons" />
 
             {/*Student Courses*/}
-            {loading ? <TailSpin visible={true} /> : <div className="all-courses">
-                {courses.studentCourses != null && <div id="student-courses">
-                    <p id="landing-subtitle" >Student Courses</p>
-                    <hr></hr>
-
-                    <div className='courses'>
+            {loading ? <TailSpin visible={true} /> :
+                <div className="all-courses">
+                    {courses.studentCourses != null &&
+                        <div id="courses">
+                        <p id="landing-subtitle" >Student Courses</p>
+                        <hr></hr>
+                        
+                        <div className='courses'>
                         {courses.studentCourses.map((studentCourse) => {
                             return <CourseCard key={studentCourse.id} course={studentCourse} role={"student"} />
                         })}
-                    </div>
-                </div>}
-             </div>}
-
+                        </div>
+                        </div>
+                    }
+                </div>
+            }
         </div>
     )
 }

@@ -36,8 +36,6 @@
             background-color: #D2DFD3;
             border-radius: 24px;
             margin: 16px 0;
-        /*    display: flex;*/
-        /*    align-items: center;*/
             z-index: 1;
             
             img {
@@ -62,9 +60,6 @@
         .infoBox.rightBox {
             margin-left: calc(50vw - 50px);
             margin-right: 20vw;
-        /*    img {*/
-        /*        margin-left: calc(100% - 100px);*/
-        /*    }*/
         }
     }
 }

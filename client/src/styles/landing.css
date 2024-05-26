@@ -1,70 +1,58 @@
-#landing-subtitle
-{
-	padding: 0px; /* Padding should be removed from index.css */
+.courses {
+    .landing-header {
+        margin-top: 32px;
+        
+        #landing-subtitle {
+            padding: 0px;
+            margin-left: 70px;
+            display: inline;
+            font-weight: bold;
+        }
+        
+        .createCourseButton {
+            /* Position */
+            position: absolute;
+            right: 75px;
+            display: inline;
 
-	margin-left: 70px;
-	display: inline;
+            /* Border */
+            box-sizing: border-box;
+            border-radius: 20px;
+            border: 1px solid transparent;
 
-	font-weight: bold;
-}
+            /* Contents*/
+            margin-left: 20px;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: var(--splash);
 
-.landing-header
-{
-	margin-top: 32px;
-}
+            &:hover {
+                border: 1px solid black;
+                background-color: var(--primary);
+            }
+        }
+    }
 
-.createCourseButton
-{
-	/* Position */
-	position: absolute;
-	right: 75px;
-	display: inline;
+    .course-sort {
+        margin: 15px 70px;
+        
+        span {
+            /* Position */
+            margin-right: 12px;
 
-	/* Border */
-	box-sizing: border-box;
-	border-radius: 20px;
-	border: 1px solid transparent;
+            /* Contents */
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--accent);
+            cursor: pointer;
 
-	/* Contents*/
-	margin-left: 20px;
-	font-weight: bold;
-	padding: 10px 20px;
-	background-color: var(--splash);
+            &.selected {
+                color: black;
+            }
+        }
+    }
 
-	&:hover {
-    	border: 1px solid black;
-    	background-color: var(--primary);
-	}
-}
-
-.course-sort
-{
-	margin: 15px 70px;
-}
-
-.course-sort
-{
-	span
-	{
-		/* Position */
-		margin-right: 12px;
-
-		/* Contents */
-		font-size: 18px;
-		font-weight: 500;
-		color: #808080;
-
-		cursor: pointer;
-
-		&.selected
-		{
-			color: black;
-		}
-	}
-}
-
-
-.courses
-{
-	margin: 0px 50px;
+    .courses {
+        margin: 0px 50px;
+    }
 }

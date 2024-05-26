@@ -5,7 +5,7 @@ nav {
     border-bottom: 3px solid var(--splash);
     background-color: var(--primary);
     
-    & a {
+    a {
         float: left;
         display: flex;
         height: 100%;
@@ -16,6 +16,13 @@ nav {
         padding: 0 22px;
         font-weight: bold;
         transition: 250ms;
+        
+        #classroomIcon {
+            height: 32px;
+            width: auto;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
     }
     
     .curr {
@@ -31,12 +38,4 @@ nav {
     .right {
         float: right;
     }
-}
-
-
-#classroomIcon {
-    height: 32px;
-    width: auto;
-    vertical-align: middle;
-    margin-right: 4px;
 }

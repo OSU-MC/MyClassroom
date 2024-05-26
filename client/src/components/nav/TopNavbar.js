@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
@@ -26,8 +26,8 @@ function TopNavbar(props) {
 function LoggedOut(){
     return(
         <>
-            <a href="/login" className="page">Log In</a>
-            <a href="/create" className="page">Get Started</a>
+            <a href="/create" className="page right">Get Started</a>
+            <a href="/login" className="page right">Log In</a>
         </>
     )
 }
