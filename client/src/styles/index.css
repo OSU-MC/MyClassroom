@@ -369,6 +369,23 @@ body {
     color: white;
 }
 
+.btn.btn-primary {
+    background-color: var(--splash);
+    border-color: var(--splash);
+    color: black;
+    
+    &:hover {
+        background-color: white;
+        border-color: black;
+        color: black;
+    }
+    
+    &:active {
+        background-color: white;
+        border-color: black;
+    }
+}
+
 .btn-secondary:focus {
     background-color: #6c757d;
     text-decoration: none;
