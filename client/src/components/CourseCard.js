@@ -21,7 +21,7 @@ function CourseCard (props) {
             {/* Bottom section of course card, placeholder registered number X*/}
             <p className='registered'> 0 registered </p>
 
-            <a className = 'viewButton' href={`${props.course.id}/sections`}> {/*string template, fills in courseID/sections*/}
+            <a className = 'viewButton' href={(props.role == "teacher") ? `/${props.course.id}/sections` : `/${props.course.id}`}> {/*string template, fills in courseID/sections*/}
                 View
             </a>
         </div>
