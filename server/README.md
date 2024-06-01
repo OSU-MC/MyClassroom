@@ -1,4 +1,6 @@
 # MyClassroom Server
+Welcome to the MyClassroom node.js Backend Server! This README.md is dedicated to development guidance and information reguarding the server side of the application. For more information about contributing, or general user guides, please visit the [MyClassroom Wiki](https://github.com/OSU-MC/MyClassroom/wiki).
+
 ## Update Server Configuration
 Modify `/server/.env` to update the MyClassroom Server configuration. The `DEV_DB_...` and `TEST_DB_...` environment variables should match those in the database/user creation commands listed in the [MySQL](#mysql) setup steps below. Additionally, `CLIENT_URL` should be set to the MyClassroom Client application URL. For basic testing, the default values can be used.
 
