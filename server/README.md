@@ -1,9 +1,6 @@
 # MyClassroom Server
 Welcome to the MyClassroom node.js Backend Server! This README.md is dedicated to development guidance and information reguarding the server side of the application. For more information about contributing, or general user guides, please visit the [MyClassroom Wiki](https://github.com/OSU-MC/MyClassroom/wiki).
 
-## Update Server Configuration
-Modify `/server/.env` to update the MyClassroom Server configuration. The `DEV_DB_...` and `TEST_DB_...` environment variables should match those in the database/user creation commands listed in the [MySQL](#mysql) setup steps below. Additionally, `CLIENT_URL` should be set to the MyClassroom Client application URL. For basic testing, the default values can be used.
-
 ## Setup Application for Server Development
 This guide is specifically for local development of the MyClassroom Server. You may prefer to use the main [README.md](../README.md) install/setup instructions for other deployments.
 
@@ -182,6 +179,9 @@ or
 ```
 DROP DATABASE myclassroom_test;
 ```
+
+## Update Server Configuration
+Modify `/server/.env` to update the MyClassroom Server configuration. The `DEV_DB_...` and `TEST_DB_...` environment variables should match those in the database/user creation commands listed in the [MySQL](#mysql) setup steps below. Additionally, `CLIENT_URL` should be set to the MyClassroom Client application URL. For basic testing, the default values can be used.
 
 ## Application Authentication & Session
 The application uses cookie-based authentication once a user session has been created (i.e. a user has logged in). A user's session will have a specific XSRF token value associated with it to protect against XSRF attacks. As such, the value of that token will be sent back as a cookie, and the application expects to recieve with each authenticated request a custom X-XSRF-TOKEN header with that value, along with the traditional authentication cookie \_myclassroom_session which the application generated as part of initial session creation.
