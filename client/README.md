@@ -26,14 +26,6 @@ The MyClassroom Server can be stopped using the command:
 npm run stop
 ```
 
-## Tasks For Future Teams / Build Status
-- [ ] Hosting
-  - [ ] Live Polling Using The Hosting
-- [ ] Student / Instructor Gradebooks
-  - [ ] Instructor Grade Statistics
-- [ ] Multiple Question Types
-- [ ] Deleting / Editing Existing Courses, Sections, Questions, Lectures (Server Finished)
-
 ## Organization
 ```bash
 ./src
