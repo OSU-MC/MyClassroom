@@ -49,10 +49,10 @@ Press **Ctrl+C** to stop the server and shut down the Docker container.
 
 ## Development info
 ### Client
-For more info about developing for the frontend client, visit [client/README.md](https://github.com/OSU-MC/MyClassroom/tree/dev/client)
+For more info about developing for the frontend client, visit [client/README.md](https://github.com/OSU-MC/MyClassroom/tree/main/client)
 
 ### Server
-For more info about developing for the backend server and database, visit [server/README.md](https://github.com/OSU-MC/MyClassroom/tree/dev/server)
+For more info about developing for the backend server and database, visit [server/README.md](https://github.com/OSU-MC/MyClassroom/tree/main/server)
 
 ## Licensing
 GNU General Public License v3.0
