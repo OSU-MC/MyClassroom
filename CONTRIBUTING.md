@@ -16,16 +16,16 @@ All issues are tracked in the MyClassroom [GitHub Project](https://github.com/or
 
 ### Branch/Tag Structure
 Our development process involves the following branch structure:
-- **Feature Branches:** All features should be developed on individual feature branches created from the `dev` branch.
-- **`dev` Branch:** Once a feature is complete, tested, and reviewed, submit a pull request to the `dev` branch.
-- **Tags:** Cumulative updates in the `dev` branch are considered for tagging into release versions, holding the stable release.
+- **Feature Branches:** All features should be developed on individual feature branches created from the `main` branch.
+- **`main` Branch:** Once a feature is complete, tested, and reviewed, submit a pull request to the `main` branch.
+- **Tags:** Cumulative updates in the `main` branch are considered for tagging into release versions, holding the stable release.
 
 ### Working on Features
 1. Fork the repository.
-2. Create a new branch from `dev` for your feature. Branch name should be descriptive of the feature.
+2. Create a new branch from `main` for your feature. Branch name should be descriptive of the feature.
 3. Commit your changes. Write meaningful commit messages that explains what you've done and why.
 4. Push your changes to your fork.
-5. Submit a pull request from your feature branch to the `dev` branch.
+5. Submit a pull request from your feature branch to the `main` branch.
 
 ### Pull Requests
 - Ensure that your PR title and description are descriptive and concise.
@@ -34,7 +34,7 @@ Our development process involves the following branch structure:
   - **Server (@OSU-MC/backend-team)**: All changes within the `/server/` directory.
   - **Client (@OSU-MC/frontend-team)**: All changes within the `/client/` directory.
   - **General (@OSU-MC/myclassroom)**: Changes in the parent directory or affecting multiple areas.
-- PRs will be reviewed according to the order they are received. Once approved, they can be merged into `dev` with the merge queue.
+- PRs will be reviewed according to the order they are received. Once approved, they can be merged into `main` with the merge queue.
 
 ### Code Review
 As an open source project, we welcome contributions from everyone. Here are some things you can do to make your contributions easier for others to review:
