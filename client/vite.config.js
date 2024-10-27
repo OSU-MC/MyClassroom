@@ -9,6 +9,9 @@ export default defineConfig({
       '@': '/src',
     },
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom']
+  },
   test: {
     globals: true,
     environment: 'jsdom',
