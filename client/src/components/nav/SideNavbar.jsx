@@ -6,7 +6,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import useCourse from '../../hooks/useCourse'
-import styles from '../../styles/sidebar.css'
+import '../../styles/sidebar.css'
 
 //Sidebar creation
 function SideNavbar(props) {

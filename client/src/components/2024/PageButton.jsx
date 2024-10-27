@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/PageButton.css'
+import '../../styles/PageButton.css'
 
 /**********************************************************************************************************************
     --PageButton Component--

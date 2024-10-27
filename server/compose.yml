@@ -1,11 +1,12 @@
-version: "3.8"
-
 services:
   backend:
     container_name: myclassroom_backend
     build:
       context: .
       dockerfile: Dockerfile
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     depends_on:
       db:
         condition: service_healthy
@@ -23,7 +24,6 @@ services:
   db:
     image: mysql:latest
     container_name: myclassroom_db
-    command: ["mysqld", "--mysql-native-password=ON"]
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
     ports:
@@ -31,6 +31,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -prootpassword"]
       interval: 10s

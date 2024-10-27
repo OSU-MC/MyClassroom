@@ -1,11 +1,11 @@
 import React from 'react';
-import CourseCard from '../components/CourseCard'
+import CourseCard from '../components/CourseCard.jsx'
 import { Button, Card } from "react-bootstrap"
-import useCourses from '../hooks/useCourses'
-import Notice from '../components/Notice'
+import useCourses from '../hooks/useCourses.js'
+import Notice from '../components/Notice.jsx'
 import { Link } from 'react-router-dom'
-import AddCourse from './AddCourse.js'
-import PageButton from '../components/2024/PageButton.js'
+import AddCourse from './AddCourse.jsx'
+import PageButton from '../components/2024/PageButton.jsx'
 
 
 function TeacherLanding(props) {

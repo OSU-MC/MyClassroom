@@ -8,7 +8,9 @@ import { login } from '../redux/actions';
 import Notice from '../components/Notice'
 import { Link } from "react-router-dom";
 import { TailSpin } from  'react-loader-spinner'
-import styles from "../styles/auth.css"
+import "../styles/auth.css"
+
+const VITE_NAME = import.meta.env.VITE_NAME
 
 export default function Login(props) {
     const dispatch = useDispatch()
@@ -109,7 +111,7 @@ class LoginForm extends React.Component {
                     <span className='classroomLink'>
                     {/*Image attr: Unknown, need to ask*/}
                     <img className="classroomIcon" src="classroomIcon.png" />
-                    {process.env.REACT_APP_NAME}
+                    {VITE_NAME}
                     </span>
                     <div className='textBox'>
                         <h1>Welcome Back!</h1>

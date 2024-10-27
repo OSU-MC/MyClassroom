@@ -1,4 +1,3 @@
-import styled from '@emotion/styled/macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleExclamation, faBell, faCheck } from '@fortawesome/free-solid-svg-icons'
 
@@ -19,28 +18,24 @@ function Notice(props) {
         max-width: 450px;
     `
 
-    return <NoticeWrapper>
+    return (
+    <div style={{
+        display: 'flex',
+        justifyContent: 'center'
+    }}>
         <NoticeContainer>
-            <NoticeSymbol>
+            <div style={{
+                marginRight: '10px'
+            }}>
                 <FontAwesomeIcon icon={props.status == "error" ? faCircleExclamation :( props.status == "success" ? faCheck : faBell )} />
-            </NoticeSymbol>
-            <NoticeMessage>{props.message}</NoticeMessage>
+            </div>
+            <div style={{
+                fontWeight: 600
+            }}> {props.message}
+            </div>
         </NoticeContainer>
-    </NoticeWrapper>
+    </div>)
     
 }
 
-const NoticeWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-`
-
-const NoticeSymbol = styled.div`
-    margin-right: 10px;
-`
-
-const NoticeMessage = styled.div`
-    font-weight: 600;
-`
-
-export default Notice
+export default Notice;

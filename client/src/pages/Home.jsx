@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'react-bootstrap';
 import { faLink } from '@fortawesome/free-solid-svg-icons'
 import { borderRadius, fontFamily, fontStyle, minHeight } from '@mui/system'
-import styles from "../styles/home.css"
+import "../styles/home.css"
 
 function Home() {
     return(

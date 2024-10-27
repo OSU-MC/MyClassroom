@@ -1,4 +1,4 @@
-const { LOGIN, LOGOUT, SET_USER } = require('../actions')
+import { LOGIN, LOGOUT, SET_USER }  from '../actions'
 
 const emptyState = {
     user: {},

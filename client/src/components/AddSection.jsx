@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import { addSection } from "../redux/actions";
 import apiUtil from '../utils/apiUtil'
 import { TailSpin } from  'react-loader-spinner'
-import Notice from '../components/Notice'
+import Notice from './Notice'
 
 function AddSection(props) {
     const [ number, setNumber ] = useState()

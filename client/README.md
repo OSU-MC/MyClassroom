@@ -26,7 +26,7 @@ npm run stop
 ```
 
 ## Update Client Configuration
-Modify `/client/.env` to update the MyClassroom Client configuration. The `REACT_APP_API_URL` environment variable should be set to the MyClassroom Server URL. For basic testing, the default values can be used.
+Modify `/client/.env` to update the MyClassroom Client configuration. The `VITE_API_URL` environment variable should be set to the MyClassroom Server URL. For basic testing, the default values can be used.
 
 ## Tech Stack
 - React / React Native

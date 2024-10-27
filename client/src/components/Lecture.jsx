@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import QuestionCard from '../components/QuestionCard';
+import QuestionCard from './QuestionCard';
 import { Button, Card } from "react-bootstrap"
 import { Switch } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import apiUtil from '../utils/apiUtil'
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import { togglePublishedLecture } from "../redux/actions";
-import Notice from '../components/Notice'
+import Notice from './Notice'
 
 function Lecture(props){
     const [published, setPublished] = useState(props.published)

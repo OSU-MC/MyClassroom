@@ -1,7 +1,7 @@
 import { React, useState, useRef, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import  { stageQuestionInLecture, unstageQuestionInLecture, addStagedQuestions } from '../../redux/actions'
+import  { stageQuestionInLecture, unstageQuestionInLecture, addStagedQuestion } from '../../redux/actions'
 
 function QuestionListItem(props) {
     const checkRef = useRef("")

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import styles from '../styles/CourseCard.css'
+import '../styles/CourseCard.css'
 
 function CourseCard (props) {
     const truncateDescription = (description) => {
