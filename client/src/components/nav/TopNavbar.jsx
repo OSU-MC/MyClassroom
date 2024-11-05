@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import apiUtil from "../../utils/apiUtil";
 import { useNavigate } from "react-router";
-import styles from "../../styles/topNav.css";
+import "../../styles/topNav.css";
 
 function TopNavbar(props) {
 	return (

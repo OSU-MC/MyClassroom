@@ -4,7 +4,7 @@ import StudentLanding from './StudentLanding';
 import apiUtil from '../utils/apiUtil'
 import { useSelector, useDispatch } from 'react-redux'
 import { getUserState } from '../redux/selectors'
-import styles from '../styles/landing.css'
+import '../styles/landing.css'
 
 function Landing(props) {
     //const { user } = useAuth(); // Assuming you have access to the user's role through an authentication context

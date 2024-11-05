@@ -1,7 +1,7 @@
+const cors = require("cors");
 var express = require("express");
 const cookieParser = require("cookie-parser");
 const { logger, morganMiddleware } = require("../lib/logger");
-const cors = require("cors");
 if (process.env.NODE_ENV == "development") {
 	require("dotenv").config({ override: false });
 }

@@ -3,7 +3,9 @@ import apiUtil from '../utils/apiUtil'
 import Notice from '../components/Notice'
 import { useNavigate } from 'react-router-dom'
 import { Link } from "react-router-dom";
-import styles from "../styles/home.css"
+import "../styles/home.css"
+
+const VITE_NAME = import.meta.env.VITE_NAME
 
 function Signup(props){
     const [email, setEmail] = useState("")
@@ -147,7 +149,7 @@ function Signup(props){
                     <span className='classroomLink'>
                         {/*Image attr: Unknown, need to ask*/}
                         <img className="classroomIcon" src="classroomIcon.png" />
-                        {process.env.REACT_APP_NAME}
+                        {VITE_NAME}
                     </span>
                     <div className='textBox'>
                         <h1>Create your free account today!</h1>
